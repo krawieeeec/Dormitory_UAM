@@ -1,0 +1,24 @@
+{
+  "name": "Dormitory_UAM",
+  "version": "1.0.0",
+  "description": "It's web app for newtwork infrastracutre dormitory.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/krawieeeec/Dormitory_UAM.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/krawieeeec/Dormitory_UAM/issues"
+  },
+  "homepage": "https://github.com/krawieeeec/Dormitory_UAM#readme",
+  "dependencies": {
+    "express": "^4.15.3",
+    "pg": "^6.2.3"
+  }
+}
