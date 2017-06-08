@@ -19,7 +19,6 @@
   "homepage": "https://github.com/krawieeeec/Dormitory_UAM#readme",
   "dependencies": {
     "express": "^4.15.3",
-    "pg": "^6.2.3",
-    "pg-error": "^1.0.0"
+    "sequelize": "^4.0.0"
   }
 }
