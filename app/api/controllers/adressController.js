@@ -2,10 +2,11 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var adress = require('../models/dictionaries/type-adress.js').Adress;
 
+
 var app = express();
 
 app.get('/main', function (req, res) {
-    res.send('Hello in UAM web app. It is alpha version');
+    res.send('Hello in UAM web app. It isadsads alpha version');
 })
 
 app.get('/main/adress', function(req, res){
@@ -34,12 +35,5 @@ app.post('/dawid', function(res, req){
     res.send('Dawid');
 })
 */
-
-
-
-
-
-
-
 
 app.listen(3000);
