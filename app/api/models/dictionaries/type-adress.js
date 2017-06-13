@@ -1,19 +1,19 @@
 const Sequelize = require('sequelize');
 const dbClient = require('../../common/db.js').dbClient;
 
-const TypeAdress = dbClient.define('Adress', {
-    Adress: { type: Sequelize.STRING, allowNull: false, unique: true }
+const TypeAdress = dbClient.define('Type_Adress', {
+    Adress: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        unique: true
+    }
 })
 
-const typeAdress = TypeAdress.build({
-    Adress: 'os.Stefana Batorego 54/64'
-});
+const typeAdress = TypeAdress.build({Adress: 'os.Stefana Batorego 54/64'});
 
 module.exports = {
     Adress: TypeAdress
 }
-
-
 
 /*
 this line create table in database
