@@ -5,4 +5,6 @@ const dormitory = dbClient.define('Dormitory', {
     Adress: { type: Sequelize.STRING, allowNull: false, unique: true }
 })
 
-dormitory.synch();
+module.exports = {
+    DormitoryModel : dormitory
+}

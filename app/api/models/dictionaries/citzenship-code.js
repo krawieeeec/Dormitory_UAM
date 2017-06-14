@@ -5,3 +5,7 @@ const citzenshipCode = dbClient.define('Citzenship_Code', {
     Citzenship: { type: Sequelize.STRING(30), allowNull: false, unique: true },
     Country: { type: Sequelize.STRING(30), allowNull: false, unique: true }
 })
+
+module.exports = {
+    CitzenshipCodeModel: citzenshipCode
+}

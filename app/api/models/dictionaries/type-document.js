@@ -5,4 +5,6 @@ const typeDocument = dbClient.define('Type_Document', {
     Type_Document: { type: Sequelize.STRING(30), allowNull: false, unique: true }
 })
 
-typeDocument.sync();
+module.exports = {
+    TypeDocumentModel : typeDocument
+}

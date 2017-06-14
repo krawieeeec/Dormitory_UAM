@@ -12,7 +12,7 @@ const TypeAdress = dbClient.define('Type_Adress', {
 const typeAdress = TypeAdress.build({Adress: 'os.Stefana Batorego 54/64'});
 
 module.exports = {
-    Adress: TypeAdress
+    TypeAdressModel: TypeAdress
 }
 
 /*

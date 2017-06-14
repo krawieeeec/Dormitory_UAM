@@ -9,3 +9,7 @@ const adressResident = dbClient.define('Adress_Resident', {
     Post_Code: { type: sequelize.STRING(10), allowNull: false},
     City: { type: sequelize.String(30), allowNull: false}
 }) 
+
+module.exports = {
+    AdressResidentModel = adressResident
+}

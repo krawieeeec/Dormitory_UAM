@@ -10,3 +10,6 @@ const stayResident = dbClient.define('Stay_Resident', {
     Comments: { type: Sequelize.STRING, allowNull: true}
 })
 
+module.exports = {
+    StayResidentModel = stayResident
+}

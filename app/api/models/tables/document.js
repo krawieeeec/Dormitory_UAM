@@ -7,3 +7,8 @@ const document = dbClient.define('Document', {
     Expiration_Date: { type: Sequelize.DATEONLY, allowNull: false },
     Issuing_Country: { type: Sequelize.STRING(30), allowNull: false }
 })
+
+
+module.exports = {
+    DocumentModel = document
+}

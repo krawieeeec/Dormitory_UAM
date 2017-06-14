@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const sequelize = new Sequelize('postgres', 'postgres', 'dawid2790', {
+const connectionDataBase = new Sequelize('postgres', 'postgres', 'dawid2790', {
   host: 'localhost',
   dialect: 'postgres',
 
@@ -11,7 +11,7 @@ const sequelize = new Sequelize('postgres', 'postgres', 'dawid2790', {
 
 });
 
-sequelize
+connectionDataBase
   .authenticate()
   .then(() => {
     console.log('Connection has been established successfully.');
@@ -21,5 +21,5 @@ sequelize
   });
 
 module.exports ={
-  dbClient: sequelize 
+  dbClient: connectionDataBase 
 }

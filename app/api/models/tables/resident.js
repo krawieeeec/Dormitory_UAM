@@ -14,3 +14,7 @@ const resident = dbClient.define('Resident', {
     Father_Name: { type: Sequelize.STRING(30), allowNull: true},
     PESEL: {type: Sequelize.INT(12), allowNull: false, }
 })
+
+module.exports = {
+    ResidentModel = resident
+}
