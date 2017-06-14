@@ -1,6 +1,7 @@
-const db = require('./db.js');
+const db = require('./common/db').dbClient;
+
 const Sequelize = require('sequelize');
-const sequelize = db.dbClient;//= new Sequelize('postgres://postgres:dawid2790@localhost:5432');
+const sequelize = db;//= new Sequelize('postgres://postgres:dawid2790@localhost:5432');
 
 const Project = sequelize.define('project', {
   title: Sequelize.STRING,
@@ -13,5 +14,5 @@ const Task = sequelize.define('task', {
   deadline: Sequelize.DATE
 });
 
-Project.sync();
-Task.sync();
+Project.drop();
+Task.drop();

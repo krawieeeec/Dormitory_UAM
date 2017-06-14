@@ -21,9 +21,11 @@ dictionaries.forEach(function(fileName){
         nameImportedProperties = nameImportedProperties.slice(0, indexOfDash) + upperChar + nameImportedProperties.slice(indexOfDash + 1);
         upperChar = nameImportedProperties[0].toUpperCase();
         nameImportedProperties = upperChar + nameImportedProperties.slice(1) + 'Model';
+        
         console.log(nameImportedProperties);
+        
         var createDictionaries = require(__dirname + '\\dictionaries\\' + fileName);  
-        createDictionaries[nameImportedProperties].sync();  
+        createDictionaries[nameImportedProperties].drop();  
     
     } else {
 
