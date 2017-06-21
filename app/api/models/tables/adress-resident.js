@@ -15,7 +15,7 @@ adressResident.AdressResidentAssociations = function(models){
 
     adressResident.hasMany(models['Stay_Resident'], {foreignKey: 'Time_Report_ID'});
     adressResident.hasMany(models['Stay_Resident'], {foreignKey: 'Regular_Report_ID'});
-    adressResident.hasMany(models['Resident'], {foreignKey: 'Adress_ID', as:'AdressResident'});
+    adressResident.hasMany(models['Resident'], {foreignKey: 'Adress_ID'});
    
 }
 

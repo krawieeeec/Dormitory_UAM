@@ -11,7 +11,7 @@ var typeAdress = dbClient.define('Type_Adress', {
 
 
 typeAdress.TypeAdressAssociations = function(models){
-    typeAdress.hasMany(models['Type_Adress'], {foreignKey: 'Type_Adress_ID', as: 'TypeAdress'});
+    typeAdress.hasMany(models['Adress_Resident'], {foreignKey: 'Type_Adress_ID'});
 
 }
 

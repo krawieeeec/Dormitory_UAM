@@ -18,9 +18,9 @@ var resident = dbClient.define('Resident', {
 
 
 resident.ResidentAssociations = function(models) {
-    
-    models['Document'].hasMany(models['Document'], {foreignKey:'Resident_ID'});
-    models['Stay_Resident'].hasMany(models['Stay_Resident'], {foreignKey:'Resident_ID'});
+    resident.hasMany(models['Document'], {foreignKey:'Resident_ID'});
+    resident.hasMany(models['Stay_Resident'], {foreignKey:'Resident_ID'});
+    resident.hasMany(models['Account_Resident'], {foreignKey: 'Resident_ID'});
 }
 
 module.exports = {

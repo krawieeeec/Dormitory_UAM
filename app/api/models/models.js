@@ -94,11 +94,6 @@ for(var property in dbModels.models){
     
 }
 
-/*
-if(dbModels[nameOfTable][nameImportedAssociation] !== undefined){
-            dbModels[nameOfTable][nameImportedAssociation](); 
-    }
-*/
 module.exports = {
     DataBaseModels: dbModels
 }
