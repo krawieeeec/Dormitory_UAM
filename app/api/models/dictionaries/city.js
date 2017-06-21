@@ -7,6 +7,7 @@ const city = dbClient.define('City', {
     Region: { type: sequelize.STRING(20), allowNull: false}
 })
 
+
 module.exports = {
     CityModel : city
 }

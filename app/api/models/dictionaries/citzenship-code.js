@@ -1,10 +1,17 @@
-const Sequelize = require('sequelize');
+const sequelize = require('sequelize');
 const dbClient = require('../../common/db.js').dbClient;
 
-const citzenshipCode = dbClient.define('Citzenship_Code', {
-    Citzenship: { type: Sequelize.STRING(30), allowNull: false, unique: true },
-    Country: { type: Sequelize.STRING(30), allowNull: false, unique: true }
+var citzenshipCode = dbClient.define('Citzenship_Code', {
+    Citzenship: { type: sequelize.STRING(30), allowNull: false, unique: true },
+    Country: { type: sequelize.STRING(30), allowNull: false, unique: true }
 })
+
+citzenshipCode.CitzenshipCodeAssociations =  function(models){
+
+    citzenshipCode.hasMany(models['Resident'], {foreignKey: 'Citzenship_Code_ID'});  
+    console.log('jestem')      
+} 
+
 
 module.exports = {
     CitzenshipCodeModel: citzenshipCode
