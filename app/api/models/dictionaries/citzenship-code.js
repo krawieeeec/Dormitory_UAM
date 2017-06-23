@@ -7,9 +7,7 @@ var citzenshipCode = dbClient.define('Citzenship_Code', {
 })
 
 citzenshipCode.CitzenshipCodeAssociations =  function(models){
-
-    citzenshipCode.hasMany(models['Resident'], {foreignKey: 'Citzenship_Code_ID'});  
-    console.log('jestem')      
+    citzenshipCode.hasMany(models['Resident'], {foreignKey: 'Citzenship_Code_ID'});     
 } 
 
 

@@ -8,11 +8,11 @@ var resident = dbClient.define('Resident', {
     }},
     Surname: {type: sequelize.STRING(30), allowNull: false, unique: false},
     Genre: {type: sequelize.ENUM('male', 'female'), allowNull: false, unique: false},
-    Date_Birth: {type: sequelize.DATEONLY, allowNull:false, unique: false},
-    Place_Brith: {type: sequelize.STRING(30), allowNull:false, unique: false},
+    Birth_Date: {type: sequelize.DATEONLY, allowNull: false, unique: false},
+    Birth_Place: {type: sequelize.STRING(30), allowNull:false, unique: false},
     Mother_Name: {type: sequelize.STRING(30), allowNull: true},
     Father_Name: { type: sequelize.STRING(30), allowNull: true},
-    PESEL: {type: sequelize.INTEGER, allowNull: false }
+    PESEL: {type: sequelize.STRING, allowNull: false }
 })
 
 

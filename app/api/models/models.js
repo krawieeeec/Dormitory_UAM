@@ -80,13 +80,12 @@ let nameModel;
 let nameFunction;
 
 for(var property in dbModels.models){
-    console.log('jestem');
+    
         nameModel = property;
         property = property.replace('_', "");
         property = property + 'Associations';
-        console.log(property);
-        console.log(dbModels[nameModel][nameFunction]);
         nameFunction = property;
+        
         if(dbModels[nameModel][nameFunction] !== undefined){
             dbModels[nameModel][nameFunction](dbModels);
         }
