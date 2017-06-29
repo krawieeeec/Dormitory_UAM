@@ -1,6 +1,6 @@
 const fs = require('fs');
 const sequelize = require('sequelize');
-const dbModels = require('../common/db.js').dbClient;
+const dbModels = require('../config/db.js').dbClient;
 
 var dictionaries = fs.readdirSync(__dirname + '/dictionaries');
 var tables = fs.readdirSync(__dirname + '/tables');
@@ -40,7 +40,6 @@ dictionaries.forEach(function(fileName){
             
     }
     
-    
 });
 
 tables.forEach(function(fileName){
@@ -78,19 +77,19 @@ tables.forEach(function(fileName){
 
 let nameModel;
 let nameFunction;
+let upperChar;
 
 for(var property in dbModels.models){
     
-        nameModel = property;
-        property = property.replace('_', "");
-        property = property + 'Associations';
-        nameFunction = property;
+    nameModel = property;
+    property = property.replace('_', "");
+    upperChar = property[0].toUpperCase(); 
+    property = upperChar + property.slice(1) + 'Associations';
+    nameFunction = property;
         
-        if(dbModels[nameModel][nameFunction] !== undefined){
-            dbModels[nameModel][nameFunction](dbModels);
-        }
-        
-    
+    if(dbModels[nameModel][nameFunction] !== undefined){
+        dbModels[nameModel][nameFunction](dbModels);
+    }
 }
 
 module.exports = {

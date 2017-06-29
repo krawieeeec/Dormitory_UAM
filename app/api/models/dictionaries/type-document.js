@@ -1,12 +1,12 @@
 const sequelize = require('sequelize');
-const dbClient = require('../../common/db.js').dbClient;
+const dbClient = require('../../config/db.js').dbClient;
 
-var typeDocument = dbClient.define('Type_Document', {
-    Type_Document: { type: sequelize.STRING(30), allowNull: false, unique: true }
+var typeDocument = dbClient.define('typeDocument', {
+    typeDocument: { type: sequelize.STRING(30), allowNull: false, unique: true }
 })
    
 typeDocument.TypeDocumentAssociations = function(models){
-    typeDocument.hasMany(models['Document'], {foreignKey: {allowNull: false, name:'Type_Document_ID'}});
+    typeDocument.hasMany(models['document'], {foreignKey: {allowNull: false, name:'typeDocumentID'}});
 }
 
 module.exports = {

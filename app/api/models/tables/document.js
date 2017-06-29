@@ -1,16 +1,16 @@
 const sequelize = require('sequelize');
-const dbClient = require('../../common/db.js').dbClient;
+const dbClient = require('../../config/db.js').dbClient;
 
-var document = dbClient.define('Document', {
-    Name_Document: { type: sequelize.STRING, allowNull: false, unique:true },
-    Release_Date: { type: sequelize.DATEONLY, allowNull: false },
-    Expiration_Date: { type: sequelize.DATEONLY, allowNull: false },
-    Issuing_Country: { type: sequelize.STRING(30), allowNull: false }
+var document = dbClient.define('document', {
+    nameDocument: { type: sequelize.STRING, allowNull: false, unique:true },
+    releaseDate: { type: sequelize.DATEONLY, allowNull: false },
+    expirationDate: { type: sequelize.DATEONLY, allowNull: false },
+    issuingCountry: { type: sequelize.STRING(30), allowNull: false }
 })
 
 document.DocumentAssociations = function(models){
     
-    document.hasMany(models['Stay_Resident'], {foreignKey: 'Document_ID'});
+    document.hasMany(models['stayResident'], {foreignKey: 'documentID'});
 }
 
 module.exports = {

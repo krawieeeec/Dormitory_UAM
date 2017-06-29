@@ -1,8 +1,8 @@
 const sequelize = require('sequelize');
-const dbClient = require('../../common/db.js').dbClient;
+const dbClient = require('../../config/db.js').dbClient;
 
-var accountResident = dbClient.define('Account_Resident', {
-    Password: { type: sequelize.STRING(20), allowNull: false}
+var accountResident = dbClient.define('accountResident', {
+    password: { type: sequelize.STRING(20), allowNull: false}
 })
 
 module.exports = {

@@ -1,13 +1,13 @@
 const sequelize = require('sequelize');
-const dbClient = require('../../common/db.js').dbClient;
+const dbClient = require('../../config/db.js').dbClient;
 
-var citzenshipCode = dbClient.define('Citzenship_Code', {
-    Citzenship: { type: sequelize.STRING(30), allowNull: false, unique: true },
-    Country: { type: sequelize.STRING(30), allowNull: false, unique: true }
+var citzenshipCode = dbClient.define('citzenshipCode', {
+    citzenship: { type: sequelize.STRING(30), allowNull: false, unique: true },
+    country: { type: sequelize.STRING(30), allowNull: false, unique: true }
 })
 
 citzenshipCode.CitzenshipCodeAssociations =  function(models){
-    citzenshipCode.hasMany(models['Resident'], {foreignKey: 'Citzenship_Code_ID'});     
+    citzenshipCode.hasMany(models['resident'], {foreignKey: 'citzenshipCodeID'});  
 } 
 
 

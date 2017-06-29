@@ -1,16 +1,17 @@
 const sequelize = require('sequelize');
-const dbClient = require('../../common/db.js').dbClient;
+const dbClient = require('../../config/db.js').dbClient;
 
-var dormitory = dbClient.define('Dormitory', {
-    Dormitory_Name: {type: sequelize.STRING, allowNull: false, unique: true},
-    Adress: { type: sequelize.STRING, allowNull: false, unique: true },
-    Temporary_Accommodation: {type: sequelize.STRING}
+var dormitory = dbClient.define('dormitory', {
+    dormitoryName: {type: sequelize.STRING, allowNull: false, unique: true},
+    adress: { type: sequelize.STRING, allowNull: false, unique: true },
+    temporaryAccommodation: {type: sequelize.STRING}
 
 })
 
 dormitory.DormitoryAssociations = function(models){
-    dormitory.hasMany(models['Stay_Resident'], {foreignKey: 'Dormitory_ID'});
-    dormitory.hasMany(models['Account_Resident'], {foreignKey: 'Dormitory_ID'})
+    dormitory.hasMany(models['stayResident'], {foreignKey: 'dormitoryID'});
+    dormitory.hasMany(models['accountResident'], {foreignKey: 'dormitoryID'})
+   
 }
 
 module.exports = {

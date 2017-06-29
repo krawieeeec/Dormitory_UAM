@@ -1,13 +1,13 @@
 const sequelize = require('sequelize');
-const dbClient = require('../../common/db.js').dbClient;
+const dbClient = require('../../config/db.js').dbClient;
 
-var stayResident = dbClient.define('Stay_Resident', {
-    Date_Arrival: { type: sequelize.DATEONLY, allowNull: false},
-    Time_Visit: { type: sequelize.DATEONLY, allowNull: false},
-    Data_Check_Out: { type: sequelize.DATEONLY, allowNull: false},
-    Room_Number: { type: sequelize.INTEGER, allowNull: false},
-    Date_Cross_RP: { type: sequelize.DATEONLY, allowNull: true},
-    Comments: { type: sequelize.STRING, allowNull: true}
+var stayResident = dbClient.define('stayResident', {
+    dateArrival: { type: sequelize.DATEONLY, allowNull: false},
+    timeVisit: { type: sequelize.DATEONLY, allowNull: false},
+    dataCheckOut: { type: sequelize.DATEONLY, allowNull: false},
+    roomNumber: { type: sequelize.INTEGER, allowNull: false},
+    dateCrossRP: { type: sequelize.DATEONLY, allowNull: true},
+    comments: { type: sequelize.STRING, allowNull: true}
 })
 
 
