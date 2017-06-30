@@ -160,15 +160,15 @@ dbClient.drop().then(() => {
                                     if(amountData >= 0){
                                         residentTable.bulkCreate([
                                             {name: 'Dawid', surname: 'Krawczyk', genre: 'male', birthDate:'1992-08-02', birthPlace: 'Inowrocław', 
-                                            motherName:'Dorota', fatherName: 'Darek', pesel:'95275820583', adressID:1},
+                                            motherName:'Dorota', fatherName: 'Darek', pesel:'95275820583', citzenshipCodeID: 2, adressID:1},
                                             {name: 'Paweł', surname: 'Jaworski', genre: 'male', birthDate:'1982-03-23', birthPlace: 'Poznań', 
-                                            motherName:'Dagmara', fatherName: 'Janusz', pesel:'2351567433', adressID:3},
+                                            motherName:'Dagmara', fatherName: 'Janusz', pesel:'2351567433', citzenshipCodeID: 1, adressID:3},
                                             {name: 'Dorota', surname: 'Pawelczyk', genre: 'female', birthDate:'1969-08-09', birthPlace: 'Olsztyn', 
-                                            motherName:'Barbara', fatherName: 'Zygmunt', pesel:'28548332152', adressID:4},
+                                            motherName:'Barbara', fatherName: 'Zygmunt', pesel:'28548332152', citzenshipCodeID: 3, adressID:4},
                                             {name: 'Jakub', surname: 'Piotrowski', genre: 'male', birthDate:'1992-02-13', birthPlace: 'Żnin', 
-                                            motherName:'Monika', fatherName: 'Piotr', pesel:'1235749247', adressID:2},
+                                            motherName:'Monika', fatherName: 'Piotr', pesel:'1235749247', citzenshipCodeID: 4, adressID:2},
                                             {name: 'Kasia', surname: 'Smektalska', genre: 'female', birthDate:'1996-12-07', birthPlace: 'Gdańsk', 
-                                            motherName:'Klaudia', fatherName: 'Bartosz', pesel:'3497512687', adressID:1}
+                                            motherName:'Klaudia', fatherName: 'Bartosz', pesel:'3497512687', citzenshipCodeID: 5, adressID:1, dawid: '123123123'}
                                         ]).then(() => {
                                             return residentTable.findAll();
                                         }).then(residents => {
