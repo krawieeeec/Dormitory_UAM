@@ -24,7 +24,7 @@ var residentController = {
             if(residents.length == 0)
                 res.send('There aren\'t any entries in Residents table.');
             else{
-                    res.send(JSON.stringify(residents));     
+                    res.send(JSON.stringify(residents));
             } 
         }).catch((error) =>{
             res.send(error);
