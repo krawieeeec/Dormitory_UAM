@@ -168,7 +168,7 @@ dbClient.drop().then(() => {
                                             {name: 'Jakub', surname: 'Piotrowski', genre: 'male', birthDate:'1992-02-13', birthPlace: 'Żnin', 
                                             motherName:'Monika', fatherName: 'Piotr', pesel:'1235749247', citzenshipCodeID: 4, adressID:2},
                                             {name: 'Kasia', surname: 'Smektalska', genre: 'female', birthDate:'1996-12-07', birthPlace: 'Gdańsk', 
-                                            motherName:'Klaudia', fatherName: 'Bartosz', pesel:'3497512687', citzenshipCodeID: 5, adressID:1, dawid: '123123123'}
+                                            motherName:'Klaudia', fatherName: 'Bartosz', pesel:'3497512687', citzenshipCodeID: 5, adressID:1}
                                         ]).then(() => {
                                             return residentTable.findAll();
                                         }).then(residents => {
