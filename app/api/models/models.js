@@ -5,6 +5,7 @@ const dbModels = require('../config/db.js').dbClient;
 var dictionaries = fs.readdirSync(__dirname + '/dictionaries');
 var tables = fs.readdirSync(__dirname + '/tables');
 
+
 dictionaries.forEach(function(fileName){
     
     let nameImportedAssociation;

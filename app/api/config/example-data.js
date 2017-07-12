@@ -130,52 +130,52 @@ dbClient.drop().then(() => {
                             console.log('Type_Adresses Table - Error');
                             console.log(error);
                         }).then(() => {
-                            adressResidentTable.count().then(amountData => {
+                            residentTable.count().then(amountData => {
                                 if(amountData >= 0){
-                                    adressResidentTable.bulkCreate([
-                                        {country: 'Polska', street: 'Czarlinskiego', houseNumber: '9', 
-                                        apartmentNumber:'6', postCode:'88-100', city:'Inowrocław', 
-                                        typeAdressID:'1'}, 
-                                        {country: 'Polska', street: 'Wyspiańskiego', houseNumber: '54', 
-                                        apartmentNumber:'64', postCode:'60-242', city:'Poznań', 
-                                        typeAdressID:'2'}, 
-                                        {country: 'Polska', street: 'Warszawska', houseNumber: '12', 
-                                        apartmentNumber:'84', postCode:'28-532', city:'Wrocław', 
-                                        typeAdressID:'2'}, 
-                                        {country: 'Polska', street: 'Piłsudzkiego', houseNumber: '2', 
-                                        apartmentNumber:'98', postCode:'12-434', city:'Olsztyn', 
-                                        typeAdressID:'2'}
+                                    residentTable.bulkCreate([
+                                        {name: 'Dawid', surname: 'Krawczyk', genre: 'male', birthDate:'1992-08-02', birthPlace: 'Inowrocław', 
+                                        motherName:'Dorota', fatherName: 'Darek', pesel:'95275820583', citzenshipCodeID: 2, adressID:1},
+                                        {name: 'Paweł', surname: 'Jaworski', genre: 'male', birthDate:'1982-03-23', birthPlace: 'Poznań', 
+                                        motherName:'Dagmara', fatherName: 'Janusz', pesel:'2351567433', citzenshipCodeID: 1, adressID:3},
+                                        {name: 'Dorota', surname: 'Pawelczyk', genre: 'female', birthDate:'1969-08-09', birthPlace: 'Olsztyn', 
+                                        motherName:'Barbara', fatherName: 'Zygmunt', pesel:'28548332152', citzenshipCodeID: 3, adressID:4},
+                                        {name: 'Jakub', surname: 'Piotrowski', genre: 'male', birthDate:'1992-02-13', birthPlace: 'Żnin', 
+                                        motherName:'Monika', fatherName: 'Piotr', pesel:'1235749247', citzenshipCodeID: 4, adressID:2},
+                                        {name: 'Kasia', surname: 'Smektalska', genre: 'female', birthDate:'1996-12-07', birthPlace: 'Gdańsk', 
+                                        motherName:'Klaudia', fatherName: 'Bartosz', pesel:'3497512687', citzenshipCodeID: 5, adressID:1}
                                     ]).then(() => {
-                                        return adressResidentTable.findAll();
-                                    }).then(adresses => {
+                                        return residentTable.findAll();
+                                    }).then(residents => {
                                         console.log('******************************************************');
-                                        console.log('Adress_Residents Table')
-                                        adresses.forEach(function(adress){
-                                            console.log(adress.dataValues);
+                                        console.log('Residents Table');
+                                        residents.forEach(function(resident) {
+                                            console.log(resident.dataValues);
                                         })
                                     })
                                 }
                             }).then(() => {
-                                residentTable.count().then(amountData => {
+                                adressResidentTable.count().then(amountData => {
                                     if(amountData >= 0){
-                                        residentTable.bulkCreate([
-                                            {name: 'Dawid', surname: 'Krawczyk', genre: 'male', birthDate:'1992-08-02', birthPlace: 'Inowrocław', 
-                                            motherName:'Dorota', fatherName: 'Darek', pesel:'95275820583', citzenshipCodeID: 2, adressID:1},
-                                            {name: 'Paweł', surname: 'Jaworski', genre: 'male', birthDate:'1982-03-23', birthPlace: 'Poznań', 
-                                            motherName:'Dagmara', fatherName: 'Janusz', pesel:'2351567433', citzenshipCodeID: 1, adressID:3},
-                                            {name: 'Dorota', surname: 'Pawelczyk', genre: 'female', birthDate:'1969-08-09', birthPlace: 'Olsztyn', 
-                                            motherName:'Barbara', fatherName: 'Zygmunt', pesel:'28548332152', citzenshipCodeID: 3, adressID:4},
-                                            {name: 'Jakub', surname: 'Piotrowski', genre: 'male', birthDate:'1992-02-13', birthPlace: 'Żnin', 
-                                            motherName:'Monika', fatherName: 'Piotr', pesel:'1235749247', citzenshipCodeID: 4, adressID:2},
-                                            {name: 'Kasia', surname: 'Smektalska', genre: 'female', birthDate:'1996-12-07', birthPlace: 'Gdańsk', 
-                                            motherName:'Klaudia', fatherName: 'Bartosz', pesel:'3497512687', citzenshipCodeID: 5, adressID:1}
+                                        adressResidentTable.bulkCreate([
+                                            {country: 'Polska', street: 'Czarlinskiego', houseNumber: '9', 
+                                            apartmentNumber:'6', postCode:'88-100', city:'Inowrocław', 
+                                            typeAdressID:'1', residentID: 1}, 
+                                            {country: 'Polska', street: 'Wyspiańskiego', houseNumber: '54', 
+                                            apartmentNumber:'64', postCode:'60-242', city:'Poznań', 
+                                            typeAdressID:'2', residentID: 2}, 
+                                            {country: 'Polska', street: 'Warszawska', houseNumber: '12', 
+                                            apartmentNumber:'84', postCode:'28-532', city:'Wrocław', 
+                                            typeAdressID:'2', residentID: 3}, 
+                                            {country: 'Polska', street: 'Piłsudzkiego', houseNumber: '2', 
+                                            apartmentNumber:'98', postCode:'12-434', city:'Olsztyn', 
+                                            typeAdressID:'2', residentID: 4}
                                         ]).then(() => {
-                                            return residentTable.findAll();
-                                        }).then(residents => {
+                                            return adressResidentTable.findAll();
+                                        }).then(adresses => {
                                             console.log('******************************************************');
-                                            console.log('Residents Table');
-                                            residents.forEach(function(resident) {
-                                                console.log(resident.dataValues);
+                                            console.log('Adress_Residents Table')
+                                            adresses.forEach(function(adress){
+                                                console.log(adress.dataValues);
                                             })
                                         })
                                     }
@@ -183,13 +183,13 @@ dbClient.drop().then(() => {
                                     documentTable.count().then(amountData =>{
                                         if(amountData >=0) {
                                             documentTable.bulkCreate([
-                                                {nameDocument: 'Dowód Tożsamosci', releaseDate: '2016-08-02', expirationDate: '2020-02-19', 
+                                                {numberDocument: 'Dowód Tożsamosci', releaseDate: '2016-08-02', expirationDate: '2020-02-19', 
                                                 issuingCountry: 'Polska', typeDocumentID: '1', residentID:'1'}, 
-                                                {nameDocument: 'Paszport', releaseDate: '2014-02-12', expirationDate: '2018-09-22', 
+                                                {numberDocument: 'Paszport', releaseDate: '2014-02-12', expirationDate: '2018-09-22', 
                                                 issuingCountry: 'Polska', typeDocumentID: '2', residentID:'3'}, 
-                                                {nameDocument: 'Niemiecki dowód tożsamości', releaseDate:'2012-11-29', expirationDate: '2023-05-11', 
+                                                {numberDocument: 'Niemiecki dowód tożsamości', releaseDate:'2012-11-29', expirationDate: '2023-05-11', 
                                                 issuingCountry: 'Niemcy', typeDocumentID: '1', residentID:'4'}, 
-                                                {nameDocument: 'Karta Polaka', releaseDate: '2017-06-20', expirationDate: '2028-03-16', 
+                                                {numberDocument: 'Karta Polaka', releaseDate: '2017-06-20', expirationDate: '2028-03-16', 
                                                 issuingCountry: 'Ukraina', typeDocumentID: '3', residentID:'2'}, 
                                             ]).then(() => {
                                                 return documentTable.findAll();
@@ -207,16 +207,17 @@ dbClient.drop().then(() => {
                                                 stayResidentTable.bulkCreate([
                                                     
                                                     {dateArrival:'2016-05-12', timeVisit:'2016-05-13', dataCheckOut:'2016-09-15', roomNumber:'142', 
-                                                    dataCrossRP:'', comments:'Brak zastrzeżeń', dormitoryID:'1', timeReportID:'1', regularReportID:'2', 
+                                                    dataCrossRP:'', comments:'Brak zastrzeżeń', dormitoryID:'1', tempAdressID:'1', regularAdressID:'2', 
                                                     documentID:'1', residentID: '2'},
                                                     {dateArrival:'2014-12-11', timeVisit:'2014-09-15', dataCheckOut:'2015-03-22', roomNumber:'9', dataCrossRP:'',
-                                                    comments:'Nie potrafi sprzątać po sobie', dormitoryID:'3', timeReportID:'3', regularReportID:'1', 
+                                                    comments:'Nie potrafi sprzątać po sobie', dormitoryID:'3', tempAdressID:'3', regularAdressID:'1', 
                                                     documentID:'3', residentID: '5'},
                                                     {dateArrival:'2014-05-01', timeVisit:'2014-04-21', dataCheckOut:'2014-05-11', roomNumber:'1', dataCrossRP:'2011-03-03', 
-                                                    comments:'Brak zastrzeżeń', dormitoryID:'3', timeReportID:'2', regularReportID:'1', 
+                                                    comments:'Brak zastrzeżeń', dormitoryID:'3', tempAdressID:'2', regularAdressID:'1', 
                                                     documentID:'3', residentID: '5'},
                                                     {dateArrival:'2010-04-09', timeVisit:'2010-04-06', dataCheckOut:'2011-05-15', roomNumber:'42', dataCrossRP:'2010-05-04', 
-                                                    comments:'Zdemolowany pokój', dormitoryID:'2', timeReportID:'4', regularReportID:'1', documentID:'2', residentID: '3'}
+                                                    comments:'Zdemolowany pokój', dormitoryID:'2', tempAdressID:'4', regularAdressID:'1', 
+                                                    documentID:'2', residentID: '3'}
                                                 ])
                                             }
                                         })

@@ -9,15 +9,16 @@ var resident = dbClient.define('resident', {
     birthPlace: {type: sequelize.STRING(30), allowNull:false, unique: false},
     motherName: {type: sequelize.STRING(30), allowNull: true},
     fatherName: { type: sequelize.STRING(30), allowNull: true},
-    pesel: {type: sequelize.STRING, allowNull: false }
+    pesel: {type: sequelize.STRING(11), allowNull: false }
 })
 
 
 
 resident.ResidentAssociations = function(models) {
-    resident.hasMany(models['document'], {foreignKey:'residentID'});
-    resident.hasMany(models['stayResident'], {foreignKey:'residentID'});
-    resident.hasMany(models['accountResident'], {foreignKey: 'residentID'});
+    resident.hasMany(models['document'], {foreignKey: {allowNull: false, name:'residentID'}});
+    resident.hasMany(models['stayResident'], {foreignKey:{allowNull: false, name:'residentID'}});
+    resident.hasMany(models['accountResident'], {foreignKey: {allowNull: false, name:'residentID'}});
+    resident.hasMany(models['adressResident'], {foreignKey: {allowNull: false, name:'residentID'}});
     
 }
 

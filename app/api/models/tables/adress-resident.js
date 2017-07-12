@@ -3,9 +3,9 @@ const dbClient = require('../../config/db.js').dbClient;
 
 var adressResident = dbClient.define('adressResident', {
     country: { type: sequelize.STRING(15), allowNull: false},
-    street: { type: sequelize.STRING(40), allowNull: false},
-    houseNumber: { type: sequelize.INTEGER, allowNull: false},
-    apartmentNumber: { type: sequelize.INTEGER, allowNull: false},
+    street: { type: sequelize.STRING(40), allowNull: true},
+    houseNumber: { type: sequelize.TEXT, allowNull: false},
+    apartmentNumber: { type: sequelize.TEXT, allowNull: true},
     postCode: { type: sequelize.STRING(10), allowNull: false},
     city: { type: sequelize.STRING(30), allowNull: false}
 }) 
@@ -13,9 +13,8 @@ var adressResident = dbClient.define('adressResident', {
     
 adressResident.AdressResidentAssociations = function(models){
 
-    adressResident.hasMany(models['stayResident'], {foreignKey: 'timeReportID'});
-    adressResident.hasMany(models['stayResident'], {foreignKey: 'regularReportID'});
-    adressResident.hasMany(models['resident'], {foreignKey: 'adressID'/*{allowNull: false, name: 'adressID' }*/});
+    adressResident.hasMany(models['stayResident'], {foreignKey: {allowNull: true, name:'tempAdressID'}});
+    adressResident.hasMany(models['stayResident'], {foreignKey: {allowNull: true, name:'regularAdressID'}});
    
 }
 

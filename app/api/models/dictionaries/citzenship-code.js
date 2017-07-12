@@ -7,7 +7,7 @@ var citzenshipCode = dbClient.define('citzenshipCode', {
 })
 
 citzenshipCode.CitzenshipCodeAssociations =  function(models){
-    citzenshipCode.hasMany(models['resident'], {foreignKey: 'citzenshipCodeID'});  
+    citzenshipCode.hasMany(models['resident'], {foreignKey: {allowNull: false, name:'citzenshipCodeID'}});  
 } 
 
 

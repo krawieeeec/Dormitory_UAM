@@ -9,7 +9,7 @@ var dormitory = dbClient.define('dormitory', {
 })
 
 dormitory.DormitoryAssociations = function(models){
-    dormitory.hasMany(models['stayResident'], {foreignKey: 'dormitoryID'});
+    dormitory.hasMany(models['stayResident'], {foreignKey: {allowNull: false, name:'dormitoryID'}});
     dormitory.hasMany(models['accountResident'], {foreignKey: 'dormitoryID'})
    
 }
