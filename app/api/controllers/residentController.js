@@ -3,6 +3,12 @@ const residentTable = require('../models/models.js').DataBaseModels["resident"];
 var residentController = {
 
     FormResponseObject: function(req, res, next){
+        
+        res.setHeader('Access-Control-Allow-Origin', '*');
+        //res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+       // res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+        //res.setHeader('Access-Control-Allow-Credentials', true);
+        
         let newResident = {
             name: req.body.name,
             surname: req.body.surname,
@@ -15,15 +21,16 @@ var residentController = {
             citzenshipCodeID: req.body.citzenshipCodeID,
             adressID: req.body.adressID
         }
-    req.newResident = newResident
-    next();
+        req.newResident = newResident
+        next();
     },
     
     GetAllResidents:  function (req, res) {
         residentTable.findAll({attributes: ['id', 'name', 'surname']}).then( (residents) => {
             if(residents.length == 0)
                 res.send('There aren\'t any entries in Residents table.');
-            else{
+            else{   
+                    res.status(200);
                     res.send(JSON.stringify(residents));
             } 
         }).catch((error) =>{

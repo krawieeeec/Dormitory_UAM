@@ -1,0 +1,7 @@
+<button (click)="getResidents()">Pokaż rezydentów</button>
+
+<ul>
+    <li *ngFor="let resident of residents">
+        {{resident.name}}
+    </li>
+</ul>

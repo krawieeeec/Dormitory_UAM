@@ -8,13 +8,15 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
 //App modules
-import { AddGuestModule } from './add-guest/add-guest.module';
+import { AddResidentModule } from './add-resident/add-resident.module';
 import { DormitoryListModule } from './dormitory-list/dormitory-list.module';
 import { EditUserAccountModule } from './edit-user-account/edit-user-account.module';
 import { MainPageModule } from './main-page/main-page.module';
 import { PageNotFoundModule } from './page-not-found/page-not-found.module';
-import { SearchGuestModule } from './search-guest/search-guest.module';
+import { SearchResidentModule } from './search-resident/search-resident.module';
 
+//Services
+import { ResidentService } from './shared/resident.service';
 
 @NgModule({
   declarations: [
@@ -22,10 +24,10 @@ import { SearchGuestModule } from './search-guest/search-guest.module';
   ],
   imports: [
     BrowserModule, HttpModule, AppRoutingModule,
-    AddGuestModule, DormitoryListModule, EditUserAccountModule,
-    MainPageModule, PageNotFoundModule, SearchGuestModule
+    AddResidentModule, DormitoryListModule, EditUserAccountModule,
+    MainPageModule, PageNotFoundModule, SearchResidentModule
   ],
-  providers: [],
+  providers: [ResidentService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

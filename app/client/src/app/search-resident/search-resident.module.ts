@@ -1,24 +1,23 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { SearchGuestComponent } from './search-guest.component';
-
+import { SearchResidentComponent } from './search-resident.component';
 
 @NgModule({
     imports:[
         CommonModule
     ],
     declarations: [
-        SearchGuestComponent
+        SearchResidentComponent
     ],
     providers:[
 
     ],
     exports: [
-        SearchGuestComponent
+        SearchResidentComponent
     ]
 })
 
-export class SearchGuestModule {
-
+export class SearchResidentModule {
+    
 }

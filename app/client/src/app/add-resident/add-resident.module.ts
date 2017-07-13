@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { AddGuestComponent } from './add-guest.component';
+import { AddResidentComponent } from './add-resident.component';
 
 
 @NgModule({
@@ -9,16 +9,16 @@ import { AddGuestComponent } from './add-guest.component';
         CommonModule
     ],
     declarations: [
-        AddGuestComponent
+        AddResidentComponent
     ],
     providers:[
 
     ],
     exports: [
-        AddGuestComponent
+        AddResidentComponent
     ]
 })
 
-export class AddGuestModule {
+export class AddResidentModule {
 
 }
