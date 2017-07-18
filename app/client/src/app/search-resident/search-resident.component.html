@@ -1,5 +1,4 @@
-<button (click)="getResidents()">Pokaż rezydentów</button>
-
+<button md-button (click)="getResidents()">Pokaż rezydentów</button>
 <ul>
     <li *ngFor="let resident of residents">
         {{resident.name}}

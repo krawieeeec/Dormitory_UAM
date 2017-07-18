@@ -5,8 +5,7 @@ import { Resident} from '../shared/resident';
 
 @Component({
     selector: 'search-resident',
-    templateUrl: 'search-resident.component.html',
-    styleUrls: ['./search-resident.component.css']
+    templateUrl: 'search-resident.component.html'
 })
 
 export class SearchResidentComponent{
