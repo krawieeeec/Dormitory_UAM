@@ -3,6 +3,7 @@ var bodyParser = require('body-parser');
 
 var homeCtrl = require('../controllers/homeController.js').HomeController;
 var residentCtrl = require('../controllers/residentController.js').ResidentController;
+var dormitoryCtrl = require('../controllers/dormitoryController').DormitoryController;
 
 var router = express.Router();
 
@@ -19,6 +20,9 @@ router.route('/resident/create').post(residentCtrl.AddResident);
 router.route('/resident/:id').get(residentCtrl.GetResidentByID);
 router.route('/resident/:id/delete').delete(residentCtrl.DeleteResidentByID);
 router.route('/resident/:id/update').put(residentCtrl.UpdateResidentByID);
+//dormitoryController
+router.use(dormitoryCtrl.FormResponseObject);
+router.route('/dormitory').get(dormitoryCtrl.GetAllDormitories);
 
 
 module.exports = router;

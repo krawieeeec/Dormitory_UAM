@@ -6,7 +6,7 @@ var residentController = {
         
         res.setHeader('Access-Control-Allow-Origin', '*');
         //res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-       // res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+        // res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
         //res.setHeader('Access-Control-Allow-Credentials', true);
         
         let newResident = {
@@ -28,7 +28,7 @@ var residentController = {
     GetAllResidents:  function (req, res) {
         residentTable.findAll({attributes: ['id', 'name', 'surname']}).then( (residents) => {
             if(residents.length == 0)
-                res.send('There aren\'t any entries in Residents table.');
+                res.send('There aren\'t any entries in residents table.');
             else{   
                     res.status(200);
                     res.send(JSON.stringify(residents));
