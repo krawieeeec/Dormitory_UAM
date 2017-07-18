@@ -5,6 +5,7 @@ import { MainPageComponent } from './main-page.component';
 import { AppRoutingModule } from '../app-routing.module';
 import { AngularMaterialModule } from '../shared/angular-material.module';
 
+
 @NgModule({
     imports:[
         CommonModule, AppRoutingModule, AngularMaterialModule

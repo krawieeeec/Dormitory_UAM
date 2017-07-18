@@ -2,7 +2,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 //root component
 import { AppComponent } from './app.component';
@@ -17,6 +16,7 @@ import { MainPageModule } from './main-page/main-page.module';
 import { PageNotFoundModule } from './page-not-found/page-not-found.module';
 import { SearchResidentModule } from './search-resident/search-resident.module';
 import { AngularMaterialModule } from './shared/angular-material.module';
+
 
 //Services
 import { ResidentService } from './shared/resident.service';
