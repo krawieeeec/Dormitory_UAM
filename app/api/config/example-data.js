@@ -19,13 +19,13 @@ dbClient.drop().then(() => {
         cityTable.count().then(amountData =>{
             if(amountData >= 0){
                 cityTable.bulkCreate([
-                    {nameCity: 'Poznań', postCode:'60-697', region: 'Wielkopolska'},
-                    {nameCity: 'Warszawa', postCode:'43-412', region: 'Mazowsze'},
+                    {name_city: 'Poznań', postCode:'60-697', region: 'Wielkopolska'},
+                /*    {nameCity: 'Warszawa', postCode:'43-412', region: 'Mazowsze'},
                     {nameCity: 'Bydgoszcz', postCode: '71-234', region: 'Kujawsko-Pomorskie'},
                     {nameCity: 'Inowrocław', postCode: '88-100', region: 'Kujawsko-Pomorskie'},
                     {nameCity: 'Olsztyn', postCode: '37-234', region: 'Warminsko-Mazurskie'},
                     {nameCity: 'Szczecin', postCode: '58-295', region: 'Zachodnie-Pomorskie'},
-                    {nameCity: 'Zakopane', postCode: '29-485', region: 'Małopolska'}
+                    {nameCity: 'Zakopane', postCode: '29-485', region: 'Małopolska'} */
                 ]).catch(() => {
                     console.log('CITY TABLE - ERROR');
                 }).then(() => {
