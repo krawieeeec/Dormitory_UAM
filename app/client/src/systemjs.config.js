@@ -16,6 +16,8 @@ System.config({
 
 System.config({
   map: {
+
+    
     'main': 'main.js',
 
     // Angular specific mappings.
@@ -32,7 +34,9 @@ System.config({
     '@angular/platform-browser/animations': 'https://unpkg.com/@angular/platform-browser/bundles/platform-browser-animations.umd.js',
     '@angular/material': 'https://unpkg.com/@angular/material/bundles/material.umd.js',
     '@angular/cdk': 'https://unpkg.com/@angular/cdk/bundles/cdk.umd.js',
-
+    'moment': 'npm:moment/bundles/moment.umd.js',
+      'ng2-bootstrap': 'npm:ng2-bootstrap/bundles/ng2-bootstrap.umd.js',
+      '@ng-bootstrap/ng-bootstrap': 'node_modules/@ng-bootstrap/ng-bootstrap/bundles/ng-bootstrap.js',
     // Rxjs mapping
     'rxjs': 'https://unpkg.com/rxjs',
   },
