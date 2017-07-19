@@ -3,12 +3,11 @@ import { CommonModule } from '@angular/common';
 
 import { MainPageComponent } from './main-page.component';
 import { AppRoutingModule } from '../app-routing.module';
-import { AngularMaterialModule } from '../shared/angular-material.module';
 
 
 @NgModule({
     imports:[
-        CommonModule, AppRoutingModule, AngularMaterialModule
+        CommonModule, AppRoutingModule
     ],
     declarations: [
         MainPageComponent

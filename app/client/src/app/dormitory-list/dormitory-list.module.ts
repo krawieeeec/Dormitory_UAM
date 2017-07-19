@@ -1,12 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AngularMaterialModule } from '../shared/angular-material.module';
 import { DormitoryListComponent } from './dormitory-list.component';
 
 @NgModule({
 
     imports:[
-        CommonModule, AngularMaterialModule
+        CommonModule
     ],
     declarations: [
         DormitoryListComponent
@@ -15,7 +14,7 @@ import { DormitoryListComponent } from './dormitory-list.component';
 
     ],
     exports: [
-        DormitoryListComponent, AngularMaterialModule
+        DormitoryListComponent
     ]
 })
 

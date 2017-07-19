@@ -15,8 +15,6 @@ import { EditUserAccountModule } from './edit-user-account/edit-user-account.mod
 import { MainPageModule } from './main-page/main-page.module';
 import { PageNotFoundModule } from './page-not-found/page-not-found.module';
 import { SearchResidentModule } from './search-resident/search-resident.module';
-import { AngularMaterialModule } from './shared/angular-material.module';
-
 
 //Services
 import { ResidentService } from './shared/resident.service';
@@ -28,10 +26,9 @@ import { ResidentService } from './shared/resident.service';
   imports: [
     BrowserModule, HttpModule, AppRoutingModule,
     AddResidentModule, DormitoryListModule, EditUserAccountModule,
-    MainPageModule, PageNotFoundModule, SearchResidentModule,
-    AngularMaterialModule
+    MainPageModule, PageNotFoundModule, SearchResidentModule
   ],
-  exports:[AngularMaterialModule],
+  exports:[],
   providers: [ResidentService],
   bootstrap: [AppComponent]
 })
