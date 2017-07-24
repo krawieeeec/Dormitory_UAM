@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DormitoryService } from '../shared/dormitory.service';
+import { DormitoryService } from '../../shared/dormitory.service';
 
 @Component({
     selector: 'edit-user-account',

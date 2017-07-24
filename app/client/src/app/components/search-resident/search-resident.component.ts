@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
-import { ResidentService } from '../shared/resident.service';
-import { Resident} from '../shared/resident';
+import { ResidentService } from '../../shared/resident.service';
+import { Resident} from '../../shared/resident';
 
 @Component({
     selector: 'search-resident',

@@ -1,0 +1,15 @@
+table {
+    margin: 20px;
+    color: white;
+}
+
+
+/* tbody:only-child:hover {
+    background: rgba(0, 0, 0, 0.7);
+} */
+
+td {
+    text-align: left;
+    background: rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+}

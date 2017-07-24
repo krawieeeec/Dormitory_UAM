@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import {FormBuilder, FormGroup, ReactiveFormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -7,15 +6,9 @@ import {FormBuilder, FormGroup, ReactiveFormsModule} from '@angular/forms';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  public checkboxGroupForm: FormGroup;
+  
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor() {}
 
-  ngOnInit() {
-    this.checkboxGroupForm = this.formBuilder.group({
-      left: true,
-      middle: false,
-      right: false
-    });
-  }
+  
 }

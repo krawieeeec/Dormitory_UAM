@@ -9,13 +9,13 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
 //App features modules
-import { AddResidentModule } from './add-resident/add-resident.module';
-import { DormitoryListModule } from './dormitory-list/dormitory-list.module';
-import { EditUserAccountModule } from './edit-user-account/edit-user-account.module';
-import { MainPageModule } from './main-page/main-page.module';
-import { PageNotFoundModule } from './page-not-found/page-not-found.module';
-import { SearchResidentModule } from './search-resident/search-resident.module';
-import { ResidentListModule } from './resident-list/resident-list.module';
+import { AddResidentModule } from './components/add-resident/add-resident.module';
+import { EditUserAccountModule } from './components/edit-user-account/edit-user-account.module';
+import { MainPageModule } from './components/main-page/main-page.module';
+import { PageNotFoundModule } from './components/page-not-found/page-not-found.module';
+import { SearchResidentModule } from './components/search-resident/search-resident.module';
+import { ResidentListModule } from './components/resident-list/resident-list.module';
+import { NavbarComponent} from './layout-components/navbar/navbar.component';
 import {FormBuilder, FormGroup, ReactiveFormsModule} from '@angular/forms'; 
 
 //Services
@@ -26,11 +26,11 @@ import { DormitoryService } from './shared/dormitory.service';
 
 @NgModule({
     declarations: [
-    AppComponent
+    NavbarComponent, AppComponent
   ],
   imports: [
     BrowserModule, HttpModule, AppRoutingModule,
-    AddResidentModule, DormitoryListModule, EditUserAccountModule,
+    AddResidentModule, EditUserAccountModule,
     MainPageModule, PageNotFoundModule, SearchResidentModule, NgbModule.forRoot(), ReactiveFormsModule, 
     ResidentListModule
   ],

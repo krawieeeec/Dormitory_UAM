@@ -7,12 +7,14 @@
                 <th>Numer pokoju</th>
             </tr>
         </thead>
-        <tbody *ngFor="let resident of residentsList">
-            <tr>
+        <tbody>
+            <!-- <a [routerLink]="['/addResident']"> -->
+            <tr *ngFor="let resident of residentsList" (click)="DetailResident(resident.id)">
                 <td>{{resident.name}}</td>
                 <td>{{resident.surname}}</td>
                 <td>{{resident.room_number}}</td>
             </tr>
+            <!-- </a> -->
         </tbody>
     </table>
 </div>
