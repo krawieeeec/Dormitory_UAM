@@ -1,7 +1,8 @@
 ul {
-    margin: 0px;
+    margin-left: 660px;
     padding: 0px;
     list-style-type: none;
+    min-width: 200px;
 }
 
 li {
@@ -9,15 +10,14 @@ li {
     padding: 0px 30px 0px 0px
 }
 
-#navbar_wrapper {
-    padding: 60px 0px 0px 0px;
-}
-
-.mat-button {
+button {
+    margin: 10px 0px 0px 0px;
+    background: rgba(0, 0, 0, 0.5);
     color: white;
-    font-size: 18px;
-    font-weight: 500;
-    border: 1px solid white;
+    font-size: 20px;
 }
 
-button:hover {}
+button:hover {
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+}

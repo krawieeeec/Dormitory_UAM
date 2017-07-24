@@ -15,10 +15,14 @@ import { EditUserAccountModule } from './edit-user-account/edit-user-account.mod
 import { MainPageModule } from './main-page/main-page.module';
 import { PageNotFoundModule } from './page-not-found/page-not-found.module';
 import { SearchResidentModule } from './search-resident/search-resident.module';
+import { ResidentListModule } from './resident-list/resident-list.module';
 import {FormBuilder, FormGroup, ReactiveFormsModule} from '@angular/forms'; 
 
 //Services
 import { ResidentService } from './shared/resident.service';
+import { DormitoryService } from './shared/dormitory.service';
+//Classes
+
 
 @NgModule({
     declarations: [
@@ -27,10 +31,11 @@ import { ResidentService } from './shared/resident.service';
   imports: [
     BrowserModule, HttpModule, AppRoutingModule,
     AddResidentModule, DormitoryListModule, EditUserAccountModule,
-    MainPageModule, PageNotFoundModule, SearchResidentModule, NgbModule.forRoot(), ReactiveFormsModule
+    MainPageModule, PageNotFoundModule, SearchResidentModule, NgbModule.forRoot(), ReactiveFormsModule, 
+    ResidentListModule
   ],
   exports:[],
-  providers: [ResidentService],
+  providers: [ResidentService, DormitoryService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

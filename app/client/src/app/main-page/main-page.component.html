@@ -1,0 +1,11 @@
+<div class="dropdown">
+    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+    Wybierz Akademik
+    <span class="caret"></span>
+  </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+        <li *ngFor="let dormitory of dormitoryList">
+            <a (click)="SetDormitory(dormitory.dormitoryName)" [routerLink]="['/residentList', dormitory.id]">{{dormitory.dormitoryName}}</a>
+        </li>
+    </ul>
+</div>

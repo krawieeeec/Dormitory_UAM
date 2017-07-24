@@ -1,11 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { DormitoryService } from '../shared/dormitory.service';
 
 @Component({
     selector: 'edit-user-account',
     templateUrl: './edit-user-account.component.html',
-    styleUrls: ['./edit-user-account.component.css'],
+    styleUrls: ['./edit-user-account.component.css']
 })
 
-export class EditUserAccountComponent{
+export class EditUserAccountComponent implements OnInit{
     
+    public choicedDormitory:string;
+
+    constructor(private dormitoryService: DormitoryService){
+        
+    }
+    ngOnInit(){
+        this.choicedDormitory = this.dormitoryService.GetChoicedDormitory();
+        console.log(this.dormitoryService.GetChoicedDormitory());
+    }
 }

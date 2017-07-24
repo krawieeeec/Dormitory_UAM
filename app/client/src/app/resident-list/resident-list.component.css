@@ -1,0 +1,12 @@
+table {
+    color: white;
+}
+
+td {
+    text-align: left;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+tbody:only-child:hover {
+    background: rgba(0, 0, 0, 0.7);
+}

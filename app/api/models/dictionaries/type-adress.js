@@ -1,15 +1,15 @@
 const sequelize = require('sequelize');
 const dbClient = require('../../config/db.js').dbClient;
 
-var typeAdress = dbClient.define('typeAdress', {
+var typeAdressModel = dbClient.define('typeAdress', {
     adress: {type: sequelize.STRING, allowNull: false, unique: true}
-})
+}, {timestamps: false, underscored: true, underscoredAll: true})
 
-typeAdress.TypeAdressAssociations = function(models){
-    typeAdress.hasMany(models['adressResident'], {foreignKey: {allowNull: false, name:'typeAdressID'}});
+typeAdressModel.TypeAdressAssociations = function(models){
+    typeAdressModel.hasMany(models['adressResident'], {foreignKey: {allowNull: false, name:'type_adress_id'}});
 }
 
 module.exports = {
-    TypeAdressModel: typeAdress,
+    TypeAdressModel: typeAdressModel,
     
 }

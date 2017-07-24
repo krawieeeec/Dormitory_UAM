@@ -1,27 +1,28 @@
 const sequelize = require('sequelize');
 const dbClient = require('../../config/db.js').dbClient;
 
-var resident = dbClient.define('resident', {
+var residentModel = dbClient.define('resident', {
     name: { type: sequelize.STRING(30), allowNull: false, unique: false},
     surname: {type: sequelize.STRING(30), allowNull: false, unique: false},
     genre: {type: sequelize.ENUM('male', 'female'), allowNull: false, unique: false},
-    birthDate: {type: sequelize.DATEONLY, allowNull: false, unique: false},
-    birthPlace: {type: sequelize.STRING(30), allowNull:false, unique: false},
-    motherName: {type: sequelize.STRING(30), allowNull: true},
-    fatherName: { type: sequelize.STRING(30), allowNull: true},
+    phoneNumber: {type: sequelize.INTEGER, allowNull: true, unique: false, field: 'phone_number'},
+    birthDate: {type: sequelize.DATEONLY, allowNull: false, unique: false, field: 'birth_date'},
+    birthPlace: {type: sequelize.STRING(30), allowNull:false, unique: false, field: 'birth_place'},
+    motherName: {type: sequelize.STRING(30), allowNull: true, field: 'mother_name'},
+    fatherName: { type: sequelize.STRING(30), allowNull: true, field: 'father_name'},
     pesel: {type: sequelize.STRING(11), allowNull: false }
-})
+}, {timestamps: false, underscored: true, underscoredAll: true})
 
 
 
-resident.ResidentAssociations = function(models) {
-    resident.hasMany(models['document'], {foreignKey: {allowNull: false, name:'residentID'}});
-    resident.hasMany(models['stayResident'], {foreignKey:{allowNull: false, name:'residentID'}});
-    resident.hasMany(models['accountResident'], {foreignKey: {allowNull: false, name:'residentID'}});
-    resident.hasMany(models['adressResident'], {foreignKey: {allowNull: false, name:'residentID'}});
+residentModel.ResidentAssociations = function(models) {
+    residentModel.hasMany(models['document'], {foreignKey: {allowNull: false, name:'resident_id'}});
+    residentModel.hasMany(models['stayResident'], {foreignKey:{allowNull: false, name:'resident_id'}});
+    residentModel.hasMany(models['accountResident'], {foreignKey: {allowNull: false, name:'resident_id'}});
+    residentModel.hasMany(models['adressResident'], {foreignKey: {allowNull: false, name:'resident_id'}});
     
 }
 
 module.exports = {
-    ResidentModel: resident
+    ResidentModel: residentModel
 }

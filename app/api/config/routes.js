@@ -23,6 +23,7 @@ router.route('/resident/:id/update').put(residentCtrl.UpdateResidentByID);
 //dormitoryController
 router.use(dormitoryCtrl.FormResponseObject);
 router.route('/dormitory').get(dormitoryCtrl.GetAllDormitories);
+router.route('/dormitory/:id').get(dormitoryCtrl.GetAllResidentsOfDormitory);
 
 
 module.exports = router;

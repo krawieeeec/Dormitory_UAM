@@ -1,23 +1,23 @@
 const sequelize = require('sequelize');
 const dbClient = require('../../config/db.js').dbClient;
 
-var adressResident = dbClient.define('adressResident', {
+var adressResidentModel = dbClient.define('adressResident', {
     country: { type: sequelize.STRING(15), allowNull: false},
     street: { type: sequelize.STRING(40), allowNull: true},
-    houseNumber: { type: sequelize.TEXT, allowNull: false},
-    apartmentNumber: { type: sequelize.TEXT, allowNull: true},
-    postCode: { type: sequelize.STRING(10), allowNull: false},
+    houseNumber: { type: sequelize.TEXT, allowNull: false, field: 'house_number'},
+    apartmentNumber: { type: sequelize.TEXT, allowNull: true, field: 'apartment_number'},
+    postCode: { type: sequelize.STRING(10), allowNull: false, field: 'post_code'},
     city: { type: sequelize.STRING(30), allowNull: false}
-}) 
+}, {timestamps: false, underscored: true, underscoredAll: true}) 
 
     
-adressResident.AdressResidentAssociations = function(models){
+adressResidentModel.AdressResidentAssociations = function(models){
 
-    adressResident.hasMany(models['stayResident'], {foreignKey: {allowNull: true, name:'tempAdressID'}});
-    adressResident.hasMany(models['stayResident'], {foreignKey: {allowNull: true, name:'regularAdressID'}});
+    adressResidentModel.hasMany(models['stayResident'], {foreignKey: {allowNull: true, name:'temp_adress_id'}});
+    adressResidentModel.hasMany(models['stayResident'], {foreignKey: {allowNull: true, name:'regular_adress_id'}});
    
 }
 
 module.exports = {
-    AdressResidentModel : adressResident
+    AdressResidentModel : adressResidentModel
 }
