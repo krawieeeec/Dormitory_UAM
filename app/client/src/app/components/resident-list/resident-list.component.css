@@ -8,6 +8,14 @@ table {
     background: rgba(0, 0, 0, 0.7);
 } */
 
+tbody>tr {
+    background: rgba(0, 0, 0, 0.0);
+}
+
+tbody>tr:hover {
+    background: rgba(0, 0, 0, 0.5);
+}
+
 td {
     text-align: left;
     background: rgba(0, 0, 0, 0.5);
