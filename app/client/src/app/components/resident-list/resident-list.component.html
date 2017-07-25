@@ -8,10 +8,24 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let resident of residentsList" (click)="DetailResident(resident.id)">
+            <tr *ngFor="let resident of residentsList">
                 <td>{{resident.name}}</td>
                 <td>{{resident.surname}}</td>
                 <td>{{resident.room_number}}</td>
+                <td>
+                    <button type="button" class="btn btn-default" aria-label="Left Align">
+  <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+</button>
+
+                    <button type="button" class="btn btn-default btn-lg">
+  <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+</button>
+                    <button type="button" class="btn btn-default btn-lg">
+  <span class="glyphicon glyphicon-plane"></span> </button>
+                    <button type="button" class="btn btn-default btn-lg">
+  <span class="glyphicon glyphicon-lock" aria-hidden="true"></span> 
+</button>
+                </td>
             </tr>
             <!-- </a> -->
         </tbody>

@@ -8,16 +8,31 @@ table {
     background: rgba(0, 0, 0, 0.7);
 } */
 
-tbody>tr {
-    background: rgba(0, 0, 0, 0.0);
+.btn {
+    padding: 10px 13px 7px 12px;
+}
+
+button {
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+}
+
+button:hover {
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+}
+
+button:focus {
+    outline: none;
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
 }
 
 tbody>tr:hover {
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.3);
 }
 
 td {
     text-align: left;
-    background: rgba(0, 0, 0, 0.5);
-    cursor: pointer;
+    background: rgba(0, 0, 0, 0.3);
 }
