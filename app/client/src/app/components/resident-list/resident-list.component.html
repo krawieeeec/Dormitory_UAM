@@ -5,6 +5,7 @@
                 <th>Imię</th>
                 <th>Nazwisko</th>
                 <th>Numer pokoju</th>
+                <th>Zarządzanie</th>
             </tr>
         </thead>
         <tbody>
@@ -13,16 +14,16 @@
                 <td>{{resident.surname}}</td>
                 <td>{{resident.room_number}}</td>
                 <td>
-                    <button type="button" class="btn btn-default" aria-label="Left Align">
-  <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                    <button type="button" data-toggle="tooltip" title="Edytuj Konto" class="btn btn-default" aria-label="Left Align">
+  <span  class="glyphicon glyphicon-edit" aria-hidden="true"></span>
 </button>
 
-                    <button type="button" class="btn btn-default btn-lg">
+                    <button type="button" data-toggle="tooltip" title="Zresetuj hasło" class="btn btn-default btn-lg">
   <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
 </button>
-                    <button type="button" class="btn btn-default btn-lg">
+                    <button type="button" data-toggle="tooltip" title="Wymelduj" class="btn btn-default btn-lg">
   <span class="glyphicon glyphicon-plane"></span> </button>
-                    <button type="button" class="btn btn-default btn-lg">
+                    <button type="button" data-toggle="tooltip" title="Zablokuj konto" class="btn btn-default btn-lg">
   <span class="glyphicon glyphicon-lock" aria-hidden="true"></span> 
 </button>
                 </td>

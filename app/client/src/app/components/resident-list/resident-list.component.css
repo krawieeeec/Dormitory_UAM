@@ -36,3 +36,9 @@ td {
     text-align: left;
     background: rgba(0, 0, 0, 0.3);
 }
+
+th {
+    font-size: 23px;
+}
+
+span {}
