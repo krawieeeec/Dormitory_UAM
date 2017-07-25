@@ -21,8 +21,14 @@ export class ResidentListComponent implements OnInit{
 
     ngOnInit(): void {
         this.route.paramMap
-    .switchMap((params: ParamMap) => this.dormitoryService.GetResidentsOfCurrentDormitory(+params.get('id')))
-    .subscribe(residents => this.residentsList = residents);
+        .switchMap((params: ParamMap) => this.dormitoryService.GetResidentsOfCurrentDormitory(+params.get('id')))
+        .subscribe(residents => {
+            if(residents.length == 0){
+                this.residentsList = [];
+            }else{
+                this.residentsList = residents
+            }
+        });
     }
 
     DetailResident(residentId: number): void{

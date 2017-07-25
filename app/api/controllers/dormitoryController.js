@@ -42,7 +42,7 @@ var dormitoryController = {
                         res.send(JSON.stringify(residents));
                     }else{
                         res.status(200);
-                        res.send('There aren\' any entries')
+                        res.send([]);
                     }
                 })
     }

@@ -15,7 +15,6 @@ export class EditUserAccountComponent implements OnInit{
         
     }
     ngOnInit(){
-        this.choicedDormitory = this.dormitoryService.GetChoicedDormitory();
-        console.log(this.dormitoryService.GetChoicedDormitory());
+        
     }
 }
