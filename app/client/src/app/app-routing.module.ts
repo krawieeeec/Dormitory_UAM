@@ -7,13 +7,19 @@ import { SearchResidentComponent } from './components/search-resident/search-res
 import { ResidentListComponent } from './components/resident-list/resident-list.component';
 import { MainPageComponent } from './components/main-page/main-page.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { ResidentEditComponent } from './components/resident-list/resident-edit/resident-edit.component';
+import { ResidentPersonalDataComponent} from './components/resident-list/resident-edit/resident-personal-data/resident-personal-data.component';
 import { AppComponent } from './app.component';
 
 const routes: Routes = [
   { path: 'addResident', component: AddResidentComponent },
   { path: 'editUserAccount', component: EditUserAccountComponent },
   { path: 'searchResident', component: SearchResidentComponent },
-  { path: 'residentList/:id', component: ResidentListComponent },
+  { path: 'residentList/:id', component: ResidentListComponent,
+    children: [
+      { path: 'edit', component: ResidentEditComponent},
+    ] 
+  },
   { path: 'main', component: MainPageComponent },
   
   { path: '', redirectTo: '/main', pathMatch: 'full' },

@@ -1,0 +1,49 @@
+.container {
+    width: 100%;
+}
+
+.nav-tabs {
+    justify-content: center;
+    display: flex;
+    text-transform: capitalize;
+}
+
+.nav-tabs>li>a:hover {
+    text-decoration: none;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    /* border: 1px solid transparent; */
+}
+
+a,
+.nav-tabs>li.active>a {
+    text-decoration: none;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+}
+
+a:hover,
+.nav-tabs>li.active>a:hover {
+    text-decoration: none;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    outline-width: 0;
+}
+
+a:focus,
+.nav-tabs>li.active>a:focus {
+    outline: none;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+}
+
+a:active,
+.nav-tabs>li.active>a:active {
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+}
+
+.container {
+    width: 80%;
+    font-size: 20px;
+}

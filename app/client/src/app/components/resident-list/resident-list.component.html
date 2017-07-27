@@ -1,5 +1,5 @@
 <div class="container">
-    <table class="table table-hover">
+    <table class="table table-hover" *ngIf="showTable">
         <thead>
             <tr>
                 <th>Imię</th>
@@ -14,21 +14,24 @@
                 <td>{{resident.surname}}</td>
                 <td>{{resident.room_number}}</td>
                 <td>
-                    <button type="button" data-toggle="tooltip" title="Edytuj Konto" class="btn btn-default" aria-label="Left Align">
+                    <button type="button" [routerLink]="['edit']" data-toggle="tooltip" title="Edytuj Konto" class="btn btn-default" aria-label="Left Align">
   <span  class="glyphicon glyphicon-edit" aria-hidden="true"></span>
 </button>
 
                     <button type="button" data-toggle="tooltip" title="Zresetuj hasło" class="btn btn-default btn-lg">
   <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
 </button>
-                    <button type="button" data-toggle="tooltip" title="Wymelduj" class="btn btn-default btn-lg">
+                    <button (click)="ShowTable()" type="button" data-toggle="tooltip" title="Wymelduj" class="btn btn-default btn-lg">
   <span class="glyphicon glyphicon-plane"></span> </button>
                     <button type="button" data-toggle="tooltip" title="Zablokuj konto" class="btn btn-default btn-lg">
   <span class="glyphicon glyphicon-lock" aria-hidden="true"></span> 
 </button>
                 </td>
             </tr>
-            <!-- </a> -->
         </tbody>
     </table>
+    <div id="router_wrapper">
+        <router-outlet (showTable)="showTable = $event"></router-outlet>
+    </div>
+
 </div>

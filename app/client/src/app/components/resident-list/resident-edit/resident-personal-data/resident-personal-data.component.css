@@ -1,0 +1,9 @@
+.container {
+    width: 100%;
+}
+
+label {
+    color: white;
+    font-weight: inherit;
+    font-size: 18px;
+}

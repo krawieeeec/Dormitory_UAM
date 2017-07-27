@@ -29,14 +29,12 @@ export class NavbarComponent implements OnInit{
     }
 
     SetDormitory(dormitoryName: string, dormitoryId: string){
-        console.log(dormitoryId);
         this.chosenDormitoryName.emit(dormitoryName);
         this.userSession.SetChosenDormitory(dormitoryName, dormitoryId);
         this.chosenDormitoryId = this.userSession.GetChosenDormitoryId();
     }
 
     ShowResidentList(){
-        console.log(this.chosenDormitoryId);
         if(!(this.chosenDormitoryId == null)){
             this.router.navigate(['./residentList', this.chosenDormitoryId])
         }

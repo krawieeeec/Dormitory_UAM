@@ -15,7 +15,7 @@ import { MainPageModule } from './components/main-page/main-page.module';
 import { PageNotFoundModule } from './components/page-not-found/page-not-found.module';
 import { SearchResidentModule } from './components/search-resident/search-resident.module';
 import { ResidentListModule } from './components/resident-list/resident-list.module';
-import { NavbarComponent} from './layout-components/navbar/navbar.component';
+import { NavbarModule } from './layout-components/navbar/navbar.module';
 import {FormBuilder, FormGroup, ReactiveFormsModule} from '@angular/forms'; 
 
 //Services
@@ -27,14 +27,14 @@ import { UserSessionService } from './shared/user-session.service';
 
 @NgModule({
     declarations: [
-    NavbarComponent, AppComponent
+      AppComponent
   ],
   imports: [
-    BrowserModule, HttpModule, AppRoutingModule,
+    BrowserModule, HttpModule,
     AddResidentModule, EditUserAccountModule,
     MainPageModule, PageNotFoundModule, SearchResidentModule, NgbModule.forRoot(), ReactiveFormsModule, 
-    ResidentListModule
-  ],
+    ResidentListModule, NavbarModule, AppRoutingModule
+    ],
   exports:[],
   providers: [ResidentService, DormitoryService, UserSessionService ],
   bootstrap: [AppComponent]
