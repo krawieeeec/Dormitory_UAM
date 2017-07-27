@@ -14,7 +14,7 @@
                 <td>{{resident.surname}}</td>
                 <td>{{resident.room_number}}</td>
                 <td>
-                    <button type="button" [routerLink]="['edit']" data-toggle="tooltip" title="Edytuj Konto" class="btn btn-default" aria-label="Left Align">
+                    <button type="button" [routerLink]="['edit', resident.id]" data-toggle="tooltip" title="Edytuj Konto" class="btn btn-default" aria-label="Left Align">
   <span  class="glyphicon glyphicon-edit" aria-hidden="true"></span>
 </button>
 

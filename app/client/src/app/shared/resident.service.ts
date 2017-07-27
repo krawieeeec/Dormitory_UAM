@@ -17,11 +17,19 @@ export class ResidentService{
 
     }
 
-    getResidents(): Promise<Resident[]>{
+    GetResidents(): Promise<Resident[]>{
         return this.http.get(this.residentUrl)
             .toPromise()
             .then(response => 
                 response.json() as Resident[])
+            .catch();
+    }
+    
+    GetResidentById(residentId): Promise<Resident>{
+        return this.http.get(this.residentUrl+'/'+residentId)
+            .toPromise()
+            .then(response =>
+                response.json() as Resident)
             .catch();
     }
     

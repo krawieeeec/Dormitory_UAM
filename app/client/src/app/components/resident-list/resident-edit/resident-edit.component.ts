@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Output, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { Location } from '@angular/common';
+import { ResidentService } from '../../../shared/resident.service';
 
 @Component({
   selector: 'resident-edit',
@@ -8,14 +10,21 @@ import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 })
 export class ResidentEditComponent implements OnInit {
 
+  private residentId;
+
   @Output() showTable = new EventEmitter<boolean>();
 
-  constructor(private router: Router, private route: ActivatedRoute) { 
+  constructor(private router: Router, private route: ActivatedRoute, private location: Location) { 
 
-    
   }
   ngOnInit() {
+
     this.showTable.emit(false);
+    this.residentId = this.route.snapshot.params.id;
+    
   }
 
+  GoBack():void{
+    this.location.back();
+  }
 }

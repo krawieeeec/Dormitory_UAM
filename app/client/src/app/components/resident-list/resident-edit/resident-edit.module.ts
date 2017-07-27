@@ -8,12 +8,14 @@ import { ResidentEditComponent } from './resident-edit.component';
 import { ResidentPersonalDataModule } from './resident-personal-data/resident-personal-data.module';
 import { ResidentDocumentModule } from './resident-document/resident-document.module';
 import { ResidentAdressModule } from './resident-adress/resident-adress.module';
+import { ResidentDormitoryModule } from './resident-dormitory/resident-dormitory.module';
 //Services
 import {ResidentEditService } from './resident-edit.service';
 
 @NgModule({
     imports:[
-        CommonModule, ResidentPersonalDataModule, ResidentAdressModule, ResidentDocumentModule, AppRoutingModule
+        CommonModule, ResidentPersonalDataModule, ResidentAdressModule, ResidentDocumentModule, 
+        ResidentDormitoryModule, AppRoutingModule
     ],
     declarations: [
         ResidentEditComponent    

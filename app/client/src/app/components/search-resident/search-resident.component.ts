@@ -16,7 +16,7 @@ export class SearchResidentComponent{
     }
 
     getResidents(): void {
-        this.residentService.getResidents()
+        this.residentService.GetResidents()
             .then(residents => {
                 this.residents = residents;
             });

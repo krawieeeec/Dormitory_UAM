@@ -17,7 +17,7 @@ const routes: Routes = [
   { path: 'searchResident', component: SearchResidentComponent },
   { path: 'residentList/:id', component: ResidentListComponent,
     children: [
-      { path: 'edit', component: ResidentEditComponent},
+      { path: 'edit/:id', component: ResidentEditComponent},
     ] 
   },
   { path: 'main', component: MainPageComponent },

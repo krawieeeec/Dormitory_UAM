@@ -1,6 +1,7 @@
 //core modules of app
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 //root component
@@ -30,7 +31,7 @@ import { UserSessionService } from './shared/user-session.service';
       AppComponent
   ],
   imports: [
-    BrowserModule, HttpModule,
+    BrowserModule, HttpModule, FormsModule,
     AddResidentModule, EditUserAccountModule,
     MainPageModule, PageNotFoundModule, SearchResidentModule, NgbModule.forRoot(), ReactiveFormsModule, 
     ResidentListModule, NavbarModule, AppRoutingModule

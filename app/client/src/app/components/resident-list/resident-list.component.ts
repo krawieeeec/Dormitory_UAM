@@ -21,6 +21,7 @@ export class ResidentListComponent implements OnInit, DoCheck{
     }
 
     ngOnInit(): void {
+        
         this.showTable = true;
         this.route.paramMap
         .switchMap((params: ParamMap) => this.dormitoryService.GetResidentsOfCurrentDormitory(+params.get('id')))
@@ -34,7 +35,7 @@ export class ResidentListComponent implements OnInit, DoCheck{
     }
 
     ngDoCheck(){
-        
+        console.log('resident-list');
         if(this.router.url.indexOf('/edit') > -1){
             this.showTable = false;
          }else if((this.router.url.indexOf('/edit') == - 1)  || (this.showTable === undefined)){

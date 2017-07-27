@@ -1,19 +1,27 @@
 <div class="container">
     <ul class="nav nav-tabs">
-        <li class="active"><a data-toggle="tab" href="#personalData">Dane Osobowe</a></li>
-        <li><a data-toggle="tab" href="#placeOfResidence">Miejsce Zamieszkania</a></li>
-        <li><a data-toggle="tab" href="#listOfDocuments">Dokumenty</a></li>
+        <li class="active"><a data-toggle="tab" href="#residentPersonalData">Dane Osobowe</a></li>
+        <li><a data-toggle="tab" href="#residentAdress">Miejsce Zamieszkania</a></li>
+        <li><a data-toggle="tab" href="#residentDocument">Dokument</a></li>
+        <li><a data-toggle="tab" href="#residentDormitory">Akademik</a></li>
     </ul>
 
     <div class="tab-content">
-        <div id="personalData" class="tab-pane fade in active">
-            <resident-personal-data></resident-personal-data>
+        <div id="residentPersonalData" class="tab-pane fade in active">
+            <resident-personal-data [residentId]="residentId"></resident-personal-data>
         </div>
-        <div id="placeOfResidence" class="tab-pane">
+        <div id="residentAdress" class="tab-pane">
             <resident-adress></resident-adress>
         </div>
-        <div id="listOfDocuments" class="tab-pane">
+        <div id="residentDocument" class="tab-pane">
             <resident-document></resident-document>
         </div>
+        <div id="residentDormitory" class="tab-pane">
+            <resident-dormitory></resident-dormitory>
+        </div>
+    </div>
+    <div id="button_wrapper">
+        <button (click)="GoBack()" type="button" class="btn btn-default">Wstecz</button>
+        <button type="button" class="btn btn-default">Edytuj</button>
     </div>
 </div>
