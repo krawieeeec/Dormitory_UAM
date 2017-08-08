@@ -25,7 +25,7 @@ export class ResidentService{
             .catch();
     }
     
-    GetResidentById(residentId): Promise<Resident>{
+    GetResidentPersonalDataById(residentId): Promise<Resident>{
         return this.http.get(this.residentUrl+'/'+residentId)
             .toPromise()
             .then(response =>
@@ -33,4 +33,12 @@ export class ResidentService{
             .catch();
     }
     
+    UpdateResident(resident, residentId): Promise<Resident>{
+        console.log(resident);
+        return this.http.put(this.residentUrl +'/'+ residentId +'/update', JSON.stringify(resident), 
+        {headers: this.headers})
+            .toPromise()
+            .then(() =>  resident)
+            .catch();
+    }
 }

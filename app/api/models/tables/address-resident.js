@@ -1,7 +1,7 @@
 const sequelize = require('sequelize');
 const dbClient = require('../../config/db.js').dbClient;
 
-var adressResidentModel = dbClient.define('adressResident', {
+var addressResidentModel = dbClient.define('addressResident', {
     country: { type: sequelize.STRING(15), allowNull: false},
     street: { type: sequelize.STRING(40), allowNull: true},
     houseNumber: { type: sequelize.TEXT, allowNull: false, field: 'house_number'},
@@ -11,13 +11,13 @@ var adressResidentModel = dbClient.define('adressResident', {
 }, {timestamps: false, underscored: true, underscoredAll: true}) 
 
     
-adressResidentModel.AdressResidentAssociations = function(models){
+addressResidentModel.AdressResidentAssociations = function(models){
 
-    adressResidentModel.hasMany(models['stayResident'], {foreignKey: {allowNull: true, name:'temp_adress_id'}});
-    adressResidentModel.hasMany(models['stayResident'], {foreignKey: {allowNull: true, name:'regular_adress_id'}});
+    addressResidentModel.hasMany(models['stayResident'], {foreignKey: {allowNull: true, name:'temp_address_id'}});
+    addressResidentModel.hasMany(models['stayResident'], {foreignKey: {allowNull: true, name:'regular_address_id'}});
    
 }
 
 module.exports = {
-    AdressResidentModel : adressResidentModel
+    AddressResidentModel : addressResidentModel
 }

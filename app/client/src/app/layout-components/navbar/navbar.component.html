@@ -7,7 +7,7 @@
   </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
             <li *ngFor="let dormitory of dormitoryList">
-                <a (click)="SetDormitory(dormitory.dormitoryName, dormitory.id)" [routerLink]="['/main']">{{dormitory.dormitoryName}}</a>
+                <a (click)="SetDormitory(dormitory.name, dormitory.id)" (click)="ShowResidentList()" [routerLink]="['/main']">{{dormitory.name}}</a>
             </li>
         </ul>
     </div>

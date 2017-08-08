@@ -1,6 +1,6 @@
 .container {
     width: 100%;
-    margin-left: 60px;
+    display: table-cell;
 }
 
 .form-group {
@@ -25,4 +25,5 @@ form {
 
 #form_wrapper {
     display: flex;
+    margin-bottom: 20px;
 }

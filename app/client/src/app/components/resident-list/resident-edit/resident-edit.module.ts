@@ -7,14 +7,14 @@ import { ResidentEditComponent } from './resident-edit.component';
 //Components Child 
 import { ResidentPersonalDataModule } from './resident-personal-data/resident-personal-data.module';
 import { ResidentDocumentModule } from './resident-document/resident-document.module';
-import { ResidentAdressModule } from './resident-adress/resident-adress.module';
+import { ResidentAddressModule } from './resident-address/resident-address.module';
 import { ResidentDormitoryModule } from './resident-dormitory/resident-dormitory.module';
 //Services
 import {ResidentEditService } from './resident-edit.service';
 
 @NgModule({
     imports:[
-        CommonModule, ResidentPersonalDataModule, ResidentAdressModule, ResidentDocumentModule, 
+        CommonModule, ResidentPersonalDataModule, ResidentAddressModule, ResidentDocumentModule, 
         ResidentDormitoryModule, AppRoutingModule
     ],
     declarations: [

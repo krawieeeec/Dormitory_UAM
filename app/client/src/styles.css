@@ -1,11 +1,25 @@
 /* You can add global styles to this file, and also import other style files */
 
-html,
-body {
+html {
     height: 100%;
-    margin: 0px;
-    padding: 0px;
+}
+
+body {
+    position: relative;
+    min-height: 100%;
     font-size: 18px;
+    overflow: hidden;
+}
+
+.alert {
+    font-size: 12px;
+    margin: 5px 0px 0px 0px;
+    /* text-align: center; */
+    /* margin-top: 5px; */
+}
+
+.ng-dirty.ng-invalid.ng-touched {
+    margin: 0px;
 }
 
 

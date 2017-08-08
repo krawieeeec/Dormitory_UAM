@@ -30,7 +30,7 @@ export class DormitoryService{
             ).catch();
     }
 
-    GetResidentsOfCurrentDormitory(dormitoryId:number): Promise<Resident[]>{
+    GetResidentsOfCurrentDormitoryById(dormitoryId:number): Promise<Resident[]>{
         
         return this.http.get(this.dormitoryUrl +'/' + dormitoryId.toString())
             .toPromise()

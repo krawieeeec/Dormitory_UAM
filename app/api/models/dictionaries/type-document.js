@@ -6,7 +6,7 @@ var typeDocumentModel = dbClient.define('typeDocument', {
 }, {timestamps: false, underscored: true, underscoredAll: true})
    
 typeDocumentModel.TypeDocumentAssociations = function(models){
-    typeDocumentModel.hasMany(models['document'], {foreignKey: {allowNull: false, name:'type_document_id'}});
+    typeDocumentModel.hasMany(models['document'], {foreignKey: {allowNull: false, name:'document_type_id'}});
 }
 
 module.exports = {

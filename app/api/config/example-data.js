@@ -2,7 +2,7 @@ const dbClient = require('../app.js').SynchronizationTables;
 
 //Tables
 const accountResidentTable = require('../models/tables/account-resident.js').AccountResidentModel;
-const adressResidentTable = require('../models/tables/adress-resident.js').AdressResidentModel;
+const addressResidentTable = require('../models/tables/address-resident.js').AddressResidentModel;
 const documentTable = require('../models/tables/document.js').DocumentModel;
 const residentTable = require('../models/tables/resident.js').ResidentModel;
 const stayResidentTable = require('../models/tables/stay-resident.js').StayResidentModel;
@@ -10,7 +10,7 @@ const stayResidentTable = require('../models/tables/stay-resident.js').StayResid
 const cityTable = require('../models/dictionaries/city.js').CityModel;
 const citzenshipCodeTable = require('../models/dictionaries/citzenship-code.js').CitzenshipCodeModel;
 const dormitoryTable = require('../models/dictionaries/dormitory.js').DormitoryModel;
-const typeAdressTable = require('../models/dictionaries/type-adress.js').TypeAdressModel;
+const typeAddressTable = require('../models/dictionaries/type-address.js').TypeAddressModel;
 const typeDocumentTable = require('../models/dictionaries/type-document.js').TypeDocumentModel;
 
 dbClient.drop().then(() => {
@@ -19,13 +19,13 @@ dbClient.drop().then(() => {
         cityTable.count().then(amountData =>{
             if(amountData >= 0){
                 cityTable.bulkCreate([
-                    {nameCity: 'Poznań', postCode:'60-697', region: 'Wielkopolska'},
-                    {nameCity: 'Warszawa', postCode:'43-412', region: 'Mazowsze'},
-                    {nameCity: 'Bydgoszcz', postCode: '71-234', region: 'Kujawsko-Pomorskie'},
-                    {nameCity: 'Inowrocław', postCode: '88-100', region: 'Kujawsko-Pomorskie'},
-                    {nameCity: 'Olsztyn', postCode: '37-234', region: 'Warminsko-Mazurskie'},
-                    {nameCity: 'Szczecin', postCode: '58-295', region: 'Zachodnie-Pomorskie'},
-                    {nameCity: 'Zakopane', postCode: '29-485', region: 'Małopolska'}
+                    {name: 'Poznań', postCode:'60-697', region: 'Wielkopolska'},
+                    {name: 'Warszawa', postCode:'43-412', region: 'Mazowsze'},
+                    {name: 'Bydgoszcz', postCode: '71-234', region: 'Kujawsko-Pomorskie'},
+                    {name: 'Inowrocław', postCode: '88-100', region: 'Kujawsko-Pomorskie'},
+                    {name: 'Olsztyn', postCode: '37-234', region: 'Warminsko-Mazurskie'},
+                    {name: 'Szczecin', postCode: '58-295', region: 'Zachodnie-Pomorskie'},
+                    {name: 'Zakopane', postCode: '29-485', region: 'Małopolska'}
                 ]).catch(() => {
                     console.log('CITY TABLE - ERROR');
                 }).then(() => {
@@ -74,9 +74,9 @@ dbClient.drop().then(() => {
                 dormitoryTable.count().then(amountData => {
                     if(amountData >= 0){
                         dormitoryTable.bulkCreate([
-                            {dormitoryName: 'Jagienka', adress: 'Piątkowska 80', temporaryAccomodation: ''},
-                            {dormitoryName: 'Jowita', adress: 'Zwierzyniecka 7', temporaryAccomodation: ''},
-                            {dormitoryName: 'Babilon', adress: 'Żniwna 8', temporaryAccomodation: ''}
+                            {name: 'Jagienka', address: 'Piątkowska 80'},
+                            {name: 'Jowita', address: 'Zwierzyniecka 7'},
+                            {name: 'Babilon', address: 'Żniwna 8'}
                         ]).then(() => {
                             return dormitoryTable.findAll();
                         }).then(dormitories => {
@@ -91,18 +91,18 @@ dbClient.drop().then(() => {
                     console.log('Dormitory Table - ERROR!');
                     console.log(error);
                 }).then(() => {
-                    typeAdressTable.count().then(amountData =>{
+                    typeAddressTable.count().then(amountData =>{
                         if(amountData >= 0){
-                            typeAdressTable.bulkCreate([
-                                {adress: 'Stały'},
-                                {adress: 'Tymczasowy'}
+                            typeAddressTable.bulkCreate([
+                                {address: 'Stały'},
+                                {address: 'Tymczasowy'}
                             ]).then(() => {
-                                return typeAdressTable.findAll();
-                            }).then(adresses =>{
+                                return typeAddressTable.findAll();
+                            }).then(addresses =>{
                                 console.log('******************************************************');
                                 console.log('Type_Adress Table')
-                                adresses.forEach(function(adress){
-                                    console.log(adress.dataValues);
+                                addresses.forEach(function(address){
+                                    console.log(address.dataValues);
                                 })
                             })
                         }
@@ -154,23 +154,23 @@ dbClient.drop().then(() => {
                                     })
                                 }
                             }).then(() => {
-                                adressResidentTable.count().then(amountData => {
+                                addressResidentTable.count().then(amountData => {
                                     if(amountData >= 0){
-                                        adressResidentTable.bulkCreate([
+                                        addressResidentTable.bulkCreate([
                                             {country: 'Polska', street: 'Czarlinskiego', houseNumber: '9', 
                                             apartmentNumber:'6', postCode:'88-100', city:'Inowrocław', 
-                                            type_adress_id:'1', resident_id: 1}, 
+                                            address_type_id:'1', resident_id: 1}, 
                                             {country: 'Polska', street: 'Wyspiańskiego', houseNumber: '54', 
                                             apartmentNumber:'64', postCode:'60-242', city:'Poznań', 
-                                            type_adress_id:'2', resident_id: 2}, 
+                                            address_type_id:'2', resident_id: 2}, 
                                             {country: 'Polska', street: 'Warszawska', houseNumber: '12', 
                                             apartmentNumber:'84', postCode:'28-532', city:'Wrocław', 
-                                            type_adress_id:'2', resident_id: 3}, 
+                                            address_type_id:'2', resident_id: 3}, 
                                             {country: 'Polska', street: 'Piłsudzkiego', houseNumber: '2', 
                                             apartmentNumber:'98', postCode:'12-434', city:'Olsztyn', 
-                                            type_adress_id:'2', resident_id: 4}
+                                            address_type_id:'2', resident_id: 4}
                                         ]).then(() => {
-                                            return adressResidentTable.findAll();
+                                            return addressResidentTable.findAll();
                                         }).then(adresses => {
                                             console.log('******************************************************');
                                             console.log('Adress_Residents Table')
@@ -183,14 +183,14 @@ dbClient.drop().then(() => {
                                     documentTable.count().then(amountData =>{
                                         if(amountData >=0) {
                                             documentTable.bulkCreate([
-                                                {documentName: 'Dowód Tożsamosci', releaseDate: '2016-08-02', expirationDate: '2020-02-19', 
-                                                issuingCountry: 'Polska', type_document_id: '1', resident_id:'1'}, 
-                                                {documentName: 'Paszport', releaseDate: '2014-02-12', expirationDate: '2018-09-22', 
-                                                issuingCountry: 'Polska', type_document_id: '2', resident_id:'3'}, 
-                                                {documentName: 'Niemiecki dowód tożsamości', releaseDate:'2012-11-29', expirationDate: '2023-05-11', 
-                                                issuingCountry: 'Niemcy', type_document_id: '1', resident_id:'4'}, 
-                                                {documentName: 'Karta Polaka', releaseDate: '2017-06-20', expirationDate: '2028-03-16', 
-                                                issuingCountry: 'Ukraina', type_document_id: '3', resident_id:'2'}, 
+                                                {releaseDate: '2016-08-02', expirationDate: '2020-02-19', 
+                                                issuingCountry: 'Polska', document_type_id: '1', resident_id:'1'}, 
+                                                {releaseDate: '2014-02-12', expirationDate: '2018-09-22', 
+                                                issuingCountry: 'Polska', document_type_id: '2', resident_id:'3'}, 
+                                                {releaseDate:'2012-11-29', expirationDate: '2023-05-11', 
+                                                issuingCountry: 'Niemcy', document_type_id: '1', resident_id:'4'}, 
+                                                {releaseDate: '2017-06-20', expirationDate: '2028-03-16', 
+                                                issuingCountry: 'Ukraina', document_type_id: '3', resident_id:'2'}, 
                                             ]).then(() => {
                                                 return documentTable.findAll();
                                             }).then(documents =>{
@@ -206,19 +206,19 @@ dbClient.drop().then(() => {
                                             if(amountData >=0){
                                                 stayResidentTable.bulkCreate([
 
-                                                    {dateOfArrival:'2016-05-12', timeVisit:'2016-05-13', dateOfDeparture: '2016-08-12', dateOfTempDeparture: '2016-09-23', 
-                                                     forecastCheckOut:'2016-09-12', dateCheckOut:'2016-09-15', roomNumber:'142', dataCrossRP:'', comments:'Brak zastrzeżeń', 
-                                                     dormitory_id:'1', type_adress_id:'1', regular_adress_id:'2', document_id:'1', resident_id: '2'},
-                                                    {dateOfArrival:'2014-12-11', timeVisit:'2014-09-15', dateOfDeparture:'2014-02-19', dateOfTempDeparture: '2016-03-20', 
-                                                     forecastCheckOut:'2020-11-02', dateCheckOut:'2015-03-22', roomNumber:'9', dataCrossRP:'', comments:'Nie potrafi sprzątać po sobie', 
-                                                     dormitory_id:'3', type_adress_id:'3', regular_adress_id:'1', document_id:'3', resident_id: '5'},
-                                                    {dateOfArrival:'2014-05-01', timeVisit:'2014-04-21', dateOfDeparture:'2014-08-22', dateOfTempDeparture: '2014-08-20', 
-                                                    forecastCheckOut:'2014-08-19', dateCheckOut:'2014-05-11', roomNumber:'1', dataCrossRP:'2011-03-03', comments:'Brak zastrzeżeń', 
-                                                    dormitory_id:'3', type_adress_id:'2', regular_adress_id:'1', document_id:'3', resident_id: '5'},
-                                                    {dateOfArrival:'2010-04-09', timeVisit:'2010-04-06', dateOfDeparture:'2010-09-20', dateOfTempDeparture: '2010-08-12', 
-                                                    forecastCheckOut:'2010-10-10', dateCheckOut:'2011-05-15', roomNumber:'42', dataCrossRP:'2010-05-04', comments:'Zdemolowany pokój', 
+                                                    {dateOfArrival:'2016-05-12', dateOfDeparture: '2016-08-12', dateOfTempDeparture: '2016-09-23', 
+                                                     roomNumber:'142', dataCrossRP:'', comments:'Brak zastrzeżeń', 
+                                                     dormitory_id:'1', address_type_id:'1', regular_adress_id:'2', document_id:'1', resident_id: '2'},
+                                                    {dateOfArrival:'2014-12-11', dateOfDeparture:'2014-02-19', dateOfTempDeparture: '2016-03-20', 
+                                                     roomNumber:'9', dataCrossRP:'', comments:'Nie potrafi sprzątać po sobie', 
+                                                     dormitory_id:'3', address_type_id:'3', regular_adress_id:'1', document_id:'3', resident_id: '5'},
+                                                    {dateOfArrival:'2014-05-01', dateOfDeparture:'2014-08-22', dateOfTempDeparture: '2014-08-20', 
+                                                     roomNumber:'1', dataCrossRP:'2011-03-03', comments:'Brak zastrzeżeń', 
+                                                    dormitory_id:'3', address_type_id:'2', regular_adress_id:'1', document_id:'3', resident_id: '5'},
+                                                    {dateOfArrival:'2010-04-09', dateOfDeparture:'2010-09-20', dateOfTempDeparture: '2010-08-12', 
+                                                     roomNumber:'42', dataCrossRP:'2010-05-04', comments:'Zdemolowany pokój', 
                                                     dormitory_id:'2', 
-                                                     type_adress_id:'4', regular_adress_id:'1', document_id:'2', resident_id: '3'}
+                                                     address_type_id:'4', regular_adress_id:'1', document_id:'2', resident_id: '3'}
                                                 ])
                                             }
                                         })

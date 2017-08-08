@@ -2,9 +2,8 @@ const sequelize = require('sequelize');
 const dbClient = require('../../config/db.js').dbClient;
 
 var dormitoryModel = dbClient.define('dormitory', {
-    dormitoryName: {type: sequelize.STRING, allowNull: false, unique: true, field: 'dormitory_name'},
-    adress: { type: sequelize.STRING, allowNull: false},
-    temporaryAccommodation: {type: sequelize.STRING, field: 'temporary_accomodation'},
+    name: {type: sequelize.STRING, allowNull: false, unique: true, field: 'name'},
+    address: { type: sequelize.STRING, allowNull: false}
 }, {timestamps: false, underscored: true, underscoredAll: true})
 
 dormitoryModel.DormitoryAssociations = function(models){

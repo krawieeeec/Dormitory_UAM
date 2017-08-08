@@ -1,5 +1,5 @@
 export class Dormitory{
     id:number;
-    dormitoryName: string;
-    adress: string;    
+    name: string;
+    address: string;    
 }

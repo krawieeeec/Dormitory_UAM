@@ -19,7 +19,7 @@ residentModel.ResidentAssociations = function(models) {
     residentModel.hasMany(models['document'], {foreignKey: {allowNull: false, name:'resident_id'}});
     residentModel.hasMany(models['stayResident'], {foreignKey:{allowNull: false, name:'resident_id'}});
     residentModel.hasMany(models['accountResident'], {foreignKey: {allowNull: false, name:'resident_id'}});
-    residentModel.hasMany(models['adressResident'], {foreignKey: {allowNull: false, name:'resident_id'}});
+    residentModel.hasMany(models['addressResident'], {foreignKey: {allowNull: false, name:'resident_id'}});
     
 }
 

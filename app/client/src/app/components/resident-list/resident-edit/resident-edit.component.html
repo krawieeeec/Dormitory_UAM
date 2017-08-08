@@ -1,27 +1,19 @@
 <div class="container">
     <ul class="nav nav-tabs">
-        <li class="active"><a data-toggle="tab" href="#residentPersonalData">Dane Osobowe</a></li>
-        <li><a data-toggle="tab" href="#residentAdress">Miejsce Zamieszkania</a></li>
-        <li><a data-toggle="tab" href="#residentDocument">Dokument</a></li>
-        <li><a data-toggle="tab" href="#residentDormitory">Akademik</a></li>
+        <li class="active"><a [routerLink]="['personalData']" routerLinkActive="dawid">Dane Osobowe</a></li>
+        <li><a [routerLink]="['address']" routerLinkActive="dawid">Miejsce Zamieszkania</a></li>
+        <li><a [routerLink]="['document']" routerLinkActive="dawid">Dokument</a></li>
+        <li><a [routerLink]="['dormitory']" routerLinkActive="dawid">Akademik</a></li>
     </ul>
 
     <div class="tab-content">
         <div id="residentPersonalData" class="tab-pane fade in active">
-            <resident-personal-data [residentId]="residentId"></resident-personal-data>
-        </div>
-        <div id="residentAdress" class="tab-pane">
-            <resident-adress></resident-adress>
-        </div>
-        <div id="residentDocument" class="tab-pane">
-            <resident-document></resident-document>
-        </div>
-        <div id="residentDormitory" class="tab-pane">
-            <resident-dormitory></resident-dormitory>
+            <router-outlet></router-outlet>
+            <!-- <resident-personal-data [residentId]="residentId" (editedResident)="resident = $event" (dawid)="foo = $event "> </resident-personal-data> -->
         </div>
     </div>
     <div id="button_wrapper">
         <button (click)="GoBack()" type="button" class="btn btn-default">Wstecz</button>
-        <button type="button" class="btn btn-default">Edytuj</button>
+        <button [routerLink]="['../../../../residentList', dormitoryId]" (click)="EditResidentPersonalData()" type=" button " class="btn btn-default ">Edytuj</button>
     </div>
 </div>

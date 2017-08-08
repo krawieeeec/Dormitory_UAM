@@ -1,23 +1,23 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { ResidentAdressComponent } from './resident-adress.component';
+import { ResidentAddressComponent } from './resident-address.component';
 
 @NgModule({
     imports:[
         CommonModule
     ],
     declarations: [
-        ResidentAdressComponent
+        ResidentAddressComponent
       ],
     providers:[
 
     ],
     exports: [
-        ResidentAdressComponent
+        ResidentAddressComponent
     ]
 })
 
-export class ResidentAdressModule {
+export class ResidentAddressModule {
     
 }

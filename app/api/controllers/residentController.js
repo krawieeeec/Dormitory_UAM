@@ -5,8 +5,8 @@ var residentController = {
     FormResponseObject: function(req, res, next){
         
         res.setHeader('Access-Control-Allow-Origin', '*');
-        //res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-        // res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+        res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+        res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
         //res.setHeader('Access-Control-Allow-Credentials', true);
         
         let newResident = {
@@ -18,8 +18,7 @@ var residentController = {
             motherName: req.body.motherName,
             fatherName: req.body.fatherName,
             pesel: req.body.pesel,
-            citzenshipCodeID: req.body.citzenshipCodeID,
-            adressID: req.body.adressID
+            citzenshipCodeID: req.body.citzenshipCodeID
         }
         req.newResident = newResident
         next();
@@ -39,8 +38,8 @@ var residentController = {
     },
 
     GetResidentByID:  function(req, res){
-        
-        residentTable.findById(req.params.id, {attributes: ['id', 'name', 'surname']}).then((resident) =>{
+        //{attributes: ['id', 'name', 'surname']} -> Dodaj Atrybuty
+        residentTable.findById(req.params.id).then((resident) =>{
             if(resident == null)
                 res.send('Under current ID:'+ req.params.id +' there isn\'t any entries in table.')
             else
@@ -68,7 +67,7 @@ var residentController = {
     },
 
     AddResident: function(req, res){
-        
+
         residentTable.create(req.newResident).then(() => {
                 res.send('Added new entry to resident table.');
             }).catch(error => {
@@ -81,7 +80,13 @@ var residentController = {
         residentTable.findById(req.params.id).then(resident =>{
             resident.update(req.newResident).then(() => {
                 res.send('entry was updated');
-            })
+            }).catch(
+                error => 
+                {
+                    res.status(400);
+                    res.send(error);
+                }
+            )
         })
     }
 }

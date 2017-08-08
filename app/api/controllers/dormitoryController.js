@@ -12,7 +12,8 @@ var dormitoryController = {
     },
 
     GetAllDormitories: function(req, res){
-        dormitoryTable.findAll({attributes: ['id','dormitoryName', 'adress']})
+        
+        dormitoryTable.findAll({attributes: ['id','name', 'address']})
             .then((dormitories) => {
                 if(dormitories.length == 0){
                     res.send('There aren\'t any entries in dormitories table.')
@@ -29,6 +30,7 @@ var dormitoryController = {
     },
 
     GetAllResidentsOfDormitory: function(req, res){
+
         let dormitoryId = req.params.id
 
         sequelize.query(
