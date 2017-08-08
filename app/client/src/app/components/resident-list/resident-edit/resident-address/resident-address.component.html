@@ -3,41 +3,61 @@
         <form>
 
             <div class="form-group">
-                <label for="exampleInputName2">Kraj</label>
-                <input type="text" class="form-control" id="exampleInputName2" placeholder="Podaj Kraj">
+                <label for="residentCountry">Kraj</label>
+                <input [(ngModel)]="residentAddress.country" #country="ngModel" name="country" type="text" class="form-control" id="residentCountry" placeholder="Podaj Kraj" required>
+                <div [hidden]="country.valid || country.pristine" class="alert alert-danger">
+                    Pole nie może być puste
+                </div>
             </div>
             <div class="form-group">
-                <label for="exampleInputEmail2">Miasto</label>
-                <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Podaj Miasto">
-
+                <label for="residentCity">Miasto</label>
+                <input [(ngModel)]="residentAddress.city" #city="ngModel" name="city" type="email" class="form-control" id="residentCity" placeholder="Podaj Miasto" required>
+                <div [hidden]="city.valid || city.pristine" class="alert alert-danger">
+                    Pole nie może być puste
+                </div>
             </div>
             <div class="form-group">
-                <label for="exampleInputName2">Kod Pocztowy</label>
-                <input type="text" class="form-control" id="exampleInputName2" placeholder="Kod Pocztowy">
-            </div>
-        </form>
-    </div>
-    <div id="form_wrapper">
-        <form>
-            <div class="form-group">
-                <label for="exampleInputEmail2">Ulica</label>
-                <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Podaj Datę Urodzenia">
-            </div>
-            <div class="form-group">
-                <label for="exampleInputEmail2">Numer Domu</label>
-                <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Podaj Miejsce Urodzenia">
-            </div>
-            <div class="form-group">
-                <label for="exampleInputEmail2">Numer lokalu</label>
-                <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Podaj Imię Matki">
+                <label for="residentPostCode">Kod Pocztowy</label>
+                <input [(ngModel)]="residentAddress.postCode" #postCode="ngModel" name="postCode" type="text" class="form-control" id="residentPostCode" placeholder="Kod Pocztowy" required>
+                <div [hidden]="postCode.valid || postCode.pristine" class="alert alert-danger">
+                    Pole nie może być puste
+                </div>
             </div>
         </form>
     </div>
     <div id="form_wrapper">
         <form>
             <div class="form-group">
-                <label for="exampleInputEmail2">Typ Adresu</label>
-                <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Podaj Typ Adresu" disabled>
+                <label for="residentStreet">Ulica</label>
+                <input [(ngModel)]="residentAddress.street" #street="ngModel" name="street" type="email" class="form-control" id="residentStreet" placeholder="Podaj Datę Urodzenia" required>
+                <div [hidden]="street.valid || street.pristine" class="alert alert-danger">
+                    Pole nie może być puste
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="residentHouseNumber">Numer Domu</label>
+                <input [(ngModel)]="residentAddress.houseNumber" #houseNumber="ngModel" name="houseNumber" type="email" class="form-control" id="residentHouseNumber" placeholder="Podaj Miejsce Urodzenia" required>
+                <div [hidden]="houseNumber.valid || houseNumber.pristine" class="alert alert-danger">
+                    Pole nie może być puste
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="residentApartmentNumber">Numer lokalu</label>
+                <input [(ngModel)]="residentAddress.apartmentNumber" #apartmentNumber="ngModel" name="apartmentNumber" type="email" class="form-control" id="residentApartmentNumber" placeholder="Podaj Imię Matki" required>
+                <div [hidden]="apartmentNumber.valid || apartmentNumber.pristine" class="alert alert-danger">
+                    Pole nie może być puste
+                </div>
+            </div>
+        </form>
+    </div>
+    <div id="form_wrapper">
+        <form>
+            <div class="form-group">
+                <label for="residentAddressType">Typ Adresu</label>
+                <input [(ngModel)]="residentAddress.address_type_id" #addressType="ngModel" name="addressType" type="email" class="form-control" id="residentAddressType" placeholder="Podaj Typ Adresu" disabled required>
+                <div [hidden]="addressType.valid || addressType.pristine" class="alert alert-danger">
+                    Pole nie może być puste
+                </div>
             </div>
         </form>
     </div>

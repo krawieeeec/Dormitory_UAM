@@ -20,15 +20,7 @@ const routes: Routes = [
   { path: 'searchResident', component: SearchResidentComponent },
   { path: 'residentList/:id', component: ResidentListComponent,
     children: [
-      { path: 'residentEdit/:id', component: ResidentEditComponent,
-         children: [
-         { path: 'personalData', component: ResidentPersonalDataComponent },
-         { path: 'dormitory', component: ResidentDormitoryComponent },
-         { path: 'document', component: ResidentDocumentComponent },
-         { path: 'address', component: ResidentAddressComponent },
-         { path: '', redirectTo: 'personalData', pathMatch: 'full' },
-      ]
-  },
+      { path: 'residentEdit/:id', component: ResidentEditComponent},
     ]
   },
   { path: 'main', component: MainPageComponent },

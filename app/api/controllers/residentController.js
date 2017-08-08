@@ -25,7 +25,9 @@ var residentController = {
     },
     
     GetAllResidents:  function (req, res) {
-        residentTable.findAll({attributes: ['id', 'name', 'surname']}).then( (residents) => {
+        
+        residentTable.findAll({attributes: ['id', 'name', 'surname']})
+        .then( (residents) => {
             if(residents.length == 0)
                 res.send('There aren\'t any entries in residents table.');
             else{   
@@ -37,21 +39,24 @@ var residentController = {
         })
     },
 
-    GetResidentByID:  function(req, res){
+    GetResidentById:  function(req, res){
         //{attributes: ['id', 'name', 'surname']} -> Dodaj Atrybuty
-        residentTable.findById(req.params.id).then((resident) =>{
+        residentTable.findById(req.params.id)
+        .then((resident) =>{
             if(resident == null)
                 res.send('Under current ID:'+ req.params.id +' there isn\'t any entries in table.')
-            else
+            else{
                 res.send(JSON.stringify(resident));
+            }
         }).catch(error => {
             res.send(error);
         })
     },
 
-    DeleteResidentByID: function(req, res){
+    DeleteResidentById: function(req, res){
         
-        residentTable.findById(req.params.id).then((resident) => {
+        residentTable.findById(req.params.id)
+        .then((resident) => {
             if(resident == null){
                 res.send('Under current ID:'+ req.params.id +' there isn\'t any entries in table.')
             }else{
@@ -68,16 +73,18 @@ var residentController = {
 
     AddResident: function(req, res){
 
-        residentTable.create(req.newResident).then(() => {
+        residentTable.create(req.newResident)
+        .then(() => {
                 res.send('Added new entry to resident table.');
             }).catch(error => {
                 res.send(error);
         })
     },
 
-    UpdateResidentByID: function(req, res){
+    UpdateResidentById: function(req, res){
 
-        residentTable.findById(req.params.id).then(resident =>{
+        residentTable.findById(req.params.id)
+        .then(resident =>{
             resident.update(req.newResident).then(() => {
                 res.send('entry was updated');
             }).catch(

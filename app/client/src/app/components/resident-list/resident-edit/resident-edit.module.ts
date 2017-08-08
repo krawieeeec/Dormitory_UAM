@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AppRoutingModule } from '../../../app-routing.module';
-
+import { FormsModule } from '@angular/forms';
 
 import { ResidentEditComponent } from './resident-edit.component';
 //Components Child 
@@ -14,7 +14,7 @@ import {ResidentEditService } from './resident-edit.service';
 
 @NgModule({
     imports:[
-        CommonModule, ResidentPersonalDataModule, ResidentAddressModule, ResidentDocumentModule, 
+        CommonModule, FormsModule, ResidentPersonalDataModule, ResidentAddressModule, ResidentDocumentModule, 
         ResidentDormitoryModule, AppRoutingModule
     ],
     declarations: [

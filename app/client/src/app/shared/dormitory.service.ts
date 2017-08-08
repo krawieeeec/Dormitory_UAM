@@ -3,7 +3,7 @@ import { Http, Headers} from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
 import { Dormitory } from './dormitory';
-import { Resident } from './resident';
+import { ResidentPersonalData } from './resident/resident-personal-data';
 
 @Injectable(
 
@@ -30,12 +30,12 @@ export class DormitoryService{
             ).catch();
     }
 
-    GetResidentsOfCurrentDormitoryById(dormitoryId:number): Promise<Resident[]>{
+    GetResidentsOfCurrentDormitoryById(dormitoryId:number): Promise<ResidentPersonalData[]>{
         
         return this.http.get(this.dormitoryUrl +'/' + dormitoryId.toString())
             .toPromise()
             .then(response => 
-                response.json() as Resident[]
+                response.json() as ResidentPersonalData[]
             ).catch();
     }
 }

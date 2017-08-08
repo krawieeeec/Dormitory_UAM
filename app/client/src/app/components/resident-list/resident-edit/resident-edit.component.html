@@ -1,19 +1,27 @@
 <div class="container">
     <ul class="nav nav-tabs">
-        <li class="active"><a [routerLink]="['personalData']" routerLinkActive="dawid">Dane Osobowe</a></li>
-        <li><a [routerLink]="['address']" routerLinkActive="dawid">Miejsce Zamieszkania</a></li>
-        <li><a [routerLink]="['document']" routerLinkActive="dawid">Dokument</a></li>
-        <li><a [routerLink]="['dormitory']" routerLinkActive="dawid">Akademik</a></li>
+        <li class="active"><a data-toggle="tab" href="#personalData">Dane Osobowe</a></li>
+        <li><a data-toggle="tab" href="#placeOfResidence">Miejsce Zamieszkania</a></li>
+        <li><a data-toggle="tab" href="#document">Dokumenty</a></li>
+        <li><a data-toggle="tab" href="#dormitory">Akademik</a></li>
     </ul>
 
     <div class="tab-content">
-        <div id="residentPersonalData" class="tab-pane fade in active">
-            <router-outlet></router-outlet>
-            <!-- <resident-personal-data [residentId]="residentId" (editedResident)="resident = $event" (dawid)="foo = $event "> </resident-personal-data> -->
+        <div id="personalData" class="tab-pane fade in active">
+            <resident-personal-data (emitResidentPersonalData)="GetResidentPersonalData($event)" [residentId]="residentId"></resident-personal-data>
+        </div>
+        <div id="placeOfResidence" class="tab-pane">
+            <resident-address (emitResidentAddress)="GetResidentAddress($event)" [residentId]="residentId"></resident-address>
+        </div>
+        <div id="document" class="tab-pane">
+            <resident-document (emitResidentDocument)="GetResidentDocument($event)" [residentId]="residentId"></resident-document>
+        </div>
+        <div id="dormitory" class="tab-pane">
+            <resident-dormitory (emitResidentDormitory)="GetResidentDormitory($event)" [residentId]="residentId"></resident-dormitory>
         </div>
     </div>
     <div id="button_wrapper">
         <button (click)="GoBack()" type="button" class="btn btn-default">Wstecz</button>
-        <button [routerLink]="['../../../../residentList', dormitoryId]" (click)="EditResidentPersonalData()" type=" button " class="btn btn-default ">Edytuj</button>
+        <button [routerLink]="['../../../../residentList', dormitoryId]" (click)="EditResident()" type=" button " class="btn btn-default ">Edytuj</button>
     </div>
 </div>

@@ -20,7 +20,7 @@ import { NavbarModule } from './layout-components/navbar/navbar.module';
 import {FormBuilder, FormGroup, ReactiveFormsModule} from '@angular/forms'; 
 
 //Services
-import { ResidentService } from './shared/resident.service';
+import { ResidentService } from './shared/resident/resident.service';
 import { DormitoryService } from './shared/dormitory.service';
 import { UserSessionService } from './shared/user-session.service';
 //Classes

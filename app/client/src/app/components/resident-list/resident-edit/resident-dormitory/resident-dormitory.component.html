@@ -3,33 +3,50 @@
         <form>
 
             <div class="form-group">
-                <label for="exampleInputName2">Data Przybycia</label>
-                <input type="text" class="form-control" id="exampleInputName2" placeholder="Podaj Datę Przybycia">
+                <label for="residentDateOfArrival">Data Przybycia</label>
+                <input type="text" [(ngModel)]="residentDormitory.dateOfArrival" name="dateOfArrival" #dateOfArrival="ngModel" class="form-control" id="residentDateOfArrival" placeholder="Podaj Datę Przybycia" required>
+                <div [hidden]="dateOfArrival.valid || dateOfArrival.pristine" class="alert alert-danger">
+                    Pole nie może być puste
+                </div>
             </div>
             <div class="form-group">
-                <label for="exampleInputEmail2">Czas Pobytu</label>
-                <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Podaj Czas Pobytu">
-
+                <label for="residentDateOfAccommodation">Czas Pobytu</label>
+                <input type="email" [(ngModel)]="residentDormitory.dateOfAccommodation" name="dateOfAccommodation" #dateOfAccommodation="ngModel" class="form-control" id="residentDateOfAccommodation" placeholder="Podaj Czas Pobytu" required>
+                <div [hidden]="dateOfAccommodation.valid || dateOfAccommodation.pristine" class="alert alert-danger">
+                    Pole nie może być puste
+                </div>
             </div>
             <div class="form-group">
-                <label for="exampleInputName2">Data Wymeldowania</label>
-                <input type="text" class="form-control" id="exampleInputName2" placeholder="Podaj Datę Wymeldowania">
+                <label for="residentDateOfDeparture">Data Wymeldowania</label>
+                <input type="text" [(ngModel)]="residentDormitory.dateOfDeparture" name="dateOfDeparture" #dateOfDeparture="ngModel" class="form-control" id="residentDateOfDeparture" placeholder="Podaj Datę Wymeldowania" required>
+                <div [hidden]="dateOfDeparture.valid || dateOfDeparture.pristine" class="alert alert-danger">
+                    Pole nie może być puste
+                </div>
             </div>
         </form>
     </div>
     <div id="form_wrapper">
         <form>
             <div class="form-group">
-                <label for="exampleInputEmail2">Numer Pokoju</label>
-                <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Podaj Numer Pokoju">
+                <label for="residentRoomNumber">Numer Pokoju</label>
+                <input type="email" [(ngModel)]="residentDormitory.roomNumber" name="roomNumber" #roomNumber="ngModel" class="form-control" id="residentRoomNumber" placeholder="Podaj Numer Pokoju" required>
+                <div [hidden]="roomNumber.valid || roomNumber.pristine" class="alert alert-danger">
+                    Pole nie może być puste
+                </div>
             </div>
             <div class="form-group">
-                <label for="exampleInputEmail2">Data Przekroczenia RP</label>
-                <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Podaj Datę Przekroczenia RP">
+                <label for="residentDateOfCrossRp">Data Przekroczenia RP</label>
+                <input type="email" [(ngModel)]="residentDormitory.dateOfCrossRp" name="dateOfCrossRp" #dateOfCrossRp="ngModel" class="form-control" id="residentDateOfCrossRp" placeholder="Podaj Datę Przekroczenia RP" required>
+                <div [hidden]="dateOfCrossRp.valid || dateOfCrossRp.pristine" class="alert alert-danger">
+                    Pole nie może być puste
+                </div>
             </div>
             <div class="form-group">
-                <label for="exampleInputEmail2">Uwagi</label>
-                <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Podaj Uwagi">
+                <label for="residentComment">Uwagi</label>
+                <input type="email" [(ngModel)]="residentDormitory.comments" name="comment" #comment="ngModel" class="form-control" id="residentComment" placeholder="Podaj Uwagi" required>
+                <div [hidden]="comment.valid || comment.pristine" class="alert alert-danger">
+                    Pole nie może być puste
+                </div>
             </div>
         </form>
     </div>

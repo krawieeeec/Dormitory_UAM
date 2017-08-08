@@ -1,8 +1,8 @@
-import { Component, EventEmitter, Output, OnInit, Input, OnChanges } from '@angular/core';
+import { Component, EventEmitter, Output, OnInit, Input, OnChanges, DoCheck } from '@angular/core';
 import { NgModel } from '@angular/forms';
-import { Resident} from '../../../../shared/resident';
+import { ResidentPersonalData } from '../../../../shared/resident/resident-personal-data';
 
-import { ResidentService } from '../../../../shared/resident.service';
+import { ResidentService } from '../../../../shared/resident/resident.service';
 import { ResidentEditService } from '../resident-edit.service';
 
 @Component({
@@ -11,15 +11,18 @@ import { ResidentEditService } from '../resident-edit.service';
   styleUrls: ['./resident-personal-data.component.css']
 })
 
-export class ResidentPersonalDataComponent implements OnChanges, OnInit {
-
+export class ResidentPersonalDataComponent implements OnChanges, OnInit, DoCheck {
+  
+  //private residentId:number;
   private residentPersonalData:object;
-  private residentId:number;
+  @Input() residentId:number;
+  @Output() emitResidentPersonalData;
 
   constructor(
     private residentService: ResidentService,
     private residentEditService: ResidentEditService
   ) {
+
     this.residentPersonalData = {
             name: '',
             surname: '',
@@ -30,23 +33,26 @@ export class ResidentPersonalDataComponent implements OnChanges, OnInit {
             fatherName: '',
             pesel: '',
             citzenship_code_id: 0
-        }   
+      }
+
+    this.emitResidentPersonalData = new EventEmitter<object>();   
   }
   
   ngOnInit(){
-    this.residentId = this.residentEditService.GetResidentId();
     this.residentService.GetResidentPersonalDataById(this.residentId)
-        .then(residentPersonalData =>{
+        .then(
+          residentPersonalData => {
             this.residentPersonalData = residentPersonalData;
-        } 
-        );  
+            this.emitResidentPersonalData.emit(this.residentPersonalData);
+          } 
+        );
   }
 
   ngOnChanges() {
+
   }
   
-  UpdateResidentPersonalData():void{
-    this.residentEditService.SetResidentPersonalData(this.residentPersonalData);
+  ngDoCheck(){
+    this.emitResidentPersonalData.emit(this.residentPersonalData);
   }
-  
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit, DoCheck,OnDestroy } from '@angular/core';
 import { DormitoryService } from '../../shared/dormitory.service';
-import { Resident } from '../../shared/resident';
+import { ResidentPersonalData } from '../../shared//resident/resident-personal-data';
 import { ActivatedRoute, ParamMap, Router, NavigationStart, ResolveEnd } from '@angular/router';
 import { ResidentEditService } from './resident-edit/resident-edit.service';
 
@@ -15,7 +15,7 @@ import 'rxjs/add/operator/switchMap';
 
 export class ResidentListComponent implements OnInit, DoCheck, OnDestroy{
     
-    private residentsList: Resident[];
+    private residentsList: ResidentPersonalData[];
     private showTable:boolean;
     private updateResidentList$;
 

@@ -1,7 +1,7 @@
-import { Component, EventEmitter, Output, OnInit, DoCheck } from '@angular/core';
+import { Component, EventEmitter, Output, OnInit, DoCheck, OnChanges } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router, RouterLinkActive } from '@angular/router';
 import { Location } from '@angular/common';
-import { ResidentService } from '../../../shared/resident.service';
+import { ResidentService } from '../../../shared//resident/resident.service';
 import { UserSessionService } from '../../../shared/user-session.service';
 import { ResidentEditService } from './resident-edit.service';
 
@@ -11,9 +11,12 @@ import { ResidentEditService } from './resident-edit.service';
   styleUrls: ['./resident-edit.component.css']
 })
 
-export class ResidentEditComponent implements OnInit, DoCheck {
+export class ResidentEditComponent implements OnInit, DoCheck, OnChanges {
 
-  private resident;
+  private residentPersonalData;
+  private residentAddress;
+  private residentDocument;
+  private residentDormitory;
   private residentId;
   private dormitoryId;
   private updateResidentList$;
@@ -32,23 +35,41 @@ export class ResidentEditComponent implements OnInit, DoCheck {
   ngOnInit() {
 
     this.residentId = this.route.snapshot.params.id;
-    this.residentEditService.SetResidentId(this.residentId);
     this.dormitoryId = this.userSessionService.GetChosenDormitoryId();
-
     this.updateResidentList$ = this.residentEditService.GetUpdateResidentListObservable$();
   }
 
   ngDoCheck(){
-    //console.log(this.resident);
+  }
+  ngOnChanges(){
+  
   }
 
-  GetEditedResident($event):void{
-    this.resident = $event;
+  GetResidentPersonalData(residentPersonalData){
+    this.residentPersonalData = residentPersonalData;
   }
 
-  EditResidentPersonalData(/*resident, residentId*/):void{
-    
-    this.residentService.UpdateResident(this.resident, this.residentId)
+  GetResidentAddress(residentAddress){
+    this.residentAddress = residentAddress;
+   // console.log(this.residentAddress);
+  //  console.log('resident-edit-address');
+  }
+  
+  GetResidentDocument(residentDocument){
+    this.residentDocument = residentDocument;
+   // console.log(this.residentDocument);
+   // console.log('resident-edit-document');
+  }
+
+  GetResidentDormitory(residentDormitory){
+    this.residentDormitory = residentDormitory;
+  //  console.log(this.residentDormitory);
+//    console.log('resident-edit-dormitory');
+  }
+
+  EditResident():void{
+  //  console.log(this.residentPersonalData);
+    this.residentService.UpdateResident(this.residentPersonalData, this.residentId)
     .then(() => {
      // this.router.navigate(['/residentList', this.dormitoryId]);
       console.log('UPDATED');
@@ -59,7 +80,7 @@ export class ResidentEditComponent implements OnInit, DoCheck {
     this.updateResidentList$.next(true);
     
   }
-
+  
   GoBack():void{
     //this.location.back();
     this.router.navigate(['residentList', this.dormitoryId]);

@@ -3,29 +3,25 @@
         <form>
 
             <div class="form-group">
-                <label for="exampleInputName2">Nazwa Dokumentu</label>
-                <input type="text" class="form-control" id="exampleInputName2" placeholder="Podaj Nazwę dokumentu">
+                <label for="residentTypeDocument">Typ Dokumentu</label>
+                <input type="text" name="typeDocument" class="form-control" id="residentTypeDocument" placeholder="Podaj Nazwę dokumentu" required>
             </div>
             <div class="form-group">
-                <label for="exampleInputEmail2">Data Wydania</label>
-                <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Podaj Datę Wydania">
+                <label for="residentReleaseDate">Data Wydania</label>
+                <input type="email" [(ngModel)]="residentDocument.releaseDate" #releaseDate="ngModel" name="releaseDate" class="form-control" id="residentReleaseDate" placeholder="Podaj Datę Wydania" required>
 
             </div>
             <div class="form-group">
-                <label for="exampleInputName2">Data Ważności</label>
-                <input type="text" class="form-control" id="exampleInputName2" placeholder="Podaj Datę Ważności">
+                <label for="residentExpirationDate">Data Ważności</label>
+                <input type="text" [(ngModel)]="residentDocument.expirationDate" #expirationDate="ngModel" name="expirationDate" class="form-control" id="residentExpirationDate" placeholder="Podaj Datę Ważności" required>
             </div>
         </form>
     </div>
     <div id="form_wrapper">
         <form>
             <div class="form-group">
-                <label for="exampleInputEmail2">Kraj Wydania</label>
-                <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Podaj Kraj Wydania">
-            </div>
-            <div class="form-group">
-                <label for="exampleInputEmail2">Typ Dokumentu</label>
-                <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Podaj Typ Dokumentu">
+                <label for="residentIssuingCountry">Kraj Wydania</label>
+                <input type="email" [(ngModel)]="residentDocument.issuingCountry" #issuingCountry="ngModel" name="issuingCountry" class="form-control" id="residentIssuingCountry" placeholder="Podaj Kraj Wydania" required>
             </div>
         </form>
     </div>

@@ -21,16 +21,7 @@ export class ResidentEditService{
     constructor(
         private http: Http
     ){
-        this.residentAddress = {
-            country: '',
-            city: '',
-            street: '',
-            houseNumber: '',
-            apartmentNumber: '',
-            postCode: '',
-            address_type_id: 0,
-            resident_id: 0
-        }
+        
         this.residentDocument = {
             release_date: '',
             expiration_date: '',
@@ -60,7 +51,13 @@ export class ResidentEditService{
     }
     SetResidentPersonalData(residentPersonalData:object):void{
         this.residentPersonalData = residentPersonalData;
-        console.log(this.residentPersonalData);
+    }
+
+    GetResidentAddress():object{
+        return this.residentAddress;
+    }
+    SetResidentAddress(residentAddress:object):void{
+        this.residentAddress = residentAddress;
     }
 
     GetUpdateResidentListObservable$(){
