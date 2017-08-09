@@ -7,6 +7,7 @@ var dormitoryCtrl = require('../controllers/dormitoryController').DormitoryContr
 var residentAddressCtrl = require('../controllers/residentAddressController').ResidentAddressController;
 var residentStayCtrl = require('../controllers/residentStayController').ResidentStayController;
 var documentCtrl = require('../controllers/documentController').DocumentController;
+var citzenshipCtrl = require('../controllers/citzenshipController').CitzenshipController;
 
 var router = express.Router();
 
@@ -22,6 +23,8 @@ router.use(residentCtrl.FormResponseObject);
 router.route('/resident').get(residentCtrl.GetAllResidents);
 router.route('/resident/create').post(residentCtrl.AddResident);
 router.route('/resident/:id').get(residentCtrl.GetResidentById);
+router.route('/resident/:id/personalData').get(residentCtrl.GetResidentPersonalDataById);
+router.route('/resident/:id/document').get(residentCtrl.GetResidentDocumentById);
 router.route('/resident/:id/delete').delete(residentCtrl.DeleteResidentById);
 router.route('/resident/:id/update').put(residentCtrl.UpdateResidentById);
 
@@ -45,5 +48,9 @@ router.use(dormitoryCtrl.FormResponseObject);
 router.route('/dormitory').get(dormitoryCtrl.GetAllDormitories);
 router.route('/dormitory/:id').get(dormitoryCtrl.GetAllResidentsOfDormitory);
 
+//citzenshipController
+router.use(citzenshipCtrl.FormResponseObject);
+router.route('/citzenship').get(citzenshipCtrl.GetAllCitzenships);
+router.route('/citzenship/:id').get(citzenshipCtrl.GetCitzenshipById);
 
 module.exports = router;

@@ -9,5 +9,5 @@ export class ResidentPersonalData {
     mother_name:string;
     father_name:string;
     pesel:number;
-    citzenship_code_id:number;
+    citzenship:string; 
 }

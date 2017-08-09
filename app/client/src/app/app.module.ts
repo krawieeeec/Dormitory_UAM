@@ -21,6 +21,7 @@ import {FormBuilder, FormGroup, ReactiveFormsModule} from '@angular/forms';
 
 //Services
 import { ResidentService } from './shared/resident/resident.service';
+import { CitzenshipService } from './shared/citzenship/citzenship.service';
 import { DormitoryService } from './shared/dormitory.service';
 import { UserSessionService } from './shared/user-session.service';
 //Classes
@@ -37,7 +38,7 @@ import { UserSessionService } from './shared/user-session.service';
     ResidentListModule, NavbarModule, AppRoutingModule
     ],
   exports:[],
-  providers: [ResidentService, DormitoryService, UserSessionService ],
+  providers: [ResidentService, DormitoryService, UserSessionService, CitzenshipService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

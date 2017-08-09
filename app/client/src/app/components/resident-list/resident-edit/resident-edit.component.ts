@@ -20,6 +20,7 @@ export class ResidentEditComponent implements OnInit, DoCheck, OnChanges {
   private residentId;
   private dormitoryId;
   private updateResidentList$;
+  private switchInputs;
 
   constructor(
     private router: Router, 
@@ -30,6 +31,7 @@ export class ResidentEditComponent implements OnInit, DoCheck, OnChanges {
     private residentEditService: ResidentEditService 
   ) { 
     
+    this.switchInputs = true;
   }
 
   ngOnInit() {
@@ -67,6 +69,20 @@ export class ResidentEditComponent implements OnInit, DoCheck, OnChanges {
 //    console.log('resident-edit-dormitory');
   }
 
+  GoBack():void{
+    //this.location.back();
+    this.router.navigate(['residentList', this.dormitoryId]);
+ 
+  }
+
+  SwitchInputs():void{
+    if(this.switchInputs){
+      this.switchInputs = false;
+    }else{
+      this.switchInputs = true;
+    }
+  }
+
   EditResident():void{
   //  console.log(this.residentPersonalData);
     this.residentService.UpdateResident(this.residentPersonalData, this.residentId)
@@ -79,11 +95,5 @@ export class ResidentEditComponent implements OnInit, DoCheck, OnChanges {
     
     this.updateResidentList$.next(true);
     
-  }
-  
-  GoBack():void{
-    //this.location.back();
-    this.router.navigate(['residentList', this.dormitoryId]);
- 
   }
 }

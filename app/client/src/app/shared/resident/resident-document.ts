@@ -3,6 +3,5 @@ export class ResidentDocument {
     release_date:Date;
     expiration_date:Date;
     issuing_country: string;
-    document_type_id: number;
-    resident_id: number
+    type_document:string;
 }

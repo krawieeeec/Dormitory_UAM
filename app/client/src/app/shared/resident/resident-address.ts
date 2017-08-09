@@ -6,6 +6,5 @@ export class ResidentAddress {
     apartment_number:string;
     post_code:string;
     city:string;
-    address_type_id:number;
-    resident_id:number;
+    address:string;
 }

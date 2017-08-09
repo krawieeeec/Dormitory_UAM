@@ -214,7 +214,7 @@ dbClient.drop().then(() => {
                                                      dormitory_id:'3', address_type_id:'3', regular_adress_id:'1', document_id:'3', resident_id: '5'},
                                                     {dateOfArrival:'2014-05-01', dateOfDeparture:'2014-08-22', dateOfTempDeparture: '2014-08-20', 
                                                      roomNumber:'1', dataCrossRP:'2011-03-03', comments:'Brak zastrzeżeń', 
-                                                    dormitory_id:'3', address_type_id:'2', regular_adress_id:'1', document_id:'3', resident_id: '5'},
+                                                    dormitory_id:'3', address_type_id:'2', regular_adress_id:'1', document_id:'3', resident_id: '4'},
                                                     {dateOfArrival:'2010-04-09', dateOfDeparture:'2010-09-20', dateOfTempDeparture: '2010-08-12', 
                                                      roomNumber:'42', dataCrossRP:'2010-05-04', comments:'Zdemolowany pokój', 
                                                     dormitory_id:'2', 

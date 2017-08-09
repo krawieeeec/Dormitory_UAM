@@ -12,7 +12,8 @@ import { ResidentEditService } from '../resident-edit.service';
 })
 export class ResidentDocumentComponent implements OnInit, OnChanges, DoCheck {
 
-  private residentDocument:object;
+  private residentDocument;
+  @Input() switchInputs;
   @Input() residentId:number;
   @Output() emitResidentDocument;
 
@@ -24,8 +25,7 @@ export class ResidentDocumentComponent implements OnInit, OnChanges, DoCheck {
             releaseDate: '',
             expirationDate: '',
             issuingCountry: '',
-            document_type_id: 0,
-            resident_id: 0
+            typeDocument: ''
         }
     this.emitResidentDocument = new EventEmitter<object>();
   }
@@ -34,10 +34,12 @@ export class ResidentDocumentComponent implements OnInit, OnChanges, DoCheck {
 
     this.residentService.GetResidentDocumentById(this.residentId)
       .then(residentDocument =>{
-        this.residentDocument = residentDocument;
-        console.log(this.residentDocument);
+        this.residentDocument.releaseDate = residentDocument[0].release_date;
+        this.residentDocument.expirationDate = residentDocument[0].expiration_date;
+        this.residentDocument.issuingCountry = residentDocument[0].issuing_country;
+        this.residentDocument.typeDocument = residentDocument[0].type_document;
       })
-      
+  
   }
   
 
@@ -46,7 +48,7 @@ export class ResidentDocumentComponent implements OnInit, OnChanges, DoCheck {
   }
   
   ngDoCheck(){
-
+    this.emitResidentDocument.emit(this.residentDocument);
   }
 
 }

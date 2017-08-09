@@ -13,7 +13,8 @@ import { ResidentEditService } from '../resident-edit.service';
 })
 export class ResidentAddressComponent implements OnInit, OnChanges, DoCheck {
 
-  private residentAddress:object;
+  private residentAddress;
+  @Input() switchInputs;
   @Input() residentId:number;
   @Output() emitResidentAddress;
 
@@ -28,8 +29,7 @@ export class ResidentAddressComponent implements OnInit, OnChanges, DoCheck {
             houseNumber: '',
             apartmentNumber: '',
             postCode: '',
-            address_type_id: 0,
-            resident_id: 0
+            address:''
         }
     this.emitResidentAddress = new EventEmitter<object>();
   }
@@ -38,12 +38,20 @@ export class ResidentAddressComponent implements OnInit, OnChanges, DoCheck {
 
     this.residentService.GetResidentAddressById(this.residentId)
     .then(residentAddress =>{
-      this.residentAddress = residentAddress;
-      this.emitResidentAddress.emit(residentAddress);
-      console.log(this.residentAddress);
+      this.residentAddress.country = residentAddress[0].country;
+      this.residentAddress.city = residentAddress[0].city;
+      this.residentAddress.street = residentAddress[0].street;
+      this.residentAddress.houseNumber = residentAddress[0].house_number;
+      this.residentAddress.apartmentNumber = residentAddress[0].apartment_number;
+      this.residentAddress.postCode = residentAddress[0].post_code;
+      this.residentAddress.address = residentAddress[0].address;
+      
+      
+      
+      
+      this.emitResidentAddress.emit(this.residentAddress);
       
     });
-    console.log(this.residentAddress)
   
   }
   
@@ -52,6 +60,6 @@ export class ResidentAddressComponent implements OnInit, OnChanges, DoCheck {
   }
   
   ngDoCheck(){
-
+    this.emitResidentAddress.emit(this.residentAddress);
   }
 }

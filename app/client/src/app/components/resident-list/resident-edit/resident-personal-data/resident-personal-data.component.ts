@@ -13,14 +13,15 @@ import { ResidentEditService } from '../resident-edit.service';
 
 export class ResidentPersonalDataComponent implements OnChanges, OnInit, DoCheck {
   
-  //private residentId:number;
-  private residentPersonalData:object;
+  
+  private residentPersonalData;
+  @Input() switchInputs;
   @Input() residentId:number;
   @Output() emitResidentPersonalData;
 
   constructor(
     private residentService: ResidentService,
-    private residentEditService: ResidentEditService
+    private residentEditService: ResidentEditService,
   ) {
 
     this.residentPersonalData = {
@@ -32,17 +33,28 @@ export class ResidentPersonalDataComponent implements OnChanges, OnInit, DoCheck
             motherName: '',
             fatherName: '',
             pesel: '',
-            citzenship_code_id: 0
+            citzenship:''
       }
 
     this.emitResidentPersonalData = new EventEmitter<object>();   
   }
   
   ngOnInit(){
+  
     this.residentService.GetResidentPersonalDataById(this.residentId)
         .then(
           residentPersonalData => {
-            this.residentPersonalData = residentPersonalData;
+            
+            this.residentPersonalData.name = residentPersonalData[0].name;
+            this.residentPersonalData.surname = residentPersonalData[0].surname;
+            this.residentPersonalData.genre = residentPersonalData[0].genre;
+            this.residentPersonalData.birthDate = residentPersonalData[0].birth_date;
+            this.residentPersonalData.birthPlace = residentPersonalData[0].birth_place;
+            this.residentPersonalData.motherName = residentPersonalData[0].mother_name;
+            this.residentPersonalData.fatherName = residentPersonalData[0].father_name;
+            this.residentPersonalData.pesel = residentPersonalData[0].pesel;
+            this.residentPersonalData.citzenship = residentPersonalData[0].citzenship;
+            
             this.emitResidentPersonalData.emit(this.residentPersonalData);
           } 
         );

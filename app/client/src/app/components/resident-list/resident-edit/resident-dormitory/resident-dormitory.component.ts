@@ -13,6 +13,7 @@ export class ResidentDormitoryComponent implements OnInit {
 
 
   private residentDormitory: object;
+  @Input() switchInputs;
   @Input() residentId:number;
   @Output() emitResidentDormitory;
 
@@ -42,6 +43,7 @@ export class ResidentDormitoryComponent implements OnInit {
         this.emitResidentDormitory.emit(this.residentDormitory);
         console.log(this.residentDormitory);
       })
+      
   }
   
   ngOnChanges(){

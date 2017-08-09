@@ -8,20 +8,21 @@
 
     <div class="tab-content">
         <div id="personalData" class="tab-pane fade in active">
-            <resident-personal-data (emitResidentPersonalData)="GetResidentPersonalData($event)" [residentId]="residentId"></resident-personal-data>
+            <resident-personal-data (emitResidentPersonalData)="GetResidentPersonalData($event)" [residentId]="residentId" [switchInputs]="switchInputs"></resident-personal-data>
         </div>
         <div id="placeOfResidence" class="tab-pane">
-            <resident-address (emitResidentAddress)="GetResidentAddress($event)" [residentId]="residentId"></resident-address>
+            <resident-address (emitResidentAddress)="GetResidentAddress($event)" [residentId]="residentId" [switchInputs]="switchInputs"></resident-address>
         </div>
         <div id="document" class="tab-pane">
-            <resident-document (emitResidentDocument)="GetResidentDocument($event)" [residentId]="residentId"></resident-document>
+            <resident-document (emitResidentDocument)="GetResidentDocument($event)" [residentId]="residentId" [switchInputs]="switchInputs"></resident-document>
         </div>
         <div id="dormitory" class="tab-pane">
-            <resident-dormitory (emitResidentDormitory)="GetResidentDormitory($event)" [residentId]="residentId"></resident-dormitory>
+            <resident-dormitory (emitResidentDormitory)="GetResidentDormitory($event)" [residentId]="residentId" [switchInputs]="switchInputs"></resident-dormitory>
         </div>
     </div>
-    <div id="button_wrapper">
-        <button (click)="GoBack()" type="button" class="btn btn-default">Wstecz</button>
-        <button [routerLink]="['../../../../residentList', dormitoryId]" (click)="EditResident()" type=" button " class="btn btn-default ">Edytuj</button>
-    </div>
+</div>
+<div id="button_wrapper">
+    <button (click)="GoBack()" type="button" class="btn btn-default">Wstecz</button>
+    <button (click)="SwitchInputs()" type="button" class="btn btn-default">Edytuj</button>
+    <button [routerLink]="['../../../../residentList', dormitoryId]" (click)="EditResident()" type=" button " class="btn btn-default ">Zapisz</button>
 </div>
