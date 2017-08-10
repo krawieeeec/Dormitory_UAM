@@ -2,12 +2,15 @@ var express = require('express');
 var bodyParser = require('body-parser');
 
 var homeCtrl = require('../controllers/homeController.js').HomeController;
-var residentCtrl = require('../controllers/residentController.js').ResidentController;
-var dormitoryCtrl = require('../controllers/dormitoryController').DormitoryController;
-var residentAddressCtrl = require('../controllers/residentAddressController').ResidentAddressController;
-var residentStayCtrl = require('../controllers/residentStayController').ResidentStayController;
-var documentCtrl = require('../controllers/documentController').DocumentController;
 var citzenshipCtrl = require('../controllers/citzenshipController').CitzenshipController;
+var dormitoryCtrl = require('../controllers/dormitoryController').DormitoryController;
+var documentCtrl = require('../controllers/documentController').DocumentController;
+
+var residentCtrl = require('../controllers/resident/residentController.js').ResidentController;
+var residentPersonalDataCtrl = require('../controllers/resident/residentPersonalDataController').ResidentPersonalDataController;
+var residentAddressCtrl = require('../controllers/resident/residentAddressController').ResidentAddressController;
+var residentDormitoryCtrl = require('../controllers/resident/residentDormitoryController').ResidentDormitoryController;
+var residentDocumentCtrl = require('../controllers/resident/residentDocumentController').ResidentDocumentController;
 
 var router = express.Router();
 
@@ -21,22 +24,28 @@ router.route('/main').get(homeCtrl.HomePage);
 //residentController
 router.use(residentCtrl.FormResponseObject);
 router.route('/resident').get(residentCtrl.GetAllResidents);
-router.route('/resident/create').post(residentCtrl.AddResident);
 router.route('/resident/:id').get(residentCtrl.GetResidentById);
-router.route('/resident/:id/personalData').get(residentCtrl.GetResidentPersonalDataById);
-router.route('/resident/:id/document').get(residentCtrl.GetResidentDocumentById);
+router.route('/resident/create').post(residentCtrl.AddResident);
 router.route('/resident/:id/delete').delete(residentCtrl.DeleteResidentById);
 router.route('/resident/:id/update').put(residentCtrl.UpdateResidentById);
 
+//residentPersonalDataController
+router.use(residentPersonalDataCtrl.FormResponseObject);
+router.route('/resident/:id/personalData').get(residentPersonalDataCtrl.GetResidentPersonalDataById);
+router.route('/resident/:id/personalData').put(residentPersonalDataCtrl.UpdateResidentPersonalDataById);
+
+//residentDocumentController
+router.use(residentDocumentCtrl.FormResponseObject);
+router.route('/resident/:id/document').get(residentDocumentCtrl.GetResidentDocumentById);
+router.route('/resident/:id/document').put(residentDocumentCtrl.UpdateResidentDocumentById);
+
 //residentAddressController
 router.use(residentAddressCtrl.FormResponseObject);
-router.route('/residentAddress').get(residentAddressCtrl.GetAllResidentAddress);
-router.route('/residentAddress/:id').get(residentAddressCtrl.GetResidentAddressById);
+router.route('/resident/:id/address').get(residentAddressCtrl.GetResidentAddressById);
 
 //residentStayController
-router.use(residentStayCtrl.FormResponseObject);
-router.route('/residentStay').get(residentStayCtrl.GetAllResidentsStays);
-router.route('/residentStay/:id').get(residentStayCtrl.GetResidentStayById);
+router.use(residentDormitoryCtrl.FormResponseObject);
+router.route('/resident/:id/dormitory').get(residentDormitoryCtrl.GetResidentDormitoryById);
 
 //documentController
 router.use(documentCtrl.FormResponseObject);

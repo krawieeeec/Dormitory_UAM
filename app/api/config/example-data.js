@@ -168,7 +168,10 @@ dbClient.drop().then(() => {
                                             address_type_id:'2', resident_id: 3}, 
                                             {country: 'Polska', street: 'Piłsudzkiego', houseNumber: '2', 
                                             apartmentNumber:'98', postCode:'12-434', city:'Olsztyn', 
-                                            address_type_id:'2', resident_id: 4}
+                                            address_type_id:'2', resident_id: 4},
+                                            {country: 'Polska', street: 'Krzywoustego', houseNumber: '3', 
+                                            apartmentNumber:'11', postCode:'20-334', city:'Zakopane', 
+                                            address_type_id:'1', resident_id: 5}
                                         ]).then(() => {
                                             return addressResidentTable.findAll();
                                         }).then(adresses => {
@@ -191,6 +194,8 @@ dbClient.drop().then(() => {
                                                 issuingCountry: 'Niemcy', document_type_id: '1', resident_id:'4'}, 
                                                 {releaseDate: '2017-06-20', expirationDate: '2028-03-16', 
                                                 issuingCountry: 'Ukraina', document_type_id: '3', resident_id:'2'}, 
+                                                {releaseDate: '2015-01-23', expirationDate: '2022-06-16', 
+                                                issuingCountry: 'Polska', document_type_id: '2', resident_id:'5'}, 
                                             ]).then(() => {
                                                 return documentTable.findAll();
                                             }).then(documents =>{
@@ -207,18 +212,21 @@ dbClient.drop().then(() => {
                                                 stayResidentTable.bulkCreate([
 
                                                     {dateOfArrival:'2016-05-12', dateOfDeparture: '2016-08-12', dateOfTempDeparture: '2016-09-23', 
-                                                     roomNumber:'142', dataCrossRP:'', comments:'Brak zastrzeżeń', 
+                                                     roomNumber:'142', dataCrossRp:'', comments:'Brak zastrzeżeń', 
                                                      dormitory_id:'1', address_type_id:'1', regular_adress_id:'2', document_id:'1', resident_id: '2'},
                                                     {dateOfArrival:'2014-12-11', dateOfDeparture:'2014-02-19', dateOfTempDeparture: '2016-03-20', 
-                                                     roomNumber:'9', dataCrossRP:'', comments:'Nie potrafi sprzątać po sobie', 
+                                                     roomNumber:'9', dataCrossRp:'', comments:'Nie potrafi sprzątać po sobie', 
                                                      dormitory_id:'3', address_type_id:'3', regular_adress_id:'1', document_id:'3', resident_id: '5'},
                                                     {dateOfArrival:'2014-05-01', dateOfDeparture:'2014-08-22', dateOfTempDeparture: '2014-08-20', 
-                                                     roomNumber:'1', dataCrossRP:'2011-03-03', comments:'Brak zastrzeżeń', 
+                                                     roomNumber:'1', dataCrossRp:'2011-03-03', comments:'Brak zastrzeżeń', 
                                                     dormitory_id:'3', address_type_id:'2', regular_adress_id:'1', document_id:'3', resident_id: '4'},
                                                     {dateOfArrival:'2010-04-09', dateOfDeparture:'2010-09-20', dateOfTempDeparture: '2010-08-12', 
-                                                     roomNumber:'42', dataCrossRP:'2010-05-04', comments:'Zdemolowany pokój', 
-                                                    dormitory_id:'2', 
-                                                     address_type_id:'4', regular_adress_id:'1', document_id:'2', resident_id: '3'}
+                                                     roomNumber:'42', dataCrossRp:'2010-05-04', comments:'Zdemolowany pokój', 
+                                                    dormitory_id:'2', address_type_id:'4', regular_adress_id:'1', document_id:'2', resident_id: '3'},
+                                                     {dateOfArrival:'2017-05-01', dateOfDeparture:'2011-08-22', dateOfTempDeparture: '2017-08-20', 
+                                                     roomNumber:'11', dataCrossRp:'2011-03-03', comments:'Brak zastrzeżeń', 
+                                                    dormitory_id:'3', address_type_id:'2', regular_adress_id:'1', document_id:'3', resident_id: '1'}
+                                                     
                                                 ])
                                             }
                                         })

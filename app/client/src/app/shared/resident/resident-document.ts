@@ -4,4 +4,5 @@ export class ResidentDocument {
     expiration_date:Date;
     issuing_country: string;
     type_document:string;
+    document_type_id:number;
 }

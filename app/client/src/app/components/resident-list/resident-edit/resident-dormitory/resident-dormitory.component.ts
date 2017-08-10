@@ -12,7 +12,7 @@ import { ResidentEditService } from '../resident-edit.service';
 export class ResidentDormitoryComponent implements OnInit {
 
 
-  private residentDormitory: object;
+  private residentDormitory;
   @Input() switchInputs;
   @Input() residentId:number;
   @Output() emitResidentDormitory;
@@ -23,9 +23,9 @@ export class ResidentDormitoryComponent implements OnInit {
   ) {
 
     this.residentDormitory = {
-      id: 0,
       dateOfArrival: '',
       dateOfDeparture: '',
+      dateOfTempDeparture: '',
       roomNumber: 0,
       dateCrossRp: '',
       dormitoryId: 0,
@@ -39,9 +39,19 @@ export class ResidentDormitoryComponent implements OnInit {
 
     this.residentService.GetResidentStayById(this.residentId)
       .then(residentDormitory =>{
-        this.residentDormitory = residentDormitory;
+
+        this.residentDormitory.dateOfArrival = residentDormitory.dateOfArrival;
+        this.residentDormitory.dateOfDeparture = residentDormitory.dateOfDeparture;
+        this.residentDormitory.dateOfTempDeparture = residentDormitory.dateOfTempDeparture;
+        this.residentDormitory.roomNumber = residentDormitory.roomNumber;
+        this.residentDormitory.dateCrossRp = residentDormitory.dateCrossRp;
+        this.residentDormitory.comments = residentDormitory.comments;
+        this.residentDormitory.dormitoryId = residentDormitory.dormitory_id;
+        this.residentDormitory.documentId = residentDormitory.document_id;
+        this.residentDormitory.residentId = residentDormitory.resident_id;
+
         this.emitResidentDormitory.emit(this.residentDormitory);
-        console.log(this.residentDormitory);
+
       })
       
   }

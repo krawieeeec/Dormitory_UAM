@@ -1,5 +1,5 @@
-const sequelize = require('../config/db.js').dbClient;
-const residentAddressTable = require('../models/models.js').DataBaseModels["addressResident"];
+const sequelize = require('../../config/db.js').dbClient;
+const residentAddressTable = require('../../models/models.js').DataBaseModels["addressResident"];
 
 var residentAddressController = {
 
@@ -22,28 +22,12 @@ var residentAddressController = {
         next();
     },
 
-    GetAllResidentAddress: function(req, res){
-        residentAddressTable.findAll()
-        .then(addresses =>{
-            if(addresses.length == 0){
-                res.send('There aren\'t any entries in adress_resident table.')
-            }
-            else{
-                res.status(200);
-                res.send(addresses);
-            }
-        })
-        .catch(error => {
-            res.send(error);
-        })
-    },
-
     GetResidentAddressById: function(req, res){
 
         let residentId = req.params.id
 
         sequelize.query(
-            'SELECT country, city, street, house_number, apartment_number, post_code, address ' + 
+            'SELECT country, city, street, house_number, apartment_number, post_code, address, address_type_id ' + 
             'FROM address_residents INNER JOIN type_addresses '+ 
             'ON address_residents.address_type_id = type_addresses.id ' + 
             'WHERE address_residents.resident_id = :id',
@@ -57,7 +41,30 @@ var residentAddressController = {
                         res.send(residentAddress);
                     }
                 })
+    },
+    
+    UpdateResidentAddressById: function(req, res){
+
+        let residentId = req.params.id;
+        
+        documentTable.update(
+            req.newResidentAddress, 
+            {
+                where: {
+                    resident_id: residentId
+                }
+            }
+            ).then(() => {
+                res.send('entry was updated');            
+            }).catch(
+                error => 
+                {
+                    res.status(400);
+                    res.send(error);
+                }
+            )
     }
+
 }
 
 module.exports = {

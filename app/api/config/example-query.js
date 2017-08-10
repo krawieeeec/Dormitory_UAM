@@ -13,11 +13,23 @@ const dormitoryTable = require('../models/dictionaries/dormitory.js').DormitoryM
 const typeAddressTable = require('../models/dictionaries/type-address.js').TypeAddressModel;
 const typeDocumentTable = require('../models/dictionaries/type-document.js').TypeDocumentModel;
 //to table of dormitory
-        residentTable.findAll({
-            include:[{model: stayResidentTable, where:{dormitory_id: 4}}]
-        }).then(results => {
-            console.log(results[0].dataValues)
-
-        }).catch(error => {
-            console.log(error)
+/*    
+documentTable.findById(1).then(resident =>{
+            resident.update().then(() =>{
+                console.log('UPDATE');
+            })
         })
+*/
+residentTable.update(
+    {
+        pesel:'0',
+        asdasdasd:'adad'
+    },
+    {
+        where: {
+            id: 2
+        }
+    }
+).then(()=>{
+    console.log('UPDATE');
+})

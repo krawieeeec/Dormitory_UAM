@@ -6,7 +6,7 @@ var stayResidentModel = dbClient.define('stayResident', {
     dateOfDeparture: { type: sequelize.DATEONLY, allowNull: false, field: 'date_of_departure' },//change on DATE -> timestamp
     dateOfTempDeparture: { type: sequelize.DATEONLY, allowNull: true, field: 'date_of_temp_departure' },//change on DATE -> timestamp
     roomNumber: { type: sequelize.INTEGER, allowNull: false, field: 'room_number' },
-    dateCrossRP: { type: sequelize.DATEONLY, allowNull: true, field: 'date_cross_rp' },
+    dateCrossRp: { type: sequelize.DATEONLY, allowNull: true, field: 'date_cross_rp' },
     comments: { type: sequelize.STRING, allowNull: true }
 }, {timestamps: false, underscored: true, underscoredAll: true})
 

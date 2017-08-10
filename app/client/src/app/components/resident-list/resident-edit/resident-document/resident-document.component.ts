@@ -22,11 +22,13 @@ export class ResidentDocumentComponent implements OnInit, OnChanges, DoCheck {
     private residentEditService: ResidentEditService
   ) {
     this.residentDocument = {
-            releaseDate: '',
-            expirationDate: '',
-            issuingCountry: '',
-            typeDocument: ''
-        }
+      releaseDate: '',
+      expirationDate: '',
+      issuingCountry: '',
+      typeDocument: '',
+      documentTypeId: 0,
+      residentId: 0
+    }
     this.emitResidentDocument = new EventEmitter<object>();
   }
 
@@ -34,10 +36,15 @@ export class ResidentDocumentComponent implements OnInit, OnChanges, DoCheck {
 
     this.residentService.GetResidentDocumentById(this.residentId)
       .then(residentDocument =>{
+        
         this.residentDocument.releaseDate = residentDocument[0].release_date;
         this.residentDocument.expirationDate = residentDocument[0].expiration_date;
         this.residentDocument.issuingCountry = residentDocument[0].issuing_country;
         this.residentDocument.typeDocument = residentDocument[0].type_document;
+        this.residentDocument.documentTypeId = residentDocument[0].document_type_id;
+        this.residentDocument.residentId = this.residentId;
+        
+        this.emitResidentDocument.emit(this.residentDocument);
       })
   
   }

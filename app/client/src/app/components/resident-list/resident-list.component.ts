@@ -52,7 +52,7 @@ export class ResidentListComponent implements OnInit, DoCheck, OnDestroy{
                             this.residentsList = [];
                         }else{
                             this.residentsList = residents;
-                            location.reload();
+                           // location.reload();
                         }
                     });
                 }

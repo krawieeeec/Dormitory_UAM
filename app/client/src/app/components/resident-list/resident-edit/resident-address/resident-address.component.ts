@@ -29,7 +29,9 @@ export class ResidentAddressComponent implements OnInit, OnChanges, DoCheck {
             houseNumber: '',
             apartmentNumber: '',
             postCode: '',
-            address:''
+            address:'',
+            addressTypeId: 0,
+            residentId: 0
         }
     this.emitResidentAddress = new EventEmitter<object>();
   }
@@ -38,6 +40,7 @@ export class ResidentAddressComponent implements OnInit, OnChanges, DoCheck {
 
     this.residentService.GetResidentAddressById(this.residentId)
     .then(residentAddress =>{
+
       this.residentAddress.country = residentAddress[0].country;
       this.residentAddress.city = residentAddress[0].city;
       this.residentAddress.street = residentAddress[0].street;
@@ -45,9 +48,8 @@ export class ResidentAddressComponent implements OnInit, OnChanges, DoCheck {
       this.residentAddress.apartmentNumber = residentAddress[0].apartment_number;
       this.residentAddress.postCode = residentAddress[0].post_code;
       this.residentAddress.address = residentAddress[0].address;
-      
-      
-      
+      this.residentAddress.addressTypeId = residentAddress[0].address_type_id;
+      this.residentAddress.residentId = this.residentId;
       
       this.emitResidentAddress.emit(this.residentAddress);
       

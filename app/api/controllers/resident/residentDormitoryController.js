@@ -1,6 +1,6 @@
-const stayResidentTable = require('../models/models.js').DataBaseModels["stayResident"];
+const stayResidentTable = require('../../models/models.js').DataBaseModels["stayResident"];
 
-var residentStayController = {
+var residentDormitoryController = {
 
     FormResponseObject: function(req, res, next){
         
@@ -14,30 +14,23 @@ var residentStayController = {
             dateOfDeparture: req.body.dateOfDeparture,
             dateOfTempDeparture: req.body.dateOfTempDeparture,
             roomNumber: req.body.roomNumber,
-            dateCrossRP: req.body.dateCrossRP,
+            dateCrossRp: req.body.dateCrossRp,
             comments: req.body.comments
         }
         req.newResidentStay = newResidentStay
         next();
     },
 
-    GetAllResidentsStays: function(req, res){
-        stayResidentTable.findAll()
-        .then(residentsStay =>{
-            if(residentsStay.length == 0){
-                res.send('There aren\'t any entries in adress_resident table.')
-            } else{
-                res.status(200);
-                res.send(residentsStay);
-            }
-        })
-        .catch(error =>{
-            res.send(error);
-        })
-    },
+    GetResidentDormitoryById: function(req, res) {
+        let residentId = req.params.id;
 
-    GetResidentStayById: function(req, res) {
-        stayResidentTable.findById(req.params.id)
+        stayResidentTable.findOne({
+            where:{
+                resident_id: residentId
+            },
+            attributes: ['dateOfArrival','dateOfDeparture', 'dateOfTempDeparture', 
+            'roomNumber', 'dateCrossRp', 'comments', 'dormitory_id', 'document_id', 'resident_id']
+        })
         .then((residentStay) =>{
             if(residentStay == null)
                 res.send('Under current ID:'+ req.params.id +' there isn\'t any entries in table.')
@@ -52,6 +45,6 @@ var residentStayController = {
 }
 
 module.exports = {
-    ResidentStayController: residentStayController
+    ResidentDormitoryController: residentDormitoryController
 }
 

@@ -17,7 +17,6 @@ export class ResidentService{
         'Content-Type': 'application/json',
         'Accept': 'application/json'});
     private residentUrl = 'http://localhost:3000/resident';
-    private residentAddressUrl = 'http://localhost:3000/residentAddress';
     private residentDormitoryUrl = 'http://localhost:3000/residentStay';
     private residentDocumentUrl = 'http://localhost:3000/document';
     
@@ -42,7 +41,7 @@ export class ResidentService{
     }
     
       GetResidentAddressById(residentId): Promise<ResidentAddress>{
-          return this.http.get(this.residentAddressUrl + '/' + residentId)
+          return this.http.get(this.residentUrl + '/' + residentId + '/address')
             .toPromise()
             .then(response =>
                 response.json() as ResidentAddress)
@@ -50,7 +49,7 @@ export class ResidentService{
        }
 
        GetResidentStayById(residentId): Promise<ResidentDormitory>{
-            return this.http.get(this.residentDormitoryUrl + '/' + residentId)
+            return this.http.get(this.residentUrl + '/' + residentId+ '/dormitory')
                 .toPromise()
                 .then(response => 
                     response.json() as ResidentDormitory)

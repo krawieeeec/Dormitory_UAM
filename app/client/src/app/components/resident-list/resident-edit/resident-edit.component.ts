@@ -43,30 +43,33 @@ export class ResidentEditComponent implements OnInit, DoCheck, OnChanges {
 
   ngDoCheck(){
   }
+
   ngOnChanges(){
   
   }
 
   GetResidentPersonalData(residentPersonalData){
     this.residentPersonalData = residentPersonalData;
+     console.log(this.residentPersonalData);
+   console.log('resident-personal-data');
   }
 
   GetResidentAddress(residentAddress){
     this.residentAddress = residentAddress;
-   // console.log(this.residentAddress);
-  //  console.log('resident-edit-address');
+     console.log(this.residentAddress);
+     console.log('resident-edit-address');
   }
   
   GetResidentDocument(residentDocument){
     this.residentDocument = residentDocument;
-   // console.log(this.residentDocument);
-   // console.log('resident-edit-document');
+     console.log(this.residentDocument);
+     console.log('resident-edit-document');
   }
 
   GetResidentDormitory(residentDormitory){
     this.residentDormitory = residentDormitory;
-  //  console.log(this.residentDormitory);
-//    console.log('resident-edit-dormitory');
+    console.log(this.residentDormitory);
+    console.log('resident-edit-dormitory');
   }
 
   GoBack():void{
@@ -89,6 +92,7 @@ export class ResidentEditComponent implements OnInit, DoCheck, OnChanges {
     .then(() => {
      // this.router.navigate(['/residentList', this.dormitoryId]);
       console.log('UPDATED');
+      //location.reload();
     })
     .catch(error => console.log(error))
     //this.router.navigate(['/residentList', this.dormitoryId]);
