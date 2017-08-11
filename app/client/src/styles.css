@@ -5,6 +5,7 @@ html {
 }
 
 body {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
     position: relative;
     min-height: 100%;
     font-size: 18px;

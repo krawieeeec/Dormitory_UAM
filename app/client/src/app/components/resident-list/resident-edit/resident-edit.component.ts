@@ -92,7 +92,6 @@ export class ResidentEditComponent implements OnInit, DoCheck, OnChanges {
     .then((response) => {
      // this.router.navigate(['/residentList', this.dormitoryId]);
       console.log('UPDATED - PersonalDATA');
-      //location.reload();
     })
     .catch(error => console.log(error))
     //this.router.navigate(['/residentList', this.dormitoryId]);
@@ -120,6 +119,7 @@ export class ResidentEditComponent implements OnInit, DoCheck, OnChanges {
       console.log('UPDATED - residentDormitory')
     })
 
+    location.reload();
   }
 
 }
