@@ -5,4 +5,5 @@ export class ResidentDocument {
     issuing_country: string;
     type_document:string;
     document_type_id:number;
+    resident_id:number;
 }

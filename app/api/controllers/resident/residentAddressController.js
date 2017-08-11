@@ -47,7 +47,7 @@ var residentAddressController = {
 
         let residentId = req.params.id;
         
-        documentTable.update(
+        residentAddressTable.update(
             req.newResidentAddress, 
             {
                 where: {

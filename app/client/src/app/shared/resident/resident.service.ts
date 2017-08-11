@@ -64,12 +64,35 @@ export class ResidentService{
             .catch();
        }
 
-    UpdateResident(resident, residentId): Promise<ResidentPersonalData>{
-        console.log(resident);
-        return this.http.put(this.residentUrl + '/' + residentId + '/update', JSON.stringify(resident), 
+    UpdateResidentPersonalData(residentPersonalData, residentId): Promise<ResidentPersonalData>{
+        return this.http.put(this.residentUrl + '/' + residentId + '/update', JSON.stringify(residentPersonalData), 
         {headers: this.headers})
             .toPromise()
-            .then(() =>  resident)
+            .then(() =>  residentPersonalData)
+            .catch();
+    }
+    
+    UpdateResidentAddress(residentAddress, residentId): Promise<ResidentAddress>{
+        return this.http.put(this.residentUrl + '/' + residentId + '/address', JSON.stringify(residentAddress), 
+        {headers: this.headers})
+            .toPromise()
+            .then(() =>  residentAddress)
+            .catch();
+    }
+        
+    UpdateResidentDocument(residentDocument, residentId): Promise<ResidentDocument>{
+        return this.http.put(this.residentUrl + '/' + residentId + '/document', JSON.stringify(residentDocument), 
+        {headers: this.headers})
+            .toPromise()
+            .then(() =>  residentDocument)
+            .catch();
+    }
+     
+    UpdateResidentDormitory(residentDormitory, residentId): Promise<ResidentDormitory>{
+        return this.http.put(this.residentUrl + '/' + residentId + '/dormitory', JSON.stringify(residentDormitory), 
+        {headers: this.headers})
+            .toPromise()
+            .then(() =>  residentDormitory)
             .catch();
     }
 }

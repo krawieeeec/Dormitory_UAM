@@ -28,6 +28,7 @@ export class ResidentDormitoryComponent implements OnInit {
       dateOfTempDeparture: '',
       roomNumber: 0,
       dateCrossRp: '',
+      comments: '',
       dormitoryId: 0,
       documentId: 0,
       residentId: 0
@@ -50,6 +51,7 @@ export class ResidentDormitoryComponent implements OnInit {
         this.residentDormitory.documentId = residentDormitory.document_id;
         this.residentDormitory.residentId = residentDormitory.resident_id;
 
+        console.log(this.residentDormitory);
         this.emitResidentDormitory.emit(this.residentDormitory);
 
       })

@@ -50,26 +50,26 @@ export class ResidentEditComponent implements OnInit, DoCheck, OnChanges {
 
   GetResidentPersonalData(residentPersonalData){
     this.residentPersonalData = residentPersonalData;
-     console.log(this.residentPersonalData);
-   console.log('resident-personal-data');
+    //  console.log(this.residentPersonalData);
+  //  console.log('resident-personal-data');
   }
 
   GetResidentAddress(residentAddress){
     this.residentAddress = residentAddress;
-     console.log(this.residentAddress);
-     console.log('resident-edit-address');
+    //  console.log(this.residentAddress);
+    //  console.log('resident-edit-address');
   }
   
   GetResidentDocument(residentDocument){
     this.residentDocument = residentDocument;
-     console.log(this.residentDocument);
-     console.log('resident-edit-document');
+    //  console.log(this.residentDocument);
+    //  console.log('resident-edit-document');
   }
 
   GetResidentDormitory(residentDormitory){
     this.residentDormitory = residentDormitory;
-    console.log(this.residentDormitory);
-    console.log('resident-edit-dormitory');
+    // console.log(this.residentDormitory);
+    // console.log('resident-edit-dormitory');
   }
 
   GoBack():void{
@@ -88,10 +88,10 @@ export class ResidentEditComponent implements OnInit, DoCheck, OnChanges {
 
   EditResident():void{
   //  console.log(this.residentPersonalData);
-    this.residentService.UpdateResident(this.residentPersonalData, this.residentId)
-    .then(() => {
+    this.residentService.UpdateResidentPersonalData(this.residentPersonalData, this.residentId)
+    .then((response) => {
      // this.router.navigate(['/residentList', this.dormitoryId]);
-      console.log('UPDATED');
+      console.log('UPDATED - PersonalDATA');
       //location.reload();
     })
     .catch(error => console.log(error))
@@ -99,5 +99,27 @@ export class ResidentEditComponent implements OnInit, DoCheck, OnChanges {
     
     this.updateResidentList$.next(true);
     
+    this.residentService.UpdateResidentAddress(this.residentAddress, this.residentId)
+    .then((response) => {
+      console.log('UPDATED - residentAddress')
+    })
+    .catch(error => {
+      console.log(error);
+    })
+
+    this.residentService.UpdateResidentDocument(this.residentDocument, this.residentId)
+    .then((response) =>{
+      console.log('UPDATED - residentDocument');
+    })
+    .catch(error =>{
+      console.log(error);
+    })
+    console.log(this.residentDormitory);
+    this.residentService.UpdateResidentDormitory(this.residentDormitory, this.residentId)
+    .then((response) =>{
+      console.log('UPDATED - residentDormitory')
+    })
+
   }
+
 }

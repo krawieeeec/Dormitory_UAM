@@ -15,7 +15,10 @@ var residentDormitoryController = {
             dateOfTempDeparture: req.body.dateOfTempDeparture,
             roomNumber: req.body.roomNumber,
             dateCrossRp: req.body.dateCrossRp,
-            comments: req.body.comments
+            comments: req.body.comments,
+            dormitory_id: req.body.dormitoryId,
+            document_id: req.body.documentId,
+            resident_id: req.body.residentId 
         }
         req.newResidentStay = newResidentStay
         next();
@@ -40,6 +43,27 @@ var residentDormitoryController = {
         }).catch(error => {
             res.send(error);
         })
+    },
+    
+    UpdateResidentDormitoryById: function(req, res){
+
+        let residentId = req.params.id;
+        stayResidentTable.update(
+            req.newResidentStay, 
+            {
+                where: {
+                    resident_id: residentId
+                }
+            }
+            ).then(() => {
+                res.send('entry was updated');            
+            }).catch(
+                error => 
+                {
+                    res.status(400);
+                    res.send(error);
+                }
+            )
     }
 
 }

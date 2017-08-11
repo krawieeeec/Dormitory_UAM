@@ -26,7 +26,7 @@ var residentDocumentController = {
         let residentId = req.params.id
 
         sequelize.query(
-            'SELECT release_date, expiration_date, issuing_country, type_document, document_type_id FROM documents '+ 
+            'SELECT release_date, expiration_date, issuing_country, type_document, document_type_id, resident_id FROM documents '+ 
             'INNER JOIN type_documents ON documents.document_type_id = type_documents.id '+
             'WHERE resident_id = :id',
             {replacements: {id: residentId}, type: sequelize.QueryTypes.SELECT }).

@@ -6,6 +6,7 @@ var citzenshipCtrl = require('../controllers/citzenshipController').CitzenshipCo
 var dormitoryCtrl = require('../controllers/dormitoryController').DormitoryController;
 var documentCtrl = require('../controllers/documentController').DocumentController;
 
+//residentsControllers
 var residentCtrl = require('../controllers/resident/residentController.js').ResidentController;
 var residentPersonalDataCtrl = require('../controllers/resident/residentPersonalDataController').ResidentPersonalDataController;
 var residentAddressCtrl = require('../controllers/resident/residentAddressController').ResidentAddressController;
@@ -18,14 +19,13 @@ router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({extended: true}));
 
 
-//homeController
 router.route('/main').get(homeCtrl.HomePage);
 
 //residentController
 router.use(residentCtrl.FormResponseObject);
 router.route('/resident').get(residentCtrl.GetAllResidents);
-router.route('/resident/:id').get(residentCtrl.GetResidentById);
 router.route('/resident/create').post(residentCtrl.AddResident);
+router.route('/resident/:id').get(residentCtrl.GetResidentById);
 router.route('/resident/:id/delete').delete(residentCtrl.DeleteResidentById);
 router.route('/resident/:id/update').put(residentCtrl.UpdateResidentById);
 
@@ -42,10 +42,12 @@ router.route('/resident/:id/document').put(residentDocumentCtrl.UpdateResidentDo
 //residentAddressController
 router.use(residentAddressCtrl.FormResponseObject);
 router.route('/resident/:id/address').get(residentAddressCtrl.GetResidentAddressById);
+router.route('/resident/:id/address').put(residentAddressCtrl.UpdateResidentAddressById);
 
 //residentStayController
 router.use(residentDormitoryCtrl.FormResponseObject);
 router.route('/resident/:id/dormitory').get(residentDormitoryCtrl.GetResidentDormitoryById);
+router.route('/resident/:id/dormitory').put(residentDormitoryCtrl.UpdateResidentDormitoryById);
 
 //documentController
 router.use(documentCtrl.FormResponseObject);
