@@ -133,15 +133,15 @@ dbClient.drop().then(() => {
                             residentTable.count().then(amountData => {
                                 if(amountData >= 0){
                                     residentTable.bulkCreate([
-                                        {name: 'Dawid', surname: 'Krawczyk', genre: 'male', phoneNumber: '506238823', birthDate:'1992-08-02', birthPlace: 'Inowrocław', 
+                                        {name: 'Dawid', surname: 'Krawczyk', genre: 'Mężczyzna', phoneNumber: '506238823', birthDate:'1992-08-02', birthPlace: 'Inowrocław', 
                                         motherName:'Dorota', fatherName: 'Darek', pesel:'95275820583', citzenship_code_id: 2, adress_id:1},
-                                        {name: 'Paweł', surname: 'Jaworski', genre: 'male', phoneNumber: '556284369', birthDate:'1982-03-23', birthPlace: 'Poznań', 
+                                        {name: 'Paweł', surname: 'Jaworski', genre: 'Mężczyzna', phoneNumber: '556284369', birthDate:'1982-03-23', birthPlace: 'Poznań', 
                                         motherName:'Dagmara', fatherName: 'Janusz', pesel:'2351567433', citzenship_code_id: 1, adress_id:3},
-                                        {name: 'Dorota', surname: 'Pawelczyk', genre: 'female', phoneNumber: '628698423', birthDate:'1969-08-09', birthPlace: 'Olsztyn', 
+                                        {name: 'Dorota', surname: 'Pawelczyk', genre: 'Kobieta', phoneNumber: '628698423', birthDate:'1969-08-09', birthPlace: 'Olsztyn', 
                                         motherName:'Barbara', fatherName: 'Zygmunt', pesel:'28548332152', citzenship_code_id: 3, adress_id:4},
-                                        {name: 'Jakub', surname: 'Piotrowski', genre: 'male', phoneNumber: '628874214', birthDate:'1992-02-13', birthPlace: 'Żnin', 
+                                        {name: 'Jakub', surname: 'Piotrowski', genre: 'Mężczyzna', phoneNumber: '628874214', birthDate:'1992-02-13', birthPlace: 'Żnin', 
                                         motherName:'Monika', fatherName: 'Piotr', pesel:'1235749247', citzenship_code_id: 4, adress_id:2},
-                                        {name: 'Kasia', surname: 'Smektalska', genre: 'female', phoneNumber: '511236987',birthDate:'1996-12-07', birthPlace: 'Gdańsk', 
+                                        {name: 'Kasia', surname: 'Smektalska', genre: 'Kobieta', phoneNumber: '511236987',birthDate:'1996-12-07', birthPlace: 'Gdańsk', 
                                         motherName:'Klaudia', fatherName: 'Bartosz', pesel:'3497512687', citzenship_code_id: 5, adress_id:1}
                                     ]).then(() => {
                                         return residentTable.findAll();

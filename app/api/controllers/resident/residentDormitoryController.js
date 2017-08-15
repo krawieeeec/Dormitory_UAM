@@ -20,11 +20,21 @@ var residentDormitoryController = {
             document_id: req.body.documentId,
             resident_id: req.body.residentId 
         }
-        req.newResidentStay = newResidentStay
+
+        req.newResidentStay = newResidentStay; 
         next();
     },
 
-    GetResidentDormitoryById: function(req, res) {
+    CreateNewResidentStay: function(req, res){
+        stayResidentTable.create(req.newResidentStay)
+        .then((newResidentStay) => {
+                res.send(newResidentStay);
+            }).catch(error => {
+                res.send(error);
+        })
+    },
+
+    GetResidentStayDormitoryById: function(req, res) {
         let residentId = req.params.id;
 
         stayResidentTable.findOne({
@@ -45,7 +55,7 @@ var residentDormitoryController = {
         })
     },
     
-    UpdateResidentDormitoryById: function(req, res){
+    UpdateResidentStayDormitoryById: function(req, res){
 
         let residentId = req.params.id;
         stayResidentTable.update(

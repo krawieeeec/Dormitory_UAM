@@ -1,0 +1,39 @@
+<div class="container">
+    <div id="form_wrapper">
+        <form>
+
+            <div class="form-group">
+                <label for="residentTypeDocument">Typ Dokumentu</label>
+                <input type="text" [disabled]="true" [style.opacity]="true ? 0.4 : 1" #typeDocument="ngModel" [(ngModel)]="residentDocument.typeDocument" name="typeDocument" class="form-control" id="residentTypeDocument" placeholder="Podaj Nazwę dokumentu" required>
+                <div [hidden]="typeDocument.valid || typeDocument.pristine" class="alert alert-danger">
+                    Pole nie może być puste
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="residentReleaseDate">Data Wydania</label>
+                <input type="date" #releaseDate="ngModel" [(ngModel)]="residentDocument.releaseDate" #releaseDate="ngModel" name="releaseDate" class="form-control" id="residentReleaseDate" placeholder="Podaj Datę Wydania" required>
+                <div [hidden]="releaseDate.valid || releaseDate.pristine" class="alert alert-danger">
+                    Pole nie może być puste
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="residentExpirationDate">Data Ważności</label>
+                <input type="date" #expirationDate="ngModel" [(ngModel)]="residentDocument.expirationDate" #expirationDate="ngModel" name="expirationDate" class="form-control" id="residentExpirationDate" placeholder="Podaj Datę Ważności" required>
+                <div [hidden]="expirationDate.valid || expirationDate.pristine" class="alert alert-danger">
+                    Pole nie może być puste
+                </div>
+            </div>
+        </form>
+    </div>
+    <div id="form_wrapper">
+        <form>
+            <div class="form-group">
+                <label for="residentIssuingCountry">Kraj Wydania</label>
+                <input type="text" #issuingCountry="ngModel" [(ngModel)]="residentDocument.issuingCountry" #issuingCountry="ngModel" name="issuingCountry" class="form-control" id="residentIssuingCountry" placeholder="Podaj Kraj Wydania" required>
+                <div [hidden]="issuingCountry.valid || issuingCountry.pristine" class="alert alert-danger">
+                    Pole nie może być puste
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

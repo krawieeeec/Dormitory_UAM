@@ -13,17 +13,49 @@ import 'rxjs/add/operator/toPromise';
 
 export class ResidentService{
 
-    private headers = new Headers({
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'});
-    private residentUrl = 'http://localhost:3000/resident';
-    private residentDormitoryUrl = 'http://localhost:3000/residentStay';
-    private residentDocumentUrl = 'http://localhost:3000/document';
+    private headers;
+    private residentUrl;
     
     constructor(private http: Http){ 
-
+        
+        this.residentUrl = 'http://localhost:3000/resident';
+        this.headers = new Headers({
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'}) 
     }
 
+    CreateNewResidentPersonalData(newResidentPersonalData): Promise<ResidentPersonalData>{
+        return this.http.post(this.residentUrl + '/personalData', newResidentPersonalData)
+        .toPromise()
+        .then(response =>
+            response.json() as ResidentPersonalData)
+        .catch();
+    }
+        
+    CreateNewResidentAddress(newResidentAddress): Promise<ResidentAddress>{
+        return this.http.post(this.residentUrl + '/address', newResidentAddress)
+        .toPromise()
+        .then(response =>
+            response.json() as ResidentAddress)
+        .catch();
+    }
+
+    CreateNewResidentDocument(newResidentDocument): Promise<ResidentDocument>{
+        return this.http.post(this.residentUrl + '/document', newResidentDocument)
+        .toPromise()
+        .then(response =>
+            response.json() as ResidentDocument)
+        .catch();
+    }
+
+    CreateNewResidentDormitoryStay(newResidentDormitoryStay): Promise<ResidentDormitory>{
+        return this.http.post(this.residentUrl + '/dormitory', newResidentDormitoryStay)
+        .toPromise()
+        .then(response =>
+            response.json() as ResidentDormitory)
+        .catch();
+    }
+    
     GetResidents(): Promise<ResidentPersonalData[]>{
         return this.http.get(this.residentUrl)
             .toPromise()
@@ -64,7 +96,7 @@ export class ResidentService{
             .catch();
        }
 
-    UpdateResidentPersonalData(residentPersonalData, residentId): Promise<ResidentPersonalData>{
+    UpdateResidentPersonalDataById(residentPersonalData, residentId): Promise<ResidentPersonalData>{
         return this.http.put(this.residentUrl + '/' + residentId + '/update', JSON.stringify(residentPersonalData), 
         {headers: this.headers})
             .toPromise()
@@ -72,7 +104,7 @@ export class ResidentService{
             .catch();
     }
     
-    UpdateResidentAddress(residentAddress, residentId): Promise<ResidentAddress>{
+    UpdateResidentAddressById(residentAddress, residentId): Promise<ResidentAddress>{
         return this.http.put(this.residentUrl + '/' + residentId + '/address', JSON.stringify(residentAddress), 
         {headers: this.headers})
             .toPromise()
@@ -80,7 +112,7 @@ export class ResidentService{
             .catch();
     }
         
-    UpdateResidentDocument(residentDocument, residentId): Promise<ResidentDocument>{
+    UpdateResidentDocumentById(residentDocument, residentId): Promise<ResidentDocument>{
         return this.http.put(this.residentUrl + '/' + residentId + '/document', JSON.stringify(residentDocument), 
         {headers: this.headers})
             .toPromise()
@@ -88,7 +120,7 @@ export class ResidentService{
             .catch();
     }
      
-    UpdateResidentDormitory(residentDormitory, residentId): Promise<ResidentDormitory>{
+    UpdateResidentDormitoryById(residentDormitory, residentId): Promise<ResidentDormitory>{
         return this.http.put(this.residentUrl + '/' + residentId + '/dormitory', JSON.stringify(residentDormitory), 
         {headers: this.headers})
             .toPromise()

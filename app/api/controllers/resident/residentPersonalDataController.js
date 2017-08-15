@@ -25,6 +25,15 @@ var residentPersonalDataController = {
         next();
     },
 
+    CreateNewResidentPersonalData: function(req, res){
+        residentTable.create(req.newResidentPersonalData)
+        .then((newResident) => {
+                res.send(newResident);
+            }).catch(error => {
+                res.send(error);
+        })
+    },
+
     GetResidentPersonalDataById: function(req, res){
         let residentId = req.params.id
 

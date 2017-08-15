@@ -4,7 +4,7 @@ const dbClient = require('../../config/db.js').dbClient;
 var residentModel = dbClient.define('resident', {
     name: { type: sequelize.STRING(30), allowNull: false, unique: false},
     surname: {type: sequelize.STRING(30), allowNull: false, unique: false},
-    genre: {type: sequelize.ENUM('male', 'female'), allowNull: false, unique: false},
+    genre: {type: sequelize.ENUM('Kobieta', 'Mężczyzna'), allowNull: false, unique: false},
     phoneNumber: {type: sequelize.INTEGER, allowNull: true, unique: false, field: 'phone_number'},
     birthDate: {type: sequelize.DATEONLY, allowNull: false, unique: false, field: 'birth_date'},
     birthPlace: {type: sequelize.STRING(30), allowNull:false, unique: false, field: 'birth_place'},

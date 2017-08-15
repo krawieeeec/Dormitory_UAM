@@ -1,35 +1,39 @@
 <div class="container">
-    <table class="table table-hover" *ngIf="showTable">
-        <thead>
-            <tr>
-                <th>Imię</th>
-                <th>Nazwisko</th>
-                <th>Numer pokoju</th>
-                <th>Zarządzanie</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let resident of residentsList">
-                <td>{{resident.name}}</td>
-                <td>{{resident.surname}}</td>
-                <td>{{resident.room_number}}</td>
-                <td>
-                    <button type="button" [routerLink]="['residentEdit', resident.id]" data-toggle="tooltip" title="Edytuj Konto" class="btn btn-default" aria-label="Left Align">
+    <div class="table_wrapper" *ngIf="showList">
+        <h1 class="title">Lista rezydentów - {{nameCurrentDormitory}}</h1>
+        <button [routerLink]="['/addResident']" id="addResident" type="button" class="btn btn-default">Dodaj Nowego Rezydenta</button>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Imię</th>
+                    <th>Nazwisko</th>
+                    <th>Numer pokoju</th>
+                    <th>Zarządzanie</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let resident of residentsList">
+                    <td>{{resident.name}}</td>
+                    <td>{{resident.surname}}</td>
+                    <td>{{resident.room_number}}</td>
+                    <td>
+                        <button type="button" [routerLink]="['residentEdit', resident.id]" data-toggle="tooltip" title="Edytuj Konto" class="btn btn-default" aria-label="Left Align">
   <span  class="glyphicon glyphicon-edit" aria-hidden="true"></span>
 </button>
 
-                    <button type="button" data-toggle="tooltip" title="Zresetuj hasło" class="btn btn-default btn-lg">
+                        <button type="button" data-toggle="tooltip" title="Zresetuj hasło" class="btn btn-default btn-lg">
   <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
 </button>
-                    <button type="button" data-toggle="tooltip" title="Wymelduj" class="btn btn-default btn-lg">
+                        <button type="button" data-toggle="tooltip" title="Wymelduj" class="btn btn-default btn-lg">
   <span class="glyphicon glyphicon-plane"></span> </button>
-                    <button type="button" data-toggle="tooltip" title="Zablokuj konto" class="btn btn-default btn-lg">
+                        <button type="button" data-toggle="tooltip" title="Zablokuj konto" class="btn btn-default btn-lg">
   <span class="glyphicon glyphicon-lock" aria-hidden="true"></span> 
 </button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
     <div id="router_wrapper">
         <router-outlet></router-outlet>
     </div>

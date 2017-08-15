@@ -18,8 +18,27 @@ var residentDocumentController = {
             document_type_id: req.body.documentTypeId,
             resident_id: req.body.residentId
         }
-        req.newResidentDocument = newResidentDocument
+
+        let updateResidentDocument = {
+            releaseDate: req.body.releaseDate,
+            expirationDate: req.body.expirationDate,
+            issuingCountry: req.body.issuingCountry,
+            typeDocument: req.body.typeDocument,  
+            document_type_id: req.body.documentTypeId
+        }
+
+        req.newResidentDocument = newResidentDocument;
+        req.updateResidentDocument = updateResidentDocument;
         next();
+    },
+
+    CreateNewResidentDocument: function(req, res){
+        documentTable.create(req.newResidentDocument)
+        .then((newResidentDocument) => {
+                res.send(newResidentDocument);
+            }).catch(error => {
+                res.send(error);
+        })
     },
 
     GetResidentDocumentById: function(req, res) {
@@ -45,7 +64,7 @@ var residentDocumentController = {
 
         let residentId = req.params.id;
         documentTable.update(
-            req.newResidentDocument, 
+            req.updateResidentDocument, 
             {
                 where: {
                     resident_id: residentId

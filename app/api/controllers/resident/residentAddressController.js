@@ -16,10 +16,32 @@ var residentAddressController = {
             houseNumber: req.body.houseNumber,
             apartmentNumber: req.body.apartmentNumber,
             postCode: req.body.postCode,
-            city: req.body.city
+            city: req.body.city,
+            address_type_id: req.body.addressTypeId,
+            resident_id: req.body.residentId
         }
-        req.newResidentAddress = newResidentAddress
+
+        let updateResidentAddress = {
+            country: req.body.country, 
+            street: req.body.street,
+            houseNumber: req.body.houseNumber,
+            apartmentNumber: req.body.apartmentNumber,
+            postCode: req.body.postCode,
+            city: req.body.city,
+        }
+
+        req.newResidentAddress = newResidentAddress;
+        req.updateResidentAddress = updateResidentAddress;
         next();
+    },
+
+    CreateNewResidentAddress: function(req, res){
+        residentAddressTable.create(req.newResidentAddress)
+        .then((newResidentAddress) => {
+                res.send(newResidentAddress);
+            }).catch(error => {
+                res.send(error);
+        })
     },
 
     GetResidentAddressById: function(req, res){
@@ -48,7 +70,7 @@ var residentAddressController = {
         let residentId = req.params.id;
         
         residentAddressTable.update(
-            req.newResidentAddress, 
+            req.updateResidentAddress, 
             {
                 where: {
                     resident_id: residentId

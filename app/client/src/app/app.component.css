@@ -61,8 +61,8 @@ a:hover {
 #content_wrapper {
     text-align: center;
     position: relative;
-    height: 80%;
-    max-height: 80%
+    height: 75%;
+    max-height: 75%
 }
 
 #image_wrapper {
@@ -72,7 +72,8 @@ a:hover {
     background-color: slategray;
     background-repeat: no-repeat;
     background-size: 100% 100%;
-    overflow: scroll;
+    overflow-y: scroll;
+    overflow-x: hidden;
     /* opacity: 0.7; */
     /* filter: alpha(opacity=70); */
     /* position: absolute; */
@@ -101,8 +102,11 @@ a:hover {
     width: 100%;
     text-align: center;
     color: white;
-    position: fixed;
+    position: absolute;
     bottom: 0px;
+    height: 5%;
+    display: grid;
+    font-size: 14px;
 }
 
 

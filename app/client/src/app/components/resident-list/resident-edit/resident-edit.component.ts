@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Output, OnInit, DoCheck, OnChanges } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router, RouterLinkActive } from '@angular/router';
 import { Location } from '@angular/common';
-import { ResidentService } from '../../../shared//resident/resident.service';
+import { ResidentService } from '../../../shared/resident/resident.service';
 import { UserSessionService } from '../../../shared/user-session.service';
 import { ResidentEditService } from './resident-edit.service';
 
@@ -88,7 +88,7 @@ export class ResidentEditComponent implements OnInit, DoCheck, OnChanges {
 
   EditResident():void{
   //  console.log(this.residentPersonalData);
-    this.residentService.UpdateResidentPersonalData(this.residentPersonalData, this.residentId)
+    this.residentService.UpdateResidentPersonalDataById(this.residentPersonalData, this.residentId)
     .then((response) => {
      // this.router.navigate(['/residentList', this.dormitoryId]);
       console.log('UPDATED - PersonalDATA');
@@ -98,7 +98,7 @@ export class ResidentEditComponent implements OnInit, DoCheck, OnChanges {
     
     this.updateResidentList$.next(true);
     
-    this.residentService.UpdateResidentAddress(this.residentAddress, this.residentId)
+    this.residentService.UpdateResidentAddressById(this.residentAddress, this.residentId)
     .then((response) => {
       console.log('UPDATED - residentAddress')
     })
@@ -106,7 +106,7 @@ export class ResidentEditComponent implements OnInit, DoCheck, OnChanges {
       console.log(error);
     })
 
-    this.residentService.UpdateResidentDocument(this.residentDocument, this.residentId)
+    this.residentService.UpdateResidentDocumentById(this.residentDocument, this.residentId)
     .then((response) =>{
       console.log('UPDATED - residentDocument');
     })
@@ -114,7 +114,7 @@ export class ResidentEditComponent implements OnInit, DoCheck, OnChanges {
       console.log(error);
     })
     console.log(this.residentDormitory);
-    this.residentService.UpdateResidentDormitory(this.residentDormitory, this.residentId)
+    this.residentService.UpdateResidentDormitoryById(this.residentDormitory, this.residentId)
     .then((response) =>{
       console.log('UPDATED - residentDormitory')
     })

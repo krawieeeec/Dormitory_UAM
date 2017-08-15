@@ -38,10 +38,10 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="residentDateOfCrossRp">Data Przekroczenia RP</label>
-                <input [disabled]="switchInputs" [style.opacity]="switchInputs ? 0.4 : 1" type="date" [(ngModel)]="residentDormitory.dateOfCrossRp" name="dateOfCrossRp" #dateOfCrossRp="ngModel" class="form-control" id="residentDateOfCrossRp" placeholder="Podaj Datę Przekroczenia RP"
+                <label for="residentDateCrossRp">Data Przekroczenia RP</label>
+                <input [disabled]="switchInputs" [style.opacity]="switchInputs ? 0.4 : 1" type="date" [(ngModel)]="residentDormitory.dateCrossRp" name="dateCrossRp" #dateCrossRp="ngModel" class="form-control" id="residentDateCrossRp" placeholder="Podaj Datę Przekroczenia RP"
                     required>
-                <div [hidden]="dateOfCrossRp.valid || dateOfCrossRp.pristine || switchInputs" class="alert alert-danger">
+                <div [hidden]="dateCrossRp.valid || dateCrossRp.pristine || switchInputs" class="alert alert-danger">
                     Pole nie może być puste
                 </div>
             </div>

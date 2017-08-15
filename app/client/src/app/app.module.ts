@@ -10,12 +10,10 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
 //App features modules
-import { AddResidentModule } from './components/add-resident/add-resident.module';
-import { EditUserAccountModule } from './components/edit-user-account/edit-user-account.module';
 import { MainPageModule } from './components/main-page/main-page.module';
 import { PageNotFoundModule } from './components/page-not-found/page-not-found.module';
-import { SearchResidentModule } from './components/search-resident/search-resident.module';
 import { ResidentListModule } from './components/resident-list/resident-list.module';
+import { AddResidentModule } from './components/add-resident/add-resident.module';
 import { NavbarModule } from './layout-components/navbar/navbar.module';
 import {FormBuilder, FormGroup, ReactiveFormsModule} from '@angular/forms'; 
 
@@ -33,8 +31,7 @@ import { UserSessionService } from './shared/user-session.service';
   ],
   imports: [
     BrowserModule, HttpModule, FormsModule,
-    AddResidentModule, EditUserAccountModule,
-    MainPageModule, PageNotFoundModule, SearchResidentModule, NgbModule.forRoot(), ReactiveFormsModule, 
+    AddResidentModule, MainPageModule, PageNotFoundModule, NgbModule.forRoot(), ReactiveFormsModule, 
     ResidentListModule, NavbarModule, AppRoutingModule
     ],
   exports:[],

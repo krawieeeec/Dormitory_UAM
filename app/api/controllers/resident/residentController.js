@@ -75,8 +75,8 @@ var residentController = {
     AddResident: function(req, res){
 
         residentTable.create(req.newResident)
-        .then(() => {
-                res.send('Added new entry to resident table.');
+        .then((newResident) => {
+                res.send(newResident);
             }).catch(error => {
                 res.send(error);
         })

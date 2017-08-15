@@ -1,0 +1,29 @@
+.container {
+    width: 100%;
+    display: table-cell;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    margin-right: 5px;
+    width: 250px;
+}
+
+label {
+    color: white;
+    font-weight: inherit;
+    font-size: 18px;
+    margin-left: 5px;
+    float: left;
+    text-transform: capitalize;
+}
+
+form {
+    display: flex;
+    margin: 5px;
+}
+
+#form_wrapper {
+    display: flex;
+    margin-bottom: 20px;
+}
