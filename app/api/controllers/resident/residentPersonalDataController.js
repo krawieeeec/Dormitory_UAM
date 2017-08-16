@@ -55,10 +55,17 @@ var residentPersonalDataController = {
 
     UpdateResidentPersonalDataById: function(req, res){
 
-        residentTable.findById(req.params.id)
-        .then(resident =>{
-            resident.update(req.newResident).then(() => {
-                res.send('entry was updated');
+        let residentId = req.params.id;
+        residentTable.update(
+            req.newResidentPersonalData, 
+            {
+                where: {
+                    id: residentId
+                }
+            }
+            ).then(() => {
+                res.status(200);
+                res.send('entry was updated');            
             }).catch(
                 error => 
                 {
@@ -66,10 +73,30 @@ var residentPersonalDataController = {
                     res.send(error);
                 }
             )
-        })
     }
 }
 
 module.exports = {
     ResidentPersonalDataController: residentPersonalDataController
 }
+
+
+/*
+DeleteResidentById: function(req, res){
+        
+        residentTable.findById(req.params.id)
+        .then((resident) => {
+            if(resident == null){
+                res.send('Under current ID:'+ req.params.id +' there isn\'t any entries in table.')
+            }else{
+                residentTable.destroy({where: {id: req.params.id}}).then(() =>{
+                    res.send('Entry was deleted with ID:' + req.params.id+ 'from Resident table.');
+                }).catch(error => {
+                    res.send(error);
+                })        
+            }
+        }).catch(error => {
+            res.send(error);
+        })
+    }
+    */

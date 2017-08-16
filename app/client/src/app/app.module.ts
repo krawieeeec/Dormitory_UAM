@@ -8,6 +8,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppComponent } from './app.component';
 //routing module
 import { AppRoutingModule } from './app-routing.module';
+//3rd parties extensions
 
 //App features modules
 import { MainPageModule } from './components/main-page/main-page.module';
@@ -30,7 +31,7 @@ import { UserSessionService } from './shared/user-session.service';
       AppComponent
   ],
   imports: [
-    BrowserModule, HttpModule, FormsModule,
+    BrowserModule, HttpModule, FormsModule, 
     AddResidentModule, MainPageModule, PageNotFoundModule, NgbModule.forRoot(), ReactiveFormsModule, 
     ResidentListModule, NavbarModule, AppRoutingModule
     ],

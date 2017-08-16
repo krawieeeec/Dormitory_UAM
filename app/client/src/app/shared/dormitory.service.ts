@@ -32,7 +32,7 @@ export class DormitoryService{
 
     GetResidentsOfCurrentDormitoryById(dormitoryId:number): Promise<ResidentPersonalData[]>{
         
-        return this.http.get(this.dormitoryUrl +'/' + dormitoryId.toString())
+        return this.http.get(this.dormitoryUrl +'/' + dormitoryId.toString() + '/residents')
             .toPromise()
             .then(response => 
                 response.json() as ResidentPersonalData[]

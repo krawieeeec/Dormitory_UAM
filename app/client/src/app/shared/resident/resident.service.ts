@@ -97,7 +97,7 @@ export class ResidentService{
        }
 
     UpdateResidentPersonalDataById(residentPersonalData, residentId): Promise<ResidentPersonalData>{
-        return this.http.put(this.residentUrl + '/' + residentId + '/update', JSON.stringify(residentPersonalData), 
+        return this.http.put(this.residentUrl + '/' + residentId + '/personalData', JSON.stringify(residentPersonalData), 
         {headers: this.headers})
             .toPromise()
             .then(() =>  residentPersonalData)

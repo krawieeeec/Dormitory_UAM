@@ -27,3 +27,7 @@ form {
     display: flex;
     margin-bottom: 20px;
 }
+
+option {
+    display: fixed !important;
+}

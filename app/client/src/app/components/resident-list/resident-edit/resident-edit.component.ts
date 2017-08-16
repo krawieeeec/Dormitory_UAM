@@ -50,7 +50,7 @@ export class ResidentEditComponent implements OnInit, DoCheck, OnChanges {
 
   GetResidentPersonalData(residentPersonalData){
     this.residentPersonalData = residentPersonalData;
-    //  console.log(this.residentPersonalData);
+    // console.log(this.residentPersonalData);
   //  console.log('resident-personal-data');
   }
 
@@ -119,7 +119,7 @@ export class ResidentEditComponent implements OnInit, DoCheck, OnChanges {
       console.log('UPDATED - residentDormitory')
     })
 
-    location.reload();
+    // location.reload();
   }
 
 }

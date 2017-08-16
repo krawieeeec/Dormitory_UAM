@@ -19,7 +19,6 @@ System.config({
 
     
     'main': 'main.js',
-
     // Angular specific mappings.
     '@angular/core': 'https://unpkg.com/@angular/core/bundles/core.umd.js',
     '@angular/animations': 'https://unpkg.com/@angular/animations/bundles/animations.umd.js',
@@ -42,6 +41,7 @@ System.config({
   },
   packages: {
     // Thirdparty barrels.
-    'rxjs': { main: 'index' },
+    'rxjs': { main: 'index' }
   }
+
 });

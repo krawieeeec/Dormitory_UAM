@@ -17,8 +17,16 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="residentGenre">Płeć</label>
-                <input [disabled]="true" [style.opacity]="true ? 0.4 : 1" #genre="ngModel" [(ngModel)]="residentPersonalData.genre" name="genre" type="text" class="form-control" id="residentGenre" placeholder="Podaj Płeć" required>
+                <label for="residentGenre">Nazwisko</label>
+                <input [disabled]="true" [style.opacity]="true ? 0.4 : 1" #genre="ngModel" (change)="ShowListGenre(genre.value)" [(ngModel)]="residentPersonalData.genre" list="genre" name="genre" type="text" class="form-control" id="residentGenre" placeholder="Podaj Płeć"
+                    required>
+                <datalist id="genre">
+                    <ng-container *ngFor="let item of listOfGenre">
+                        <ng-container *ngIf="item.index > 0">
+                        <option   [value]="item.genre">
+                        </ng-container>
+                    </ng-container>
+                </datalist>
                 <div [hidden]="genre.valid || genre.pristine || switchInputs" class="alert alert-danger">
                     Pole nie może być puste
                 </div>
@@ -72,7 +80,15 @@
         <form>
             <div class="form-group">
                 <label for="residentCitzenship">Obywatelstwo</label>
-                <input [disabled]="true" [style.opacity]="true ? 0.4 : 1" #citzenship="ngModel" [(ngModel)]="residentPersonalData.citzenship" name="citzenship" type="text" class="form-control" id="residentCitzenship" placeholder="Zmień Obywatelstwo" required>
+                <input [disabled]="true" [style.opacity]="true ? 0.4 : 1" #citzenship="ngModel" list="citzenship" [(ngModel)]="residentPersonalData.citzenship" name="citzenship" type="text" class="form-control" id="residentCitzenship" placeholder="Podaj Obywatelstwo"
+                    required>
+                <datalist id="citzenship">
+                    <ng-container *ngFor="let item of listOfCitzenships">
+                        <ng-container *ngIf="item.id > 0">
+                        <option (click)="SetCitzenship(item)" [value]="item.citzenship">
+                        </ng-container>
+                    </ng-container>
+                </datalist>
                 <div [hidden]="citzenship.valid || citzenship.pristine || switchInputs" class="alert alert-danger">
                     Pole nie może być puste
                 </div>

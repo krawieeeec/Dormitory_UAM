@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { AppRoutingModule } from '../../../app-routing.module';
 import { FormsModule } from '@angular/forms';
 
+
 import { ResidentEditComponent } from './resident-edit.component';
 //Components Child 
 import { ResidentPersonalDataModule } from './resident-personal-data/resident-personal-data.module';

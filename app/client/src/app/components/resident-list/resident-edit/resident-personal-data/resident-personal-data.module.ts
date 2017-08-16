@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
 import { ResidentPersonalDataComponent } from './resident-personal-data.component';
+
 
 @NgModule({
     imports:[
-        CommonModule, FormsModule 
+        CommonModule, FormsModule
     ],
     declarations: [
         ResidentPersonalDataComponent
