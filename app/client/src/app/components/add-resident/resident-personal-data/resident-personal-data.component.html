@@ -17,9 +17,9 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="residentGenre">Płeć</label>
-                <input #genre="ngModel" [(ngModel)]="residentPersonalData.genre" name="genre" type="text" class="form-control" id="residentGenre" placeholder="Podaj Płeć" required>
-                <div [hidden]="genre.valid || genre.pristine" class="alert alert-danger">
+                <label for="residentPesel">PESEL</label>
+                <input #pesel="ngModel" [(ngModel)]="residentPersonalData.pesel" name="pesel" type="text" class="form-control" id="residentPesel" placeholder="Podaj PESEL" required>
+                <div [hidden]="pesel.valid || pesel.pristine" class="alert alert-danger">
                     Pole nie może być puste
                 </div>
             </div>
@@ -42,8 +42,11 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="residentPhoneNumber">Numer Telefonu</label>
-                <input #phoneNumber="ngModel" [(ngModel)]="residentPersonalData.phoneNumber" name="phoneNumber" type="text" class="form-control" id="residentPhoneNumber" placeholder="Podaj Imię Matki" required>
+                <label for="residentCitzenship">Obywatelstwo</label>
+                <input [disabled]="true" [style.opacity]="true ? 0.4 : 1" #citzenship="ngModel" [(ngModel)]="residentPersonalData.citzenship" name="citzenship" type="text" class="form-control" id="residentCitzenship" placeholder="Zmień Obywatelstwo" required>
+                <div [hidden]="citzenship.valid || citzenship.pristine || switchInputs" class="alert alert-danger">
+                    Pole nie może być puste
+                </div>
             </div>
         </form>
     </div>
@@ -58,9 +61,9 @@
                 <input #matherName="ngModel" [(ngModel)]="residentPersonalData.motherName" name="motherName" type="text" class="form-control" id="residentNameMather" placeholder="Podaj Imię Matki" required>
             </div>
             <div class="form-group">
-                <label for="residentPesel">PESEL</label>
-                <input #pesel="ngModel" [(ngModel)]="residentPersonalData.pesel" name="pesel" type="text" class="form-control" id="residentPesel" placeholder="Podaj PESEL" required>
-                <div [hidden]="pesel.valid || pesel.pristine" class="alert alert-danger">
+                <label for="residentGenre">Płeć</label>
+                <input #genre="ngModel" [(ngModel)]="residentPersonalData.genre" name="genre" type="text" class="form-control" id="residentGenre" placeholder="Podaj Płeć" required>
+                <div [hidden]="genre.valid || genre.pristine" class="alert alert-danger">
                     Pole nie może być puste
                 </div>
             </div>
@@ -69,11 +72,13 @@
     <div id="form_wrapper">
         <form>
             <div class="form-group">
-                <label for="residentCitzenship">Obywatelstwo</label>
-                <input [disabled]="true" [style.opacity]="true ? 0.4 : 1" #citzenship="ngModel" [(ngModel)]="residentPersonalData.citzenship" name="citzenship" type="text" class="form-control" id="residentCitzenship" placeholder="Zmień Obywatelstwo" required>
-                <div [hidden]="citzenship.valid || citzenship.pristine || switchInputs" class="alert alert-danger">
+                <ss-multiselect-dropdown #select="ngModel" [texts]="myTexts" [settings]="mySettings" [options]="myOptions" [(ngModel)]="optionsModel" name="optionsModel" (ngModelChange)="onChange($event)" required></ss-multiselect-dropdown>
+                <div [hidden]="select.valid || select.pristine" class="alert alert-danger">
                     Pole nie może być puste
                 </div>
+
+                <!-- <label for="residentPhoneNumber">Numer Telefonu</label> -->
+                <!-- <input #phoneNumber="ngModel" [(ngModel)]="residentPersonalData.phoneNumber" name="phoneNumber" type="text" class="form-control" id="residentPhoneNumber" placeholder="Podaj Imię Matki" required> -->
             </div>
         </form>
     </div>

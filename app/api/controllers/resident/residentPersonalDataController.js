@@ -38,7 +38,7 @@ var residentPersonalDataController = {
         let residentId = req.params.id
 
         sequelize.query(
-            'SELECT name, surname, genre, phone_number, birth_date, birth_place, mother_name, father_name, pesel, citzenship, citzenship_code_id '+ 
+            'SELECT name, surname, genre, phone_number, birth_date, birth_place, mother_name, father_name, pesel, blockade_state, citzenship, citzenship_code_id '+ 
             'FROM residents INNER JOIN citzenship_codes ON residents.citzenship_code_id = citzenship_codes.id '+ 
             'WHERE residents.id = :id',
             {replacements: {id: residentId}, type: sequelize.QueryTypes.SELECT }).

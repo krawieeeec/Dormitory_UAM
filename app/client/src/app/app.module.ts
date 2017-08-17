@@ -3,12 +3,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 //root component
 import { AppComponent } from './app.component';
 //routing module
 import { AppRoutingModule } from './app-routing.module';
 //3rd parties extensions
+import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
 
 //App features modules
 import { MainPageModule } from './components/main-page/main-page.module';
@@ -31,8 +31,8 @@ import { UserSessionService } from './shared/user-session.service';
       AppComponent
   ],
   imports: [
-    BrowserModule, HttpModule, FormsModule, 
-    AddResidentModule, MainPageModule, PageNotFoundModule, NgbModule.forRoot(), ReactiveFormsModule, 
+    BrowserModule, HttpModule, FormsModule, MultiselectDropdownModule,
+    AddResidentModule, MainPageModule, PageNotFoundModule, ReactiveFormsModule, 
     ResidentListModule, NavbarModule, AppRoutingModule
     ],
   exports:[],

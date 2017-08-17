@@ -7,7 +7,7 @@
                 <tr>
                     <th>Imię</th>
                     <th>Nazwisko</th>
-                    <th>Numer pokoju</th>
+                    <th>Status Konta</th>
                     <th>Zarządzanie</th>
                 </tr>
             </thead>
@@ -15,7 +15,7 @@
                 <tr *ngFor="let resident of residentsList">
                     <td>{{resident.name}}</td>
                     <td>{{resident.surname}}</td>
-                    <td>{{resident.room_number}}</td>
+                    <td>{{resident.blockade_state}}</td>
                     <td>
                         <button type="button" [routerLink]="['residentEdit', resident.id]" data-toggle="tooltip" title="Edytuj Konto" class="btn btn-default" aria-label="Left Align">
   <span  class="glyphicon glyphicon-edit" aria-hidden="true"></span>

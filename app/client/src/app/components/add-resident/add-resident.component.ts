@@ -5,6 +5,7 @@ import { ResidentService } from '../../shared/resident/resident.service';
 import { UserSessionService } from '../../shared/user-session.service';
 import { AddResidentService } from './add-resident.service';
 
+
 @Component({
   selector: 'add-resident',
   templateUrl: './add-resident.component.html',
@@ -12,6 +13,7 @@ import { AddResidentService } from './add-resident.service';
 })
 
 export class AddResidentComponent implements OnInit, DoCheck, OnChanges {
+
 
   private residentPersonalData;
   private residentAddress;
@@ -36,6 +38,7 @@ export class AddResidentComponent implements OnInit, DoCheck, OnChanges {
   }
 
   ngOnInit() {
+    this.dormitoryId = this.userSessionService.GetChosenDormitoryId();
 
   }
 
