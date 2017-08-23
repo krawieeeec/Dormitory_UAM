@@ -5,3 +5,4 @@ nodemon - lunch automatically scripts in node for example server http(expressJS)
 vtop - tool for checking using of resources computer.</br>
 autolunch - (optimal in next phase)</br>
 node-autostart(optimal in next phase)</br>
+mutliselect for angular2 https://select2.github.io </br>
