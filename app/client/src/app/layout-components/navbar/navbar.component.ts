@@ -17,9 +17,13 @@ export class NavbarComponent implements OnInit{
     private dormitoryList: Dormitory[];
     private chosenDormitoryId: string;
 
-    constructor(private router: Router, private dormitoryService : DormitoryService, private userSession: UserSessionService){
+    constructor(
+        private router: Router, 
+        private dormitoryService: DormitoryService, 
+        private userSession: UserSessionService){
         
     }
+
     ngOnInit(): void {
 
         this.chosenDormitoryId = this.userSession.GetChosenDormitoryId();
@@ -29,9 +33,9 @@ export class NavbarComponent implements OnInit{
     }
 
     SetDormitory(dormitoryName: string, dormitoryId: string){
+        this.chosenDormitoryId = dormitoryId;
         this.chosenDormitoryName.emit(dormitoryName);
         this.userSession.SetChosenDormitory(dormitoryName, dormitoryId);
-        this.chosenDormitoryId = this.userSession.GetChosenDormitoryId();
     }
 
     ShowResidentList(){

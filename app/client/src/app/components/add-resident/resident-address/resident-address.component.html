@@ -18,10 +18,11 @@
             </div>
             <div class="form-group">
                 <label for="residentPostCode">Kod Pocztowy</label>
-                <input [(ngModel)]="residentAddress.postCode" #postCode="ngModel" name="postCode" type="text" class="form-control" id="residentPostCode" placeholder="Kod Pocztowy" required>
+                <ss-multiselect-dropdown #postCode="ngModel" [texts]="settingsTextPostCodeSelectButton" [settings]="settingsSelectButton" [options]="postCodeList" [(ngModel)]="selectedPostCode" name="optionsModel" id="residentPostCode" required></ss-multiselect-dropdown>
                 <div [hidden]="postCode.valid || postCode.pristine" class="alert alert-danger">
                     Pole nie może być puste
                 </div>
+                <!-- <input [(ngModel)]="residentAddress.postCode" #postCode="ngModel" name="postCode" type="text" class="form-control" id="residentPostCode" placeholder="Kod Pocztowy" required> -->
             </div>
         </form>
     </div>
@@ -54,8 +55,9 @@
         <form>
             <div class="form-group">
                 <label for="residentAddressType">Typ Adresu</label>
-                <input [(ngModel)]="residentAddress.address" #addressType="ngModel" name="addressType" type="email" class="form-control" id="residentAddressType" placeholder="Podaj Typ Adresu" disabled required>
-                <div [hidden]="addressType.valid || addressType.pristine" class="alert alert-danger">
+                <ss-multiselect-dropdown #typeAddress="ngModel" [texts]="settingsTextTypeAddressSelectButton" [settings]="settingsSelectButton" [options]="typeAddressList" [(ngModel)]="selectedTypeAddress" name="optionsModel" id="residentTypeAddress" required></ss-multiselect-dropdown>
+                <!-- <input [(ngModel)]="residentAddress.address" #addressType="ngModel" name="addressType" type="email" class="form-control" id="residentAddressType" placeholder="Podaj Typ Adresu" disabled required> -->
+                <div [hidden]="typeAddress.valid || typeAddress.pristine" class="alert alert-danger">
                     Pole nie może być puste
                 </div>
             </div>

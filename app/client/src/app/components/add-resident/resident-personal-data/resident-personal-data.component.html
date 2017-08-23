@@ -43,8 +43,9 @@
             </div>
             <div class="form-group">
                 <label for="residentCitzenship">Obywatelstwo</label>
-                <input [disabled]="true" [style.opacity]="true ? 0.4 : 1" #citzenship="ngModel" [(ngModel)]="residentPersonalData.citzenship" name="citzenship" type="text" class="form-control" id="residentCitzenship" placeholder="Zmień Obywatelstwo" required>
-                <div [hidden]="citzenship.valid || citzenship.pristine || switchInputs" class="alert alert-danger">
+                <br>
+                <ss-multiselect-dropdown #select="ngModel" [texts]="settingsTextSelectButton" [settings]="settingsSelectButton" [options]="citzenshipsList" [(ngModel)]="selectedCitzenship" name="optionsModel" id="residentCitzenship" required></ss-multiselect-dropdown>
+                <div [hidden]="select.valid || select.pristine" class="alert alert-danger">
                     Pole nie może być puste
                 </div>
             </div>
@@ -62,23 +63,21 @@
             </div>
             <div class="form-group">
                 <label for="residentGenre">Płeć</label>
-                <input #genre="ngModel" [(ngModel)]="residentPersonalData.genre" name="genre" type="text" class="form-control" id="residentGenre" placeholder="Podaj Płeć" required>
+                <select class="form-control" placeholder="Wybierz Płeć" (change)="SetGenre($event.target)">
+                    <option *ngFor="let name of genreList" [value]="name" >{{name}}</option>
+                </select>
+                <!-- <input #genre="ngModel" [(ngModel)]="residentPersonalData.genre" name="genre" type="text" class="form-control" id="residentGenre" placeholder="Podaj Płeć" required>
                 <div [hidden]="genre.valid || genre.pristine" class="alert alert-danger">
                     Pole nie może być puste
-                </div>
+                </div> -->
             </div>
         </form>
     </div>
     <div id="form_wrapper">
         <form>
             <div class="form-group">
-                <ss-multiselect-dropdown #select="ngModel" [texts]="myTexts" [settings]="mySettings" [options]="myOptions" [(ngModel)]="optionsModel" name="optionsModel" (ngModelChange)="onChange($event)" required></ss-multiselect-dropdown>
-                <div [hidden]="select.valid || select.pristine" class="alert alert-danger">
-                    Pole nie może być puste
-                </div>
-
-                <!-- <label for="residentPhoneNumber">Numer Telefonu</label> -->
-                <!-- <input #phoneNumber="ngModel" [(ngModel)]="residentPersonalData.phoneNumber" name="phoneNumber" type="text" class="form-control" id="residentPhoneNumber" placeholder="Podaj Imię Matki" required> -->
+                <label for="residentPhoneNumber">Numer Telefonu</label>
+                <input #phoneNumber="ngModel" [(ngModel)]="residentPersonalData.phoneNumber" name="phoneNumber" type="text" class="form-control" id="residentPhoneNumber" placeholder="Podaj Imię Matki" required>
             </div>
         </form>
     </div>

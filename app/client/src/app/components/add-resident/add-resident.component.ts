@@ -39,7 +39,7 @@ export class AddResidentComponent implements OnInit, DoCheck, OnChanges {
 
   ngOnInit() {
     this.dormitoryId = this.userSessionService.GetChosenDormitoryId();
-
+    console.log(this.dormitoryId);
   }
 
   ngDoCheck(){
@@ -81,33 +81,29 @@ export class AddResidentComponent implements OnInit, DoCheck, OnChanges {
 
   CreateNewResident():void{
     this.residentService.CreateNewResidentPersonalData(this.residentPersonalData)
-    .then(newResident =>{ 
+    .then(newResident =>{
+      console.log(newResident); 
       this.residentId = newResident.id;
+      console.log(this.residentId);
       this.residentAddress.residentId = this.residentId;
       this.residentDocument.residentId = this.residentId;
 
       this.residentService.CreateNewResidentAddress(this.residentAddress)
       .then((newResidentAddress) =>{
-        console.log(newResidentAddress);
-        console.log('Dodano ADDRESS')
       })
 
       this.residentService.CreateNewResidentDocument(this.residentDocument)
       .then(newResidentDocument =>{
-        console.log(newResidentDocument);
-        console.log('Dodano DOKUMENT!');
         this.documentId = newResidentDocument.document_type_id;      
         this.residentDormitory.documentId = this.documentId;
         this.residentDormitory.residentId = this.residentId;
 
         this.residentService.CreateNewResidentDormitoryStay(this.residentDormitory)
         .then(newResidentDormitoryStay => {
-          console.log(newResidentDormitoryStay);
-          console.log('dodano AKADEMIK!');
+          this.router.navigate(['residentList', this.dormitoryId]);
         })
       })
     })
-    //location.reload();
   }
 
 }

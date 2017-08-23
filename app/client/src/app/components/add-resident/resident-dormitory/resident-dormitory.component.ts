@@ -3,6 +3,7 @@ import { NgModel } from '@angular/forms';
 import { ResidentDormitory } from '../../../shared/resident/resident-dormitory';
 import { ResidentService } from '../../../shared/resident/resident.service';
 import { AddResidentService } from '../add-resident.service';
+import { UserSessionService } from '../../../shared/user-session.service';
 
 @Component({
   selector: 'resident-dormitory',
@@ -17,7 +18,8 @@ export class ResidentDormitoryComponent implements OnInit {
 
   constructor(
     private residentService: ResidentService,
-    private residentAddService: AddResidentService
+    private residentAddService: AddResidentService,
+    private userSession: UserSessionService
   ) {
 
     this.residentDormitory = {
@@ -27,7 +29,7 @@ export class ResidentDormitoryComponent implements OnInit {
       roomNumber: 0,
       dateCrossRp: '',
       comments: '',
-      dormitoryId: 1,
+      dormitoryId: 0,
       documentId: 0,
       residentId: 0
     }
@@ -35,6 +37,7 @@ export class ResidentDormitoryComponent implements OnInit {
   }
 
   ngOnInit() {  
+    this.residentDormitory.dormitoryId = this.userSession.GetChosenDormitoryId();
   }
   
   ngOnChanges(){

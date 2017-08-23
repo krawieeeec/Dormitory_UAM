@@ -1,7 +1,6 @@
 <div class="container">
     <div id="form_wrapper">
         <form>
-
             <div class="form-group">
                 <label for="residentDateOfArrival">Data Przybycia</label>
                 <input type="date" [(ngModel)]="residentDormitory.dateOfArrival" name="dateOfArrival" #dateOfArrival="ngModel" class="form-control" id="residentDateOfArrival" placeholder="Podaj Datę Przybycia" required>
@@ -9,14 +8,14 @@
                     Pole nie może być puste
                 </div>
             </div>
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <label for="residentDateOfAccommodation">Czas Pobytu</label>
                 <input [disabled]="true" [style.opacity]="true ? 0.4 : 1" type="date" [(ngModel)]="residentDormitory.dateOfAccommodation" name="dateOfAccommodation" #dateOfAccommodation="ngModel" class="form-control" id="residentDateOfAccommodation" placeholder="Podaj Czas Pobytu"
                     required>
                 <div [hidden]="dateOfAccommodation.valid || dateOfAccommodation.pristine" class="alert alert-danger">
                     Pole nie może być puste
                 </div>
-            </div>
+            </div> -->
             <div class="form-group">
                 <label for="residentDateOfDeparture">Data Wymeldowania</label>
                 <input type="date" [(ngModel)]="residentDormitory.dateOfDeparture" name="dateOfDeparture" #dateOfDeparture="ngModel" class="form-control" id="residentDateOfDeparture" placeholder="Podaj Datę Wymeldowania" required>
@@ -24,10 +23,6 @@
                     Pole nie może być puste
                 </div>
             </div>
-        </form>
-    </div>
-    <div id="form_wrapper">
-        <form>
             <div class="form-group">
                 <label for="residentRoomNumber">Numer Pokoju</label>
                 <input type="text" [(ngModel)]="residentDormitory.roomNumber" name="roomNumber" #roomNumber="ngModel" class="form-control" id="residentRoomNumber" placeholder="Podaj Numer Pokoju" required>
@@ -35,6 +30,10 @@
                     Pole nie może być puste
                 </div>
             </div>
+        </form>
+    </div>
+    <div id="form_wrapper">
+        <form>
             <div class="form-group">
                 <label for="residentDateCrossRp">Data Przekroczenia RP</label>
                 <input type="date" [(ngModel)]="residentDormitory.dateCrossRp" name="dateCrossRp" #dateCrossRp="ngModel" class="form-control" id="residentDateCrossRp" placeholder="Podaj Datę Przekroczenia RP" required>

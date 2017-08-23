@@ -1,8 +1,9 @@
 //core modules of app
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+
 //root component
 import { AppComponent } from './app.component';
 //routing module
@@ -16,14 +17,15 @@ import { PageNotFoundModule } from './components/page-not-found/page-not-found.m
 import { ResidentListModule } from './components/resident-list/resident-list.module';
 import { AddResidentModule } from './components/add-resident/add-resident.module';
 import { NavbarModule } from './layout-components/navbar/navbar.module';
-import {FormBuilder, FormGroup, ReactiveFormsModule} from '@angular/forms'; 
 
 //Services
 import { ResidentService } from './shared/resident/resident.service';
 import { CitzenshipService } from './shared/citzenship/citzenship.service';
 import { DormitoryService } from './shared/dormitory.service';
 import { UserSessionService } from './shared/user-session.service';
-//Classes
+import { CityService } from './shared/city/city.service';
+import { TypeAddressService } from './shared/type-address/type-address.service';
+import { TypeDocumentService } from './shared/type-document/type-document.service';
 
 
 @NgModule({
@@ -36,7 +38,8 @@ import { UserSessionService } from './shared/user-session.service';
     ResidentListModule, NavbarModule, AppRoutingModule
     ],
   exports:[],
-  providers: [ResidentService, DormitoryService, UserSessionService, CitzenshipService ],
+  providers: [ResidentService, DormitoryService, UserSessionService, 
+    CitzenshipService, CityService, TypeAddressService, TypeDocumentService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

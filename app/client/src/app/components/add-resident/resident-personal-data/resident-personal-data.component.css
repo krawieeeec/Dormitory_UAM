@@ -27,3 +27,23 @@ form {
     display: flex;
     margin-bottom: 20px;
 }
+
+form-select {
+    width: 250px;
+}
+
+ul.dropdown-menu {
+    min-width: 250px !important;
+}
+
+.dropdown-menu {
+    min-width: 250px;
+}
+
+.open>.dropdown-menu {
+    min-width: 250px;
+}
+
+dropdown-item empty {
+    margin: 5px;
+}

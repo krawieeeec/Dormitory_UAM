@@ -11,7 +11,9 @@ export class AppComponent implements OnInit{
   
   private chosenDormitoryName: string;
 
-  constructor(private dormitoryService: DormitoryService, private userSessionService: UserSessionService) {
+  constructor(
+    private dormitoryService: DormitoryService, 
+    private userSessionService: UserSessionService) {
 }
 
   ngOnInit(){
