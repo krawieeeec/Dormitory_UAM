@@ -17,6 +17,7 @@ import { PageNotFoundModule } from './components/page-not-found/page-not-found.m
 import { ResidentListModule } from './components/resident-list/resident-list.module';
 import { AddResidentModule } from './components/add-resident/add-resident.module';
 import { NavbarModule } from './layout-components/navbar/navbar.module';
+import { ResidentBlockModule } from './components/resident-list/resident-block/resident-block.module';
 
 //Services
 import { ResidentService } from './shared/resident/resident.service';
@@ -35,7 +36,7 @@ import { TypeDocumentService } from './shared/type-document/type-document.servic
   imports: [
     BrowserModule, HttpModule, FormsModule, MultiselectDropdownModule,
     AddResidentModule, MainPageModule, PageNotFoundModule, ReactiveFormsModule, 
-    ResidentListModule, NavbarModule, AppRoutingModule
+    ResidentListModule, NavbarModule, ResidentBlockModule, AppRoutingModule
     ],
   exports:[],
   providers: [ResidentService, DormitoryService, UserSessionService, 

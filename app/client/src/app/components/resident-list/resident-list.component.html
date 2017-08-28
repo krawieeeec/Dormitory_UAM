@@ -26,7 +26,7 @@
 </button>
                         <button type="button" data-toggle="tooltip" title="Wymelduj" class="btn btn-default btn-lg">
   <span class="glyphicon glyphicon-plane"></span> </button>
-                        <button type="button" data-toggle="tooltip" title="Zablokuj konto" class="btn btn-default btn-lg">
+                        <button type="button" [routerLink]="['residentBlock', resident.id]" data-toggle="tooltip" title="Zablokuj konto" class="btn btn-default btn-lg">
   <span class="glyphicon glyphicon-lock" aria-hidden="true"></span> 
 </button>
                     </td>

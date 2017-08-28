@@ -69,10 +69,18 @@ export class ResidentListComponent implements OnInit, DoCheck, OnDestroy{
 
     ngDoCheck(){
         this.nameCurrentDormitory = this.userSessionService.GetChosenDormitoryName();
-      if(this.router.url.indexOf('/residentEdit') > -1){
+
+        if(
+            (this.router.url.indexOf('/residentBlock') > -1) || 
+            (this.router.url.indexOf('/residentEdit') > -1)
+        ){
             this.showList = false;
 
-         }else if((this.router.url.indexOf('/residentEdit') == - 1)  || (this.showList === undefined)){
+         }else if(
+             (this.router.url.indexOf('/residentBlock') == - 1) || 
+             (this.router.url.indexOf('/residentEdit') == - 1)  || 
+             (this.showList === undefined)
+            ){
            this.showList = true;
            
         }

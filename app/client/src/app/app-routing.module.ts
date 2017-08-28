@@ -6,10 +6,7 @@ import { ResidentListComponent } from './components/resident-list/resident-list.
 import { MainPageComponent } from './components/main-page/main-page.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { ResidentEditComponent } from './components/resident-list/resident-edit/resident-edit.component';
-import { ResidentPersonalDataComponent } from './components/resident-list/resident-edit/resident-personal-data/resident-personal-data.component';
-import { ResidentDormitoryComponent } from './components/resident-list/resident-edit/resident-dormitory/resident-dormitory.component';
-import { ResidentDocumentComponent } from './components/resident-list/resident-edit/resident-document/resident-document.component';
-import { ResidentAddressComponent } from './components/resident-list/resident-edit/resident-address/resident-address.component';
+import { ResidentBlockComponent } from './components/resident-list/resident-block/resident-block.component';
 import { AppComponent } from './app.component';
 
 const routes: Routes = [
@@ -17,6 +14,7 @@ const routes: Routes = [
   { path: 'residentList/:id', component: ResidentListComponent,
     children: [
       { path: 'residentEdit/:id', component: ResidentEditComponent},
+      { path: 'residentBlock/:id', component: ResidentBlockComponent }
     ]
   },
   { path: 'main', component: MainPageComponent },
