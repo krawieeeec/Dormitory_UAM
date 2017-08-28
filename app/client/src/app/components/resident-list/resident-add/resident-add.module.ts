@@ -3,14 +3,14 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
 
-import { AddResidentComponent } from './add-resident.component';
+import { ResidentAddComponent } from './resident-add.component';
 //Components Child 
 import { ResidentPersonalDataModule } from './resident-personal-data/resident-personal-data.module';
 import { ResidentDocumentModule } from './resident-document/resident-document.module';
 import { ResidentAddressModule } from './resident-address/resident-address.module';
 import { ResidentDormitoryModule } from './resident-dormitory/resident-dormitory.module';
 //Services
-import { AddResidentService } from './add-resident.service';
+import { ResidentAddService } from './resident-add.service';
 
 @NgModule({
     imports:[
@@ -18,16 +18,16 @@ import { AddResidentService } from './add-resident.service';
         ResidentDormitoryModule, MultiselectDropdownModule
     ],
     declarations: [
-        AddResidentComponent    
+        ResidentAddComponent   
       ],
     providers:[
-        AddResidentService
+        ResidentAddService
     ],
     exports: [
-        AddResidentComponent
+        ResidentAddComponent
     ]
 })
 
-export class AddResidentModule {
+export class ResidentAddModule {
     
 }

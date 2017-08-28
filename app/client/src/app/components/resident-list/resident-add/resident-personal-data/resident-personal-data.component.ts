@@ -1,11 +1,11 @@
 import { Component, EventEmitter, Output, OnInit, Input, OnChanges, DoCheck } from '@angular/core';
 import { NgModel } from '@angular/forms';
 
-import { ResidentPersonalData } from '../../../shared/resident/resident-personal-data';
+import { ResidentPersonalData } from '../../../../shared/resident/resident-personal-data';
 
-import { ResidentService } from '../../../shared/resident/resident.service';
-import { CitzenshipService } from '../../../shared/citzenship/citzenship.service';
-import { AddResidentService } from '../add-resident.service';
+import { ResidentService } from '../../../../shared/resident/resident.service';
+import { CitzenshipService } from '../../../../shared/citzenship/citzenship.service';
+import { ResidentAddService } from '../resident-add.service';
 
 import { IMultiSelectOption, IMultiSelectSettings, IMultiSelectTexts } from 'angular-2-dropdown-multiselect';
 import { Select2OptionData } from 'ng2-select2';
@@ -31,7 +31,7 @@ export class ResidentPersonalDataComponent implements OnChanges, OnInit, DoCheck
 
   constructor(
     private residentService: ResidentService,
-    private residentAddService: AddResidentService,
+    private residentAddService: ResidentAddService,
     private residentCitzenshipService: CitzenshipService
   ) {
       this.residentPersonalData = {

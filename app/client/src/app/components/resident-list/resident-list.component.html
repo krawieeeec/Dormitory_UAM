@@ -1,7 +1,7 @@
 <div class="container">
     <div class="table_wrapper" *ngIf="showList">
         <h1 class="title">Lista rezydentów - {{nameCurrentDormitory}}</h1>
-        <button [routerLink]="['/addResident']" id="addResident" type="button" class="btn btn-default">Dodaj Nowego Rezydenta</button>
+        <button [routerLink]="['residentAdd']" id="addResident" type="button" class="btn btn-default">Dodaj Nowego Rezydenta</button>
         <table class="table table-hover">
             <thead>
                 <tr>

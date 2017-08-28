@@ -1,11 +1,11 @@
 import { Component, EventEmitter, Output, OnInit, Input, OnChanges, DoCheck } from '@angular/core';
 import { NgModel } from '@angular/forms';
-import { ResidentAddress } from '../../../shared/resident/resident-address';
+import { ResidentAddress } from '../../../../shared/resident/resident-address';
 
-import { ResidentService } from '../../../shared/resident/resident.service';
-import { AddResidentService } from '../add-resident.service';
-import { CityService } from '../../../shared/city/city.service';
-import { TypeAddressService } from '../../../shared/type-address/type-address.service';
+import { ResidentService } from '../../../../shared/resident/resident.service';
+import { ResidentAddService } from '../resident-add.service';
+import { CityService } from '../../../../shared/city/city.service';
+import { TypeAddressService } from '../../../../shared/type-address/type-address.service';
 
 import { IMultiSelectOption, IMultiSelectSettings, IMultiSelectTexts } from 'angular-2-dropdown-multiselect';
 
@@ -33,7 +33,7 @@ export class ResidentAddressComponent implements OnInit, OnChanges, DoCheck {
 
   constructor(
     private residentService: ResidentService,
-    private residentAddService: AddResidentService,
+    private residentAddService: ResidentAddService,
     private cityService: CityService,
     private typeAddressService: TypeAddressService
   ) {

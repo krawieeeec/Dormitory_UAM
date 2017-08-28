@@ -1,9 +1,9 @@
 import { Component, EventEmitter, Output, OnInit, Input, OnChanges, DoCheck } from '@angular/core';
 import { NgModel } from '@angular/forms';
-import { ResidentDormitory } from '../../../shared/resident/resident-dormitory';
-import { ResidentService } from '../../../shared/resident/resident.service';
-import { AddResidentService } from '../add-resident.service';
-import { UserSessionService } from '../../../shared/user-session.service';
+import { ResidentDormitory } from '../../../../shared/resident/resident-dormitory';
+import { ResidentService } from '../../../../shared/resident/resident.service';
+import { ResidentAddService } from '../resident-add.service';
+import { UserSessionService } from '../../../../shared/user-session.service';
 
 @Component({
   selector: 'resident-dormitory',
@@ -18,7 +18,7 @@ export class ResidentDormitoryComponent implements OnInit {
 
   constructor(
     private residentService: ResidentService,
-    private residentAddService: AddResidentService,
+    private residentAddService: ResidentAddService,
     private userSession: UserSessionService
   ) {
 

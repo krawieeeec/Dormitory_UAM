@@ -1,17 +1,17 @@
 import { Component, EventEmitter, Output, OnInit, DoCheck, OnChanges } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router, RouterLinkActive, RouterLink } from '@angular/router';
 import { Location } from '@angular/common';
-import { ResidentService } from '../../shared/resident/resident.service';
-import { UserSessionService } from '../../shared/user-session.service';
-import { AddResidentService } from './add-resident.service';
+import { ResidentService } from '../../../shared/resident/resident.service';
+import { UserSessionService } from '../../../shared/user-session.service';
+import { ResidentAddService } from './resident-add.service';
 
 @Component({
   selector: 'add-resident',
-  templateUrl: './add-resident.component.html',
-  styleUrls: ['./add-resident.component.css']
+  templateUrl: './resident-add.component.html',
+  styleUrls: ['./resident-add.component.css']
 })
 
-export class AddResidentComponent implements OnInit, DoCheck, OnChanges {
+export class ResidentAddComponent implements OnInit, DoCheck, OnChanges {
 
 
   private residentPersonalData;
@@ -28,7 +28,7 @@ export class AddResidentComponent implements OnInit, DoCheck, OnChanges {
     private location: Location, 
     private residentService: ResidentService, 
     private userSessionService: UserSessionService, 
-    private addResidentService: AddResidentService 
+    private residentAddSerivce: ResidentAddService 
   ) 
   { 
     this.residentId = 0;
@@ -100,6 +100,7 @@ export class AddResidentComponent implements OnInit, DoCheck, OnChanges {
         this.residentService.CreateNewResidentDormitoryStay(this.residentDormitory)
         .then(newResidentDormitoryStay => {
           this.router.navigate(['residentList', this.dormitoryId]);
+          location.reload();
         })
       })
     })

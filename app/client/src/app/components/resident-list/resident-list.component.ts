@@ -72,13 +72,15 @@ export class ResidentListComponent implements OnInit, DoCheck, OnDestroy{
 
         if(
             (this.router.url.indexOf('/residentBlock') > -1) || 
-            (this.router.url.indexOf('/residentEdit') > -1)
+            (this.router.url.indexOf('/residentEdit') > -1) ||
+            (this.router.url.indexOf('/residentAdd') > -1)
         ){
             this.showList = false;
 
          }else if(
              (this.router.url.indexOf('/residentBlock') == - 1) || 
-             (this.router.url.indexOf('/residentEdit') == - 1)  || 
+             (this.router.url.indexOf('/residentEdit') == - 1)  ||
+             (this.router.url.indexOf('/residentAdd') == -1) || 
              (this.showList === undefined)
             ){
            this.showList = true;

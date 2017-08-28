@@ -2,9 +2,9 @@ import { Component, EventEmitter, Output, OnInit, OnChanges, DoCheck, Input } fr
 
 import { NgModel } from '@angular/forms';
 
-import { ResidentService } from '../../../shared/resident/resident.service';
-import { AddResidentService } from '../add-resident.service';
-import { TypeDocumentService } from '../../../shared/type-document/type-document.service';
+import { ResidentService } from '../../../../shared/resident/resident.service';
+import { ResidentAddService } from '../resident-add.service';
+import { TypeDocumentService } from '../../../../shared/type-document/type-document.service';
 
 import { IMultiSelectOption, IMultiSelectSettings, IMultiSelectTexts } from 'angular-2-dropdown-multiselect';
 
@@ -27,7 +27,7 @@ export class ResidentDocumentComponent implements OnInit, OnChanges, DoCheck {
 
   constructor(
     private residentService: ResidentService,
-    private residentAddService: AddResidentService,
+    private residentAddService: ResidentAddService,
     private typeDocumentService: TypeDocumentService
   ) {
     this.residentDocument = {

@@ -8,7 +8,7 @@ import {Subject} from 'rxjs';
 
 )
 
-export class AddResidentService{
+export class ResidentAddService{
 
     private residentPersonalData:object;
     private residentAddress:object;
