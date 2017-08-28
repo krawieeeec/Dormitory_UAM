@@ -51,7 +51,6 @@ export class ResidentDormitoryComponent implements OnInit {
         this.residentDormitory.documentId = residentDormitory.document_id;
         this.residentDormitory.residentId = residentDormitory.resident_id;
 
-        console.log(this.residentDormitory);
         this.emitResidentDormitory.emit(this.residentDormitory);
 
       })

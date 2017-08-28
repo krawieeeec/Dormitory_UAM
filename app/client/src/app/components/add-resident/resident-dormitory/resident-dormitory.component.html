@@ -24,9 +24,9 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="residentRoomNumber">Numer Pokoju</label>
-                <input type="text" [(ngModel)]="residentDormitory.roomNumber" name="roomNumber" #roomNumber="ngModel" class="form-control" id="residentRoomNumber" placeholder="Podaj Numer Pokoju" required>
-                <div [hidden]="roomNumber.valid || roomNumber.pristine" class="alert alert-danger">
+                <label for="residentDateCrossRp">Data Przekroczenia RP</label>
+                <input type="date" [(ngModel)]="residentDormitory.dateCrossRp" name="dateCrossRp" #dateCrossRp="ngModel" class="form-control" id="residentDateCrossRp" placeholder="Podaj Datę Przekroczenia RP" required>
+                <div [hidden]="dateCrossRp.valid || dateCrossRp.pristine" class="alert alert-danger">
                     Pole nie może być puste
                 </div>
             </div>
@@ -35,9 +35,9 @@
     <div id="form_wrapper">
         <form>
             <div class="form-group">
-                <label for="residentDateCrossRp">Data Przekroczenia RP</label>
-                <input type="date" [(ngModel)]="residentDormitory.dateCrossRp" name="dateCrossRp" #dateCrossRp="ngModel" class="form-control" id="residentDateCrossRp" placeholder="Podaj Datę Przekroczenia RP" required>
-                <div [hidden]="dateCrossRp.valid || dateCrossRp.pristine" class="alert alert-danger">
+                <label for="residentRoomNumber">Numer Pokoju</label>
+                <input type="text" [(ngModel)]="residentDormitory.roomNumber" name="roomNumber" #roomNumber="ngModel" class="form-control" id="residentRoomNumber" placeholder="Podaj Numer Pokoju" required>
+                <div [hidden]="roomNumber.valid || roomNumber.pristine" class="alert alert-danger">
                     Pole nie może być puste
                 </div>
             </div>

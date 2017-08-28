@@ -161,16 +161,16 @@ dbClient.drop().then(() => {
                                             apartmentNumber:'6', postCode:'88-100', city:'Inowrocław', 
                                             address_type_id:'1', resident_id: 1}, 
                                             {country: 'Polska', street: 'Wyspiańskiego', houseNumber: '54', 
-                                            apartmentNumber:'64', postCode:'60-242', city:'Poznań', 
+                                            apartmentNumber:'64', postCode:'43-412', city:'Poznań', 
                                             address_type_id:'2', resident_id: 2}, 
                                             {country: 'Polska', street: 'Warszawska', houseNumber: '12', 
-                                            apartmentNumber:'84', postCode:'28-532', city:'Wrocław', 
+                                            apartmentNumber:'84', postCode:'71-234', city:'Wrocław', 
                                             address_type_id:'2', resident_id: 3}, 
                                             {country: 'Polska', street: 'Piłsudzkiego', houseNumber: '2', 
-                                            apartmentNumber:'98', postCode:'12-434', city:'Olsztyn', 
+                                            apartmentNumber:'98', postCode:'37-234', city:'Olsztyn', 
                                             address_type_id:'2', resident_id: 4},
                                             {country: 'Polska', street: 'Krzywoustego', houseNumber: '3', 
-                                            apartmentNumber:'11', postCode:'20-334', city:'Zakopane', 
+                                            apartmentNumber:'11', postCode:'58-295', city:'Zakopane', 
                                             address_type_id:'1', resident_id: 5}
                                         ]).then(() => {
                                             return addressResidentTable.findAll();

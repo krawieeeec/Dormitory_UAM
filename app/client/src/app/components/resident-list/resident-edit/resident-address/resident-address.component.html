@@ -18,10 +18,12 @@
             </div>
             <div class="form-group">
                 <label for="residentPostCode">Kod Pocztowy</label>
-                <input [disabled]="switchInputs" [style.opacity]="switchInputs ? 0.4 : 1" [(ngModel)]="residentAddress.postCode" #postCode="ngModel" name="postCode" type="text" class="form-control" id="residentPostCode" placeholder="Kod Pocztowy" required>
+                <ss-multiselect-dropdown [disabled]="switchInputs" [style.opacity]="switchInputs ? 0.4 : 1" #postCode="ngModel" [texts]="settingsTextPostCodeSelectButton" [settings]="settingsSelectButton" [options]="postCodeList" [(ngModel)]="selectedPostCode" name="optionsModel"
+                    id="residentPostCode" required></ss-multiselect-dropdown>
                 <div [hidden]="postCode.valid || postCode.pristine || switchInputs" class="alert alert-danger">
                     Pole nie może być puste
                 </div>
+                <!-- <input [disabled]="switchInputs" [style.opacity]="switchInputs ? 0.4 : 1" [(ngModel)]="residentAddress.postCode" #postCode="ngModel" name="postCode" type="text" class="form-control" id="residentPostCode" placeholder="Kod Pocztowy" required> -->
             </div>
         </form>
     </div>
@@ -56,8 +58,10 @@
         <form>
             <div class="form-group">
                 <label for="residentAddressType">Typ Adresu</label>
-                <input [disabled]="true" [style.opacity]="true ? 0.4 : 1" [(ngModel)]="residentAddress.address" #addressType="ngModel" name="addressType" type="email" class="form-control" id="residentAddressType" placeholder="Podaj Typ Adresu" disabled required>
-                <div [hidden]="addressType.valid || addressType.pristine || switchInputs" class="alert alert-danger">
+                <ss-multiselect-dropdown [disabled]="switchInputs" [style.opacity]="switchInputs ? 0.4 : 1" #typeAddress="ngModel" [texts]="settingsTextTypeAddressSelectButton" [settings]="settingsSelectButton" [options]="typeAddressList" [(ngModel)]="selectedTypeAddress"
+                    name="optionsModel" id="residentTypeAddress" required></ss-multiselect-dropdown>
+                <!-- <input [disabled]="true" [style.opacity]="true ? 0.4 : 1" [(ngModel)]="residentAddress.address" #addressType="ngModel" name="addressType" type="email" class="form-control" id="residentAddressType" placeholder="Podaj Typ Adresu" disabled required> -->
+                <div [hidden]="typeAddress.valid || typeAddress.pristine || switchInputs" class="alert alert-danger">
                     Pole nie może być puste
                 </div>
             </div>

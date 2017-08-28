@@ -38,7 +38,6 @@ export class ResidentListComponent implements OnInit, DoCheck, OnDestroy{
         this.route.paramMap
         .switchMap((params: ParamMap) => this.dormitoryService.GetResidentsOfCurrentDormitoryById(+params.get('id')))
         .subscribe(residents => {
-            console.log(residents);
             if(residents.length == 0){
                 this.residentsList = [];
             }else{

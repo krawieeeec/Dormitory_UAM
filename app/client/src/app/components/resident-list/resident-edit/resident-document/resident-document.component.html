@@ -4,7 +4,9 @@
 
             <div class="form-group">
                 <label for="residentTypeDocument">Typ Dokumentu</label>
-                <input type="text" [disabled]="true" [style.opacity]="true ? 0.4 : 1" #typeDocument="ngModel" [(ngModel)]="residentDocument.typeDocument" name="typeDocument" class="form-control" id="residentTypeDocument" placeholder="Podaj Nazwę dokumentu" required>
+                <ss-multiselect-dropdown [disabled]="switchInputs" [style.opacity]="switchInputs ? 0.4 : 1" #typeDocument="ngModel" [texts]="settingsTextSelectButton" [settings]="settingsSelectButton" [options]="typeDocumentList" [(ngModel)]="selectedTypeDocument" name="typeDocument"
+                    id="residentTypeDocument" required></ss-multiselect-dropdown>
+                <!-- <input type="text" [disabled]="true" [style.opacity]="true ? 0.4 : 1" #typeDocument="ngModel" [(ngModel)]="residentDocument.typeDocument" name="typeDocument" class="form-control" id="residentTypeDocument" placeholder="Podaj Nazwę dokumentu" required> -->
                 <div [hidden]="typeDocument.valid || typeDocument.pristine || switchInputs" class="alert alert-danger">
                     Pole nie może być puste
                 </div>
@@ -31,8 +33,8 @@
         <form>
             <div class="form-group">
                 <label for="residentIssuingCountry">Kraj Wydania</label>
-                <input type="text" [disabled]="true" [style.opacity]="true ? 0.4 : 1" #issuingCountry="ngModel" [(ngModel)]="residentDocument.issuingCountry" #issuingCountry="ngModel" name="issuingCountry" class="form-control" id="residentIssuingCountry" placeholder="Podaj Kraj Wydania"
-                    required>
+                <input type="text" [disabled]="switchInputs" [style.opacity]="switchInputs ? 0.4 : 1" #issuingCountry="ngModel" [(ngModel)]="residentDocument.issuingCountry" #issuingCountry="ngModel" name="issuingCountry" class="form-control" id="residentIssuingCountry"
+                    placeholder="Podaj Kraj Wydania" required>
                 <div [hidden]="issuingCountry.valid || issuingCountry.pristine || switchInputs" class="alert alert-danger">
                     Pole nie może być puste
                 </div>

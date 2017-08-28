@@ -51,7 +51,7 @@ export class ResidentEditComponent implements OnInit, DoCheck, OnChanges {
   GetResidentPersonalData(residentPersonalData){
     this.residentPersonalData = residentPersonalData;
     // console.log(this.residentPersonalData);
-  //  console.log('resident-personal-data');
+    // console.log('resident-personal-data');
   }
 
   GetResidentAddress(residentAddress){
@@ -90,16 +90,18 @@ export class ResidentEditComponent implements OnInit, DoCheck, OnChanges {
   //  console.log(this.residentPersonalData);
     this.residentService.UpdateResidentPersonalDataById(this.residentPersonalData, this.residentId)
     .then((response) => {
+      // console.log(response);
      // this.router.navigate(['/residentList', this.dormitoryId]);
       console.log('UPDATED - PersonalDATA');
     })
     .catch(error => console.log(error))
     //this.router.navigate(['/residentList', this.dormitoryId]);
     
-    this.updateResidentList$.next(true);
+   // this.updateResidentList$.next(true);
     
     this.residentService.UpdateResidentAddressById(this.residentAddress, this.residentId)
     .then((response) => {
+      console.log(response);
       console.log('UPDATED - residentAddress')
     })
     .catch(error => {
@@ -108,17 +110,18 @@ export class ResidentEditComponent implements OnInit, DoCheck, OnChanges {
 
     this.residentService.UpdateResidentDocumentById(this.residentDocument, this.residentId)
     .then((response) =>{
+      // console.log(response);
       console.log('UPDATED - residentDocument');
     })
     .catch(error =>{
       console.log(error);
     })
-    console.log(this.residentDormitory);
     this.residentService.UpdateResidentDormitoryById(this.residentDormitory, this.residentId)
     .then((response) =>{
-      console.log('UPDATED - residentDormitory')
+      // console.log(response);
+      console.log('UPDATED - residentDormitory');
     })
-
+    
     // location.reload();
   }
 

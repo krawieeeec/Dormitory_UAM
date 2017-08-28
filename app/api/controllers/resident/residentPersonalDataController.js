@@ -19,6 +19,7 @@ var residentPersonalDataController = {
             motherName: req.body.motherName,
             fatherName: req.body.fatherName,
             pesel: req.body.pesel,
+            phoneNumber: req.body.phoneNumber,
             blockadeState: req.body.blockadeState,
             citzenship_code_id: req.body.citzenshipCodeId
         }

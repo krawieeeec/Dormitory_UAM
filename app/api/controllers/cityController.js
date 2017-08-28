@@ -44,7 +44,7 @@ var cityController = {
         }).catch(error => {
             res.send(error);
         })
-    }
+    },
 }
 
 module.exports = {

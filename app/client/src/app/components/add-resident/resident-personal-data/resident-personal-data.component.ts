@@ -92,9 +92,6 @@ export class ResidentPersonalDataComponent implements OnChanges, OnInit, DoCheck
       });
       this.citzenshipsList = this.tempCitzenshipList;
     })
-    //TODO zrobić, aby nie było na sztywno!;
-    this.residentPersonalData.genre = this.genreList[0];
-    this.residentPersonalData.blockadeState = "Odblokowana";
   }
 
   ngOnChanges() {
@@ -114,8 +111,9 @@ export class ResidentPersonalDataComponent implements OnChanges, OnInit, DoCheck
   }
 
   SetGenre(genreName){
+    
     this.residentPersonalData.genre = genreName.value;
-    if(genreName == "Kobieta"){
+    if(genreName.value == "Kobieta"){
       this.residentPersonalData.blockadeState = "Odblokowana";
     }else{
       this.residentPersonalData.blockadeState = "Odblokowany";

@@ -7,6 +7,10 @@ import { ResidentService } from '../../../../shared/resident/resident.service';
 import { CitzenshipService } from '../../../../shared/citzenship/citzenship.service';
 import { ResidentEditService } from '../resident-edit.service';
 
+
+import { IMultiSelectOption, IMultiSelectSettings, IMultiSelectTexts } from 'angular-2-dropdown-multiselect';
+
+
 @Component({
   selector: 'resident-personal-data',
   templateUrl: './resident-personal-data.component.html',
@@ -15,9 +19,14 @@ import { ResidentEditService } from '../resident-edit.service';
 
 export class ResidentPersonalDataComponent implements OnChanges, OnInit, DoCheck {
   
-  
+  private citzenshipsList: IMultiSelectOption[];
+  private tempCitzenshipList: IMultiSelectOption[];
+  private settingsSelectButton: IMultiSelectSettings; 
+  private settingsTextSelectButton: IMultiSelectTexts;
+  private selectedCitzenship:number[];
+  private previousSelectedCitzenship:number;
   private residentPersonalData;
-  private listOfGenre;
+  private genreList;
   private listOfCitzenships;
   @Input() switchInputs;
   @Input() residentId:number;
@@ -40,17 +49,55 @@ export class ResidentPersonalDataComponent implements OnChanges, OnInit, DoCheck
       fatherName: '',
       pesel: '',
       citzenship:'',
+      blockadeState: '',
       citzenshipCodeId: 0
     }
+    this.settingsSelectButton  = {
+      enableSearch: true,
+      checkedStyle: 'glyphicon',
+      buttonClasses: 'btn btn-default btn-block form-select',
+      itemClasses: 'form-select ',
+      containerClasses: 'form-select',
+      dynamicTitleMaxItems: 3,
+      displayAllSelectedText: true,
+      selectionLimit: 1,
+      autoUnselect: true,
+      searchRenderLimit: 2,
+      closeOnClickOutside: true,
+      searchMaxLimit: 3	
+  };
+  this.settingsTextSelectButton = {
+    searchPlaceholder: 'Wpisz nazwę obywatelstwa',
+    defaultTitle: 'Wybierz Obywatelstwo',
+    searchEmptyResult: 'Brak',
+    searchNoRenderText: 'Wpisz nazwę obywatelstwa w wyszukiwarce'
+  };
     
-    this.listOfGenre = [{index: 1, genre: 'Kobieta'},{index: 2, genre: 'Mężczyzna'}];
-    this.listOfCitzenships = [];
     this.emitResidentPersonalData = new EventEmitter<object>();   
+    this.citzenshipsList = [];
+    this.tempCitzenshipList = [];
+    this.selectedCitzenship = [];
+    this.previousSelectedCitzenship = 0;
+    this.genreList = [
+      'Kobieta', 'Mężczyzna'
+  ]
   }
   
   ngOnInit(){
-  
-    this.residentService.GetResidentPersonalDataById(this.residentId)
+    
+    this.residentCitzenshipService.GetAllCitzenships()
+    .then(
+      citzenships => {
+        citzenships.forEach((element, index) => {
+          this.tempCitzenshipList.push(
+          {
+            id: element.id,
+            name: element.citzenship
+          })
+          this.citzenshipsList = this.tempCitzenshipList;  
+        });
+
+        this.residentService.GetResidentPersonalDataById(this.residentId)
         .then(
           residentPersonalData => {
             
@@ -64,19 +111,16 @@ export class ResidentPersonalDataComponent implements OnChanges, OnInit, DoCheck
             this.residentPersonalData.fatherName = residentPersonalData[0].father_name;
             this.residentPersonalData.pesel = residentPersonalData[0].pesel;
             this.residentPersonalData.citzenship = residentPersonalData[0].citzenship;
+            this.residentPersonalData.blockadeState = residentPersonalData[0].blockade_state;
             this.residentPersonalData.citzenshipCodeId = residentPersonalData[0].citzenship_code_id;
 
             this.emitResidentPersonalData.emit(this.residentPersonalData);
+            this.selectedCitzenship.push(residentPersonalData[0].citzenship_code_id);
 
-          } 
-        );
-    this.residentCitzenshipService.GetAllCitzenships()
-        .then(
-          citzenships =>{
-            this.listOfCitzenships = citzenships;
-            console.log(this.listOfCitzenships);
           }
-        )
+        );
+      }
+    )
   }
 
   ngOnChanges() {
@@ -85,32 +129,25 @@ export class ResidentPersonalDataComponent implements OnChanges, OnInit, DoCheck
   
   ngDoCheck(){
     this.emitResidentPersonalData.emit(this.residentPersonalData);
-    console.log(this.residentPersonalData)
+    if(this.selectedCitzenship.length > 0 && (this.previousSelectedCitzenship != this.selectedCitzenship[0])){
+      this.citzenshipsList.forEach(element => {
+        if(element.id == this.selectedCitzenship[0]){
+           this.residentPersonalData.citzenshipCodeId = element.id;
+           this.residentPersonalData.citzenship = element.name;
+        }
+      });
+      this.previousSelectedCitzenship = this.selectedCitzenship[0];
+    };
   }
-/*
-  ShowListGenre(value){
-    let indexOfSubString = -1;
-    this.listOfGenre.forEach(item => {
-      let x = item.genre.indexOf(value);
-      indexOfSubString = x;
-      if(x > -1){
-        return x;
-      }
-    });
-    return indexOfSubString;
+
+  SetGenre(genreName){
+    
+    this.residentPersonalData.genre = genreName.value;
+    if(genreName.value == "Kobieta"){
+      this.residentPersonalData.blockadeState = "Odblokowana";
+    }else{
+      this.residentPersonalData.blockadeState = "Odblokowany";
+    }
   }
-*/
-  SetCitzenship(chosenCitzenship){
-    this.residentPersonalData.citzenship = chosenCitzenship.name;
-    this.residentPersonalData.citzenship_code_id = chosenCitzenship.id;
-  }
-  DisableScroll(event){
-    let imageWrapperDivElement = document.getElementById("image_wrapper");
-    imageWrapperDivElement.style.overflowY = "auto";
-    event.target.preventDefault();
-  }
-  EnableScroll(){
-    let imageWrapperDivElement = document.getElementById("image_wrapper");
-        imageWrapperDivElement.style.overflowY = "visible";
-  }
+
 }

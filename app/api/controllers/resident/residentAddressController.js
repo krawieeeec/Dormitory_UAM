@@ -28,6 +28,7 @@ var residentAddressController = {
             apartmentNumber: req.body.apartmentNumber,
             postCode: req.body.postCode,
             city: req.body.city,
+            address_type_id: req.body.addressTypeId
         }
 
         req.newResidentAddress = newResidentAddress;

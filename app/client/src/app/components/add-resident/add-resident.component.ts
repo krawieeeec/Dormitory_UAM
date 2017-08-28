@@ -5,7 +5,6 @@ import { ResidentService } from '../../shared/resident/resident.service';
 import { UserSessionService } from '../../shared/user-session.service';
 import { AddResidentService } from './add-resident.service';
 
-
 @Component({
   selector: 'add-resident',
   templateUrl: './add-resident.component.html',

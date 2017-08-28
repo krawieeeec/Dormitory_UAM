@@ -11,18 +11,18 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="residentDateOfAccommodation">Czas Pobytu</label>
-                <input [disabled]="true" [style.opacity]="true ? 0.4 : 1" type="date" [(ngModel)]="residentDormitory.dateOfAccommodation" name="dateOfAccommodation" #dateOfAccommodation="ngModel" class="form-control" id="residentDateOfAccommodation" placeholder="Podaj Czas Pobytu"
+                <label for="residentDateOfDeparture">Data Wymeldowania</label>
+                <input [disabled]="switchInputs" [style.opacity]="switchInputs ? 0.4 : 1" type="date" [(ngModel)]="residentDormitory.dateOfDeparture" name="dateOfDeparture" #dateOfDeparture="ngModel" class="form-control" id="residentDateOfDeparture" placeholder="Podaj Datę Wymeldowania"
                     required>
-                <div [hidden]="dateOfAccommodation.valid || dateOfAccommodation.pristine || switchInputs" class="alert alert-danger">
+                <div [hidden]="dateOfDeparture.valid || dateOfDeparture.pristine || switchInputs" class="alert alert-danger">
                     Pole nie może być puste
                 </div>
             </div>
             <div class="form-group">
-                <label for="residentDateOfDeparture">Data Wymeldowania</label>
-                <input [disabled]="true" [style.opacity]="true ? 0.4 : 1" type="date" [(ngModel)]="residentDormitory.dateOfDeparture" name="dateOfDeparture" #dateOfDeparture="ngModel" class="form-control" id="residentDateOfDeparture" placeholder="Podaj Datę Wymeldowania"
+                <label for="residentDateCrossRp">Data Przekroczenia RP</label>
+                <input [disabled]="switchInputs" [style.opacity]="switchInputs ? 0.4 : 1" type="date" [(ngModel)]="residentDormitory.dateCrossRp" name="dateCrossRp" #dateCrossRp="ngModel" class="form-control" id="residentDateCrossRp" placeholder="Podaj Datę Przekroczenia RP"
                     required>
-                <div [hidden]="dateOfDeparture.valid || dateOfDeparture.pristine || switchInputs" class="alert alert-danger">
+                <div [hidden]="dateCrossRp.valid || dateCrossRp.pristine || switchInputs" class="alert alert-danger">
                     Pole nie może być puste
                 </div>
             </div>
@@ -34,14 +34,6 @@
                 <label for="residentRoomNumber">Numer Pokoju</label>
                 <input [disabled]="switchInputs" [style.opacity]="switchInputs ? 0.4 : 1" type="text" [(ngModel)]="residentDormitory.roomNumber" name="roomNumber" #roomNumber="ngModel" class="form-control" id="residentRoomNumber" placeholder="Podaj Numer Pokoju" required>
                 <div [hidden]="roomNumber.valid || roomNumber.pristine || switchInputs" class="alert alert-danger">
-                    Pole nie może być puste
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="residentDateCrossRp">Data Przekroczenia RP</label>
-                <input [disabled]="switchInputs" [style.opacity]="switchInputs ? 0.4 : 1" type="date" [(ngModel)]="residentDormitory.dateCrossRp" name="dateCrossRp" #dateCrossRp="ngModel" class="form-control" id="residentDateCrossRp" placeholder="Podaj Datę Przekroczenia RP"
-                    required>
-                <div [hidden]="dateCrossRp.valid || dateCrossRp.pristine || switchInputs" class="alert alert-danger">
                     Pole nie może być puste
                 </div>
             </div>

@@ -64,6 +64,7 @@
             <div class="form-group">
                 <label for="residentGenre">Płeć</label>
                 <select class="form-control" placeholder="Wybierz Płeć" (change)="SetGenre($event.target)">
+                    <option value="" disabled>Wybierz płeć</option>
                     <option *ngFor="let name of genreList" [value]="name" >{{name}}</option>
                 </select>
                 <!-- <input #genre="ngModel" [(ngModel)]="residentPersonalData.genre" name="genre" type="text" class="form-control" id="residentGenre" placeholder="Podaj Płeć" required>

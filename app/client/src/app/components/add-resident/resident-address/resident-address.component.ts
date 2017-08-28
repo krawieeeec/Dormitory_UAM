@@ -34,7 +34,7 @@ export class ResidentAddressComponent implements OnInit, OnChanges, DoCheck {
   constructor(
     private residentService: ResidentService,
     private residentAddService: AddResidentService,
-    private citySerivice: CityService,
+    private cityService: CityService,
     private typeAddressService: TypeAddressService
   ) {
     this.residentAddress = {
@@ -90,7 +90,7 @@ export class ResidentAddressComponent implements OnInit, OnChanges, DoCheck {
   }
 
   ngOnInit() {
-    this.citySerivice.GetAllCities()
+    this.cityService.GetAllCities()
       .then(cities =>{
         cities.forEach((element, index) => {
           this.tempPostCodeList.push(
