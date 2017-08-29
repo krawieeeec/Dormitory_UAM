@@ -11,9 +11,7 @@ var residentModel = dbClient.define('resident', {
     motherName: {type: sequelize.STRING(30), allowNull: true, field: 'mother_name'},
     fatherName: { type: sequelize.STRING(30), allowNull: true, field: 'father_name'},
     pesel: {type: sequelize.STRING(11), allowNull: false },
-    blockadeState: {type: sequelize.ENUM('Zablokowany', 'Odblokowany', 'Zablokowana', 'Odblokowana'), allowNull: false, field: 'blockade_state'}
 }, {timestamps: false, underscored: true, underscoredAll: true})
-
 
 
 residentModel.ResidentAssociations = function(models) {

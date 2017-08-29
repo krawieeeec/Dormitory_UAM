@@ -1,8 +1,10 @@
 const dbClient = require('../app.js').SynchronizationTables;
 
 //Tables
+const accountEmployeeTable = require('../models/tables/account-employee').AccountEmployeeModel;
 const accountResidentTable = require('../models/tables/account-resident.js').AccountResidentModel;
 const addressResidentTable = require('../models/tables/address-resident.js').AddressResidentModel;
+const blockadeHistoryTable = require('../models/tables/blockade-history').BlockadeHistoryModel;
 const documentTable = require('../models/tables/document.js').DocumentModel;
 const residentTable = require('../models/tables/resident.js').ResidentModel;
 const stayResidentTable = require('../models/tables/stay-resident.js').StayResidentModel;
@@ -134,14 +136,14 @@ dbClient.drop().then(() => {
                                 if(amountData >= 0){
                                     residentTable.bulkCreate([
                                         {name: 'Dawid', surname: 'Krawczyk', genre: 'Mężczyzna', phoneNumber: '506238823', birthDate:'1992-08-02', birthPlace: 'Inowrocław', 
-                                        motherName:'Dorota', fatherName: 'Darek', blockadeState: 'Odblokowany',pesel:'95275820583', citzenship_code_id: 2, adress_id:1},
-                                        {name: 'Paweł', surname: 'Jaworski', genre: 'Mężczyzna', blockadeState: 'Zablokowany', phoneNumber: '556284369', birthDate:'1982-03-23', birthPlace: 'Poznań', 
+                                        motherName:'Dorota', fatherName: 'Darek',pesel:'95275820583', citzenship_code_id: 2, adress_id:1},
+                                        {name: 'Paweł', surname: 'Jaworski', genre: 'Mężczyzna', phoneNumber: '556284369', birthDate:'1982-03-23', birthPlace: 'Poznań', 
                                         motherName:'Dagmara', fatherName: 'Janusz', pesel:'2351567433', citzenship_code_id: 1, adress_id:3},
-                                        {name: 'Dorota', surname: 'Pawelczyk', genre: 'Kobieta', blockadeState: 'Odblokowana', phoneNumber: '628698423', birthDate:'1969-08-09', birthPlace: 'Olsztyn', 
+                                        {name: 'Dorota', surname: 'Pawelczyk', genre: 'Kobieta', phoneNumber: '628698423', birthDate:'1969-08-09', birthPlace: 'Olsztyn', 
                                         motherName:'Barbara', fatherName: 'Zygmunt', pesel:'28548332152', citzenship_code_id: 3, adress_id:4},
-                                        {name: 'Jakub', surname: 'Piotrowski', genre: 'Mężczyzna', blockadeState: 'Zablokowany', phoneNumber: '628874214', birthDate:'1992-02-13', birthPlace: 'Żnin', 
+                                        {name: 'Jakub', surname: 'Piotrowski', genre: 'Mężczyzna', phoneNumber: '628874214', birthDate:'1992-02-13', birthPlace: 'Żnin', 
                                         motherName:'Monika', fatherName: 'Piotr', pesel:'1235749247', citzenship_code_id: 4, adress_id:2},
-                                        {name: 'Kasia', surname: 'Smektalska', genre: 'Kobieta', blockadeState: 'Odblokowana',phoneNumber: '511236987',birthDate:'1996-12-07', birthPlace: 'Gdańsk', 
+                                        {name: 'Kasia', surname: 'Smektalska', genre: 'Kobieta',phoneNumber: '511236987',birthDate:'1996-12-07', birthPlace: 'Gdańsk', 
                                         motherName:'Klaudia', fatherName: 'Bartosz', pesel:'3497512687', citzenship_code_id: 5, adress_id:1}
                                     ]).then(() => {
                                         return residentTable.findAll();
@@ -227,8 +229,71 @@ dbClient.drop().then(() => {
                                                      roomNumber:'11', dataCrossRp:'2011-03-03', comments:'Brak zastrzeżeń', 
                                                     dormitory_id:'3', address_type_id:'2', regular_adress_id:'1', document_id:'3', resident_id: '1'}
                                                      
-                                                ])
+                                                ]).then(() => {
+                                                    return stayResidentTable.findAll();
+                                                }).then(stayResidents =>{
+                                                    console.log('******************************************************');
+                                                    console.log('Stay Resident Table');
+                                                    stayResidents.forEach(function(stayResident){
+                                                        console.log(stayResident.dataValues);
+                                                    })
+                                                })
                                             }
+                                        }).then(() =>{
+                                            accountEmployeeTable.count().then(amountData =>{
+                                                if(amountData >=0){
+                                                    accountEmployeeTable.bulkCreate([
+                                                        {name: 'Dawid', surname:'Krawczyk', login:'krawiec', password:'dawid'},
+                                                        {name: 'Patrycja', surname:'Wysiłek', login:'Patta', password:'flaczki'}
+                                                    ]).then(() => {
+                                                        return accountEmployeeTable.findAll();
+                                                    }).then(accountsEmployees =>{
+                                                        console.log('******************************************************');
+                                                        console.log('Account Employee Table');
+                                                        accountsEmployees.forEach(function(accountEmployee){
+                                                            console.log(accountEmployee.dataValues);
+                                                        })
+                                                    })
+                                                }
+                                            }).then(() =>{
+                                                accountResidentTable.count().then(amountData =>{
+                                                    if(amountData >=0){
+                                                        accountResidentTable.bulkCreate([
+                                                            {UID: 12423412, password: 'blabla', validityAccountDate: '2019-08-12',
+                                                            accountState: 'Zablokowany', resident_id: 1},
+                                                            {UID: 8563845, password: 'chałwa', validityAccountDate: '2017-01-02',
+                                                            accountState: 'Odblokowany', resident_id: 2},
+                                                            {UID: 24512, password: 'zupa', validityAccountDate: '2020-09-24',
+                                                            accountState: 'Odblokowana', resident_id: 3},
+                                                            {UID: 123125, password: 'burak', validityAccountDate: '2023-07-12',
+                                                            accountState: 'Zablokowany', resident_id: 4},
+                                                            {UID: 5412345, password: 'marchew', validityAccountDate: '2018-01-11',
+                                                            accountState: 'Zablokowana', resident_id: 5},
+                                                        ]).then(() => {
+                                                            return accountResidentTable.findAll();
+                                                        }).then(accountsResidents =>{
+                                                            console.log('******************************************************');
+                                                            console.log('Account Resident Table');
+                                                            accountsResidents.forEach(function(accountResident){
+                                                                console.log(accountResident.dataValues);
+                                                            })
+                                                        })
+                                                    }
+                                                }).then(()=>{
+                                                    blockadeHistoryTable.count().then(amountData =>{
+                                                        if(amountData >=0){
+                                                            blockadeHistoryTable.bulkCreate([
+                                                                {comment:'Naruszył regulamin akademika', blockadeType: 'Stały', 
+                                                                account_resident_id: 12423412, stay_resident_id:1, employee_id:1},
+                                                                {comment:'Podpalił śmietnik', blockadeType: 'Stały', 
+                                                                account_resident_id: 123125, stay_resident_id:2, employee_id:1},
+                                                                {comment:'Brak płatności za okres trzech miesięcy', blockadeType: 'Okresowy', 
+                                                                account_resident_id: 5412345, stay_resident_id:4, employee_id:2},
+                                                            ])
+                                                        }
+                                                    })
+                                                })
+                                            })
                                         })
                                     })
                                 })    

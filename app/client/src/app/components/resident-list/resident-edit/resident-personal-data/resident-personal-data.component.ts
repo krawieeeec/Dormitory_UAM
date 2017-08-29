@@ -1,7 +1,7 @@
-import { Component, EventEmitter, Output, OnInit, Input, OnChanges, DoCheck } from '@angular/core';
+import { Component, EventEmitter, Output, OnInit, Input, OnChanges, DoCheck, AfterViewInit } from '@angular/core';
 import { NgModel } from '@angular/forms';
 import { ResidentPersonalData } from '../../../../shared/resident/resident-personal-data';
-
+import { IMyDpOptions } from 'mydatepicker';
 //Services
 import { ResidentService } from '../../../../shared/resident/resident.service';
 import { CitzenshipService } from '../../../../shared/citzenship/citzenship.service';
@@ -28,6 +28,13 @@ export class ResidentPersonalDataComponent implements OnChanges, OnInit, DoCheck
   private residentPersonalData;
   private genreList;
   private listOfCitzenships;
+  private myDatePickerOptions: IMyDpOptions = {
+    // other options...
+    dateFormat: 'dd.mm.yyyy',
+    todayBtnTxt: 'Dzisiaj',
+    showClearDateBtn: true
+};
+private model: Object = { date: { year: 2018, month: 10, day: 9 } };
   @Input() switchInputs;
   @Input() residentId:number;
   @Output() emitResidentPersonalData;
@@ -83,8 +90,10 @@ export class ResidentPersonalDataComponent implements OnChanges, OnInit, DoCheck
   ]
   }
   
+  
   ngOnInit(){
     
+      
     this.residentCitzenshipService.GetAllCitzenships()
     .then(
       citzenships => {
@@ -149,5 +158,5 @@ export class ResidentPersonalDataComponent implements OnChanges, OnInit, DoCheck
       this.residentPersonalData.blockadeState = "Odblokowany";
     }
   }
-
+  
 }

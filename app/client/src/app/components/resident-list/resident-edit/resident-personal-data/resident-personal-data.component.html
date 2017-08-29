@@ -29,10 +29,12 @@
         <form>
             <div class="form-group">
                 <label for="residentBirthDate">Data Urodzenia</label>
-                <input [disabled]="switchInputs" [style.opacity]="switchInputs ? 0.4 : 1" #birthDate="ngModel" [(ngModel)]="residentPersonalData.birthDate" name="birthDate" type="date" class="form-control" id="residentBirthDate" placeholder="Podaj Datę Urodzenia" required>
-                <div [hidden]="birthDate.valid || birthDate.pristine || switchInputs" class="alert alert-danger">
+                <!-- <input [disabled]="switchInputs" [style.opacity]="switchInputs ? 0.4 : 1" #birthDate="ngModel" [(ngModel)]="residentPersonalData.birthDate" name="birthDate" type="date" class="form-control" id="datepicker" placeholder="Podaj Datę Urodzenia" required> -->
+                <my-date-picker name="mydate" [options]="myDatePickerOptions" [(ngModel)]="model" required></my-date-picker>
+
+                <!-- <div [hidden]="birthDate.valid || birthDate.pristine || switchInputs" class="alert alert-danger">
                     Pole nie może być puste
-                </div>
+                </div> -->
             </div>
             <div class="form-group">
                 <label for="residentBrithPlace">Miejsce Urodzenia</label>
@@ -81,8 +83,8 @@
             <div class="form-group">
 
                 <label for="residentPhoneNumber">Numer Telefonu</label>
-                <input [disabled]="switchInputs" [style.opacity]="switchInputs ? 0.4 : 1" #phoneNumber="ngModel" [(ngModel)]="residentPersonalData.phoneNumber" name="phoneNumber" type="text" class="form-control" id="residentPhoneNumber" placeholder="Podaj Numer Telefonu"
-                    required>
+                <input [disabled]="switchInputs" [style.opacity]="switchInputs ? 0.4 : 1" #phoneNumber="ngModel" [(ngModel)]="residentPersonalData.phoneNumber" name="phoneNumber" type="number" class="form-control" id="residentPhoneNumber" placeholder="Podaj Numer Telefonu"
+                    required> {{phoneNumber.valid}}
             </div>
         </form>
     </div>

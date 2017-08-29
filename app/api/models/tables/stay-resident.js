@@ -10,6 +10,16 @@ var stayResidentModel = dbClient.define('stayResident', {
     comments: { type: sequelize.STRING, allowNull: true }
 }, {timestamps: false, underscored: true, underscoredAll: true})
 
+    
+stayResidentModel.StayResidentAssociations = function(models){
+    
+    stayResidentModel.hasMany(models['blockadeHistory'], {
+        foreignKey: {
+            allowNull: false, 
+            name:'stay_resident_id'
+        }
+    });   
+    }
 
 module.exports = {
     StayResidentModel : stayResidentModel

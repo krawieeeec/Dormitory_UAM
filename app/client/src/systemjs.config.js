@@ -38,6 +38,8 @@ System.config({
       '@ng-bootstrap/ng-bootstrap': 'node_modules/@ng-bootstrap/ng-bootstrap/bundles/ng-bootstrap.js',
     // Rxjs mapping
     'rxjs': 'https://unpkg.com/rxjs',
+    jquery: 'http://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js',
+    jqueryui: 'npm:jqueryui/jquery-ui.min.js',
   },
   packages: {
     // Thirdparty barrels.

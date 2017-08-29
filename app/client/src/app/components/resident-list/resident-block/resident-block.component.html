@@ -1,1 +1,22 @@
-<h1>BlockREsident</h1>
+<div id="residentBlockadeWrapper">
+    <h1>{{residentPersonalData.name}} {{residentPersonalData.surname}} - {{residentPersonalData.blockadeState}}</h1>
+    <div id="residentBlockadePanelWrapper">
+        <form>
+            <div class="form-group" id="selectBlockadeStateWrapper">
+                <h4>Wybierz Status Blokady</h4>
+                <select class="form-control" #blockadeState="ngModel" name="residentBlockadeState" [(ngModel)]="residentPersonalData.blockadeState" class="form-control" placeholder="Wybierz Status" (change)="SetBlockState($event.target)">
+                            <option *ngFor="let name of blockadeStateList" [value]="name" >{{name}}</option>
+                        </select>
+            </div>
+            <div class="form-group" id="textBlockadeStateWrapper">
+                <h4>Wpisz Powód Blokady</h4>
+                <textarea class="form-control" placeholder="Podaj powód blokady"></textarea>
+            </div>
+        </form>
+    </div>
+    <div id="button_wrapper">
+        <button type="button" class="btn btn-default">Wstecz</button>
+        <button type="button" class="btn btn-default">Edytuj</button>
+        <button type="button" class="btn btn-default">Zapisz</button>
+    </div>
+</div>

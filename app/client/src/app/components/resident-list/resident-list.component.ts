@@ -94,5 +94,9 @@ export class ResidentListComponent implements OnInit, DoCheck, OnDestroy{
     ngOnDestroy(){
         console.log('OnDestory')
     }
+
+    ChangeResidentsList(){
+        this.residentsList = [];
+    }
     
 }

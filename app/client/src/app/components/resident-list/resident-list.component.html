@@ -13,7 +13,7 @@
             </thead>
             <tbody>
                 <tr *ngFor="let resident of residentsList">
-                    <td>{{resident.name}}</td>
+                    <td (click)="ChangeResidentsList()">{{resident.name}}</td>
                     <td>{{resident.surname}}</td>
                     <td>{{resident.blockade_state}}</td>
                     <td>
