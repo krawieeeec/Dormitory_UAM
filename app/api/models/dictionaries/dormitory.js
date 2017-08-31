@@ -8,7 +8,7 @@ var dormitoryModel = dbClient.define('dormitory', {
 
 dormitoryModel.DormitoryAssociations = function(models){
     dormitoryModel.hasMany(models['stayResident'], {foreignKey: {allowNull: false, name:'dormitory_id'}});
-    dormitoryModel.hasMany(models['accountResident'], {foreignKey: 'dormitory_id'})
+    dormitoryModel.hasMany(models['accountResident'], {foreignKey:{allowNull: false, name: 'dormitory_id'}})
    
 }
 

@@ -5,8 +5,9 @@ var accountResidentModel = dbClient.define('accountResident', {
     UID: 
     { 
         type: sequelize.INTEGER, 
-        primaryKey: true 
-    },
+    //    primaryKey: true,
+        field: 'uid'
+       },
     password: 
     { 
         type: sequelize.STRING(20), 
@@ -14,7 +15,7 @@ var accountResidentModel = dbClient.define('accountResident', {
     },
     validityAccountDate: 
     { 
-        type: sequelize.DATE, 
+        type: sequelize.DATEONLY, 
         allowNull: false, 
         field: 'validity_account_date' 
     },
@@ -38,9 +39,8 @@ accountResidentModel.AccountResidentAssociations = function(models){
             allowNull: false, 
             name:'account_resident_id'
         }
-    });
-       
-    }
+    });       
+}
 
 module.exports = {
     AccountResidentModel: accountResidentModel

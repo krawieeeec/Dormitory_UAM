@@ -15,7 +15,7 @@
                 <tr *ngFor="let resident of residentsList">
                     <td (click)="ChangeResidentsList()">{{resident.name}}</td>
                     <td>{{resident.surname}}</td>
-                    <td>{{resident.blockade_state}}</td>
+                    <td>{{resident.account_state}}</td>
                     <td>
                         <button type="button" [routerLink]="['residentEdit', resident.id]" data-toggle="tooltip" title="Edytuj Konto" class="btn btn-default" aria-label="Left Align">
   <span  class="glyphicon glyphicon-edit" aria-hidden="true"></span>

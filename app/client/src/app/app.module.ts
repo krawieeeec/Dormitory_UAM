@@ -27,6 +27,7 @@ import { UserSessionService } from './shared/user-session.service';
 import { CityService } from './shared/city/city.service';
 import { TypeAddressService } from './shared/type-address/type-address.service';
 import { TypeDocumentService } from './shared/type-document/type-document.service';
+import { BlockadeHistoryService } from './shared/blockade-history/blockade-history.service';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import { TypeDocumentService } from './shared/type-document/type-document.servic
     ],
   exports:[],
   providers: [ResidentService, DormitoryService, UserSessionService, 
-    CitzenshipService, CityService, TypeAddressService, TypeDocumentService ],
+    CitzenshipService, CityService, TypeAddressService, TypeDocumentService,
+    BlockadeHistoryService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

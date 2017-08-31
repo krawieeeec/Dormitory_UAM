@@ -9,7 +9,6 @@ export class ResidentPersonalData {
     mother_name:string;
     father_name:string;
     pesel:number;
-    blockade_state:string;
     citzenship:string;
     citzenship_code_id:number; 
 }

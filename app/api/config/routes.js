@@ -7,19 +7,21 @@ var documentCtrl = require('../controllers/documentController').DocumentControll
 var typeAddressCtrl = require('../controllers/typeAddressController').TypeAddressController;
 var typeDocumentCtrl = require('../controllers/typeDocumentController').TypeDocumentController;
 var cityCtrl = require('../controllers/cityController').CityController;
+var blockadeHistoryCtrl = require('../controllers/blockadeHistoryController').BlockadeHistoryController;
 
-//residentsControllers
+//residentControllers
 var residentPersonalDataCtrl = require('../controllers/resident/residentPersonalDataController').ResidentPersonalDataController;
 var residentAddressCtrl = require('../controllers/resident/residentAddressController').ResidentAddressController;
 var residentDormitoryCtrl = require('../controllers/resident/residentDormitoryController').ResidentDormitoryController;
 var residentDocumentCtrl = require('../controllers/resident/residentDocumentController').ResidentDocumentController;
+var residentAccountCtrl = require('../controllers/resident/residentAccountController').ResidentAccountController;
 
 
 var router = express.Router();
 
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({extended: true}));
-
+ 
 //residentPersonalDataController
 router.use(residentPersonalDataCtrl.FormResponseObject);
 router.route('/resident/personalData').post(residentPersonalDataCtrl.CreateNewResidentPersonalData);
@@ -43,6 +45,20 @@ router.use(residentDormitoryCtrl.FormResponseObject);
 router.route('/resident/dormitory').post(residentDormitoryCtrl.CreateNewResidentStay);
 router.route('/resident/:id/dormitory').get(residentDormitoryCtrl.GetResidentStayDormitoryById);
 router.route('/resident/:id/dormitory').put(residentDormitoryCtrl.UpdateResidentStayDormitoryById);
+
+//residentAccountController
+router.use(residentAccountCtrl.FormResponseObject);
+router.route('/resident/account').get(residentAccountCtrl.GetAllResidentAccounts);
+router.route('/resident/account').post(residentAccountCtrl.CreateNewResidentAccount);
+router.route('/resident/:residentId/account').get(residentAccountCtrl.GetResidentAccountsById);
+router.route('/resident/:residentId/account/:dormitoryId').get(residentAccountCtrl.GetResidentAccountCurrentDormitoryById);
+router.route('/resident/:residentId/account/:dormitoryId').put(residentAccountCtrl.UpdateResidentAccountById);
+
+//blockadeHistoryController
+router.use(blockadeHistoryCtrl.FormResponseObject);
+router.route('/residentAccount/blockadeHistory').get(blockadeHistoryCtrl.GetAllBlokckadeHistory);
+router.route('/residentAccount/:id/blockadeHistory').get(blockadeHistoryCtrl.GetAllAccountResidentBlockadeHistoryById);
+
 
 //cityController
 router.use(cityCtrl.FormResponseObject);

@@ -1,22 +1,66 @@
 <div id="residentBlockadeWrapper">
-    <h1>{{residentPersonalData.name}} {{residentPersonalData.surname}} - {{residentPersonalData.blockadeState}}</h1>
-    <div id="residentBlockadePanelWrapper">
-        <form>
-            <div class="form-group" id="selectBlockadeStateWrapper">
-                <h4>Wybierz Status Blokady</h4>
-                <select class="form-control" #blockadeState="ngModel" name="residentBlockadeState" [(ngModel)]="residentPersonalData.blockadeState" class="form-control" placeholder="Wybierz Status" (change)="SetBlockState($event.target)">
-                            <option *ngFor="let name of blockadeStateList" [value]="name" >{{name}}</option>
-                        </select>
-            </div>
-            <div class="form-group" id="textBlockadeStateWrapper">
-                <h4>Wpisz Powód Blokady</h4>
-                <textarea class="form-control" placeholder="Podaj powód blokady"></textarea>
-            </div>
-        </form>
+    <h1>{{residentPersonalData.name}} {{residentPersonalData.surname}} - {{residentAccount.accountState}}</h1>
+    <button *ngIf="hideBlockPanel" type="button " class="btn btn-default " (click)="ShowBlockadePanel()">Dodaj Nowa Blokade</button>
+    <div id="listBlockadeHistoryWrapper" *ngIf="hideBlockPanel">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Typ Blokady</th>
+                    <th>Powód Blokady</th>
+                    <th>Dane Pracownika</th>
+                    <th>Operacje</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let blockade of residentBlockadeHistory">
+                    <td>
+                        {{blockade.blockadeType}}
+                    </td>
+                    <td>
+                        {{blockade.comment}}
+                    </td>
+                    <td>
+                        Brak
+                    </td>
+                    <td>
+                        <button type="button" data-toggle="tooltip" title="Edytuj Blokade" class="btn btn-default" aria-label="Left Align">
+          <span  class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+        </button>
+                        <button type="button" data-toggle="tooltip" title="Usuń blokade" class="btn btn-default" aria-label="Left Align">
+                <span  class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+              </button>
+
+
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
     </div>
-    <div id="button_wrapper">
-        <button type="button" class="btn btn-default">Wstecz</button>
-        <button type="button" class="btn btn-default">Edytuj</button>
-        <button type="button" class="btn btn-default">Zapisz</button>
+    <div id="residentBlockadePanelWrapper" *ngIf="!hideBlockPanel">
+        <form>
+            <div class="form-group">
+                <h4>Wybierz Typ Blokady</h4>
+                <select class="form-control" #blockadeType="ngModel" [(ngModel)]="newResidentAccountBlockade.blockadeType" name="residentBlockadeState" class="form-control" placeholder="Wybierz Typ Blokady" (change)="SetBlockadeType(blockadeState)">
+                    <option value="" disabled>Wybierz Typ Blokady</option>        
+                    <option *ngFor="let name of blockadeStateList">{{name}}</option>
+                            </select>
+            </div>
+            <div class="form-group">
+                <h4>Wpisz Powód Blokady</h4>
+                <textarea class="form-control " placeholder="Podaj powód blokady "></textarea>
+            </div>
+
+        </form>
+        <div>
+            <button *ngIf="!hideBlockPanel" type="button " class="btn btn-default " (click)="ShowBlockadePanel()">Wróc Do Listy</button>
+            <button *ngIf="!hideBlockPanel" type="button " class="btn btn-default ">Dodaj Do Listy</button>
+
+        </div>
+
+    </div>
+    <div id="button_wrapper" *ngIf="hideBlockPanel">
+        <button type="button " class="btn btn-default ">Wstecz</button>
+        <button type="button " class="btn btn-default ">Zapisz</button>
     </div>
 </div>

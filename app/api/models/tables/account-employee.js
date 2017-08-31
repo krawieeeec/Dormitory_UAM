@@ -1,7 +1,7 @@
 const sequelize = require('sequelize');
 const dbClient = require('../../config/db.js').dbClient;
 
-var accountEmployeeModel = dbClient.define('accountEmployeeModel', {
+var accountEmployeeModel = dbClient.define('accountEmployee', {
     name: 
     { 
         type: sequelize.STRING(20), 
