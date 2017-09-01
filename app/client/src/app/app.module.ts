@@ -28,6 +28,7 @@ import { CityService } from './shared/city/city.service';
 import { TypeAddressService } from './shared/type-address/type-address.service';
 import { TypeDocumentService } from './shared/type-document/type-document.service';
 import { BlockadeHistoryService } from './shared/blockade-history/blockade-history.service';
+import { ResidentStayService } from './shared/resident-stay/resident-stay.service';
 
 
 @NgModule({
@@ -42,7 +43,7 @@ import { BlockadeHistoryService } from './shared/blockade-history/blockade-histo
   exports:[],
   providers: [ResidentService, DormitoryService, UserSessionService, 
     CitzenshipService, CityService, TypeAddressService, TypeDocumentService,
-    BlockadeHistoryService ],
+    BlockadeHistoryService, ResidentStayService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

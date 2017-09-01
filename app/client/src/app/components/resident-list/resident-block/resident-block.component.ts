@@ -1,12 +1,13 @@
 import { Component, EventEmitter, Input, Output, OnInit, DoCheck, OnChanges } from '@angular/core';
 import { NgModel } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router, RouterLinkActive, RouterLink } from '@angular/router';
-import { Location } from '@angular/common';
+import { Location, NgSwitch, NgSwitchCase } from '@angular/common';
 
 import { ResidentService } from '../../../shared/resident/resident.service';
 import { UserSessionService } from '../../../shared/user-session.service';
 import { ResidentAccountService } from '../../../shared/resident-account/resident-account.service';
 import { BlockadeHistoryService } from '../../../shared/blockade-history/blockade-history.service';
+import { ResidentStayService } from '../../../shared/resident-stay/resident-stay.service';
 
 @Component({
   selector: 'resident-block',
@@ -35,7 +36,8 @@ export class ResidentBlockComponent implements OnInit, DoCheck, OnChanges {
     private residentService: ResidentService,
     private residentAccountService: ResidentAccountService,
     private userSessionService: UserSessionService,
-    private blockadeHistoryService: BlockadeHistoryService 
+    private blockadeHistoryService: BlockadeHistoryService,
+    private residentStayService: ResidentStayService 
   )
   
   {
@@ -44,7 +46,10 @@ export class ResidentBlockComponent implements OnInit, DoCheck, OnChanges {
       comment: '',
       blockadeType: '',
       account_resident_id: 0,
-      stay_resident_id: 0
+      stay_resident_id: 0,
+      hasAdded: false,
+      hasEdited: false,
+      elementIndex: 0
     }
 
     this.residentAccount = {
@@ -55,6 +60,7 @@ export class ResidentBlockComponent implements OnInit, DoCheck, OnChanges {
       accountState: '',
       residentId: 0,
       dormitoryId: 0
+      
     }
 
     this.residentPersonalData = {
@@ -76,6 +82,12 @@ export class ResidentBlockComponent implements OnInit, DoCheck, OnChanges {
     this.residentId = this.route.snapshot.params.id;
     this.dormitoryId = this.userSessionService.GetChosenDormitoryId();
     
+    this.residentStayService.GetResidentStayById(this.residentId)
+    .then( residentStay=>{
+      this.newResidentAccountBlockade.stay_resident_id = residentStay.id;
+      
+    })
+
     this.residentAccountService.GetResidentAccountCurrentDormitoryById(this.residentId, this.dormitoryId)
     .then((residentAccount)=>{
 
@@ -87,6 +99,8 @@ export class ResidentBlockComponent implements OnInit, DoCheck, OnChanges {
       this.residentAccount.residentId = residentAccount[0].resident_id;
       this.residentAccount.dormitoryId = residentAccount[0].dormitory_id;
       
+      this.newResidentAccountBlockade.account_resident_id = this.residentAccount.id;
+
       this.residentService.GetResidentPersonalDataById(this.residentId)
       .then(
         residentPersonalData => {
@@ -111,17 +125,79 @@ export class ResidentBlockComponent implements OnInit, DoCheck, OnChanges {
       this.blockadeHistoryService.GetAllResidentAccountBlockadeHistoryById(this.residentAccount.id)
       .then(residentAccountBlokadeHistory =>{
         this.residentBlockadeHistory = residentAccountBlokadeHistory;
-        console.log(this.residentBlockadeHistory);
+        this.residentBlockadeHistory.forEach(element => {
+          element.hasAdded = false;
+          element.hasEdited = false;
+          element.index = 0;          
+        });
+        
       })
     })
     
   }
 
   ngDoCheck(){
+    
   }
 
   ngOnChanges(){
-  
+
+  }
+  AddBlockadeToList(){
+    let newTempResidentAccountBlockade
+    
+    if(this.newResidentAccountBlockade.hasEdited){
+      
+      this.residentBlockadeHistory[this.newResidentAccountBlockade.index].comment = this.newResidentAccountBlockade.comment;
+      this.residentBlockadeHistory[this.newResidentAccountBlockade.index].blockadeType = this.newResidentAccountBlockade.blockadeType;
+      
+    }else {
+      
+      this.newResidentAccountBlockade.hasAdded = true;
+      newTempResidentAccountBlockade = Object.assign({}, this.newResidentAccountBlockade);
+      this.residentBlockadeHistory.push(newTempResidentAccountBlockade);
+    
+      if( 
+        (this.residentBlockadeHistory.length > 0) &&
+        (this.residentAccount.accountState == "Odblokowana")
+      ){
+        this.residentAccount.accountState = "Zablokowana";
+      }else if(
+        (this.residentBlockadeHistory.length > 0) &&
+        (this.residentAccount.accountState == "Odblokowany")
+      ){
+        this.residentAccount.accountState = "Zablokowany";
+      }
+    }
+      
+    if(!this.hideBlockPanel){
+      this.hideBlockPanel = true;
+    }
+
+    this.newResidentAccountBlockade.comment = "";
+    this.newResidentAccountBlockade.blockadeType = "";
+    this.newResidentAccountBlockade.hasAdded = false;
+    this.newResidentAccountBlockade.hasEdited = false;
+    this.newResidentAccountBlockade.index = 0;
+
+  }
+
+  EditBlockade(index){
+    
+    this.newResidentAccountBlockade.hasEdited = true;
+    this.newResidentAccountBlockade.comment = this.residentBlockadeHistory[index].comment;
+    this.newResidentAccountBlockade.blockadeType = this.residentBlockadeHistory[index].blockadeType;
+    this.newResidentAccountBlockade.index = index;
+    
+
+    if(this.hideBlockPanel){
+      this.hideBlockPanel = false
+    }
+  }
+
+  DeleteBlockade(index){
+    console.log(index);
+    this.residentBlockadeHistory.splice(index, 1);
   }
 
   SetBlockadeType(blockadeType){

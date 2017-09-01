@@ -12,7 +12,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let blockade of residentBlockadeHistory">
+                <tr *ngFor="let blockade of residentBlockadeHistory; let index = index">
                     <td>
                         {{blockade.blockadeType}}
                     </td>
@@ -22,17 +22,16 @@
                     <td>
                         Brak
                     </td>
-                    <td>
-                        <button type="button" data-toggle="tooltip" title="Edytuj Blokade" class="btn btn-default" aria-label="Left Align">
-          <span  class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-        </button>
-                        <button type="button" data-toggle="tooltip" title="Usuń blokade" class="btn btn-default" aria-label="Left Align">
-                <span  class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-              </button>
-
+                    <td *ngIf="blockade.hasAdded == true">
+                        <button (click)="EditBlockade(index)" type="button" data-toggle="tooltip" title="Edytuj Blokade" class="btn btn-default" aria-label="Left Align">
+          <span  class="glyphicon glyphicon-edit" aria-hidden="true"></span></button>
+                        <button (click)="DeleteBlockade(index)" type="button" data-toggle="tooltip" title="Edytuj Blokade" class="btn btn-default" aria-label="Left Align">
+                <span  class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
 
                     </td>
-
+                    <td *ngIf="blockade.hasAdded == false">
+                        <p>Brak</p>
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -48,13 +47,13 @@
             </div>
             <div class="form-group">
                 <h4>Wpisz Powód Blokady</h4>
-                <textarea class="form-control " placeholder="Podaj powód blokady "></textarea>
+                <textarea class="form-control" name="reasonBlockade" #reasonBlockade="ngModel" [(ngModel)]="newResidentAccountBlockade.comment" placeholder="Podaj powód blokady "></textarea>
             </div>
 
         </form>
         <div>
             <button *ngIf="!hideBlockPanel" type="button " class="btn btn-default " (click)="ShowBlockadePanel()">Wróc Do Listy</button>
-            <button *ngIf="!hideBlockPanel" type="button " class="btn btn-default ">Dodaj Do Listy</button>
+            <button *ngIf="!hideBlockPanel" type="button " class="btn btn-default" (click)="AddBlockadeToList()">Dodaj Do Listy</button>
 
         </div>
 

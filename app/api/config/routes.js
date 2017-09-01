@@ -8,6 +8,7 @@ var typeAddressCtrl = require('../controllers/typeAddressController').TypeAddres
 var typeDocumentCtrl = require('../controllers/typeDocumentController').TypeDocumentController;
 var cityCtrl = require('../controllers/cityController').CityController;
 var blockadeHistoryCtrl = require('../controllers/blockadeHistoryController').BlockadeHistoryController;
+var residentStayCtrl = require('../controllers/resident/residentStayController').ResidentStayController;
 
 //residentControllers
 var residentPersonalDataCtrl = require('../controllers/resident/residentPersonalDataController').ResidentPersonalDataController;
@@ -53,6 +54,11 @@ router.route('/resident/account').post(residentAccountCtrl.CreateNewResidentAcco
 router.route('/resident/:residentId/account').get(residentAccountCtrl.GetResidentAccountsById);
 router.route('/resident/:residentId/account/:dormitoryId').get(residentAccountCtrl.GetResidentAccountCurrentDormitoryById);
 router.route('/resident/:residentId/account/:dormitoryId').put(residentAccountCtrl.UpdateResidentAccountById);
+
+//residentStayController
+router.use(residentStayCtrl.FormResponseObject);
+router.route('/resident/stay').get(residentStayCtrl.GetAllResidentStays);
+router.route('/resident/:id/stay').get(residentStayCtrl.GetResidentStayById);
 
 //blockadeHistoryController
 router.use(blockadeHistoryCtrl.FormResponseObject);
