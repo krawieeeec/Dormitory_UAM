@@ -13,6 +13,7 @@ import { ResidentEditService } from './resident-edit.service';
 
 export class ResidentEditComponent implements OnInit, DoCheck, OnChanges {
 
+
   private residentPersonalData;
   private residentAddress;
   private residentDocument;
@@ -21,6 +22,8 @@ export class ResidentEditComponent implements OnInit, DoCheck, OnChanges {
   private dormitoryId;
   private updateResidentList$;
   private switchInputs;
+  private showEditButtons
+  private isResidentAddressTableOpen;
 
   constructor(
     private router: Router, 
@@ -32,6 +35,8 @@ export class ResidentEditComponent implements OnInit, DoCheck, OnChanges {
   ) { 
     
     this.switchInputs = true;
+    this.showEditButtons = true;
+    this.isResidentAddressTableOpen = true;  
   }
 
   ngOnInit() {
@@ -39,6 +44,7 @@ export class ResidentEditComponent implements OnInit, DoCheck, OnChanges {
     this.residentId = this.route.snapshot.params.id;
     this.dormitoryId = this.userSessionService.GetChosenDormitoryId();
     this.updateResidentList$ = this.residentEditService.GetUpdateResidentListObservable$();
+    
   }
 
   ngDoCheck(){
@@ -72,17 +78,15 @@ export class ResidentEditComponent implements OnInit, DoCheck, OnChanges {
     // console.log('resident-edit-dormitory');
   }
 
-  GoBack():void{
-    //this.location.back();
-    this.router.navigate(['residentList', this.dormitoryId]);
+  // GoBack():void{
+  //   //this.location.back();
+  //   this.router.navigate(['residentList', this.dormitoryId]);
  
-  }
+  // }
 
   SwitchInputs():void{
     if(this.switchInputs){
       this.switchInputs = false;
-    }else{
-      this.switchInputs = true;
     }
   }
 
@@ -125,4 +129,31 @@ export class ResidentEditComponent implements OnInit, DoCheck, OnChanges {
     // location.reload();
   }
 
+  GetIsResidentAddressTableOpen(isResidentAddressTableOpen){
+    this.isResidentAddressTableOpen = isResidentAddressTableOpen;
+    if(this.isResidentAddressTableOpen){
+      this.showEditButtons = true;
+    } else if(!this.isResidentAddressTableOpen){
+      this.showEditButtons = false;
+    }
+  }
+
+  CheckAddressPanel(isResidentAddress, isResidentDocument){
+    
+      if((isResidentAddress == false) && (isResidentDocument == false)){
+        if(this.isResidentAddressTableOpen){
+          this.showEditButtons = true;
+        } else if(!this.isResidentAddressTableOpen ){
+          this.showEditButtons = true;
+        }
+      }
+      
+      if(isResidentAddress == true){
+        if(this.isResidentAddressTableOpen){
+          this.showEditButtons = true;
+        } else{
+          this.showEditButtons = false;
+        }
+      }
+  }
 }

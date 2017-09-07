@@ -13,7 +13,7 @@ var stayResidentModel = dbClient.define('stayResident', {
     
 stayResidentModel.StayResidentAssociations = function(models){
     
-    stayResidentModel.hasMany(models['blockadeHistory'], {
+    stayResidentModel.hasMany(models['accountResident'], {
         foreignKey: {
             allowNull: false, 
             name:'stay_resident_id'

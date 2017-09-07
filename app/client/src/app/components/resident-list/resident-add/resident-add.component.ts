@@ -100,7 +100,7 @@ export class ResidentAddComponent implements OnInit, DoCheck, OnChanges {
         this.residentService.CreateNewResidentDormitoryStay(this.residentDormitory)
         .then(newResidentDormitoryStay => {
           this.router.navigate(['residentList', this.dormitoryId]);
-          location.reload();
+          // location.reload();
         })
       })
     })

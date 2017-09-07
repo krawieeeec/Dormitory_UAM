@@ -1,32 +1,45 @@
 <div class="container">
-    <div class="table_wrapper" *ngIf="showList">
+    <div *ngIf="showList">
         <h1 class="title">Lista rezydentów - {{nameCurrentDormitory}}</h1>
         <button [routerLink]="['residentAdd']" id="addResident" type="button" class="btn btn-default">Dodaj Nowego Rezydenta</button>
-        <table class="table table-hover">
+        <table id="residentList_wrapper" class="table table-hover">
             <thead>
                 <tr>
+                    <th>Lp.</th>
                     <th>Imię</th>
                     <th>Nazwisko</th>
-                    <th>Status Konta</th>
+                    <th>Pokój</th>
+                    <th>Data zameldowania</th>
+                    <th>Data wymeldowania</th>
+                    <th>Status</th>
                     <th>Zarządzanie</th>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let resident of residentsList">
-                    <td (click)="ChangeResidentsList()">{{resident.name}}</td>
+                <tr *ngFor="let resident of residentsList; let index = index;">
+                    <td>{{index + 1}}</td>
+                    <td>{{resident.name}}</td>
                     <td>{{resident.surname}}</td>
-                    <td>{{resident.account_state}}</td>
-                    <td>
+                    <td>{{resident.room_number}}</td>
+                    <td>{{resident.date_of_arrival}}</td>
+                    <td> {{resident.date_of_departure}}</td>
+                    <td [ngSwitch]="resident.account_state">
+                        <i *ngSwitchCase="'Zablokowany'" [style.color]="'red'" class="fa fa-wifi fa-2x" aria-hidden="true"></i>
+                        <i *ngSwitchCase="'Zablokowana'" [style.color]="'red'" class="fa fa-wifi fa-2x" aria-hidden="true"></i>
+                        <i *ngSwitchCase="'Odblokowany'" [style.color]="'green'" class="fa fa-wifi fa-2x" aria-hidden="true"></i>
+                        <i *ngSwitchCase="'Odblokowana'" [style.color]="'green'" class="fa fa-wifi fa-2x" aria-hidden="true"></i>
+                    </td>
+                    <td id="account_buttons">
                         <button type="button" [routerLink]="['residentEdit', resident.id]" data-toggle="tooltip" title="Edytuj Konto" class="btn btn-default" aria-label="Left Align">
   <span  class="glyphicon glyphicon-edit" aria-hidden="true"></span>
 </button>
 
-                        <button type="button" data-toggle="tooltip" title="Zresetuj hasło" class="btn btn-default btn-lg">
+                        <button type="button" data-toggle="tooltip" title="Zresetuj hasło" class="btn btn-default">
   <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
 </button>
-                        <button type="button" data-toggle="tooltip" title="Wymelduj" class="btn btn-default btn-lg">
+                        <button type="button" data-toggle="tooltip" title="Wymelduj" class="btn btn-default">
   <span class="glyphicon glyphicon-plane"></span> </button>
-                        <button type="button" [routerLink]="['residentBlock', resident.id]" data-toggle="tooltip" title="Zablokuj konto" class="btn btn-default btn-lg">
+                        <button type="button" [routerLink]="['residentBlock', resident.id]" data-toggle="tooltip" title="Zablokuj konto" class="btn btn-default">
   <span class="glyphicon glyphicon-lock" aria-hidden="true"></span> 
 </button>
                     </td>
@@ -34,7 +47,7 @@
             </tbody>
         </table>
     </div>
-    <div id="router_wrapper">
-        <router-outlet></router-outlet>
-    </div>
+</div>
+<div id="router_wrapper">
+    <router-outlet></router-outlet>
 </div>

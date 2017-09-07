@@ -22,19 +22,35 @@ export class BlockadeHistoryService{
 
     GetAllBlockadeHistory(): Promise<BlockadeHistory[]>{
         
-        return this.http.get(this.blockadeHistoryUrl+'/blockadeHistory')
+        return this.http.get(this.blockadeHistoryUrl + '/blockadeHistory')
             .toPromise()
             .then(response => 
                 response.json() as BlockadeHistory[]
             ).catch();
     }
 
-    GetAllResidentAccountBlockadeHistoryById(accountResidentId:number): Promise<BlockadeHistory[]>{
+    GetAllResidentAccountBlockadeHistoryById(residentId:number, dormitoryId:number): Promise<BlockadeHistory[]>{
         
-        return this.http.get(this.blockadeHistoryUrl + '/' + accountResidentId.toString() + '/blockadeHistory')
+        return this.http.get(this.blockadeHistoryUrl + '/' + residentId.toString() + '/blockadeHistory/' + dormitoryId)
             .toPromise()
             .then(response => 
                 response.json() as BlockadeHistory[]
             ).catch();
+    }
+
+    CreateNewAccountResidentBlockade(newAccountResidentBlockade): Promise<BlockadeHistory>{
+        return this.http.post(this.blockadeHistoryUrl + '/blockadeHistory', newAccountResidentBlockade)
+        .toPromise()
+        .then(response =>
+            response.json() as BlockadeHistory)
+        .catch();
+    }
+
+    DeleteAccountResidentBlockadeById(accountResidentBlockadeId): Promise<BlockadeHistory>{
+        return this.http.delete(this.blockadeHistoryUrl + '/' + accountResidentBlockadeId + '/blockadeHistory')
+        .toPromise()
+        .then(response =>
+            response.json() as BlockadeHistory)
+        .catch();
     }
 }

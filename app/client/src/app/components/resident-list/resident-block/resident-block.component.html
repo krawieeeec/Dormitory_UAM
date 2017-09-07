@@ -1,4 +1,4 @@
-<div id="residentBlockadeWrapper">
+<div id="residentBlockadeWrapper" class="container">
     <h1>{{residentPersonalData.name}} {{residentPersonalData.surname}} - {{residentAccount.accountState}}</h1>
     <button *ngIf="hideBlockPanel" type="button " class="btn btn-default " (click)="ShowBlockadePanel()">Dodaj Nowa Blokade</button>
     <div id="listBlockadeHistoryWrapper" *ngIf="hideBlockPanel">
@@ -14,22 +14,22 @@
             <tbody>
                 <tr *ngFor="let blockade of residentBlockadeHistory; let index = index">
                     <td>
-                        {{blockade.blockadeType}}
+                        {{blockade.blockade_type}}
                     </td>
                     <td>
                         {{blockade.comment}}
                     </td>
                     <td>
-                        Brak
+                        {{blockade.name}} {{blockade.surname}}
                     </td>
-                    <td *ngIf="blockade.hasAdded == true">
+                    <td *ngIf="blockade.employee_id == userEmployeeId">
                         <button (click)="EditBlockade(index)" type="button" data-toggle="tooltip" title="Edytuj Blokade" class="btn btn-default" aria-label="Left Align">
           <span  class="glyphicon glyphicon-edit" aria-hidden="true"></span></button>
-                        <button (click)="DeleteBlockade(index)" type="button" data-toggle="tooltip" title="Edytuj Blokade" class="btn btn-default" aria-label="Left Align">
+                        <button (click)="DeleteBlockade(blockade.id, index)" type="button" data-toggle="tooltip" title="Edytuj Blokade" class="btn btn-default" aria-label="Left Align">
                 <span  class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
 
                     </td>
-                    <td *ngIf="blockade.hasAdded == false">
+                    <td *ngIf="blockade.employee_id != userEmployeeId">
                         <p>Brak</p>
                     </td>
                 </tr>
@@ -40,7 +40,7 @@
         <form>
             <div class="form-group">
                 <h4>Wybierz Typ Blokady</h4>
-                <select class="form-control" #blockadeType="ngModel" [(ngModel)]="newResidentAccountBlockade.blockadeType" name="residentBlockadeState" class="form-control" placeholder="Wybierz Typ Blokady" (change)="SetBlockadeType(blockadeState)">
+                <select class="form-control" #blockadeType="ngModel" [(ngModel)]="newResidentAccountBlockade.blockade_type" name="residentBlockadeState" class="form-control" placeholder="Wybierz Typ Blokady" (change)="SetBlockadeType(blockadeState)">
                     <option value="" disabled>Wybierz Typ Blokady</option>        
                     <option *ngFor="let name of blockadeStateList">{{name}}</option>
                             </select>
@@ -52,14 +52,13 @@
 
         </form>
         <div>
-            <button *ngIf="!hideBlockPanel" type="button " class="btn btn-default " (click)="ShowBlockadePanel()">Wróc Do Listy</button>
-            <button *ngIf="!hideBlockPanel" type="button " class="btn btn-default" (click)="AddBlockadeToList()">Dodaj Do Listy</button>
-
+            <button *ngIf="!hideBlockPanel" type="button " class="btn btn-default " (click)="ShowBlockadePanel()">Wróc</button>
+            <button *ngIf="!hideBlockPanel" type="button " class="btn btn-default" (click)="AddBlockadeToList()">Zapisz</button>
         </div>
 
     </div>
-    <div id="button_wrapper" *ngIf="hideBlockPanel">
+    <!-- <div id="button_wrapper" *ngIf="hideBlockPanel">
         <button type="button " class="btn btn-default ">Wstecz</button>
         <button type="button " class="btn btn-default ">Zapisz</button>
-    </div>
+    </div> -->
 </div>

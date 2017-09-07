@@ -109,7 +109,7 @@ var residentAccountController = {
                 }
             }
             ).then(() => {
-                res.send('entry was updated');            
+                res.send(200);            
             }).catch(
                 error => 
                 {

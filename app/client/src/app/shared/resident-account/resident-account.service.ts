@@ -56,5 +56,13 @@ export class ResidentAccountService{
                 response.json() as any[]
             ).catch();
     }
+    UpdateResidentAccountById(residentId:number, dormitoryId:number, newResidentAccount): Promise<any[]>{
+        
+        return this.http.put(this.residentUrl +'/' + residentId.toString() + '/account/' + dormitoryId.toString(), newResidentAccount)
+            .toPromise()
+            .then(response => 
+                response.json() as any[]
+            ).catch();
+    }
 
 }

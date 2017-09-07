@@ -1,26 +1,28 @@
-<h1 class="title">
-    Panel dodawania rezydenta</h1>
-<ul class="nav nav-tabs">
-    <li class="active"><a data-toggle="tab" href="#personalData">Dane Osobowe</a></li>
-    <li><a data-toggle="tab" href="#placeOfResidence">Miejsce Zamieszkania</a></li>
-    <li><a data-toggle="tab" href="#document">Dokumenty</a></li>
-    <li><a data-toggle="tab" href="#dormitory">Akademik</a></li>
-</ul>
-<div class="tab-content">
-    <div id="personalData" class="tab-pane fade in active">
-        <resident-personal-data (emitResidentPersonalData)="GetResidentPersonalData($event)"></resident-personal-data>
+<div class="container">
+    <h1 class="title">
+        Panel dodawania rezydenta</h1>
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#personalData">Dane Osobowe</a></li>
+        <li><a data-toggle="tab" href="#placeOfResidence">Miejsce Zamieszkania</a></li>
+        <li><a data-toggle="tab" href="#document">Dokumenty</a></li>
+        <li><a data-toggle="tab" href="#dormitory">Akademik</a></li>
+    </ul>
+    <div class="tab-content">
+        <div id="personalData" class="tab-pane fade in active">
+            <resident-personal-data (emitResidentPersonalData)="GetResidentPersonalData($event)"></resident-personal-data>
+        </div>
+        <div id="placeOfResidence" class="tab-pane">
+            <resident-address (emitResidentAddress)="GetResidentAddress($event)"></resident-address>
+        </div>
+        <div id="document" class="tab-pane">
+            <resident-document (emitResidentDocument)="GetResidentDocument($event)"></resident-document>
+        </div>
+        <div id="dormitory" class="tab-pane">
+            <resident-dormitory (emitResidentDormitory)="GetResidentDormitory($event)"></resident-dormitory>
+        </div>
     </div>
-    <div id="placeOfResidence" class="tab-pane">
-        <resident-address (emitResidentAddress)="GetResidentAddress($event)"></resident-address>
+    <div id="button_wrapper">
+        <button (click)="GoBack()" type="button" class="btn btn-default">Wstecz</button>
+        <button (click)="CreateNewResident()" type="button" class="btn btn-default ">Dodaj</button>
     </div>
-    <div id="document" class="tab-pane">
-        <resident-document (emitResidentDocument)="GetResidentDocument($event)"></resident-document>
-    </div>
-    <div id="dormitory" class="tab-pane">
-        <resident-dormitory (emitResidentDormitory)="GetResidentDormitory($event)"></resident-dormitory>
-    </div>
-</div>
-<div id="button_wrapper">
-    <button (click)="GoBack()" type="button" class="btn btn-default">Wstecz</button>
-    <button (click)="CreateNewResident()" type="button" class="btn btn-default ">Dodaj</button>
 </div>

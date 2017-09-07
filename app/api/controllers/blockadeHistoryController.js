@@ -1,3 +1,4 @@
+const sequelize = require('../config/db.js').dbClient;
 const blockadeHistoryTable = require('../models/models.js').DataBaseModels["blockadeHistory"];
 
 var blockadeHistoryController = {
@@ -11,7 +12,7 @@ var blockadeHistoryController = {
         
         let newBlockade = {
             comment: req.body.comment, 
-            blockadeHisotry: req.body.blockadeHistory,
+            blockadeType: req.body.blockade_type,
             account_resident_id: req.body.account_resident_id,
             employee_id: req.body.employee_id,
             stay_resident_id: req.body.stay_resident_id
@@ -38,24 +39,60 @@ var blockadeHistoryController = {
     
     GetAllAccountResidentBlockadeHistoryById: function(req, res) {
         
-        let accountResidentId = req.params.id;
+        let residentId = req.params.residentId;
+        let dormitoryId = req.params.dormitoryId;
 
-        blockadeHistoryTable.findAll({
-            where:{
-                account_resident_id:accountResidentId
-            }
-        }
-        )
-        .then((blockades) =>{
-            if(blockades.length == 0)
-                res.send([])
-            else{
-                res.send(JSON.stringify(blockades));
-            }
-        }).catch(error => {
-            res.send(error);
+        
+        sequelize.query(
+            'SELECT blockade_histories.id, blockade_type, comment, name, surname, account_employees.id as employee_id ' + 
+            'FROM blockade_histories ' +
+            'INNER JOIN account_residents on account_resident_id = account_residents.id ' +
+            'INNER JOIN account_employees on account_employees.id = blockade_histories.employee_id ' + 
+            'WHERE account_residents.resident_id = :residentId AND account_residents.dormitory_id = :dormitoryId',
+            {replacements: {residentId: residentId, dormitoryId: dormitoryId}, type: sequelize.QueryTypes.SELECT }).
+                then(accountBlockades => {
+                    if(accountBlockades.length == 0){
+                        res.status(200);
+                        res.send([]);
+                    }else{
+                        res.status(200);
+                        res.send(accountBlockades);
+                    }
+                })
+    },
+
+    CreateNewAccountResidentBlockade: function(req, res){
+        
+        blockadeHistoryTable.create(req.newBlockade)
+        .then((newAccountResidentBlockade) => {
+                res.send(newAccountResidentBlockade);
+            }).catch(error => {
+                res.send(error);
         })
     },
+    DeleteAccountResidentBlockadeById: function(req, res){
+
+        let blockadeId = req.params.id;
+
+        blockadeHistoryTable.findOne({
+            where: {
+                id: blockadeId
+            }
+        }).then(blockade =>{
+            if(blockade != null){
+                blockade.destroy()
+                .then(()=>{
+                    res.status(200);
+                }).catch((error)=>{
+                   res.send(error);
+                })
+            }else{
+                res.sendStatus(404);
+            }
+             
+            
+        })
+    }
 }
 
 module.exports = {

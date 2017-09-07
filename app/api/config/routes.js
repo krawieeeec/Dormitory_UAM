@@ -9,6 +9,7 @@ var typeDocumentCtrl = require('../controllers/typeDocumentController').TypeDocu
 var cityCtrl = require('../controllers/cityController').CityController;
 var blockadeHistoryCtrl = require('../controllers/blockadeHistoryController').BlockadeHistoryController;
 var residentStayCtrl = require('../controllers/resident/residentStayController').ResidentStayController;
+var accountEmployeeCtrl = require('../controllers/accountEmployeeController').AccountEmployeeController;
 
 //residentControllers
 var residentPersonalDataCtrl = require('../controllers/resident/residentPersonalDataController').ResidentPersonalDataController;
@@ -63,8 +64,15 @@ router.route('/resident/:id/stay').get(residentStayCtrl.GetResidentStayById);
 //blockadeHistoryController
 router.use(blockadeHistoryCtrl.FormResponseObject);
 router.route('/residentAccount/blockadeHistory').get(blockadeHistoryCtrl.GetAllBlokckadeHistory);
-router.route('/residentAccount/:id/blockadeHistory').get(blockadeHistoryCtrl.GetAllAccountResidentBlockadeHistoryById);
+router.route('/residentAccount/blockadeHistory').post(blockadeHistoryCtrl.CreateNewAccountResidentBlockade);
+router.route('/residentAccount/:id/blockadeHistory').delete(blockadeHistoryCtrl.DeleteAccountResidentBlockadeById);
+router.route('/residentAccount/:residentId/blockadeHistory/:dormitoryId').get(blockadeHistoryCtrl.GetAllAccountResidentBlockadeHistoryById);
 
+//accountEmployeeController
+router.use(accountEmployeeCtrl.FormResponseObject);
+router.route('/accountEmployee').get(accountEmployeeCtrl.GetAllAccountEmployees);
+router.route('/accountEmployee').post(accountEmployeeCtrl.CreateAccountEmployee);
+router.route('/accountEmployee/:id').get(accountEmployeeCtrl.GetAccountEmployeeById);
 
 //cityController
 router.use(cityCtrl.FormResponseObject);

@@ -19,6 +19,8 @@ export class ResidentAddressComponent implements OnInit, OnChanges, DoCheck {
   private settingsSelectButton: IMultiSelectSettings; 
   private settingsTextPostCodeSelectButton: IMultiSelectTexts; 
   private settingsTextTypeAddressSelectButton: IMultiSelectTexts;
+  private residentAddressList;
+  private showAdressPanel;
   private tempPostCodeList;
   private postCodeList;
   private tempTypeAddresList;
@@ -32,6 +34,7 @@ export class ResidentAddressComponent implements OnInit, OnChanges, DoCheck {
   @Input() switchInputs;
   @Input() residentId:number;
   @Output() emitResidentAddress;
+  @Output() emitIsResidentAddressTableOpen;
 
   constructor(
     private residentService: ResidentService,
@@ -79,10 +82,13 @@ export class ResidentAddressComponent implements OnInit, OnChanges, DoCheck {
         };
         
         this.emitResidentAddress = new EventEmitter<object>();
+        this.emitIsResidentAddressTableOpen = new EventEmitter<boolean>();
+        this.showAdressPanel = false;
         this.tempPostCodeList = [];
         this.tempTypeAddresList = [];
         this.postCodeList = [];
         this.typeAddressList = [];
+        this.residentAddressList = [];
     
         this.selectedPostCode = [];
         this.selectedTypeAddress = [];
@@ -117,16 +123,18 @@ export class ResidentAddressComponent implements OnInit, OnChanges, DoCheck {
         
         this.residentService.GetResidentAddressById(this.residentId)
         .then(residentAddress =>{
-    
-          this.residentAddress.country = residentAddress[0].country;
-          this.residentAddress.city = residentAddress[0].city;
-          this.residentAddress.street = residentAddress[0].street;
-          this.residentAddress.houseNumber = residentAddress[0].house_number;
-          this.residentAddress.apartmentNumber = residentAddress[0].apartment_number;
-          this.residentAddress.postCode = residentAddress[0].post_code;
-          this.residentAddress.address = residentAddress[0].address;
-          this.residentAddress.addressTypeId = residentAddress[0].address_type_id;
-          this.residentAddress.residentId = this.residentId;
+          
+          this.residentAddressList = residentAddress;
+
+          // this.residentAddress.country = residentAddress[0].country;
+          // this.residentAddress.city = residentAddress[0].city;
+          // this.residentAddress.street = residentAddress[0].street;
+          // this.residentAddress.houseNumber = residentAddress[0].house_number;
+          // this.residentAddress.apartmentNumber = residentAddress[0].apartment_number;
+          // this.residentAddress.postCode = residentAddress[0].post_code;
+          // this.residentAddress.address = residentAddress[0].address;
+          // this.residentAddress.addressTypeId = residentAddress[0].address_type_id;
+          // this.residentAddress.residentId = this.residentId;
           
           this.emitResidentAddress.emit(this.residentAddress);
           this.selectedTypeAddress.push(this.residentAddress.addressTypeId);
@@ -170,5 +178,21 @@ export class ResidentAddressComponent implements OnInit, OnChanges, DoCheck {
       });
       this.previousSelectedTypeAddress = this.selectedTypeAddress[0];
     };
+  }
+
+  AddNewAddress(){
+
+    if(!this.showAdressPanel){
+      this.showAdressPanel = true;
+      this.emitIsResidentAddressTableOpen.emit(!this.showAdressPanel);
+    }
+    
+  }
+
+  GoBackToTableAddress(){
+    if(this.showAdressPanel){
+      this.showAdressPanel = false;
+      this.emitIsResidentAddressTableOpen.emit(!this.showAdressPanel);
+    }
   }
 }

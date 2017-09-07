@@ -260,15 +260,15 @@ dbClient.drop().then(() => {
                                                     if(amountData >=0){
                                                         accountResidentTable.bulkCreate([
                                                             {UID: 12423412, password: 'blabla', validityAccountDate: '2019-08-12',
-                                                            accountState: 'Zablokowany', resident_id: 1, dormitory_id: 3},
+                                                            accountState: 'Zablokowany', resident_id: 1, stay_resident_id:5, dormitory_id: 3},
                                                             {UID: 8563845, password: 'chałwa', validityAccountDate: '2017-01-02',
-                                                            accountState: 'Odblokowany', resident_id: 2, dormitory_id: 1},
+                                                            accountState: 'Odblokowany', resident_id: 2, stay_resident_id:1, dormitory_id: 1},
                                                             {UID: 24512, password: 'zupa', validityAccountDate: '2020-09-24',
-                                                            accountState: 'Odblokowana', resident_id: 3, dormitory_id: 2},
+                                                            accountState: 'Odblokowana', resident_id: 3, stay_resident_id:4, dormitory_id: 2},
                                                             {UID: 123125, password: 'burak', validityAccountDate: '2023-07-12',
-                                                            accountState: 'Zablokowany', resident_id: 4, dormitory_id: 3},
+                                                            accountState: 'Zablokowany', resident_id: 4, stay_resident_id:3, dormitory_id: 3},
                                                             {UID: 5412345, password: 'marchew', validityAccountDate: '2018-01-11',
-                                                            accountState: 'Zablokowana', resident_id: 5, dormitory_id: 3},
+                                                            accountState: 'Zablokowana', resident_id: 5, stay_resident_id:2, dormitory_id: 3},
                                                         ]).then(() => {
                                                             return accountResidentTable.findAll();
                                                         }).then(accountsResidents =>{
@@ -284,11 +284,11 @@ dbClient.drop().then(() => {
                                                         if(amountData >=0){
                                                             blockadeHistoryTable.bulkCreate([
                                                                 {comment:'Naruszył regulamin akademika', blockadeType: 'Stały', 
-                                                                 account_resident_id: 1, stay_resident_id:1, employee_id:1},
+                                                                 account_resident_id: 1, employee_id:1},
                                                                 {comment:'Podpalił śmietnik', blockadeType: 'Stały', 
-                                                                account_resident_id: 4 ,stay_resident_id:2, employee_id:1},
+                                                                account_resident_id: 4, employee_id:1},
                                                                 {comment:'Brak płatności za okres trzech miesięcy', blockadeType: 'Okresowy', 
-                                                                account_resident_id: 5 ,stay_resident_id:4, employee_id:2},
+                                                                account_resident_id: 5, employee_id:2},
                                                             ]).catch(error =>{
                                                                 console.log(error);
                                                             })

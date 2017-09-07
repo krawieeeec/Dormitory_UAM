@@ -1,18 +1,17 @@
 <div class="container">
     <h1 class="title">Panel edycji rezydenta</h1>
     <ul class="nav nav-tabs">
-        <li class="active"><a data-toggle="tab" href="#personalData">Dane Osobowe</a></li>
-        <li><a data-toggle="tab" href="#placeOfResidence">Miejsce Zamieszkania</a></li>
-        <li><a data-toggle="tab" href="#document">Dokumenty</a></li>
-        <li><a data-toggle="tab" href="#dormitory">Akademik</a></li>
+        <li class="active"><a data-toggle="tab" href="#personalData" (click)="CheckAddressPanel(false, false)">Dane Osobowe</a></li>
+        <li><a data-toggle="tab" href="#placeOfResidence" (click)="CheckAddressPanel(true, false)">Miejsce Zamieszkania</a></li>
+        <li><a data-toggle="tab" href="#document" (click)="CheckAddressPanel(false, true)">Dokumenty</a></li>
+        <li><a data-toggle="tab" href="#dormitory" (click)="CheckAddressPanel(false, false)">Akademik</a></li>
     </ul>
-
     <div class="tab-content">
         <div id="personalData" class="tab-pane fade in active">
             <resident-personal-data (emitResidentPersonalData)="GetResidentPersonalData($event)" [residentId]="residentId" [switchInputs]="switchInputs"></resident-personal-data>
         </div>
         <div id="placeOfResidence" class="tab-pane">
-            <resident-address (emitResidentAddress)="GetResidentAddress($event)" [residentId]="residentId" [switchInputs]="switchInputs"></resident-address>
+            <resident-address (emitIsResidentAddressTableOpen)="GetIsResidentAddressTableOpen($event)" (emitResidentAddress)="GetResidentAddress($event)" [residentId]="residentId" [switchInputs]="switchInputs"></resident-address>
         </div>
         <div id="document" class="tab-pane">
             <resident-document (emitResidentDocument)="GetResidentDocument($event)" [residentId]="residentId" [switchInputs]="switchInputs"></resident-document>
@@ -22,8 +21,7 @@
         </div>
     </div>
 </div>
-<div id="button_wrapper">
-    <button (click)="GoBack()" type="button" class="btn btn-default">Wstecz</button>
+<div id="button_wrapper" *ngIf="showEditButtons">
     <button (click)="SwitchInputs()" type="button" class="btn btn-default">Edytuj</button>
-    <button [routerLink]="['../../../../residentList', dormitoryId]" (click)="EditResident()" type=" button " class="btn btn-default ">Zapisz</button>
+    <button [disabled]="switchInputs" [routerLink]="['../../../../residentList', dormitoryId]" (click)="EditResident()" type=" button " class="btn btn-default ">Zapisz</button>
 </div>

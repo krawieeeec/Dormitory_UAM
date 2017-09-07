@@ -29,7 +29,7 @@ import { TypeAddressService } from './shared/type-address/type-address.service';
 import { TypeDocumentService } from './shared/type-document/type-document.service';
 import { BlockadeHistoryService } from './shared/blockade-history/blockade-history.service';
 import { ResidentStayService } from './shared/resident-stay/resident-stay.service';
-
+import { AccountEmployeeService } from './shared/account-employee/account-employee.service';
 
 @NgModule({
     declarations: [
@@ -43,7 +43,7 @@ import { ResidentStayService } from './shared/resident-stay/resident-stay.servic
   exports:[],
   providers: [ResidentService, DormitoryService, UserSessionService, 
     CitzenshipService, CityService, TypeAddressService, TypeDocumentService,
-    BlockadeHistoryService, ResidentStayService ],
+    BlockadeHistoryService, ResidentStayService, AccountEmployeeService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
