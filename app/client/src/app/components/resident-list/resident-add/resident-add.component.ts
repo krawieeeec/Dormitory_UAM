@@ -21,6 +21,10 @@ export class ResidentAddComponent implements OnInit, DoCheck, OnChanges {
   private residentId;
   private dormitoryId;
   private documentId;
+  private showAddButtons;
+  private isResidentAddressTableOpen;
+  private isResidentDocumentTableOpen;
+  
 
   constructor(
     private router: Router, 
@@ -34,6 +38,10 @@ export class ResidentAddComponent implements OnInit, DoCheck, OnChanges {
     this.residentId = 0;
     this.dormitoryId = 0;
     this.documentId = 0;
+    this.showAddButtons = true;
+    this.isResidentAddressTableOpen = true;
+    this.isResidentDocumentTableOpen = true;
+
   }
 
   ngOnInit() {
@@ -104,6 +112,51 @@ export class ResidentAddComponent implements OnInit, DoCheck, OnChanges {
         })
       })
     })
+  }
+
+  GetIsResidentAddressTableOpen(isResidentAddressTableOpen){
+    this.isResidentAddressTableOpen = isResidentAddressTableOpen;
+    if(this.isResidentAddressTableOpen){
+      this.showAddButtons = true;
+    } else if(!this.isResidentAddressTableOpen){
+      this.showAddButtons = false;
+    }
+  }
+
+  GetIsResidentDocumentTableOpen(isResidentDocumentTableOpen){
+    this.isResidentDocumentTableOpen = isResidentDocumentTableOpen;
+    if(this.isResidentDocumentTableOpen){
+      this.showAddButtons = true;
+    } else if(!this.isResidentDocumentTableOpen){
+      this.showAddButtons = false;
+    }
+  }
+
+  CheckResidentTable(isResidentAddressTabOpen, isResidentDocumentTabOpen){
+    console.log('jestem');
+      if((isResidentAddressTabOpen == false) && (isResidentDocumentTabOpen == false)){
+        if(this.isResidentAddressTableOpen){
+          this.showAddButtons = true;
+        } else if(!this.isResidentAddressTableOpen ){
+          this.showAddButtons = true;
+        }
+      }
+      
+      if(isResidentAddressTabOpen == true){
+        if(this.isResidentAddressTableOpen){
+          this.showAddButtons = true;
+        } else{
+          this.showAddButtons = false;
+        }
+      }
+
+      if(isResidentDocumentTabOpen == true){
+        if(this.isResidentDocumentTableOpen){
+          this.showAddButtons = true;
+        } else{
+          this.showAddButtons = false;
+        }
+      }
   }
 
 }

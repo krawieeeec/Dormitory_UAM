@@ -1,44 +1,78 @@
 <div class="container">
-    <div id="form_wrapper">
-        <form>
-
-            <div class="form-group">
-                <label for="residentTypeDocument">Typ Dokumentu</label>
-                <ss-multiselect-dropdown [disabled]="switchInputs" [style.opacity]="switchInputs ? 0.4 : 1" #typeDocument="ngModel" [texts]="settingsTextSelectButton" [settings]="settingsSelectButton" [options]="typeDocumentList" [(ngModel)]="selectedTypeDocument" name="typeDocument"
-                    id="residentTypeDocument" required></ss-multiselect-dropdown>
-                <!-- <input type="text" [disabled]="true" [style.opacity]="true ? 0.4 : 1" #typeDocument="ngModel" [(ngModel)]="residentDocument.typeDocument" name="typeDocument" class="form-control" id="residentTypeDocument" placeholder="Podaj Nazwę dokumentu" required> -->
-                <div [hidden]="typeDocument.valid || typeDocument.pristine || switchInputs" class="alert alert-danger">
-                    Pole nie może być puste
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="residentReleaseDate">Data Wydania</label>
-                <input type="date" [disabled]="switchInputs" [style.opacity]="switchInputs ? 0.4 : 1" #releaseDate="ngModel" [(ngModel)]="residentDocument.releaseDate" #releaseDate="ngModel" name="releaseDate" class="form-control" id="residentReleaseDate" placeholder="Podaj Datę Wydania"
-                    required>
-                <div [hidden]="releaseDate.valid || releaseDate.pristine || switchInputs" class="alert alert-danger">
-                    Pole nie może być puste
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="residentExpirationDate">Data Ważności</label>
-                <input type="date" [disabled]="switchInputs" [style.opacity]="switchInputs ? 0.4 : 1" #expirationDate="ngModel" [(ngModel)]="residentDocument.expirationDate" #expirationDate="ngModel" name="expirationDate" class="form-control" id="residentExpirationDate"
-                    placeholder="Podaj Datę Ważności" required>
-                <div [hidden]="expirationDate.valid || expirationDate.pristine || switchInputs" class="alert alert-danger">
-                    Pole nie może być puste
-                </div>
-            </div>
-        </form>
+    <div id="residentDocumentList" *ngIf="!showDocumentForm">
+        <button type="button " class="btn btn-default " (click)="AddNewDocument()">Dodaj Nowy Dokument</button>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Typ Dokumentu</th>
+                    <th>Kraj Wydania</th>
+                    <th>Data Wydania</th>
+                    <th>Data Ważności</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let residentDocument of residentDocumentList; let index = index">
+                    <td>
+                        {{residentDocument.type_document}}
+                    </td>
+                    <td>
+                        {{residentDocument.issuing_country}}
+                    </td>
+                    <td>
+                        {{residentDocument.release_date}}
+                    </td>
+                    <td>
+                        {{residentDocument.expiration_date}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
-    <div id="form_wrapper">
-        <form>
-            <div class="form-group">
-                <label for="residentIssuingCountry">Kraj Wydania</label>
-                <input type="text" [disabled]="switchInputs" [style.opacity]="switchInputs ? 0.4 : 1" #issuingCountry="ngModel" [(ngModel)]="residentDocument.issuingCountry" #issuingCountry="ngModel" name="issuingCountry" class="form-control" id="residentIssuingCountry"
-                    placeholder="Podaj Kraj Wydania" required>
-                <div [hidden]="issuingCountry.valid || issuingCountry.pristine || switchInputs" class="alert alert-danger">
-                    Pole nie może być puste
+    <div id="residentDocumentForm_wrapper" *ngIf="showDocumentForm">
+        <div class="form_wrapper">
+            <form>
+                <div class="form-group">
+                    <label for="residentTypeDocument">Typ Dokumentu</label>
+                    <ss-multiselect-dropdown [disabled]="switchInputs" [style.opacity]="switchInputs ? 0.4 : 1" #typeDocument="ngModel" [texts]="settingsTextSelectButton" [settings]="settingsSelectButton" [options]="typeDocumentList" [(ngModel)]="selectedTypeDocument" name="typeDocument"
+                        id="residentTypeDocument" required></ss-multiselect-dropdown>
+                    <!-- <input type="text" [disabled]="true" [style.opacity]="true ? 0.4 : 1" #typeDocument="ngModel" [(ngModel)]="residentDocument.typeDocument" name="typeDocument" class="form-control" id="residentTypeDocument" placeholder="Podaj Nazwę dokumentu" required> -->
+                    <div [hidden]="typeDocument.valid || typeDocument.pristine || switchInputs" class="alert alert-danger">
+                        Pole nie może być puste
+                    </div>
                 </div>
-            </div>
-        </form>
+                <div class="form-group">
+                    <label for="residentReleaseDate">Data Wydania</label>
+                    <input type="date" [disabled]="switchInputs" [style.opacity]="switchInputs ? 0.4 : 1" #releaseDate="ngModel" [(ngModel)]="residentDocument.releaseDate" #releaseDate="ngModel" name="releaseDate" class="form-control" id="residentReleaseDate" placeholder="Podaj Datę Wydania"
+                        required>
+                    <div [hidden]="releaseDate.valid || releaseDate.pristine || switchInputs" class="alert alert-danger">
+                        Pole nie może być puste
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="residentExpirationDate">Data Ważności</label>
+                    <input type="date" [disabled]="switchInputs" [style.opacity]="switchInputs ? 0.4 : 1" #expirationDate="ngModel" [(ngModel)]="residentDocument.expirationDate" #expirationDate="ngModel" name="expirationDate" class="form-control" id="residentExpirationDate"
+                        placeholder="Podaj Datę Ważności" required>
+                    <div [hidden]="expirationDate.valid || expirationDate.pristine || switchInputs" class="alert alert-danger">
+                        Pole nie może być puste
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="form_wrapper">
+            <form>
+                <div class="form-group">
+                    <label for="residentIssuingCountry">Kraj Wydania</label>
+                    <input type="text" [disabled]="switchInputs" [style.opacity]="switchInputs ? 0.4 : 1" #issuingCountry="ngModel" [(ngModel)]="residentDocument.issuingCountry" #issuingCountry="ngModel" name="issuingCountry" class="form-control" id="residentIssuingCountry"
+                        placeholder="Podaj Kraj Wydania" required>
+                    <div [hidden]="issuingCountry.valid || issuingCountry.pristine || switchInputs" class="alert alert-danger">
+                        Pole nie może być puste
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div *ngIf="showDocumentForm">
+            <button type="button " class="btn btn-default " (click)="GoBackToDocumentTable()">Wstecz</button>
+            <button type="button " class="btn btn-default">Dodaj Do Listy</button>
+        </div>
     </div>
 </div>

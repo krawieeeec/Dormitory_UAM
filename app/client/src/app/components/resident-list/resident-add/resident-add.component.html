@@ -2,26 +2,26 @@
     <h1 class="title">
         Panel dodawania rezydenta</h1>
     <ul class="nav nav-tabs">
-        <li class="active"><a data-toggle="tab" href="#personalData">Dane Osobowe</a></li>
-        <li><a data-toggle="tab" href="#placeOfResidence">Miejsce Zamieszkania</a></li>
-        <li><a data-toggle="tab" href="#document">Dokumenty</a></li>
-        <li><a data-toggle="tab" href="#dormitory">Akademik</a></li>
+        <li class="active"><a data-toggle="tab" href="#personalData" (click)="CheckResidentTable(false, false)">Dane Osobowe</a></li>
+        <li><a data-toggle="tab" href="#placeOfResidence" (click)="CheckResidentTable(true, false)">Miejsce Zamieszkania</a></li>
+        <li><a data-toggle="tab" href="#document" (click)="CheckResidentTable(false, true)">Dokumenty</a></li>
+        <li><a data-toggle="tab" href="#dormitory" (click)="CheckResidentTable(false, false)">Akademik</a></li>
     </ul>
     <div class="tab-content">
         <div id="personalData" class="tab-pane fade in active">
             <resident-personal-data (emitResidentPersonalData)="GetResidentPersonalData($event)"></resident-personal-data>
         </div>
         <div id="placeOfResidence" class="tab-pane">
-            <resident-address (emitResidentAddress)="GetResidentAddress($event)"></resident-address>
+            <resident-address (emitIsResidentAddressTableOpen)="GetIsResidentAddressTableOpen($event)" (emitResidentAddress)="GetResidentAddress($event)"></resident-address>
         </div>
         <div id="document" class="tab-pane">
-            <resident-document (emitResidentDocument)="GetResidentDocument($event)"></resident-document>
+            <resident-document (emitIsResidentDocumentTableOpen)="GetIsResidentDocumentTableOpen($event)" (emitResidentDocument)="GetResidentDocument($event)"></resident-document>
         </div>
         <div id="dormitory" class="tab-pane">
             <resident-dormitory (emitResidentDormitory)="GetResidentDormitory($event)"></resident-dormitory>
         </div>
     </div>
-    <div id="button_wrapper">
+    <div id="button_wrapper" *ngIf="showAddButtons">
         <button (click)="GoBack()" type="button" class="btn btn-default">Wstecz</button>
         <button (click)="CreateNewResident()" type="button" class="btn btn-default ">Dodaj</button>
     </div>

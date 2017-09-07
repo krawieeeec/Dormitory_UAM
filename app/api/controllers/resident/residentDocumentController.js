@@ -41,7 +41,7 @@ var residentDocumentController = {
         })
     },
 
-    GetResidentDocumentById: function(req, res) {
+    GetResidentDocumentsById: function(req, res) {
         let residentId = req.params.id
 
         sequelize.query(
@@ -49,13 +49,13 @@ var residentDocumentController = {
             'INNER JOIN type_documents ON documents.document_type_id = type_documents.id '+
             'WHERE resident_id = :id',
             {replacements: {id: residentId}, type: sequelize.QueryTypes.SELECT }).
-                then(residentDocument => {
-                    if(residentDocument.length == 0){
+                then(residentDocuments => {
+                    if(residentDocuments.length == 0){
                         res.status(200);
-                        res.send('Under current ID:'+ req.params.id +' there isn\'t any entries in table.')
+                        res.send([])
                     }else{
                         res.status(200);
-                        res.send(residentDocument);
+                        res.send(residentDocuments);
                     }
                 })
     },

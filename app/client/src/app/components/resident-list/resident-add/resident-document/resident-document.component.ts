@@ -23,7 +23,10 @@ export class ResidentDocumentComponent implements OnInit, OnChanges, DoCheck {
   private selectedTypeDocument;
   private previousSelectedTypeDocument;
   private residentDocument;
+  private showDocumentForm;
+  
   @Output() emitResidentDocument;
+  @Output() emitIsResidentDocumentTableOpen; 
 
   constructor(
     private residentService: ResidentService,
@@ -61,11 +64,13 @@ export class ResidentDocumentComponent implements OnInit, OnChanges, DoCheck {
   };
 
     this.emitResidentDocument = new EventEmitter<object>();
+    this.emitIsResidentDocumentTableOpen = new EventEmitter<boolean>();
 
     this.typeDocumentList = [];
     this.tempTypeDocumentList = [];
     this.selectedTypeDocument = [];
     this.previousSelectedTypeDocument = 0;
+    this.showDocumentForm = false;
   }
 
   ngOnInit() {  
@@ -98,6 +103,21 @@ export class ResidentDocumentComponent implements OnInit, OnChanges, DoCheck {
       this.previousSelectedTypeDocument = this.selectedTypeDocument[0];
       console.log(this.residentDocument);
     };
+  }
+
+  AddNewDocument(){
+    if(!this.showDocumentForm){
+      this.showDocumentForm = true;
+      this.emitIsResidentDocumentTableOpen.emit(!this.showDocumentForm);
+    }
+        
+  }
+    
+  GoBackToDocumentTable(){
+    if(this.showDocumentForm){
+      this.showDocumentForm = false;
+      this.emitIsResidentDocumentTableOpen.emit(!this.showDocumentForm);
+    }
   }
 
 }

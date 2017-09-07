@@ -20,7 +20,7 @@ export class ResidentAddressComponent implements OnInit, OnChanges, DoCheck {
   private settingsTextPostCodeSelectButton: IMultiSelectTexts; 
   private settingsTextTypeAddressSelectButton: IMultiSelectTexts;
   private residentAddressList;
-  private showAdressPanel;
+  private showAddressPanel;
   private tempPostCodeList;
   private postCodeList;
   private tempTypeAddresList;
@@ -83,7 +83,7 @@ export class ResidentAddressComponent implements OnInit, OnChanges, DoCheck {
         
         this.emitResidentAddress = new EventEmitter<object>();
         this.emitIsResidentAddressTableOpen = new EventEmitter<boolean>();
-        this.showAdressPanel = false;
+        this.showAddressPanel = false;
         this.tempPostCodeList = [];
         this.tempTypeAddresList = [];
         this.postCodeList = [];
@@ -182,17 +182,17 @@ export class ResidentAddressComponent implements OnInit, OnChanges, DoCheck {
 
   AddNewAddress(){
 
-    if(!this.showAdressPanel){
-      this.showAdressPanel = true;
-      this.emitIsResidentAddressTableOpen.emit(!this.showAdressPanel);
+    if(!this.showAddressPanel){
+      this.showAddressPanel = true;
+      this.emitIsResidentAddressTableOpen.emit(!this.showAddressPanel);
     }
     
   }
 
-  GoBackToTableAddress(){
-    if(this.showAdressPanel){
-      this.showAdressPanel = false;
-      this.emitIsResidentAddressTableOpen.emit(!this.showAdressPanel);
+  GoBackToAddressTable(){
+    if(this.showAddressPanel){
+      this.showAddressPanel = false;
+      this.emitIsResidentAddressTableOpen.emit(!this.showAddressPanel);
     }
   }
 }

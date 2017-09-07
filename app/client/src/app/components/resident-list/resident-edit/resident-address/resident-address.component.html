@@ -1,5 +1,5 @@
 <div id="residentAddress_wrapper">
-    <div id="listResidentAddress" *ngIf="!showAdressPanel">
+    <div id="listResidentAddress" *ngIf="!showAddressPanel">
         <button type="button " class="btn btn-default " (click)="AddNewAddress()">Dodaj Nowy Adres</button>
         <table class="table table-hover">
             <thead>
@@ -41,7 +41,7 @@
             </tbody>
         </table>
     </div>
-    <div id="adressPanel" *ngIf="showAdressPanel">
+    <div id="adressPanel" *ngIf="showAddressPanel">
         <div id="form_wrapper">
             <form>
                 <div class="form-group">
@@ -109,9 +109,9 @@
                 </div>
             </form>
         </div>
-        <div *ngIf="showAdressPanel">
-            <button type="button " class="btn btn-default " (click)="GoBackToTableAddress()">Wstecz</button>
-            <button type="button " class="btn btn-default" (click)="AddBlockadeToList()">Dodaj Do Listy</button>
+        <div *ngIf="showAddressPanel">
+            <button type="button " class="btn btn-default " (click)="GoBackToAddressTable()">Wstecz</button>
+            <button type="button " class="btn btn-default">Dodaj Do Listy</button>
         </div>
     </div>
 </div>

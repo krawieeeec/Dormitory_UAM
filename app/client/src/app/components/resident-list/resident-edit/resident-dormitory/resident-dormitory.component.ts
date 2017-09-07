@@ -11,11 +11,12 @@ import { ResidentEditService } from '../resident-edit.service';
 })
 export class ResidentDormitoryComponent implements OnInit {
 
-
+  
   private residentDormitory;
   @Input() switchInputs;
   @Input() residentId:number;
   @Output() emitResidentDormitory;
+  
 
   constructor(
     private residentService: ResidentService,
@@ -34,6 +35,7 @@ export class ResidentDormitoryComponent implements OnInit {
       residentId: 0
     }
     this.emitResidentDormitory = new EventEmitter<object>();
+    
   }
 
   ngOnInit() {
@@ -64,4 +66,5 @@ export class ResidentDormitoryComponent implements OnInit {
   ngDoCheck(){
     this.emitResidentDormitory.emit(this.residentDormitory);
   }
+
 }

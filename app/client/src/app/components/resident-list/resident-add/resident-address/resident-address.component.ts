@@ -28,8 +28,10 @@ export class ResidentAddressComponent implements OnInit, OnChanges, DoCheck {
   private previousSelectedPostCode;
   private selectedTypeAddress;
   private previousSelectedTypeAddress;
+  private showAddressPanel;
 
   @Output() emitResidentAddress;
+  @Output() emitIsResidentAddressTableOpen;
 
   constructor(
     private residentService: ResidentService,
@@ -78,6 +80,8 @@ export class ResidentAddressComponent implements OnInit, OnChanges, DoCheck {
       searchNoRenderText: 'Wpisz typ adresu w wyszukiwarce'
     };
 
+    this.emitIsResidentAddressTableOpen = new EventEmitter<boolean>();
+
     this.tempPostCodeList = [];
     this.tempTypeAddresList = [];
     this.postCodeList = [];
@@ -87,6 +91,7 @@ export class ResidentAddressComponent implements OnInit, OnChanges, DoCheck {
     this.selectedTypeAddress = [];
     this.previousSelectedPostCode = 0;
     this.previousSelectedTypeAddress = 0;
+    this.showAddressPanel = false;
   }
 
   ngOnInit() {
@@ -143,4 +148,18 @@ export class ResidentAddressComponent implements OnInit, OnChanges, DoCheck {
       console.log(this.residentAddress);
     };
   }
+  AddNewAddress(){
+        if(!this.showAddressPanel){
+          this.showAddressPanel = true;
+          this.emitIsResidentAddressTableOpen.emit(!this.showAddressPanel);
+        }
+        
+      }
+    
+      GoBackToAddressTable(){
+        if(this.showAddressPanel){
+          this.showAddressPanel = false;
+          this.emitIsResidentAddressTableOpen.emit(!this.showAddressPanel);
+        }
+      }
 }

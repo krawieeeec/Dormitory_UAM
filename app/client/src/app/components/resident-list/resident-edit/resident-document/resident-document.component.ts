@@ -25,9 +25,13 @@ export class ResidentDocumentComponent implements OnInit, OnChanges, DoCheck {
   private selectedTypeDocument;
   private previousSelectedTypeDocument;
   private residentDocument;
+  private residentDocumentList;
+  private showDocumentForm;
+
   @Input() switchInputs;
   @Input() residentId:number;
   @Output() emitResidentDocument;
+  @Output() emitIsResidentDocumentTableOpen
 
   constructor(
     private residentService: ResidentService,
@@ -64,10 +68,14 @@ export class ResidentDocumentComponent implements OnInit, OnChanges, DoCheck {
     searchNoRenderText: 'Wpisz typ dokumentu w wyszukiwarce'
   };
     this.emitResidentDocument = new EventEmitter<object>();
+    this.emitIsResidentDocumentTableOpen = new EventEmitter<boolean>();
 
     this.typeDocumentList = [];
     this.tempTypeDocumentList = [];
     this.selectedTypeDocument = [];
+    this.residentDocumentList = [];
+    
+    this.showDocumentForm = false;
     this.previousSelectedTypeDocument = 0;
   }
 
@@ -84,15 +92,16 @@ export class ResidentDocumentComponent implements OnInit, OnChanges, DoCheck {
       });
       this.typeDocumentList = this.tempTypeDocumentList;
 
-      this.residentService.GetResidentDocumentById(this.residentId)
-      .then(residentDocument =>{
+      this.residentService.GetResidentDocumentsById(this.residentId)
+      .then(residentDocuments =>{
         
-        this.residentDocument.releaseDate = residentDocument[0].release_date;
-        this.residentDocument.expirationDate = residentDocument[0].expiration_date;
-        this.residentDocument.issuingCountry = residentDocument[0].issuing_country;
-        this.residentDocument.typeDocument = residentDocument[0].type_document;
-        this.residentDocument.documentTypeId = residentDocument[0].document_type_id;
-        this.residentDocument.residentId = this.residentId;
+        this.residentDocumentList = residentDocuments;
+        // this.residentDocument.releaseDate = residentDocument[0].release_date;
+        // this.residentDocument.expirationDate = residentDocument[0].expiration_date;
+        // this.residentDocument.issuingCountry = residentDocument[0].issuing_country;
+        // this.residentDocument.typeDocument = residentDocument[0].type_document;
+        // this.residentDocument.documentTypeId = residentDocument[0].document_type_id;
+        // this.residentDocument.residentId = this.residentId;
         
         this.selectedTypeDocument.push(this.residentDocument.documentTypeId);
         
@@ -119,6 +128,21 @@ export class ResidentDocumentComponent implements OnInit, OnChanges, DoCheck {
       });
       this.previousSelectedTypeDocument = this.selectedTypeDocument[0];
     };
+  }
+
+  AddNewDocument(){
+    if(!this.showDocumentForm){
+      this.showDocumentForm = true;
+      this.emitIsResidentDocumentTableOpen.emit(!this.showDocumentForm);
+    }
+        
+  }
+    
+  GoBackToDocumentTable(){
+    if(this.showDocumentForm){
+      this.showDocumentForm = false;
+      this.emitIsResidentDocumentTableOpen.emit(!this.showDocumentForm);
+    }
   }
 
 }

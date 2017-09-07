@@ -3,7 +3,6 @@ var bodyParser = require('body-parser');
 
 var citzenshipCtrl = require('../controllers/citzenshipController').CitzenshipController;
 var dormitoryCtrl = require('../controllers/dormitoryController').DormitoryController;
-var documentCtrl = require('../controllers/documentController').DocumentController;
 var typeAddressCtrl = require('../controllers/typeAddressController').TypeAddressController;
 var typeDocumentCtrl = require('../controllers/typeDocumentController').TypeDocumentController;
 var cityCtrl = require('../controllers/cityController').CityController;
@@ -33,7 +32,7 @@ router.route('/resident/:id/personalData').put(residentPersonalDataCtrl.UpdateRe
 //residentDocumentController
 router.use(residentDocumentCtrl.FormResponseObject);
 router.route('/resident/document').post(residentDocumentCtrl.CreateNewResidentDocument);
-router.route('/resident/:id/document').get(residentDocumentCtrl.GetResidentDocumentById);
+router.route('/resident/:id/document').get(residentDocumentCtrl.GetResidentDocumentsById);
 router.route('/resident/:id/document').put(residentDocumentCtrl.UpdateResidentDocumentById);
 
 //residentAddressController
@@ -88,11 +87,6 @@ router.route('/typeAddress/:id').get(typeAddressCtrl.GetTypeAddressById);
 router.use(typeDocumentCtrl.FormResponseObject);
 router.route('/typeDocument').get(typeDocumentCtrl.GetAllTypeDocuments);
 router.route('/typeDocument/:id').get(typeDocumentCtrl.GetTyoeDocumentById);
-
-//documentController
-router.use(documentCtrl.FormResponseObject);
-router.route('/document').get(documentCtrl.GetAllResidentDocuments);
-router.route('/document/:id').get(documentCtrl.GetResidentDocumentById);
 
 //dormitoryController
 router.use(dormitoryCtrl.FormResponseObject);

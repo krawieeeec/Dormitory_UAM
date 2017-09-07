@@ -24,6 +24,7 @@ export class ResidentEditComponent implements OnInit, DoCheck, OnChanges {
   private switchInputs;
   private showEditButtons
   private isResidentAddressTableOpen;
+  private isResidentDocumentTableOpen;
 
   constructor(
     private router: Router, 
@@ -36,7 +37,8 @@ export class ResidentEditComponent implements OnInit, DoCheck, OnChanges {
     
     this.switchInputs = true;
     this.showEditButtons = true;
-    this.isResidentAddressTableOpen = true;  
+    this.isResidentAddressTableOpen = true;
+    this.isResidentDocumentTableOpen = true;  
   }
 
   ngOnInit() {
@@ -138,9 +140,18 @@ export class ResidentEditComponent implements OnInit, DoCheck, OnChanges {
     }
   }
 
-  CheckAddressPanel(isResidentAddress, isResidentDocument){
+  GetIsResidentDocumentTableOpen(isResidentDocumentTableOpen){
+    this.isResidentDocumentTableOpen = isResidentDocumentTableOpen;
+    if(this.isResidentDocumentTableOpen){
+      this.showEditButtons = true;
+    } else if(!this.isResidentDocumentTableOpen){
+      this.showEditButtons = false;
+    }
+  }
+
+  CheckResidentTable(isResidentAddressTabOpen, isResidentDocumentTabOpen){
     
-      if((isResidentAddress == false) && (isResidentDocument == false)){
+      if((isResidentAddressTabOpen == false) && (isResidentDocumentTabOpen == false)){
         if(this.isResidentAddressTableOpen){
           this.showEditButtons = true;
         } else if(!this.isResidentAddressTableOpen ){
@@ -148,8 +159,16 @@ export class ResidentEditComponent implements OnInit, DoCheck, OnChanges {
         }
       }
       
-      if(isResidentAddress == true){
+      if(isResidentAddressTabOpen == true){
         if(this.isResidentAddressTableOpen){
+          this.showEditButtons = true;
+        } else{
+          this.showEditButtons = false;
+        }
+      }
+
+      if(isResidentDocumentTabOpen == true){
+        if(this.isResidentDocumentTableOpen){
           this.showEditButtons = true;
         } else{
           this.showEditButtons = false;

@@ -88,7 +88,7 @@ export class ResidentService{
                 .catch();
        }
 
-       GetResidentDocumentById(residentId): Promise<ResidentDocument>{
+       GetResidentDocumentsById(residentId): Promise<ResidentDocument>{
            return this.http.get(this.residentUrl + '/' + residentId + '/document')
             .toPromise()
             .then(response => 
