@@ -104,8 +104,8 @@ export class ResidentService{
             .catch();
     }
     
-    UpdateResidentAddressById(residentAddress, residentId): Promise<ResidentAddress>{
-        return this.http.put(this.residentUrl + '/' + residentId + '/address', JSON.stringify(residentAddress), 
+    UpdateResidentAddressById(residentAddress, addressId): Promise<ResidentAddress>{
+        return this.http.put(this.residentUrl + '/' + addressId + '/address', JSON.stringify(residentAddress), 
         {headers: this.headers})
             .toPromise()
             .then(() =>  residentAddress)
@@ -126,5 +126,13 @@ export class ResidentService{
             .toPromise()
             .then(() =>  residentDormitory)
             .catch();
+    }
+
+    DeleteResidentAddressById(addressId): Promise<ResidentAddress>{
+        return this.http.delete(this.residentUrl + '/' + addressId + '/address')
+        .toPromise()
+        .then(response =>
+            response.json() as ResidentAddress)
+        .catch();
     }
 }

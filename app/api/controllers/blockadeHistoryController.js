@@ -82,7 +82,7 @@ var blockadeHistoryController = {
             if(blockade != null){
                 blockade.destroy()
                 .then(()=>{
-                    res.status(200);
+                    res.sendStatus(blockade);
                 }).catch((error)=>{
                    res.send(error);
                 })

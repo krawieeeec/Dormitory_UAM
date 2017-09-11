@@ -17,7 +17,7 @@ var residentAddressController = {
             apartmentNumber: req.body.apartmentNumber,
             postCode: req.body.postCode,
             city: req.body.city,
-            address_type_id: req.body.addressTypeId,
+            address_type_id: req.body.address_type_id,
             resident_id: req.body.residentId
         }
 
@@ -28,7 +28,7 @@ var residentAddressController = {
             apartmentNumber: req.body.apartmentNumber,
             postCode: req.body.postCode,
             city: req.body.city,
-            address_type_id: req.body.addressTypeId
+            address_type_id: req.body.address_type_id
         }
 
         req.newResidentAddress = newResidentAddress;
@@ -50,7 +50,8 @@ var residentAddressController = {
         let residentId = req.params.id
 
         sequelize.query(
-            'SELECT country, city, street, house_number, apartment_number, post_code, address, address_type_id ' + 
+            'SELECT address_residents.id, country, city, street, house_number as "houseNumber", ' + 
+            'apartment_number as "apartmentNumber", post_code as "postCode", address, address_type_id ' + 
             'FROM address_residents INNER JOIN type_addresses '+ 
             'ON address_residents.address_type_id = type_addresses.id ' + 
             'WHERE address_residents.resident_id = :id',
@@ -68,13 +69,13 @@ var residentAddressController = {
     
     UpdateResidentAddressById: function(req, res){
 
-        let residentId = req.params.id;
+        let addressId = req.params.id;
         
         residentAddressTable.update(
             req.updateResidentAddress, 
             {
                 where: {
-                    resident_id: residentId
+                    id: addressId
                 }
             }
             ).then(() => {
@@ -86,7 +87,30 @@ var residentAddressController = {
                     res.send(error);
                 }
             )
-    }
+    },
+    DeleteResidentAddressById: function(req, res){
+        
+                let id = req.params.id;
+        
+                residentAddressTable.findOne({
+                    where: {
+                        id: id
+                    }
+                }).then(residentAddress =>{
+                    if(residentAddress != null){
+                        residentAddress.destroy()
+                        .then(()=>{
+                            res.send(residentAddress);
+                        }).catch((error)=>{
+                           res.send(error);
+                        })
+                    }else{
+                        res.sendStatus(404);
+                    }
+                     
+                    
+                })
+            }
 
 }
 

@@ -11,15 +11,17 @@
                 <div id="chosenDormitory_wrapper">
                     Wybrany akademik: {{chosenDormitoryName}}
                 </div>
-                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-    Wybierz Akademik
-    <span class="caret"></span>
-  </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                    <li *ngFor="let dormitory of dormitoryList">
-                        <a (click)="SetDormitory(dormitory.name, dormitory.id)" (click)="ShowResidentList()" [routerLink]="['/main']">{{dormitory.name}}</a>
-                    </li>
-                </ul>
+                <div>
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                Wybierz Akademik
+                                <span class="caret"></span>
+                              </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                        <li *ngFor="let dormitory of dormitoryList">
+                            <a (click)="SetDormitory(dormitory.name, dormitory.id)" (click)="ShowResidentList()" [routerLink]="['/main']">{{dormitory.name}}</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </header>
     </div>

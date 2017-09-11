@@ -63,8 +63,6 @@ export class ResidentListComponent implements OnInit, DoCheck, OnDestroy{
                 }
             }
         );
-        
-       
     }
 
     ngDoCheck(){

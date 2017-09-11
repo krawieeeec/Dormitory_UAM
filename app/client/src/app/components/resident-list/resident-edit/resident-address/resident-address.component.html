@@ -11,6 +11,7 @@
                     <th>Ulica</th>
                     <th>Nr Domu</th>
                     <th>Nr Lokalu</th>
+                    <th>Operacje</th>
                 </tr>
             </thead>
             <tbody>
@@ -25,18 +26,24 @@
                         {{residentAddress.city}}
                     </td>
                     <td>
-                        {{residentAddress.post_code}}
+                        {{residentAddress.postCode}}
                     </td>
                     <td>
                         {{residentAddress.street}}
                     </td>
                     <td>
-                        {{residentAddress.house_number}}
+                        {{residentAddress.houseNumber}}
                     </td>
                     <td>
-                        {{residentAddress.apartment_number}}
+                        {{residentAddress.apartmentNumber}}
                     </td>
+                    <td>
+                        <button (click)="EditAddress(index, residentAddress.id)" type="button" data-toggle="tooltip" title="Edytuj Adres" class="btn btn-default" aria-label="Left Align">
+              <span  class="glyphicon glyphicon-edit" aria-hidden="true"></span></button>
+                        <button (click)="DeleteAddress(index, residentAddress.id)" type="button" data-toggle="tooltip" title="Usuń Adres" class="btn btn-default" aria-label="Left Align">
+                    <span  class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
 
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -111,7 +118,9 @@
         </div>
         <div *ngIf="showAddressPanel">
             <button type="button " class="btn btn-default " (click)="GoBackToAddressTable()">Wstecz</button>
-            <button type="button " class="btn btn-default">Dodaj Do Listy</button>
+            <button (click)="SaveAddress()" *ngIf="!showEditAddressButton" type="button " class="btn btn-default">Dodaj Do Listy</button>
+            <button (click)="SaveAddress()" *ngIf="showEditAddressButton" type="button " class="btn btn-default">Edytuj Adres</button>
+
         </div>
     </div>
 </div>

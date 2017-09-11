@@ -20,6 +20,9 @@ export class ResidentAddressComponent implements OnInit, OnChanges, DoCheck {
   private settingsTextPostCodeSelectButton: IMultiSelectTexts; 
   private settingsTextTypeAddressSelectButton: IMultiSelectTexts;
   private residentAddressList;
+  private idSelectedAddress;
+  private indexSelectedAddress;
+  private showEditAddressButton;
   private showAddressPanel;
   private tempPostCodeList;
   private postCodeList;
@@ -43,6 +46,7 @@ export class ResidentAddressComponent implements OnInit, OnChanges, DoCheck {
     private typeAddressService: TypeAddressService 
   ) {
     this.residentAddress = {
+            id: 0,
             country: '',
             city: '',
             street: '',
@@ -50,7 +54,7 @@ export class ResidentAddressComponent implements OnInit, OnChanges, DoCheck {
             apartmentNumber: '',
             postCode: '',
             address:'',
-            addressTypeId: 0,
+            address_type_id: 0,
             residentId: 0
         }
         this.settingsSelectButton  = {
@@ -94,7 +98,9 @@ export class ResidentAddressComponent implements OnInit, OnChanges, DoCheck {
         this.selectedTypeAddress = [];
         this.previousSelectedPostCode = 0;
         this.previousSelectedTypeAddress = 0;
-    
+        this.showEditAddressButton = false;
+        this.indexSelectedAddress = 0;
+        this.idSelectedAddress = 0;
   }
 
   ngOnInit() {
@@ -124,27 +130,9 @@ export class ResidentAddressComponent implements OnInit, OnChanges, DoCheck {
         this.residentService.GetResidentAddressById(this.residentId)
         .then(residentAddress =>{
           
-          this.residentAddressList = residentAddress;
-
-          // this.residentAddress.country = residentAddress[0].country;
-          // this.residentAddress.city = residentAddress[0].city;
-          // this.residentAddress.street = residentAddress[0].street;
-          // this.residentAddress.houseNumber = residentAddress[0].house_number;
-          // this.residentAddress.apartmentNumber = residentAddress[0].apartment_number;
-          // this.residentAddress.postCode = residentAddress[0].post_code;
-          // this.residentAddress.address = residentAddress[0].address;
-          // this.residentAddress.addressTypeId = residentAddress[0].address_type_id;
-          // this.residentAddress.residentId = this.residentId;
-          
+          this.residentAddressList = residentAddress;          
           this.emitResidentAddress.emit(this.residentAddress);
-          this.selectedTypeAddress.push(this.residentAddress.addressTypeId);
-
-          this.postCodeList.forEach((element, index) => {
-            if(element.name == this.residentAddress.postCode){
-              this.selectedPostCode.push(element.id);
-            }
-          })
-          
+          console.log(this.residentAddressList);
         });
       })
       
@@ -172,7 +160,7 @@ export class ResidentAddressComponent implements OnInit, OnChanges, DoCheck {
       this.typeAddressList.forEach(element => {
         if(element.id == this.selectedTypeAddress[0]){
         
-           this.residentAddress.addressTypeId = element.id;
+           this.residentAddress.address_type_id = element.id;
            this.residentAddress.address = element.name;
         }
       });
@@ -187,12 +175,105 @@ export class ResidentAddressComponent implements OnInit, OnChanges, DoCheck {
       this.emitIsResidentAddressTableOpen.emit(!this.showAddressPanel);
     }
     
+    this.indexSelectedAddress = undefined;
+  }
+
+  EditAddress(index, addressId){
+
+    this.showEditAddressButton = true;
+    this.indexSelectedAddress = index;
+    this.idSelectedAddress = addressId;
+
+    if(!this.showAddressPanel){
+      this.showAddressPanel = true;
+      this.emitIsResidentAddressTableOpen.emit(!this.showAddressPanel);
+    } 
+
+    this.residentAddress.id = this.residentAddressList[index].id;
+    this.residentAddress.country = this.residentAddressList[index].country;
+    this.residentAddress.city = this.residentAddressList[index].city;
+    this.residentAddress.street = this.residentAddressList[index].street;
+    this.residentAddress.houseNumber = this.residentAddressList[index].houseNumber;
+    this.residentAddress.apartmentNumber = this.residentAddressList[index].apartmentNumber;
+    this.residentAddress.postCode = this.residentAddressList[index].postCode;
+    this.residentAddress.address = this.residentAddressList[index].address;
+    this.residentAddress.address_type_id = this.residentAddressList[index].address_type_id;
+    this.residentAddress.residentId = this.residentId;
+
+    if(this.selectedPostCode.length == 0){
+      this.postCodeList.forEach((element, index) => {
+        if(element.name == this.residentAddress.postCode){
+          this.selectedPostCode.push(element.id);
+        }
+      })
+    }
+    
+    if(this.selectedTypeAddress.length == 0){
+      this.typeAddressList.forEach((element, index) => {
+        if(element.name == this.residentAddress.address){
+          this.selectedTypeAddress.push(element.id);
+        }
+      })
+    }
   }
 
   GoBackToAddressTable(){
+
+    this.showEditAddressButton = false;
+    
     if(this.showAddressPanel){
       this.showAddressPanel = false;
       this.emitIsResidentAddressTableOpen.emit(!this.showAddressPanel);
     }
+  }
+
+  SaveAddress(){
+    
+    let tempResidentAddress;
+
+    if(this.indexSelectedAddress != undefined){
+      
+      this.residentAddressList[this.indexSelectedAddress] = this.residentAddress;
+      this.residentService.UpdateResidentAddressById(this.residentAddress, this.idSelectedAddress)
+      .then(response=>{
+        
+      })
+    }else{
+      
+      this.residentAddress.residentId = this.residentId;
+      tempResidentAddress  = Object.assign({}, this.residentAddress);
+      this.residentAddressList.push(tempResidentAddress);
+      this.residentService.CreateNewResidentAddress(tempResidentAddress)
+      .then(response=>{
+        
+      })
+    }
+    
+    this.residentAddress.id = 0;
+    this.residentAddress.country = '';
+    this.residentAddress.city = '';
+    this.residentAddress.street = '';
+    this.residentAddress.houseNumber = '';
+    this.residentAddress.apartmentNumber = ''
+    this.residentAddress.postCode = '';
+    this.residentAddress.address = ''
+    this.residentAddress.address_type_id = 0;
+    this.residentAddress.residentId = this.residentId;
+    this.selectedPostCode = [];
+    this.selectedTypeAddress = [];
+
+    if(this.showAddressPanel){
+      this.showAddressPanel = false;
+      this.emitIsResidentAddressTableOpen.emit(!this.showAddressPanel);
+    }
+  }
+
+  DeleteAddress(index, addressId){
+    
+    this.residentAddressList.splice(index, 1);
+    this.residentService.DeleteResidentAddressById(addressId)
+    .then(()=>{
+
+    })
   }
 }

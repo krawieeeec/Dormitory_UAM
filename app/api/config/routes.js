@@ -40,6 +40,7 @@ router.use(residentAddressCtrl.FormResponseObject);
 router.route('/resident/address').post(residentAddressCtrl.CreateNewResidentAddress);
 router.route('/resident/:id/address').get(residentAddressCtrl.GetResidentAddressById);
 router.route('/resident/:id/address').put(residentAddressCtrl.UpdateResidentAddressById);
+router.route('/resident/:id/address').delete(residentAddressCtrl.DeleteResidentAddressById);
 
 //residentDormitoryController
 router.use(residentDormitoryCtrl.FormResponseObject);
