@@ -40,7 +40,7 @@
         <form>
             <div class="form-group">
                 <h4>Wybierz Typ Blokady</h4>
-                <select class="form-control" #blockadeType="ngModel" [(ngModel)]="newResidentAccountBlockade.blockade_type" name="residentBlockadeState" class="form-control" placeholder="Wybierz Typ Blokady" (change)="SetBlockadeType(blockadeState)">
+                <select class="form-control" #blockadeType="ngModel" [(ngModel)]="newResidentAccountBlockade.blockade_type" name="residentBlockadeState" class="form-control" placeholder="Wybierz Typ Blokady">
                     <option value="" disabled>Wybierz Typ Blokady</option>        
                     <option *ngFor="let name of blockadeStateList">{{name}}</option>
                             </select>

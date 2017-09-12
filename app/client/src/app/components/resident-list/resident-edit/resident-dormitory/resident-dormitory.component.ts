@@ -2,7 +2,6 @@ import { Component, EventEmitter, Output, OnInit, Input, OnChanges, DoCheck } fr
 import { NgModel } from '@angular/forms';
 import { ResidentDormitory } from '../../../../shared/resident/resident-dormitory';
 import { ResidentService } from '../../../../shared/resident/resident.service';
-import { ResidentEditService } from '../resident-edit.service';
 
 @Component({
   selector: 'resident-dormitory',
@@ -20,7 +19,7 @@ export class ResidentDormitoryComponent implements OnInit {
 
   constructor(
     private residentService: ResidentService,
-    private residentEditService: ResidentEditService
+  
   ) {
 
     this.residentDormitory = {

@@ -65,6 +65,7 @@ router.route('/resident/:id/stay').get(residentStayCtrl.GetResidentStayById);
 router.use(blockadeHistoryCtrl.FormResponseObject);
 router.route('/residentAccount/blockadeHistory').get(blockadeHistoryCtrl.GetAllBlokckadeHistory);
 router.route('/residentAccount/blockadeHistory').post(blockadeHistoryCtrl.CreateNewAccountResidentBlockade);
+router.route('/residentAccount/:id/blockadeHistory').put(blockadeHistoryCtrl.UpdateAccountResidentBlockadeById);
 router.route('/residentAccount/:id/blockadeHistory').delete(blockadeHistoryCtrl.DeleteAccountResidentBlockadeById);
 router.route('/residentAccount/:residentId/blockadeHistory/:dormitoryId').get(blockadeHistoryCtrl.GetAllAccountResidentBlockadeHistoryById);
 

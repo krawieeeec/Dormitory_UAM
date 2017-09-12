@@ -3,7 +3,6 @@ import { Component, EventEmitter, Output, OnInit, OnChanges, DoCheck, Input } fr
 import { NgModel } from '@angular/forms';
 
 import { ResidentService } from '../../../../shared/resident/resident.service';
-import { ResidentEditService } from '../resident-edit.service';
 import { CityService } from '../../../../shared/city/city.service';
 import { TypeAddressService } from '../../../../shared/type-address/type-address.service';
 import { TypeDocumentService } from '../../../../shared/type-document/type-document.service';
@@ -35,7 +34,6 @@ export class ResidentDocumentComponent implements OnInit, OnChanges, DoCheck {
 
   constructor(
     private residentService: ResidentService,
-    private residentEditService: ResidentEditService,
     private typeDocumentService : TypeDocumentService
   ) {
     this.residentDocument = {

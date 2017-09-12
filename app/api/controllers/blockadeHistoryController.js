@@ -18,7 +18,14 @@ var blockadeHistoryController = {
             stay_resident_id: req.body.stay_resident_id
 
         }
+
+        let updateBlockade = {
+            comment: req.body.comment,
+            blockadeType: req.body.blockade_type
+        }
+
         req.newBlockade = newBlockade;
+        req.updateBlockade = updateBlockade;
         next();
     },
 
@@ -70,6 +77,28 @@ var blockadeHistoryController = {
                 res.send(error);
         })
     },
+
+    UpdateAccountResidentBlockadeById: function(req, res){
+        
+        let blockadeId = req.params.id;
+        
+        blockadeHistoryTable.update(
+            req.updateBlockade, 
+            {
+                where: {
+                    id: blockadeId
+                }
+            }
+            ).then((residentAccountBlockade) => {
+                res.send(residentAccountBlockade);            
+                }).catch(
+                    error => {
+                        res.status(400);
+                        res.send(error);
+                    }
+                )
+    },
+
     DeleteAccountResidentBlockadeById: function(req, res){
 
         let blockadeId = req.params.id;
@@ -82,7 +111,7 @@ var blockadeHistoryController = {
             if(blockade != null){
                 blockade.destroy()
                 .then(()=>{
-                    res.sendStatus(blockade);
+                    res.send(blockade);
                 }).catch((error)=>{
                    res.send(error);
                 })

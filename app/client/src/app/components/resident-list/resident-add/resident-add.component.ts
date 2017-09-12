@@ -3,7 +3,7 @@ import { ActivatedRoute, ParamMap, Router, RouterLinkActive, RouterLink } from '
 import { Location } from '@angular/common';
 import { ResidentService } from '../../../shared/resident/resident.service';
 import { UserSessionService } from '../../../shared/user-session.service';
-import { ResidentAddService } from './resident-add.service';
+
 
 @Component({
   selector: 'add-resident',
@@ -32,7 +32,6 @@ export class ResidentAddComponent implements OnInit, DoCheck, OnChanges {
     private location: Location, 
     private residentService: ResidentService, 
     private userSessionService: UserSessionService, 
-    private residentAddSerivce: ResidentAddService 
   ) 
   { 
     this.residentId = 0;

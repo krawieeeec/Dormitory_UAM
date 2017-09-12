@@ -3,8 +3,8 @@ import { DormitoryService } from '../../shared/dormitory.service';
 import { UserSessionService } from '../../shared/user-session.service';
 import { ResidentPersonalData } from '../../shared//resident/resident-personal-data';
 import { ActivatedRoute, ParamMap, Router, NavigationStart, ResolveEnd } from '@angular/router';
-import { ResidentEditService } from './resident-edit/resident-edit.service';
 
+import { ResidentListService } from './services/resident-list.serivce';
 import { Observable, Subject} from 'rxjs';
 import 'rxjs/add/operator/switchMap';
 
@@ -19,13 +19,12 @@ export class ResidentListComponent implements OnInit, DoCheck, OnDestroy{
     private residentsList: ResidentPersonalData[];
     private showList:boolean;
     private nameCurrentDormitory;
-    private updateResidentList$;
-
+    
     constructor(
         private route: ActivatedRoute, 
         private router: Router, 
         private dormitoryService : DormitoryService,
-        private residentEditService: ResidentEditService,
+        private residentListService: ResidentListService,    
         private userSessionService: UserSessionService
     ){
         
@@ -45,24 +44,20 @@ export class ResidentListComponent implements OnInit, DoCheck, OnDestroy{
             }
         });
         
-        this.updateResidentList$ = this.residentEditService.GetUpdateResidentListObservable$();
-        this.updateResidentList$.subscribe( updateResidentList => 
-            {
-                if(updateResidentList){
-                    this.route.paramMap
-                    .switchMap((params: ParamMap) => this.dormitoryService.GetResidentsOfCurrentDormitoryById(+params.get('id')))
-                    .subscribe(residents => {
-                        if(residents.length == 0){
-                            this.residentsList = [];
-                        }else{
-                            this.residentsList = residents;
-                            
-                           // location.reload();
-                        }
-                    });
-                }
+        this.residentListService.GetResidentListObservable$()
+        .subscribe(updateResidentList =>{
+            if(updateResidentList){
+                this.route.paramMap
+                .switchMap((params: ParamMap) => this.dormitoryService.GetResidentsOfCurrentDormitoryById(+params.get('id')))
+                .subscribe(residents => {
+                    if(residents.length == 0){
+                        this.residentsList = [];
+                    }else{
+                        this.residentsList = residents;
+                    }
+                });
             }
-        );
+        })
     }
 
     ngDoCheck(){

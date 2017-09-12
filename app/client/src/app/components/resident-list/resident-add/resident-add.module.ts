@@ -4,24 +4,23 @@ import { FormsModule } from '@angular/forms';
 import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
 
 import { ResidentAddComponent } from './resident-add.component';
+
 //Components Child 
-import { ResidentPersonalDataModule } from './resident-personal-data/resident-personal-data.module';
-import { ResidentDocumentModule } from './resident-document/resident-document.module';
-import { ResidentAddressModule } from './resident-address/resident-address.module';
-import { ResidentDormitoryModule } from './resident-dormitory/resident-dormitory.module';
-//Services
-import { ResidentAddService } from './resident-add.service';
+import { ResidentPersonalDataComponent } from './resident-personal-data/resident-personal-data.component';
+import { ResidentDocumentComponent } from './resident-document/resident-document.component';
+import { ResidentAddressComponent } from './resident-address/resident-address.component';
+import { ResidentDormitoryComponent } from './resident-dormitory/resident-dormitory.component';
+
 
 @NgModule({
     imports:[
-        CommonModule, FormsModule, ResidentPersonalDataModule, ResidentAddressModule, ResidentDocumentModule, 
-        ResidentDormitoryModule, MultiselectDropdownModule
+        CommonModule, FormsModule, MultiselectDropdownModule
     ],
     declarations: [
-        ResidentAddComponent   
+        ResidentAddComponent, ResidentAddressComponent, ResidentDocumentComponent,
+        ResidentDormitoryComponent, ResidentPersonalDataComponent   
       ],
     providers:[
-        ResidentAddService
     ],
     exports: [
         ResidentAddComponent

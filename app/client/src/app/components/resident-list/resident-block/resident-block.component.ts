@@ -8,6 +8,8 @@ import { UserSessionService } from '../../../shared/user-session.service';
 import { ResidentAccountService } from '../../../shared/resident-account/resident-account.service';
 import { BlockadeHistoryService } from '../../../shared/blockade-history/blockade-history.service';
 import { ResidentStayService } from '../../../shared/resident-stay/resident-stay.service';
+import { ResidentListService } from '../services/resident-list.serivce';
+
 
 @Component({
   selector: 'resident-block',
@@ -29,6 +31,7 @@ export class ResidentBlockComponent implements OnInit, DoCheck, OnChanges {
   private hideBlockPanel;
 
   constructor(
+
     private router: Router, 
     private route: ActivatedRoute, 
     private location: Location,
@@ -36,18 +39,19 @@ export class ResidentBlockComponent implements OnInit, DoCheck, OnChanges {
     private residentAccountService: ResidentAccountService,
     private userSessionService: UserSessionService,
     private blockadeHistoryService: BlockadeHistoryService,
-    private residentStayService: ResidentStayService 
+    private residentStayService: ResidentStayService,
+    private residentListService: ResidentListService
   )
   
   {
 
     this.newResidentAccountBlockade = {
+      id: 0,
       comment: '',
       blockade_type: '',
       account_resident_id: 0,
       stay_resident_id: 0,
       employee_id: 1,
-      hasAdded: false,
       hasEdited: false,
       elementIndex: 0
     }
@@ -114,7 +118,6 @@ export class ResidentBlockComponent implements OnInit, DoCheck, OnChanges {
       .then(residentAccountBlokadeHistory =>{
         this.residentBlockadeHistory = residentAccountBlokadeHistory;
         this.residentBlockadeHistory.forEach(element => {
-          element.hasAdded = false;
           element.hasEdited = false;
           element.index = 0;          
         });
@@ -132,6 +135,7 @@ export class ResidentBlockComponent implements OnInit, DoCheck, OnChanges {
 
   }
   AddBlockadeToList(){
+    
     let newTempResidentAccountBlockade
     
     if(this.newResidentAccountBlockade.hasEdited){
@@ -139,12 +143,40 @@ export class ResidentBlockComponent implements OnInit, DoCheck, OnChanges {
       this.residentBlockadeHistory[this.newResidentAccountBlockade.index].comment = this.newResidentAccountBlockade.comment;
       this.residentBlockadeHistory[this.newResidentAccountBlockade.index].blockade_type = this.newResidentAccountBlockade.blockade_type;
       
+      this.blockadeHistoryService.UpdateResidentAccountBlockadeById(this.residentBlockadeHistory[this.newResidentAccountBlockade.index].id, this.newResidentAccountBlockade)
+      .then(()=>{
+        this.blockadeHistoryService.GetAllResidentAccountBlockadeHistoryById(this.residentAccount.id, this.dormitoryId)
+        .then(residentAccountBlokadeHistory =>{
+          this.residentBlockadeHistory = residentAccountBlokadeHistory;
+          this.residentBlockadeHistory.forEach(element => {
+            element.hasEdited = false;
+            element.index = 0;          
+          });
+        })
+      })
     }else {
       
-      this.newResidentAccountBlockade.hasAdded = true;
+      
       newTempResidentAccountBlockade = Object.assign({}, this.newResidentAccountBlockade);
       this.residentBlockadeHistory.push(newTempResidentAccountBlockade);
-    
+      
+      this.blockadeHistoryService.CreateNewAccountResidentBlockade(this.newResidentAccountBlockade)
+      .then(response =>{
+        this.blockadeHistoryService.GetAllResidentAccountBlockadeHistoryById(this.residentAccount.id, this.dormitoryId)
+        .then(residentAccountBlokadeHistory =>{
+          this.residentBlockadeHistory = residentAccountBlokadeHistory;
+          this.residentBlockadeHistory.forEach(element => {
+            element.hasEdited = false;
+            element.index = 0;          
+          });
+        })
+        this.newResidentAccountBlockade.comment = "";
+        this.newResidentAccountBlockade.blockade_type = "";
+        this.newResidentAccountBlockade.hasAdded = false;
+        this.newResidentAccountBlockade.hasEdited = false;
+        this.newResidentAccountBlockade.index = 0;
+      })
+
       if( 
         (this.residentBlockadeHistory.length > 0) &&
         (this.residentAccount.accountState == "Odblokowana")
@@ -152,7 +184,8 @@ export class ResidentBlockComponent implements OnInit, DoCheck, OnChanges {
         this.residentAccount.accountState = "Zablokowana";
         this.residentAccountService.UpdateResidentAccountById(this.residentId, this.dormitoryId, this.residentAccount)
         .then(response =>{
-
+          console.log('Zablokowana');
+          this.residentListService.SetResidentListObservable$(true);
         })
       }else if(
         (this.residentBlockadeHistory.length > 0) &&
@@ -161,7 +194,8 @@ export class ResidentBlockComponent implements OnInit, DoCheck, OnChanges {
         this.residentAccount.accountState = "Zablokowany";
         this.residentAccountService.UpdateResidentAccountById(this.residentId, this.dormitoryId, this.residentAccount)
         .then(response =>{
-          
+          console.log('Zablokowany');
+          this.residentListService.SetResidentListObservable$(true);
         })
       }
     }
@@ -170,18 +204,7 @@ export class ResidentBlockComponent implements OnInit, DoCheck, OnChanges {
       this.hideBlockPanel = true;
     }
 
-    this.blockadeHistoryService.CreateNewAccountResidentBlockade(this.newResidentAccountBlockade)
-    .then(response =>{
-      console.log(response);
-      location.reload();
-    })
-
-    this.newResidentAccountBlockade.comment = "";
-    this.newResidentAccountBlockade.blockade_type = "";
-    this.newResidentAccountBlockade.hasAdded = false;
-    this.newResidentAccountBlockade.hasEdited = false;
-    this.newResidentAccountBlockade.index = 0;
-
+    
   }
 
   EditBlockade(index){
@@ -211,7 +234,8 @@ export class ResidentBlockComponent implements OnInit, DoCheck, OnChanges {
       this.residentAccount.accountState = "Odblokowana";
       this.residentAccountService.UpdateResidentAccountById(this.residentId, this.dormitoryId, this.residentAccount)
       .then(response =>{
-        console.log(response);
+        console.log('Odblokowana');
+        this.residentListService.SetResidentListObservable$(true);
       })
     }else if(
       (this.residentBlockadeHistory.length == 0) &&
@@ -220,13 +244,11 @@ export class ResidentBlockComponent implements OnInit, DoCheck, OnChanges {
       this.residentAccount.accountState = "Odblokowany";
       this.residentAccountService.UpdateResidentAccountById(this.residentId, this.dormitoryId, this.residentAccount)
       .then(response =>{
-        console.log(response);
+        console.log('Odblokowany');
+        this.residentListService.SetResidentListObservable$(true);
       })
     }
     
-  }
-
-  SetBlockadeType(blockadeType){
   }
 
   ShowBlockadePanel(){
@@ -235,5 +257,11 @@ export class ResidentBlockComponent implements OnInit, DoCheck, OnChanges {
     }else{
       this.hideBlockPanel = true;
     }
+    this.newResidentAccountBlockade.hasEdited = false;
+    this.newResidentAccountBlockade.comment = '';
+    this.newResidentAccountBlockade.blockade_type = '';
+    this.newResidentAccountBlockade.index = 0;
   }
+
+  
 }

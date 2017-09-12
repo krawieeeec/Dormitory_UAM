@@ -5,7 +5,6 @@ import { IMyDpOptions } from 'mydatepicker';
 //Services
 import { ResidentService } from '../../../../shared/resident/resident.service';
 import { CitzenshipService } from '../../../../shared/citzenship/citzenship.service';
-import { ResidentEditService } from '../resident-edit.service';
 
 
 import { IMultiSelectOption, IMultiSelectSettings, IMultiSelectTexts } from 'angular-2-dropdown-multiselect';
@@ -40,7 +39,6 @@ private model: Object = { date: { year: 2018, month: 10, day: 9 } };
 
   constructor(
     private residentService: ResidentService,
-    private residentEditService: ResidentEditService,
     private residentCitzenshipService: CitzenshipService
   ) {
 

@@ -108,8 +108,8 @@ var residentAccountController = {
                     dormitory_id: dormitoryId
                 }
             }
-            ).then(() => {
-                res.send(200);            
+            ).then((residentAccount) => {
+                res.send(residentAccount);            
             }).catch(
                 error => 
                 {

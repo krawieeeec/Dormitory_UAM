@@ -46,6 +46,15 @@ export class BlockadeHistoryService{
         .catch();
     }
 
+    UpdateResidentAccountBlockadeById(blockadeId, newResidentAccountBlockade): Promise<any[]>{
+        
+        return this.http.put(this.blockadeHistoryUrl +'/' + blockadeId.toString() + '/blockadeHistory' , newResidentAccountBlockade)
+            .toPromise()
+            .then(response => 
+                response.json() as any[]
+            ).catch();
+    }
+
     DeleteAccountResidentBlockadeById(accountResidentBlockadeId): Promise<BlockadeHistory>{
         return this.http.delete(this.blockadeHistoryUrl + '/' + accountResidentBlockadeId + '/blockadeHistory')
         .toPromise()

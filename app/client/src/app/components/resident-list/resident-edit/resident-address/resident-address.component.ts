@@ -3,7 +3,6 @@ import { NgModel } from '@angular/forms';
 import { ResidentAddress } from '../../../../shared/resident/resident-address';
 
 import { ResidentService } from '../../../../shared/resident/resident.service';
-import { ResidentEditService } from '../resident-edit.service';
 import { CityService } from '../../../../shared/city/city.service';
 import { TypeAddressService } from '../../../../shared/type-address/type-address.service';
 
@@ -41,7 +40,6 @@ export class ResidentAddressComponent implements OnInit, OnChanges, DoCheck {
 
   constructor(
     private residentService: ResidentService,
-    private residentEditService: ResidentEditService,
     private cityService: CityService,
     private typeAddressService: TypeAddressService 
   ) {

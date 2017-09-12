@@ -5,7 +5,7 @@ import { ResidentPersonalData } from '../../../../shared/resident/resident-perso
 
 import { ResidentService } from '../../../../shared/resident/resident.service';
 import { CitzenshipService } from '../../../../shared/citzenship/citzenship.service';
-import { ResidentAddService } from '../resident-add.service';
+
 
 import { IMultiSelectOption, IMultiSelectSettings, IMultiSelectTexts } from 'angular-2-dropdown-multiselect';
 import { Select2OptionData } from 'ng2-select2';
@@ -31,7 +31,6 @@ export class ResidentPersonalDataComponent implements OnChanges, OnInit, DoCheck
 
   constructor(
     private residentService: ResidentService,
-    private residentAddService: ResidentAddService,
     private residentCitzenshipService: CitzenshipService
   ) {
       this.residentPersonalData = {

@@ -27,7 +27,7 @@ export class NavbarComponent implements OnInit{
         this.chosenDormitoryId = this.userSessionService.GetChosenDormitoryId();
         if(!(this.chosenDormitoryId == null)){
             this.router.navigate(['./residentList', this.chosenDormitoryId])
-            location.reload();
+            // location.reload();
         }
     }
 }

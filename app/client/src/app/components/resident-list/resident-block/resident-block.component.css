@@ -71,6 +71,7 @@ tbody>tr:hover {
 
 td {
     text-align: left;
+    background: rgba(0, 0, 0, 0.3);
 }
 
 td>button {

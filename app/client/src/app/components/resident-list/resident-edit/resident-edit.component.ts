@@ -3,7 +3,7 @@ import { ActivatedRoute, ParamMap, Router, RouterLinkActive } from '@angular/rou
 import { Location } from '@angular/common';
 import { ResidentService } from '../../../shared/resident/resident.service';
 import { UserSessionService } from '../../../shared/user-session.service';
-import { ResidentEditService } from './resident-edit.service';
+
 
 @Component({
   selector: 'resident-edit',
@@ -20,7 +20,6 @@ export class ResidentEditComponent implements OnInit, DoCheck, OnChanges {
   private residentDormitory;
   private residentId;
   private dormitoryId;
-  private updateResidentList$;
   private switchInputs;
   private showEditButtons
   private isResidentAddressTableOpen;
@@ -32,7 +31,6 @@ export class ResidentEditComponent implements OnInit, DoCheck, OnChanges {
     private location: Location, 
     private residentService: ResidentService, 
     private userSessionService: UserSessionService, 
-    private residentEditService: ResidentEditService 
   ) { 
     
     this.switchInputs = true;
@@ -45,7 +43,7 @@ export class ResidentEditComponent implements OnInit, DoCheck, OnChanges {
 
     this.residentId = this.route.snapshot.params.id;
     this.dormitoryId = this.userSessionService.GetChosenDormitoryId();
-    this.updateResidentList$ = this.residentEditService.GetUpdateResidentListObservable$();
+    
     
   }
 
@@ -141,13 +139,17 @@ export class ResidentEditComponent implements OnInit, DoCheck, OnChanges {
   }
 
   GetIsResidentDocumentTableOpen(isResidentDocumentTableOpen){
-    this.isResidentDocumentTableOpen = isResidentDocumentTableOpen;
-    if(this.isResidentDocumentTableOpen){
-      this.showEditButtons = true;
-    } else if(!this.isResidentDocumentTableOpen){
-      this.showEditButtons = false;
+    
+    this.isResidentDocumentTableOpen = isResidentDocumentTableOpen; 
+      if(this.isResidentDocumentTableOpen){
+        
+        this.showEditButtons = true;
+      } else if(!this.isResidentDocumentTableOpen){
+        
+        this.showEditButtons = false;
+      }
     }
-  }
+  
 
   CheckResidentTable(isResidentAddressTabOpen, isResidentDocumentTabOpen){
     
