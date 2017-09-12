@@ -54,12 +54,12 @@ var residentAddressController = {
             'apartment_number as "apartmentNumber", post_code as "postCode", address, address_type_id ' + 
             'FROM address_residents INNER JOIN type_addresses '+ 
             'ON address_residents.address_type_id = type_addresses.id ' + 
-            'WHERE address_residents.resident_id = :id',
+            'WHERE address_residents.resident_id = :id ORDER BY address_residents.id',
             {replacements: {id: residentId}, type: sequelize.QueryTypes.SELECT }).
                 then(residentAddress => {
                     if(residentAddress.length == 0){
                         res.status(200);
-                        res.send('Under current ID:'+ req.params.id +' there isn\'t any entries in table.')
+                        res.send([]);
                     }else{
                         res.status(200);
                         res.send(residentAddress);
@@ -79,7 +79,7 @@ var residentAddressController = {
                 }
             }
             ).then(() => {
-                res.send('entry was updated');            
+                //res.send('entry was updated');            
             }).catch(
                 error => 
                 {
@@ -111,7 +111,6 @@ var residentAddressController = {
                     
                 })
             }
-
 }
 
 module.exports = {
