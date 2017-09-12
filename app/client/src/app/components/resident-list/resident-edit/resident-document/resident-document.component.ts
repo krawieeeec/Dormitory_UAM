@@ -26,6 +26,9 @@ export class ResidentDocumentComponent implements OnInit, OnChanges, DoCheck {
   private residentDocument;
   private residentDocumentList;
   private showDocumentForm;
+  private indexSelectedDocument;
+  private idSelectedDocument;
+  private showEditDocumentButton;
 
   @Input() switchInputs;
   @Input() residentId:number;
@@ -74,7 +77,10 @@ export class ResidentDocumentComponent implements OnInit, OnChanges, DoCheck {
     this.residentDocumentList = [];
     
     this.showDocumentForm = false;
+    this.showEditDocumentButton = false;
     this.previousSelectedTypeDocument = 0;
+    this.indexSelectedDocument = 0;
+    this.idSelectedDocument = 0;
   }
 
   ngOnInit() {
@@ -94,15 +100,6 @@ export class ResidentDocumentComponent implements OnInit, OnChanges, DoCheck {
       .then(residentDocuments =>{
         
         this.residentDocumentList = residentDocuments;
-        // this.residentDocument.releaseDate = residentDocument[0].release_date;
-        // this.residentDocument.expirationDate = residentDocument[0].expiration_date;
-        // this.residentDocument.issuingCountry = residentDocument[0].issuing_country;
-        // this.residentDocument.typeDocument = residentDocument[0].type_document;
-        // this.residentDocument.documentTypeId = residentDocument[0].document_type_id;
-        // this.residentDocument.residentId = this.residentId;
-        
-        this.selectedTypeDocument.push(this.residentDocument.documentTypeId);
-        
         this.emitResidentDocument.emit(this.residentDocument);
       })
     })
@@ -133,14 +130,104 @@ export class ResidentDocumentComponent implements OnInit, OnChanges, DoCheck {
       this.showDocumentForm = true;
       this.emitIsResidentDocumentTableOpen.emit(!this.showDocumentForm);
     }
-        
+        this.indexSelectedDocument = undefined;
   }
+
+  SaveDocument(){
+
+    let tempResidentDocument;
     
-  GoBackToDocumentTable(){
+    if(this.indexSelectedDocument != undefined){
+      tempResidentDocument  = Object.assign({}, this.residentDocument);
+      this.residentDocumentList[this.indexSelectedDocument] = tempResidentDocument;
+      console.log(tempResidentDocument);
+      this.residentService.UpdateResidentDocumentById(tempResidentDocument, this.idSelectedDocument)
+      .then(()=>{
+        this.residentService.GetResidentDocumentsById(this.residentId)
+        .then((residentDocumentList)=>{
+          this.residentDocumentList = residentDocumentList;
+
+        })
+      })
+    }else{
+      this.residentDocument.residentId = this.residentId;
+      tempResidentDocument  = Object.assign({}, this.residentDocument);
+      this.residentDocumentList.push(tempResidentDocument);
+      console.log(tempResidentDocument);
+      this.residentService.CreateNewResidentDocument(tempResidentDocument)
+      .then((response)=>{
+        console.log(response);
+        this.residentService.GetResidentDocumentsById(this.residentId)
+        .then(residentDocumentList =>{
+          this.residentDocumentList = residentDocumentList;
+        })
+      })
+      
+    }
+
+    this.residentDocument.releaseDate = '';
+    this.residentDocument.expirationDate = '';
+    this.residentDocument.issuingCountry = '';
+    this.residentDocument.typeDocument = '';
+    this.residentDocument.documentTypeId = 0;
+    this.residentDocument.residentId = this.residentId;
+
+    this.selectedTypeDocument = [];
+
     if(this.showDocumentForm){
       this.showDocumentForm = false;
       this.emitIsResidentDocumentTableOpen.emit(!this.showDocumentForm);
     }
+  }
+
+  EditDocument(index, documentId){
+    
+    this.showEditDocumentButton = true;
+    this.indexSelectedDocument = index;
+    this.idSelectedDocument = documentId;
+
+    if(!this.showDocumentForm){
+      this.showDocumentForm = true;
+      this.emitIsResidentDocumentTableOpen.emit(!this.showDocumentForm);
+    }
+
+    this.residentDocument.releaseDate = this.residentDocumentList[index].release_date;
+    this.residentDocument.expirationDate = this.residentDocumentList[index].expiration_date;
+    this.residentDocument.issuingCountry = this.residentDocumentList[index].issuing_country;
+    this.residentDocument.typeDocument = this.residentDocumentList[index].type_document;
+    this.residentDocument.documentTypeId = this.residentDocumentList[index].document_type_id;
+    this.residentDocument.residentId = this.residentId;
+
+    this.selectedTypeDocument.push(this.residentDocument.documentTypeId);
+
+
+  }
+
+  DeleteDocument(index, documentId){
+    this.residentDocumentList.splice(index, 1);
+    this.residentService.DeleteResidentDocumentById(documentId)
+    .then(()=>{
+    })
+  }
+    
+  GoBackToDocumentTable(){
+
+    this.showEditDocumentButton = false;
+    this.selectedTypeDocument = [];
+
+    if(this.showDocumentForm){
+      this.showDocumentForm = false;
+      this.emitIsResidentDocumentTableOpen.emit(!this.showDocumentForm);
+    }
+
+    this.residentDocument.releaseDate = '';
+    this.residentDocument.expirationDate = '';
+    this.residentDocument.issuingCountry = '';
+    this.residentDocument.typeDocument = '';
+    this.residentDocument.documentTypeId = 0;
+    this.residentDocument.residentId = this.residentId;
+
+    this.selectedTypeDocument = [];
   }
 
 }

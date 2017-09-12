@@ -222,14 +222,29 @@ export class ResidentAddressComponent implements OnInit, OnChanges, DoCheck {
       this.showAddressPanel = false;
       this.emitIsResidentAddressTableOpen.emit(!this.showAddressPanel);
     }
+
+    this.residentAddress.id = 0;
+    this.residentAddress.country = '';
+    this.residentAddress.city = '';
+    this.residentAddress.street = '';
+    this.residentAddress.houseNumber = '';
+    this.residentAddress.apartmentNumber = ''
+    this.residentAddress.postCode = '';
+    this.residentAddress.address = ''
+    this.residentAddress.address_type_id = 0;
+    this.residentAddress.residentId = this.residentId;
+    this.selectedPostCode = [];
+    this.selectedTypeAddress = [];
+    this.previousSelectedPostCode = '';
+    this.previousSelectedTypeAddress = '';
+
   }
 
   SaveAddress(){
     
     
     let tempResidentAddress;
-    let firstResidentAddress;
-
+    
     if(this.indexSelectedAddress != undefined){
       tempResidentAddress  = Object.assign({}, this.residentAddress);
       this.residentAddressList[this.indexSelectedAddress] = tempResidentAddress;
@@ -248,6 +263,7 @@ export class ResidentAddressComponent implements OnInit, OnChanges, DoCheck {
       this.residentAddress.residentId = this.residentId;
       tempResidentAddress  = Object.assign({}, this.residentAddress);
       this.residentAddressList.push(tempResidentAddress);
+      
       this.residentService.CreateNewResidentAddress(tempResidentAddress)
       .then(response=>{
         this.residentService.GetResidentAddressById(this.residentId)
@@ -279,6 +295,7 @@ export class ResidentAddressComponent implements OnInit, OnChanges, DoCheck {
       this.emitIsResidentAddressTableOpen.emit(!this.showAddressPanel);
     }
   }
+  
 
   DeleteAddress(index, addressId){
     

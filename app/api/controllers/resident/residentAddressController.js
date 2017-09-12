@@ -79,7 +79,7 @@ var residentAddressController = {
                 }
             }
             ).then(() => {
-                //res.send('entry was updated');            
+                res.send(req.updateResidentAddress);            
             }).catch(
                 error => 
                 {

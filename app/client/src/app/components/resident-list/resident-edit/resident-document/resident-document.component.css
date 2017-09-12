@@ -80,6 +80,11 @@ td {
     background: rgba(0, 0, 0, 0.3);
 }
 
+td>button {
+    min-width: 10px;
+    margin: 0px 0px 0px 0px;
+}
+
 th {
     font-size: 18px;
     color: white;

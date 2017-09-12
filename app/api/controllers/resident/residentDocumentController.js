@@ -45,9 +45,9 @@ var residentDocumentController = {
         let residentId = req.params.id
 
         sequelize.query(
-            'SELECT release_date, expiration_date, issuing_country, type_document, document_type_id, resident_id FROM documents '+ 
+            'SELECT documents.id, release_date, expiration_date, issuing_country, type_document, document_type_id, resident_id FROM documents '+ 
             'INNER JOIN type_documents ON documents.document_type_id = type_documents.id '+
-            'WHERE resident_id = :id',
+            'WHERE resident_id = :id ORDER BY documents.id',
             {replacements: {id: residentId}, type: sequelize.QueryTypes.SELECT }).
                 then(residentDocuments => {
                     if(residentDocuments.length == 0){
@@ -67,11 +67,11 @@ var residentDocumentController = {
             req.updateResidentDocument, 
             {
                 where: {
-                    resident_id: residentId
+                    id: residentId
                 }
             }
             ).then(() => {
-                res.send('entry was updated');            
+                res.send(req.updateResidentDocument);
             }).catch(
                 error => 
                 {
@@ -79,7 +79,28 @@ var residentDocumentController = {
                     res.send(error);
                 }
             )
-    }
+    },
+    DeleteResidentDocumentById: function(req, res){
+        
+                let id = req.params.id;
+        
+                documentTable.findOne({
+                    where: {
+                        id: id
+                    }
+                }).then(residentDocument =>{
+                    if(residentDocument != null){
+                        residentDocument.destroy()
+                        .then(()=>{
+                            res.send(residentDocument);
+                        }).catch((error)=>{
+                           res.send(error);
+                        })
+                    }else{
+                        res.sendStatus(404);
+                    }
+                })
+            }
     
 }
 

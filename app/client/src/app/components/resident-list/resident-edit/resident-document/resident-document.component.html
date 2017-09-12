@@ -8,6 +8,7 @@
                     <th>Kraj Wydania</th>
                     <th>Data Wydania</th>
                     <th>Data Ważności</th>
+                    <th>Operacje</th>
                 </tr>
             </thead>
             <tbody>
@@ -23,6 +24,13 @@
                     </td>
                     <td>
                         {{residentDocument.expiration_date}}
+                    </td>
+                    <td>
+                        <button (click)="EditDocument(index, residentDocument.id)" type="button" data-toggle="tooltip" title="Edytuj Dokument" class="btn btn-default" aria-label="Left Align">
+                  <span  class="glyphicon glyphicon-edit" aria-hidden="true"></span></button>
+                        <button (click)="DeleteDocument(index, residentDocument.id)" type="button" data-toggle="tooltip" title="Usuń Dokument" class="btn btn-default" aria-label="Left Align">
+                        <span  class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+
                     </td>
                 </tr>
             </tbody>
@@ -72,7 +80,9 @@
         </div>
         <div *ngIf="showDocumentForm">
             <button type="button " class="btn btn-default " (click)="GoBackToDocumentTable()">Wstecz</button>
-            <button type="button " class="btn btn-default">Dodaj Do Listy</button>
+            <button (click)="SaveDocument()" *ngIf="!showEditDocumentButton" type="button " class="btn btn-default">Dodaj Do Listy</button>
+            <button (click)="SaveDocument()" *ngIf="showEditDocumentButton" type="button " class="btn btn-default">Edytuj Adres</button>
+
         </div>
     </div>
 </div>

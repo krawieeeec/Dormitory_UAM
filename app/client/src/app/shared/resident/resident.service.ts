@@ -44,7 +44,7 @@ export class ResidentService{
         return this.http.post(this.residentUrl + '/document', newResidentDocument)
         .toPromise()
         .then(response =>
-            response.json() as ResidentDocument)
+            response.json() as ResidentDocument )
         .catch();
     }
 
@@ -112,8 +112,8 @@ export class ResidentService{
             .catch();
     }
         
-    UpdateResidentDocumentById(residentDocument, residentId): Promise<ResidentDocument>{
-        return this.http.put(this.residentUrl + '/' + residentId + '/document', JSON.stringify(residentDocument), 
+    UpdateResidentDocumentById(residentDocument, documentId): Promise<ResidentDocument>{
+        return this.http.put(this.residentUrl + '/' + documentId + '/document', JSON.stringify(residentDocument), 
         {headers: this.headers})
             .toPromise()
             .then(() =>  residentDocument)
@@ -133,6 +133,14 @@ export class ResidentService{
         .toPromise()
         .then(response =>
             response.json() as ResidentAddress)
+        .catch();
+    }
+
+    DeleteResidentDocumentById(documentId): Promise<ResidentDocument>{
+        return this.http.delete(this.residentUrl + '/' + documentId + '/document')
+        .toPromise()
+        .then(response =>
+            response.json() as ResidentDocument)
         .catch();
     }
 }
