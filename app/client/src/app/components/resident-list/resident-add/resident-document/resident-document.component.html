@@ -1,32 +1,48 @@
-<div class="container">
-    <div id="residentDocumentList" *ngIf="!showDocumentForm">
-        <button type="button " class="btn btn-default " (click)="AddNewDocument()">Dodaj Nowy Dokument</button>
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th>Typ Dokumentu</th>
-                    <th>Kraj Wydania</th>
-                    <th>Data Wydania</th>
-                    <th>Data Ważności</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let residentDocument of residentDocumentList; let index = index">
-                    <td>
-                        {{residentDocument.type_document}}
-                    </td>
-                    <td>
-                        {{residentDocument.issuing_country}}
-                    </td>
-                    <td>
-                        {{residentDocument.release_date}}
-                    </td>
-                    <td>
-                        {{residentDocument.expiration_date}}
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+<div id="residentDocument_wrapper">
+    <div id="residentDocumentList">
+        <div id="header_wrapper">
+            <h1>Dokumenty</h1>
+
+            <button type="button" (click)="AddNewDocument()" data-toggle="tooltip" title="Dodaj dokument" class="btn btn-default" aria-label="Left Align">
+                                    <span  class="fa fa-plus" aria-hidden="true"></span>
+                                </button>
+        </div>
+        <div id="listResidentDocument_wrapper" *ngIf="!showDocumentForm">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Typ Dokumentu</th>
+                        <th>Kraj Wydania</th>
+                        <th>Data Wydania</th>
+                        <th>Data Ważności</th>
+                        <th>Operacje</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let residentDocument of residentDocumentList; let index = index">
+                        <td>
+                            {{residentDocument.typeDocument}}
+                        </td>
+                        <td>
+                            {{residentDocument.issuingCountry}}
+                        </td>
+                        <td>
+                            {{residentDocument.releaseDate}}
+                        </td>
+                        <td>
+                            {{residentDocument.expirationDate}}
+                        </td>
+                        <td>
+                            <button (click)="EditDocument(index, residentDocument.id)" type="button" data-toggle="tooltip" title="Edytuj Dokument" class="btn btn-default" aria-label="Left Align">
+                  <span  class="glyphicon glyphicon-edit" aria-hidden="true"></span></button>
+                            <button (click)="DeleteDocument(index, residentDocument.id)" type="button" data-toggle="tooltip" title="Usuń Dokument" class="btn btn-default" aria-label="Left Align">
+                        <span  class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
     <div id="residentDocumentForm_wrapper" *ngIf="showDocumentForm">
         <div id="form_wrapper">
@@ -54,10 +70,6 @@
                         Pole nie może być puste
                     </div>
                 </div>
-            </form>
-        </div>
-        <div id="form_wrapper">
-            <form>
                 <div class="form-group">
                     <label for="residentIssuingCountry">Kraj Wydania</label>
                     <input type="text" #issuingCountry="ngModel" [(ngModel)]="residentDocument.issuingCountry" #issuingCountry="ngModel" name="issuingCountry" class="form-control" id="residentIssuingCountry" placeholder="Podaj Kraj Wydania" required>
@@ -69,7 +81,8 @@
         </div>
         <div *ngIf="showDocumentForm">
             <button type="button " class="btn btn-default " (click)="GoBackToDocumentTable()">Wstecz</button>
-            <button type="button " class="btn btn-default">Dodaj Do Listy</button>
+            <button (click)="SaveDocument()" *ngIf="!showEditDocumentButton" type="button " class="btn btn-default">Dodaj Do Listy</button>
+            <button (click)="SaveDocument()" *ngIf="showEditDocumentButton" type="button " class="btn btn-default">Edytuj Adres</button>
         </div>
     </div>
 </div>

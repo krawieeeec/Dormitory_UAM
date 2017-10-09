@@ -9,10 +9,11 @@ import { UserSessionService } from '../../../../shared/user-session.service';
   templateUrl: './resident-dormitory.component.html',
   styleUrls: ['./resident-dormitory.component.css']
 })
+
 export class ResidentDormitoryComponent implements OnInit {
 
-
   private residentDormitory;
+
   @Output() emitResidentDormitory;
 
   constructor(

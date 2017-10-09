@@ -3,6 +3,7 @@ import { ActivatedRoute, ParamMap, Router, RouterLinkActive } from '@angular/rou
 import { Location } from '@angular/common';
 import { ResidentService } from '../../../shared/resident/resident.service';
 import { UserSessionService } from '../../../shared/user-session.service';
+import { ResidentListService } from '../services/resident-list.serivce';
 
 
 @Component({
@@ -30,7 +31,8 @@ export class ResidentEditComponent implements OnInit, DoCheck, OnChanges {
     private route: ActivatedRoute, 
     private location: Location, 
     private residentService: ResidentService, 
-    private userSessionService: UserSessionService, 
+    private userSessionService: UserSessionService,
+    private residentListService: ResidentListService 
   ) { 
     
     this.switchInputs = true;
@@ -124,6 +126,7 @@ export class ResidentEditComponent implements OnInit, DoCheck, OnChanges {
     .then((response) =>{
       // console.log(response);
       console.log('UPDATED - residentDormitory');
+      this.residentListService.SetResidentListObservable$(true);
     })
     
     // location.reload();

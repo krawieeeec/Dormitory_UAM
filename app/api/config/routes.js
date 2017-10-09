@@ -16,7 +16,7 @@ var residentAddressCtrl = require('../controllers/resident/residentAddressContro
 var residentDormitoryCtrl = require('../controllers/resident/residentDormitoryController').ResidentDormitoryController;
 var residentDocumentCtrl = require('../controllers/resident/residentDocumentController').ResidentDocumentController;
 var residentAccountCtrl = require('../controllers/resident/residentAccountController').ResidentAccountController;
-
+var residentSearchCtrl = require('../controllers/resident/residentSearchController').ResidentSearchController;
 
 var router = express.Router();
 
@@ -62,6 +62,10 @@ router.route('/resident/:residentId/account/:dormitoryId').put(residentAccountCt
 router.use(residentStayCtrl.FormResponseObject);
 router.route('/resident/stay').get(residentStayCtrl.GetAllResidentStays);
 router.route('/resident/:id/stay').get(residentStayCtrl.GetResidentStayById);
+
+//residentSearchController
+router.use(residentSearchCtrl.FormResponseObject);
+router.route('/resident/search').post(residentSearchCtrl.FindResident);
 
 //blockadeHistoryController
 router.use(blockadeHistoryCtrl.FormResponseObject);

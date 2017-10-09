@@ -8,7 +8,7 @@ var stayResidentModel = dbClient.define('stayResident', {
     roomNumber: { type: sequelize.INTEGER, allowNull: false, field: 'room_number' },
     dateCrossRp: { type: sequelize.DATEONLY, allowNull: true, field: 'date_cross_rp' },
     comments: { type: sequelize.STRING, allowNull: true }
-}, {timestamps: false, underscored: true, underscoredAll: true})
+}, {timestamps: true, underscored: true, underscoredAll: true})
 
     
 stayResidentModel.StayResidentAssociations = function(models){

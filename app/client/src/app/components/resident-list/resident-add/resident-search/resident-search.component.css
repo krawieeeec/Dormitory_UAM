@@ -1,0 +1,95 @@
+/* RESIDENT SEARCH */
+
+#residentSearch_wrapper {
+    padding-bottom: 5px;
+    /* border-bottom: 2px solid white; */
+}
+
+#residentSearch_wrapper>form {
+    display: inline-flex;
+}
+
+#residentSearch_wrapper>button {
+    width: 200px;
+    min-width: 200px;
+    margin-bottom: 10px;
+    height: 35px;
+}
+
+#residentSearch_wrapper>h1 {
+    color: white;
+    margin: auto;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    margin-right: 20px;
+    width: 250px;
+}
+
+label {
+    color: white;
+    font-weight: inherit;
+    font-size: 18px;
+    margin-left: 5px;
+    float: left;
+    text-transform: capitalize;
+}
+
+table {
+    width: 95%;
+    max-width: 95%;
+    margin: auto;
+}
+
+td {
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left;
+    background: rgba(0, 0, 0, 0.3);
+    color: white;
+}
+
+td>button {
+    margin: 0;
+}
+
+th {
+    font-size: 18px;
+    color: white;
+}
+
+#showCellNoResults {
+    text-align: center;
+}
+
+.fa,
+.glyphicon {
+    font-size: 30px;
+}
+
+button {
+    margin: 10px 0px 0px 0px;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+}
+
+button:hover {
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+}
+
+button:active {
+    background: rgba(0, 0, 0, 0.9) !important;
+    color: white !important;
+}
+
+button:focus {
+    outline: none;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+}
+
+
+/* ///////////////////////////////////////////////////////// */

@@ -11,10 +11,10 @@ var addressResidentModel = dbClient.define('addressResident', {
 }, {timestamps: false, underscored: true, underscoredAll: true}) 
 
     
-addressResidentModel.AdressResidentAssociations = function(models){
+addressResidentModel.AddressResidentAssociations = function(models){
 
     addressResidentModel.hasMany(models['stayResident'], {foreignKey: {allowNull: true, name:'temp_address_id'}});
-    addressResidentModel.hasMany(models['stayResident'], {foreignKey: {allowNull: true, name:'regular_address_id'}});
+    addressResidentModel.hasMany(models['stayResident'], {foreignKey: {allowNull: false, name:'regular_address_id'}});
    
 }
 

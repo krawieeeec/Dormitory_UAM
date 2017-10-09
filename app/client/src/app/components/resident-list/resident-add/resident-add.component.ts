@@ -6,7 +6,7 @@ import { UserSessionService } from '../../../shared/user-session.service';
 
 
 @Component({
-  selector: 'add-resident',
+  selector: 'resident-add',
   templateUrl: './resident-add.component.html',
   styleUrls: ['./resident-add.component.css']
 })
@@ -15,13 +15,15 @@ export class ResidentAddComponent implements OnInit, DoCheck, OnChanges {
 
 
   private residentPersonalData;
-  private residentAddress;
-  private residentDocument;
+  private residentAddressList;
+  private residentDocumentList;
   private residentDormitory;
   private residentId;
   private dormitoryId;
   private documentId;
   private showAddButtons;
+  private showResidentAddForm;
+  private showResidentSearch;
   private isResidentAddressTableOpen;
   private isResidentDocumentTableOpen;
   
@@ -37,10 +39,13 @@ export class ResidentAddComponent implements OnInit, DoCheck, OnChanges {
     this.residentId = 0;
     this.dormitoryId = 0;
     this.documentId = 0;
+    this.showResidentAddForm = true;
+    this.showResidentSearch = false;
     this.showAddButtons = true;
     this.isResidentAddressTableOpen = true;
     this.isResidentDocumentTableOpen = true;
 
+    
   }
 
   ngOnInit() {
@@ -61,16 +66,18 @@ export class ResidentAddComponent implements OnInit, DoCheck, OnChanges {
     // console.log('resident-personal-data');
   }
 
-  GetResidentAddress(residentAddress){
-    this.residentAddress = residentAddress;
-    // console.log(this.residentAddress);
+  GetResidentAddress(residentAddressList){
+    this.residentAddressList = residentAddressList;
+    // console.log(this.residentAddressList);
     // console.log('resident-edit-address');
+ 
   }
   
-  GetResidentDocument(residentDocument){
-    this.residentDocument = residentDocument;
-    // console.log(this.residentDocument);
+  GetResidentDocument(residentDocumentList){
+    this.residentDocumentList = residentDocumentList;
+    // console.log(this.residentDocumentList);
     // console.log('resident-edit-document');
+  
   }
 
   GetResidentDormitory(residentDormitory){
@@ -86,29 +93,39 @@ export class ResidentAddComponent implements OnInit, DoCheck, OnChanges {
   }
 
   CreateNewResident():void{
+    console.log(this.residentPersonalData);
     this.residentService.CreateNewResidentPersonalData(this.residentPersonalData)
     .then(newResident =>{
-      console.log(newResident); 
+      console.log(newResident);
       this.residentId = newResident.id;
-      console.log(this.residentId);
-      this.residentAddress.residentId = this.residentId;
-      this.residentDocument.residentId = this.residentId;
+      this.residentAddressList.forEach(element => {
+        element.resident_id = this.residentId;
+      });
 
-      this.residentService.CreateNewResidentAddress(this.residentAddress)
+      this.residentDocumentList.forEach(element => {
+        element.resident_id = this.residentId;
+      });
+      
+      // console.log(this.residentAddressList);
+      // console.log(this.residentDocumentList);
+      
+
+      this.residentService.CreateNewResidentAddress(this.residentAddressList)
       .then((newResidentAddress) =>{
       })
 
-      this.residentService.CreateNewResidentDocument(this.residentDocument)
+      this.residentService.CreateNewResidentDocument(this.residentDocumentList)
       .then(newResidentDocument =>{
-        this.documentId = newResidentDocument.document_type_id;      
-        this.residentDormitory.documentId = this.documentId;
-        this.residentDormitory.residentId = this.residentId;
 
-        this.residentService.CreateNewResidentDormitoryStay(this.residentDormitory)
-        .then(newResidentDormitoryStay => {
-          this.router.navigate(['residentList', this.dormitoryId]);
-          // location.reload();
-        })
+        // this.documentId = newResidentDocument.document_type_id;      
+        // this.residentDormitory.documentId = this.documentId;
+        // this.residentDormitory.residentId = this.residentId;
+
+        // this.residentService.CreateNewResidentDormitoryStay(this.residentDormitory)
+        // .then(newResidentDormitoryStay => {
+        //   this.router.navigate(['residentList', this.dormitoryId]);
+        //   // location.reload();
+        // })
       })
     })
   }
@@ -156,6 +173,20 @@ export class ResidentAddComponent implements OnInit, DoCheck, OnChanges {
           this.showAddButtons = false;
         }
       }
+  }
+
+  ShowResidentAddForm(){
+    if (!this.showResidentAddForm){
+      this.showResidentAddForm = true;
+      this.showResidentSearch = false;
+    }
+  }
+
+  ShowResidentSearch(){
+    if(!this.showResidentSearch){
+      this.showResidentSearch = true;
+      this.showResidentAddForm = false;
+    }
   }
 
 }

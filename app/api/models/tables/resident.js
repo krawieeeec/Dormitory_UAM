@@ -10,8 +10,8 @@ var residentModel = dbClient.define('resident', {
     birthPlace: {type: sequelize.STRING(30), allowNull:false, unique: false, field: 'birth_place'},
     motherName: {type: sequelize.STRING(30), allowNull: true, field: 'mother_name'},
     fatherName: { type: sequelize.STRING(30), allowNull: true, field: 'father_name'},
-    pesel: {type: sequelize.STRING(11), allowNull: false },
-}, {timestamps: false, underscored: true, underscoredAll: true})
+    pesel: {type: sequelize.STRING(12), allowNull: false, unique: true },
+}, {timestamps: true, underscored: true, underscoredAll: true})
 
 
 residentModel.ResidentAssociations = function(models) {

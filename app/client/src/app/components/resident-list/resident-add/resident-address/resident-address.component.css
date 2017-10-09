@@ -2,9 +2,45 @@
     display: table-cell;
 }
 
+#header_wrapper {
+    display: inline-flex;
+}
+
+#header_wrapper>button {
+    min-width: 0px;
+    height: 55px;
+    width: 60px;
+}
+
+span {
+    font-size: 40px;
+}
+
+h1 {
+    color: white;
+}
+
+#header_wrapper {
+    display: inline-flex;
+}
+
+#header_wrapper>button {
+    min-width: 0px;
+    height: 55px;
+    width: 60px;
+}
+
+span {
+    font-size: 40px;
+}
+
+h1 {
+    color: white;
+}
+
 .form-group {
     margin-bottom: 15px;
-    margin-right: 5px;
+    margin-right: 20px;
     width: 250px;
 }
 
@@ -70,11 +106,17 @@ tbody>tr:hover {
 }
 
 td {
-    max-width: 180px;
+    max-width: 150px;
     overflow: hidden;
     text-overflow: ellipsis;
     text-align: left;
     background: rgba(0, 0, 0, 0.3);
+    color: white;
+}
+
+td>button {
+    min-width: 10px;
+    margin: 0px 0px 0px 0px;
 }
 
 th {
@@ -82,6 +124,15 @@ th {
     color: white;
 }
 
-#adressPanel {
-    display: inline-grid;
+#residentAddressForm_wrapper {
+    display: inline;
+}
+
+#buttons_wrapper>button {
+    width: 250px;
+}
+
+table {
+    width: 95%;
+    max-width: 95%;
 }

@@ -1,0 +1,25 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" (click)="close()">&times;</button>
+            <h4 class="modal-title"><b>{{title}}</b></h4>
+        </div>
+        <div class="modal-body">
+            <h3><b>Dane osobowe:</b></h3>
+            <p><b>Imie:</b> {{residentPersonalData.name}}, <b>Nazwisko:</b> {{residentPersonalData.surname}}</p>
+            <p><b>Płeć:</b> {{residentPersonalData.genre}}, <b>PESEL:</b> {{residentPersonalData.pesel}}</p>
+            <p><b>Miejsce urodzenia:</b> {{residentPersonalData.birthPlace}}, <b>Data urodzenia:</b> {{residentPersonalData.birthDate}}</p>
+            <p><b>Imię matki:</b> {{residentPersonalData.motherName}}, <b>Imię ojca:</b> {{residentPersonalData.fatherName}}</p>
+            <p><b>Numer Telefonu:</b> {{residentPersonalData.phoneNumber}}, <b>Obywatelstwo:</b> {{residentPersonalData.citzenship}}</p>
+        </div>
+        <div class="modal-body">
+            <h3><b>Adres:</b></h3>
+            <p><b>Typ adresu:</b> {{residentAddress.address}}, <b>Kraj:</b> {{residentAddress.country}}</p>
+
+        </div>
+        <div class="modal-footer">
+            <!-- <button type="button" class="btn btn-primary" (click)="confirm()">OK</button> -->
+            <!-- <button type="button" class="btn btn-default" (click)="close()">Cancel</button> -->
+        </div>
+    </div>
+</div>

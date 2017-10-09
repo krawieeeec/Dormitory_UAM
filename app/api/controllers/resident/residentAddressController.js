@@ -10,17 +10,6 @@ var residentAddressController = {
         res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
         //res.setHeader('Access-Control-Allow-Credentials', true);
         
-        let newResidentAddress = {
-            country: req.body.country, 
-            street: req.body.street,
-            houseNumber: req.body.houseNumber,
-            apartmentNumber: req.body.apartmentNumber,
-            postCode: req.body.postCode,
-            city: req.body.city,
-            address_type_id: req.body.address_type_id,
-            resident_id: req.body.residentId
-        }
-
         let updateResidentAddress = {
             country: req.body.country, 
             street: req.body.street,
@@ -31,16 +20,18 @@ var residentAddressController = {
             address_type_id: req.body.address_type_id
         }
 
-        req.newResidentAddress = newResidentAddress;
         req.updateResidentAddress = updateResidentAddress;
         next();
     },
 
     CreateNewResidentAddress: function(req, res){
-        residentAddressTable.create(req.newResidentAddress)
-        .then((newResidentAddress) => {
-                res.send(newResidentAddress);
+        console.log(req.body);
+        residentAddressTable.bulkCreate(req.body)
+        .then((residentAddressList) => {
+                console.log(residentAddressList);
+                res.send(residentAddressList);
             }).catch(error => {
+                console.log(error);
                 res.send(error);
         })
     },

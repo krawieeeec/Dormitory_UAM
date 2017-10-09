@@ -26,6 +26,7 @@ export class ResidentPersonalDataComponent implements OnChanges, OnInit, DoCheck
   private selectedCitzenship:number[];
   private previousSelectedCitzenship:number;
   private genreList;
+  
   @Output() emitResidentPersonalData;
 
 
@@ -44,9 +45,9 @@ export class ResidentPersonalDataComponent implements OnChanges, OnInit, DoCheck
         fatherName: '',
         pesel: '',
         citzenship:'',
-        citzenshipCodeId: 0,
-        blockadeState: ''
+        citzenshipCodeId: 0
       }
+
       this.settingsSelectButton  = {
         enableSearch: true,
         checkedStyle: 'glyphicon',
@@ -61,6 +62,7 @@ export class ResidentPersonalDataComponent implements OnChanges, OnInit, DoCheck
         closeOnClickOutside: true,
         searchMaxLimit: 3	
     };
+
     this.settingsTextSelectButton = {
       searchPlaceholder: 'Wpisz nazwę obywatelstwa',
       defaultTitle: 'Wybierz Obywatelstwo',
@@ -78,7 +80,9 @@ export class ResidentPersonalDataComponent implements OnChanges, OnInit, DoCheck
     this.selectedCitzenship = [];
     this.previousSelectedCitzenship = 0;
   }
-  
+
+  /////////////////////////////////////////LIFE CYCLE OF COMPONENT///////////////////////////////////////////////
+
   ngOnInit(){
     this.residentCitzenshipService.GetAllCitzenships()
     .then( citzenships =>{
@@ -109,14 +113,16 @@ export class ResidentPersonalDataComponent implements OnChanges, OnInit, DoCheck
     };
   }
 
+  /////////////////////////////////////////FUNCTION OF COMPONENT///////////////////////////////////////////////
+  
   SetGenre(genreName){
     
     this.residentPersonalData.genre = genreName.value;
-    if(genreName.value == "Kobieta"){
-      this.residentPersonalData.blockadeState = "Odblokowana";
-    }else{
-      this.residentPersonalData.blockadeState = "Odblokowany";
-    }
+    // if(genreName.value == "Kobieta"){
+    //   this.residentPersonalData.blockadeState = "Odblokowana";
+    // }else{
+    //   this.residentPersonalData.blockadeState = "Odblokowany";
+    // }
   }
   
 }

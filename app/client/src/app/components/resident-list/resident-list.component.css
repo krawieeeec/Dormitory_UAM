@@ -33,6 +33,7 @@ tbody>tr:hover {
 }
 
 td {
+    font-size: 22px;
     max-width: 180px;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -41,7 +42,8 @@ td {
 }
 
 th {
-    font-size: 18px;
+    font-size: 25px;
+    font-weight: 200;
 }
 
 #router_wrapper {

@@ -14,6 +14,8 @@ import { ResidentDocumentComponent } from './resident-document/resident-document
 import { ResidentAddressComponent } from './resident-address/resident-address.component';
 import { ResidentDormitoryComponent } from './resident-dormitory/resident-dormitory.component';
 
+import { ResidentEditService } from './resident-edit.service';
+
 @NgModule({
     imports:[
         CommonModule, FormsModule, MyDatePickerModule, MultiselectDropdownModule, 
@@ -24,6 +26,7 @@ import { ResidentDormitoryComponent } from './resident-dormitory/resident-dormit
         ResidentDormitoryComponent, ResidentPersonalDataComponent    
       ],
     providers:[
+        ResidentEditService
     ],
     exports: [
         ResidentEditComponent

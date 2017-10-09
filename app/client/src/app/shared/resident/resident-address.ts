@@ -8,4 +8,5 @@ export class ResidentAddress {
     city:string;
     address:string;
     adress_type_id:number;
+    resident_id: number;
 }

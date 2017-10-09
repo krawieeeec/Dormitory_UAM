@@ -1,0 +1,49 @@
+<div id="residentSearch_wrapper">
+    <h1>Wyszukiwarka</h1>
+    <form>
+        <div class="form-group">
+            <label for="residentName">Imię</label>
+            <input name="name" [(ngModel)]="residentSearchedAttributes.name" #name="ngModel" type="text" class="form-control" id="residentName" placeholder="Podaj Imie">
+        </div>
+        <div class="form-group">
+            <label for="residentSurname">Nazwisko</label>
+            <input name="surname" [(ngModel)]="residentSearchedAttributes.surname" #surname="ngModel" type="text" class="form-control" id="residentSurname" placeholder="Podaj Nazwisko">
+        </div>
+        <div class="form-group">
+            <label for="residentPesel">PESEL</label>
+            <input name="pesel" [(ngModel)]="residentSearchedAttributes.pesel" #pesel="ngModel" type="text" class="form-control" id="residentPesel" placeholder="Podaj PESEL">
+        </div>
+    </form>
+    <button (click)="FindResidents()" class="btn btn-default">Znajdź rezydenta</button>
+    <table id="residentList_wrapper" class="table table-hover">
+        <thead>
+            <tr>
+                <th>Lp.</th>
+                <th>Imię</th>
+                <th>Nazwisko</th>
+                <th>PESEL</th>
+                <th>Operacje</th>
+            </tr>
+        </thead>
+        <tbody>
+            <ng-container *ngIf="searchedResidentsList.length > 0">
+                <tr *ngFor="let resident of searchedResidentsList; let index = index;">
+                    <td>{{index + 1}}</td>
+                    <td>{{resident.name}}</td>
+                    <td>{{resident.surname}}</td>
+                    <td>{{resident.pesel}}</td>
+                    <td>
+                        <button (click)="ShowModal(resident.id)" type="button" data-toggle="tooltip" title="Podgląd" class="btn btn-default" aria-label="Left Align">
+                            <span  class="fa fa-eye" aria-hidden="true"></span></button>
+                        <button type="button" data-toggle="tooltip" title="Dodaj rezydenta" class="btn btn-default" aria-label="Left Align">
+                                    <span  class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                </button>
+                    </td>
+                </tr>
+            </ng-container>
+            <tr *ngIf="searchedResidentsList.length == 0">
+                <td id="showCellNoResults" colspan="5">Brak wyników</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

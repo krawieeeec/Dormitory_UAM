@@ -10,7 +10,9 @@ import { ResidentPersonalDataComponent } from './resident-personal-data/resident
 import { ResidentDocumentComponent } from './resident-document/resident-document.component';
 import { ResidentAddressComponent } from './resident-address/resident-address.component';
 import { ResidentDormitoryComponent } from './resident-dormitory/resident-dormitory.component';
+import { ResidentSearchComponent } from './resident-search/resident-search.component';
 
+import { ResidentAddService } from './resident-add.service';
 
 @NgModule({
     imports:[
@@ -18,9 +20,10 @@ import { ResidentDormitoryComponent } from './resident-dormitory/resident-dormit
     ],
     declarations: [
         ResidentAddComponent, ResidentAddressComponent, ResidentDocumentComponent,
-        ResidentDormitoryComponent, ResidentPersonalDataComponent   
+        ResidentDormitoryComponent, ResidentPersonalDataComponent, ResidentSearchComponent   
       ],
     providers:[
+        ResidentAddService
     ],
     exports: [
         ResidentAddComponent

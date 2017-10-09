@@ -1,4 +1,7 @@
-<div class="container">
+<div id="residentDormitory_wrapper">
+    <div id="header_wrapper">
+        <h1>Zakwaterowanie</h1>
+    </div>
     <div id="form_wrapper">
         <form>
             <div class="form-group">
@@ -30,10 +33,6 @@
                     Pole nie może być puste
                 </div>
             </div>
-        </form>
-    </div>
-    <div id="form_wrapper">
-        <form>
             <div class="form-group">
                 <label for="residentRoomNumber">Numer Pokoju</label>
                 <input type="text" [(ngModel)]="residentDormitory.roomNumber" name="roomNumber" #roomNumber="ngModel" class="form-control" id="residentRoomNumber" placeholder="Podaj Numer Pokoju" required>
@@ -41,6 +40,11 @@
                     Pole nie może być puste
                 </div>
             </div>
+        </form>
+    </div>
+    <div id="form_wrapper">
+        <form>
+
             <div class="form-group">
                 <label for="residentComment">Uwagi</label>
                 <input type="text" [(ngModel)]="residentDormitory.comments" name="comment" #comment="ngModel" class="form-control" id="residentComment" placeholder="Podaj Uwagi" required>

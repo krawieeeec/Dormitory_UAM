@@ -176,11 +176,13 @@ export class ResidentDocumentComponent implements OnInit, OnChanges, DoCheck {
 
     if(this.showDocumentForm){
       this.showDocumentForm = false;
+      this.showEditDocumentButton = false;
       this.emitIsResidentDocumentTableOpen.emit(!this.showDocumentForm);
     }
   }
 
   EditDocument(index, documentId){
+    
     
     this.showEditDocumentButton = true;
     this.indexSelectedDocument = index;

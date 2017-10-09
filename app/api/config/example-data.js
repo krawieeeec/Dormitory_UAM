@@ -188,15 +188,15 @@ dbClient.drop().then(() => {
                                     documentTable.count().then(amountData =>{
                                         if(amountData >=0) {
                                             documentTable.bulkCreate([
-                                                {releaseDate: '2016-08-02', expirationDate: '2020-02-19', 
+                                                {serialNumber: '125328853828',releaseDate: '2016-08-02', expirationDate: '2020-02-19', 
                                                 issuingCountry: 'Polska', document_type_id: '1', resident_id:'1'}, 
-                                                {releaseDate: '2014-02-12', expirationDate: '2018-09-22', 
+                                                {serialNumber: '27562017470' ,releaseDate: '2014-02-12', expirationDate: '2018-09-22', 
                                                 issuingCountry: 'Polska', document_type_id: '2', resident_id:'3'}, 
-                                                {releaseDate:'2012-11-29', expirationDate: '2023-05-11', 
+                                                {serialNumber: '2265917365872', releaseDate:'2012-11-29', expirationDate: '2023-05-11', 
                                                 issuingCountry: 'Niemcy', document_type_id: '1', resident_id:'4'}, 
-                                                {releaseDate: '2017-06-20', expirationDate: '2028-03-16', 
+                                                {serialNumber: '73819476482', releaseDate: '2017-06-20', expirationDate: '2028-03-16', 
                                                 issuingCountry: 'Ukraina', document_type_id: '3', resident_id:'2'}, 
-                                                {releaseDate: '2015-01-23', expirationDate: '2022-06-16', 
+                                                {serialNumber: '2749294649274', releaseDate: '2015-01-23', expirationDate: '2022-06-16', 
                                                 issuingCountry: 'Polska', document_type_id: '2', resident_id:'5'}, 
                                             ]).then(() => {
                                                 return documentTable.findAll();
@@ -212,23 +212,24 @@ dbClient.drop().then(() => {
                                         stayResidentTable.count().then(amountData => {
                                             if(amountData >=0){
                                                 stayResidentTable.bulkCreate([
-
+                                                    {dateOfArrival:'2017-05-01', dateOfDeparture:'2011-08-22', dateOfTempDeparture: '2017-08-20', 
+                                                    roomNumber:'11', dataCrossRp:'2011-03-03', comments:'Brak zastrzeżeń', 
+                                                   dormitory_id:'3', temp_address_id:'2', regular_address_id:'1', document_id:'3', resident_id: '1'},
                                                     {dateOfArrival:'2016-05-12', dateOfDeparture: '2016-08-12', dateOfTempDeparture: '2016-09-23', 
                                                      roomNumber:'142', dataCrossRp:'', comments:'Brak zastrzeżeń', 
-                                                     dormitory_id:'1', address_type_id:'1', regular_adress_id:'2', document_id:'1', resident_id: '2'},
+                                                     dormitory_id:'1', temp_address_id:'1', regular_address_id:'2', document_id:'1', resident_id: '2'},
                                                     {dateOfArrival:'2014-12-11', dateOfDeparture:'2014-02-19', dateOfTempDeparture: '2016-03-20', 
                                                      roomNumber:'9', dataCrossRp:'', comments:'Nie potrafi sprzątać po sobie', 
-                                                     dormitory_id:'3', address_type_id:'3', regular_adress_id:'1', document_id:'3', resident_id: '5'},
+                                                     dormitory_id:'3', temp_address_id:'3', regular_address_id:'1', document_id:'3', resident_id: '5'},
                                                     {dateOfArrival:'2014-05-01', dateOfDeparture:'2014-08-22', dateOfTempDeparture: '2014-08-20', 
                                                      roomNumber:'1', dataCrossRp:'2011-03-03', comments:'Brak zastrzeżeń', 
-                                                    dormitory_id:'3', address_type_id:'2', regular_adress_id:'1', document_id:'3', resident_id: '4'},
+                                                    dormitory_id:'3', temp_address_id:'2', regular_address_id:'1', document_id:'3', resident_id: '4'},
                                                     {dateOfArrival:'2010-04-09', dateOfDeparture:'2010-09-20', dateOfTempDeparture: '2010-08-12', 
                                                      roomNumber:'42', dataCrossRp:'2010-05-04', comments:'Zdemolowany pokój', 
-                                                    dormitory_id:'2', address_type_id:'4', regular_adress_id:'1', document_id:'2', resident_id: '3'},
+                                                    dormitory_id:'2', temp_address_id:'4', regular_address_id:'1', document_id:'2', resident_id: '3'},
                                                      {dateOfArrival:'2017-05-01', dateOfDeparture:'2011-08-22', dateOfTempDeparture: '2017-08-20', 
                                                      roomNumber:'11', dataCrossRp:'2011-03-03', comments:'Brak zastrzeżeń', 
-                                                    dormitory_id:'3', address_type_id:'2', regular_adress_id:'1', document_id:'3', resident_id: '1'}
-                                                     
+                                                    dormitory_id:'3', temp_address_id:'2', regular_address_id:'1', document_id:'3', resident_id: '1'}
                                                 ]).then(() => {
                                                     return stayResidentTable.findAll();
                                                 }).then(stayResidents =>{

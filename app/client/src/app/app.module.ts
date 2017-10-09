@@ -6,10 +6,13 @@ import { HttpModule } from '@angular/http';
 
 //root component
 import { AppComponent } from './app.component';
+//modal component
+import { AppModalComponent } from './shared/app-modal/app-modal.component';
 //routing module
 import { AppRoutingModule } from './app-routing.module';
 //3rd parties extensions
 import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
+import { BootstrapModalModule } from 'ng2-bootstrap-modal';
 
 //App features modules
 import { MainPageModule } from './components/main-page/main-page.module';
@@ -33,12 +36,16 @@ import { AccountEmployeeService } from './shared/account-employee/account-employ
 
 @NgModule({
     declarations: [
-      AppComponent
+      AppComponent,
+      AppModalComponent
   ],
   imports: [
     BrowserModule, HttpModule, FormsModule, MultiselectDropdownModule,
     ResidentAddModule, MainPageModule, PageNotFoundModule, ReactiveFormsModule, 
-    ResidentListModule, NavbarModule, AppRoutingModule
+    ResidentListModule, NavbarModule, AppRoutingModule, BootstrapModalModule
+    ],
+    entryComponents: [
+      AppModalComponent
     ],
   exports:[],
   providers: [ResidentService, DormitoryService, UserSessionService, 

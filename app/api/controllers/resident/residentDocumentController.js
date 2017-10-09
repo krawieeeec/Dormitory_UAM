@@ -10,15 +10,6 @@ var residentDocumentController = {
         res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
         //res.setHeader('Access-Control-Allow-Credentials', true);
         
-        let newResidentDocument = {
-            releaseDate: req.body.releaseDate,
-            expirationDate: req.body.expirationDate,
-            issuingCountry: req.body.issuingCountry,
-            typeDocument: req.body.typeDocument,  
-            document_type_id: req.body.documentTypeId,
-            resident_id: req.body.residentId
-        }
-
         let updateResidentDocument = {
             releaseDate: req.body.releaseDate,
             expirationDate: req.body.expirationDate,
@@ -27,15 +18,15 @@ var residentDocumentController = {
             document_type_id: req.body.documentTypeId
         }
 
-        req.newResidentDocument = newResidentDocument;
         req.updateResidentDocument = updateResidentDocument;
         next();
     },
 
     CreateNewResidentDocument: function(req, res){
-        documentTable.create(req.newResidentDocument)
-        .then((newResidentDocument) => {
-                res.send(newResidentDocument);
+        
+        documentTable.bulkCreate(req.body)
+        .then((residentDocumentList) => {
+                res.send(residentDocumentList);
             }).catch(error => {
                 res.send(error);
         })

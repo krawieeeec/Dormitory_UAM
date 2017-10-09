@@ -1,6 +1,12 @@
-<div class="container">
+<div id="residentAddress_wrapper">
+    <div id="header_wrapper">
+        <h1>Adres zamieszkania</h1>
+
+        <button type="button" (click)="AddNewAddress()" data-toggle="tooltip" title="Dodaj adres" class="btn btn-default" aria-label="Left Align">
+                        <span  class="fa fa-plus" aria-hidden="true"></span>
+                    </button>
+    </div>
     <div id="listResidentAddress" *ngIf="!showAddressPanel">
-        <button type="button " class="btn btn-default " (click)="AddNewAddress()">Dodaj Nowy Adres</button>
         <table class="table table-hover">
             <thead>
                 <tr>
@@ -11,6 +17,7 @@
                     <th>Ulica</th>
                     <th>Nr Domu</th>
                     <th>Nr Lokalu</th>
+                    <th>Operacje</th>
                 </tr>
             </thead>
             <tbody>
@@ -25,23 +32,29 @@
                         {{residentAddress.city}}
                     </td>
                     <td>
-                        {{residentAddress.post_code}}
+                        {{residentAddress.postCode}}
                     </td>
                     <td>
                         {{residentAddress.street}}
                     </td>
                     <td>
-                        {{residentAddress.house_number}}
+                        {{residentAddress.houseNumber}}
                     </td>
                     <td>
-                        {{residentAddress.apartment_number}}
+                        {{residentAddress.apartmentNumber}}
                     </td>
+                    <td>
+                        <button (click)="EditAddress(index, residentAddress.id)" type="button" data-toggle="tooltip" title="Edytuj Adres" class="btn btn-default" aria-label="Left Align">
+              <span  class="glyphicon glyphicon-edit" aria-hidden="true"></span></button>
+                        <button (click)="DeleteAddress(index, residentAddress.id)" type="button" data-toggle="tooltip" title="Usuń Adres" class="btn btn-default" aria-label="Left Align">
+                    <span  class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
 
+                    </td>
                 </tr>
             </tbody>
         </table>
     </div>
-    <div id="adressPanel" *ngIf="showAddressPanel">
+    <div id="residentAddressForm_wrapper" *ngIf="showAddressPanel">
         <div id="form_wrapper">
             <form>
 
@@ -67,10 +80,6 @@
                     </div>
                     <!-- <input [(ngModel)]="residentAddress.postCode" #postCode="ngModel" name="postCode" type="text" class="form-control" id="residentPostCode" placeholder="Kod Pocztowy" required> -->
                 </div>
-            </form>
-        </div>
-        <div id="form_wrapper">
-            <form>
                 <div class="form-group">
                     <label for="residentStreet">Ulica</label>
                     <input [(ngModel)]="residentAddress.street" #street="ngModel" name="street" type="email" class="form-control" id="residentStreet" placeholder="Podaj Datę Urodzenia" required>
@@ -78,6 +87,10 @@
                         Pole nie może być puste
                     </div>
                 </div>
+            </form>
+        </div>
+        <div id="form_wrapper">
+            <form>
                 <div class="form-group">
                     <label for="residentHouseNumber">Numer Domu</label>
                     <input [(ngModel)]="residentAddress.houseNumber" #houseNumber="ngModel" name="houseNumber" type="email" class="form-control" id="residentHouseNumber" placeholder="Podaj Miejsce Urodzenia" required>
@@ -92,10 +105,6 @@
                         Pole nie może być puste
                     </div>
                 </div>
-            </form>
-        </div>
-        <div id="form_wrapper">
-            <form>
                 <div class="form-group">
                     <label for="residentAddressType">Typ Adresu</label>
                     <ss-multiselect-dropdown #typeAddress="ngModel" [texts]="settingsTextTypeAddressSelectButton" [settings]="settingsSelectButton" [options]="typeAddressList" [(ngModel)]="selectedTypeAddress" name="optionsModel" id="residentTypeAddress" required></ss-multiselect-dropdown>
@@ -106,9 +115,10 @@
                 </div>
             </form>
         </div>
-        <div *ngIf="showAddressPanel">
+        <div id="buttons_wrapper" *ngIf="showAddressPanel">
             <button type="button " class="btn btn-default " (click)="GoBackToAddressTable()">Wstecz</button>
-            <button type="button " class="btn btn-default">Dodaj Do Listy</button>
+            <button (click)="SaveAddress()" *ngIf="!showEditAddressButton" type="button " class="btn btn-default">Dodaj Do Listy</button>
+            <button (click)="SaveAddress()" *ngIf="showEditAddressButton" type="button " class="btn btn-default">Edytuj Adres</button>
         </div>
     </div>
 </div>

@@ -1,28 +1,60 @@
-<div class="container">
-    <h1 class="title">
-        Panel dodawania rezydenta</h1>
-    <ul class="nav nav-tabs">
-        <li class="active"><a data-toggle="tab" href="#personalData" (click)="CheckResidentTable(false, false)">Dane Osobowe</a></li>
-        <li><a data-toggle="tab" href="#placeOfResidence" (click)="CheckResidentTable(true, false)">Miejsce Zamieszkania</a></li>
-        <li><a data-toggle="tab" href="#document" (click)="CheckResidentTable(false, true)">Dokumenty</a></li>
-        <li><a data-toggle="tab" href="#dormitory" (click)="CheckResidentTable(false, false)">Akademik</a></li>
-    </ul>
-    <div class="tab-content">
-        <div id="personalData" class="tab-pane fade in active">
-            <resident-personal-data (emitResidentPersonalData)="GetResidentPersonalData($event)"></resident-personal-data>
+<div id="addResident_wrapper">
+
+    <div id="header_wrapper">
+        <button type="button" (click)="ShowResidentAddForm()" data-toggle="tooltip" title="Pokaż formularz" class="btn btn-default" aria-label="Left Align">
+                    <span  class="fa fa-pencil" aria-hidden="true"></span>
+                </button>
+        <button type="button" (click)="ShowResidentSearch()" data-toggle="tooltip" title="Znajdź dezydenta" class="btn btn-default" aria-label="Left Align">
+                    <span  class="fa fa-search" aria-hidden="true"></span>
+                </button>
+        <h1 class="title">Panel dodawania rezydenta</h1>
+        <button type="button" data-toggle="tooltip" title="Dodaj rezydenta" class="btn btn-default" aria-label="Left Align">
+            <span  class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+        </button>
+
+    </div>
+    <resident-search [hidden]="!showResidentSearch"></resident-search>
+
+    <div *ngIf="showResidentAddForm" id="form_wrapper">
+        <div id="formMenu_wrapper">
+            <ul class="nav nav-tabs">
+                <!-- <li class="active"><a data-toggle="tab" href="#personalData" (click)="CheckResidentTable(false, false)">Dane Osobowe</a></li>
+                        <li><a data-toggle="tab" href="#place1OfResidence" (click)="CheckResidentTable(true, false)">Miejsce Zamieszkania</a></li>
+                        <li><a data-toggle="tab" href="#document" (click)="CheckResidentTable(false, true)">Dokumenty</a></li>
+                        <li><a data-toggle="tab" href="#dormitory" (click)="CheckResidentTable(false, false)">Zakwaterowanie</a></li>
+                         -->
+                <li class="active">
+                    <a data-toggle="tab" href="#personalData" (click)="CheckResidentTable(false, false)" class="fa fa-user-circle" title="Dane osobowe" aria-hidden="true"></a>
+
+                </li>
+                <li>
+                    <a data-toggle="tab" href="#placeOfResidence" (click)="CheckResidentTable(true, false)" class="fa fa-home" title="Miejsce zamieszkania" aria-hidden="true"></a>
+                </li>
+                <li>
+                    <a data-toggle="tab" href="#document" (click)="CheckResidentTable(false, true)" class="fa fa-address-card" title="Dokumenty" aria-hidden="true"></a>
+                </li>
+                <li>
+                    <a data-toggle="tab" href="#dormitory" (click)="CheckResidentTable(false, false)" class="fa fa-bed" title="Zakwaterowanie" aria-hidden="true"></a>
+                </li>
+            </ul>
         </div>
-        <div id="placeOfResidence" class="tab-pane">
-            <resident-address (emitIsResidentAddressTableOpen)="GetIsResidentAddressTableOpen($event)" (emitResidentAddress)="GetResidentAddress($event)"></resident-address>
-        </div>
-        <div id="document" class="tab-pane">
-            <resident-document (emitIsResidentDocumentTableOpen)="GetIsResidentDocumentTableOpen($event)" (emitResidentDocument)="GetResidentDocument($event)"></resident-document>
-        </div>
-        <div id="dormitory" class="tab-pane">
-            <resident-dormitory (emitResidentDormitory)="GetResidentDormitory($event)"></resident-dormitory>
+        <div class="tab-content">
+            <div id="personalData" class="tab-pane fade in active">
+                <resident-personal-data (emitResidentPersonalData)="GetResidentPersonalData($event)"></resident-personal-data>
+            </div>
+            <div id="placeOfResidence" class="tab-pane">
+                <resident-address (emitIsResidentAddressTableOpen)="GetIsResidentAddressTableOpen($event)" (emitResidentAddressList)="GetResidentAddress($event)"></resident-address>
+            </div>
+            <div id="document" class="tab-pane">
+                <resident-document (emitIsResidentDocumentTableOpen)="GetIsResidentDocumentTableOpen($event)" (emitResidentDocumentList)="GetResidentDocument($event)"></resident-document>
+            </div>
+            <div id="dormitory" class="tab-pane">
+                <resident-dormitory (emitResidentDormitory)="GetResidentDormitory($event)"></resident-dormitory>
+            </div>
         </div>
     </div>
-    <div id="button_wrapper" *ngIf="showAddButtons">
+    <!-- <div id="button_wrapper" *ngIf="showAddButtons">
         <button (click)="GoBack()" type="button" class="btn btn-default">Wstecz</button>
         <button (click)="CreateNewResident()" type="button" class="btn btn-default ">Dodaj</button>
-    </div>
+    </div> -->
 </div>

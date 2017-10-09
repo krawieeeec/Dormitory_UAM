@@ -3,9 +3,14 @@
     display: table-cell;
 }
 
+h1 {
+    color: white;
+    padding-right: 200px;
+}
+
 .form-group {
     margin-bottom: 15px;
-    margin-right: 5px;
+    margin-right: 20px;
     width: 250px;
 }
 
