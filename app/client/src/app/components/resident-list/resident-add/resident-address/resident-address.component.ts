@@ -42,6 +42,7 @@ export class ResidentAddressComponent implements OnInit, OnChanges, DoCheck {
   private indexSelectedAddress;
   private idSelectedAddress;
   private residentAddressList;
+  private setHoverClass;
 
   @Output()emitResidentAddressList;
   @Output()emitIsResidentAddressTableOpen;
@@ -62,6 +63,7 @@ export class ResidentAddressComponent implements OnInit, OnChanges, DoCheck {
       postCode: '',
       address: '',
       address_type_id: 0,
+      used: false
     }
 
     this.settingsSelectButton = {
@@ -109,6 +111,7 @@ export class ResidentAddressComponent implements OnInit, OnChanges, DoCheck {
     this.indexSelectedAddress = 0;
     this.idSelectedAddress = 0;
     this.residentAddressList = [];
+    this.setHoverClass = false;
   }
 
   /////////////////////////////////////////LIFE CYCLE OF COMPONENT///////////////////////////////////////////////
@@ -240,8 +243,16 @@ export class ResidentAddressComponent implements OnInit, OnChanges, DoCheck {
     this.ClearResidentAddressModel();
   }
 
-  DeleteAddress(index, addressId) {
-    this.residentAddressList.splice(index, 1);
+  // DeleteAddress(index, addressId) {
+  //   this.residentAddressList.splice(index, 1);
+  // }
+
+  UseAddress(index){
+    if(this.residentAddressList[index].used == false){
+      this.residentAddressList[index].used = true
+    }else{
+      this.residentAddressList[index].used = false
+    }
   }
 
   ClearResidentAddressModel() {
@@ -254,6 +265,7 @@ export class ResidentAddressComponent implements OnInit, OnChanges, DoCheck {
     this.residentAddress.postCode = '';
     this.residentAddress.address = ''
     this.residentAddress.address_type_id = 0;
+    this.residentAddress.used = false;
     this.selectedPostCode = [];
     this.selectedTypeAddress = [];
     this.previousSelectedPostCode = '';

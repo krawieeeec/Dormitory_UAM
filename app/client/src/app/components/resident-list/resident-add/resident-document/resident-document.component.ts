@@ -45,6 +45,7 @@ export class ResidentDocumentComponent implements OnInit, OnChanges, DoCheck {
   ) {  
       this.residentDocument = {
       releaseDate: '',
+      serialNumber: '',
       expirationDate: '',
       issuingCountry: '',
       typeDocument: '',
@@ -171,6 +172,7 @@ export class ResidentDocumentComponent implements OnInit, OnChanges, DoCheck {
     }
 
     this.residentDocument.releaseDate = this.residentDocumentList[index].releaseDate;
+    this.residentDocument.serialNumber = this.residentDocumentList[index].serialNumber;
     this.residentDocument.expirationDate = this.residentDocumentList[index].expirationDate;
     this.residentDocument.issuingCountry = this.residentDocumentList[index].issuingCountry;
     this.residentDocument.typeDocument = this.residentDocumentList[index].typeDocument;
@@ -180,7 +182,9 @@ export class ResidentDocumentComponent implements OnInit, OnChanges, DoCheck {
 
   }
   ClearResidentDocumentModel(){
+
     this.residentDocument.releaseDate = '';
+    this.residentDocument.serialNumber = '';
     this.residentDocument.expirationDate = '';
     this.residentDocument.issuingCountry = '';
     this.residentDocument.typeDocument = '';

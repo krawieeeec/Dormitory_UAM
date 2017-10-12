@@ -93,6 +93,7 @@ export class ResidentAddComponent implements OnInit, DoCheck, OnChanges {
   }
 
   CreateNewResident():void{
+    
     console.log(this.residentPersonalData);
     this.residentService.CreateNewResidentPersonalData(this.residentPersonalData)
     .then(newResident =>{
@@ -112,19 +113,20 @@ export class ResidentAddComponent implements OnInit, DoCheck, OnChanges {
 
       this.residentService.CreateNewResidentAddress(this.residentAddressList)
       .then((newResidentAddress) =>{
+        console.log(newResidentAddress);
       })
 
       this.residentService.CreateNewResidentDocument(this.residentDocumentList)
       .then(newResidentDocument =>{
-
-        // this.documentId = newResidentDocument.document_type_id;      
+        // console.log(newResidentDocument);
+        // this.documentId = newResidentDocument;      
         // this.residentDormitory.documentId = this.documentId;
         // this.residentDormitory.residentId = this.residentId;
 
         // this.residentService.CreateNewResidentDormitoryStay(this.residentDormitory)
         // .then(newResidentDormitoryStay => {
         //   this.router.navigate(['residentList', this.dormitoryId]);
-        //   // location.reload();
+        //   location.reload();
         // })
       })
     })
@@ -149,7 +151,6 @@ export class ResidentAddComponent implements OnInit, DoCheck, OnChanges {
   }
 
   CheckResidentTable(isResidentAddressTabOpen, isResidentDocumentTabOpen){
-    console.log('jestem');
       if((isResidentAddressTabOpen == false) && (isResidentDocumentTabOpen == false)){
         if(this.isResidentAddressTableOpen){
           this.showAddButtons = true;
@@ -179,6 +180,7 @@ export class ResidentAddComponent implements OnInit, DoCheck, OnChanges {
     if (!this.showResidentAddForm){
       this.showResidentAddForm = true;
       this.showResidentSearch = false;
+      console.log(this.showResidentAddForm);
     }
   }
 
@@ -186,7 +188,9 @@ export class ResidentAddComponent implements OnInit, DoCheck, OnChanges {
     if(!this.showResidentSearch){
       this.showResidentSearch = true;
       this.showResidentAddForm = false;
+      console.log(this.showResidentAddForm);
     }
   }
+  
 
 }

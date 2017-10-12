@@ -6,6 +6,7 @@ import { ResidentAddress } from './resident-address';
 import { ResidentDormitory } from './resident-dormitory';
 import { ResidentDocument } from './resident-document';
 import { ResidentSearch } from './resident-search';
+import { ResidentExist } from './resident-exist';
 import 'rxjs/add/operator/toPromise';
 
 @Injectable(
@@ -151,6 +152,14 @@ export class ResidentService{
         .toPromise()
         .then(response =>
             response.json() as ResidentSearch )
+        .catch();
+    }
+
+    FindExistingResident(searchedAttributes): Promise<ResidentExist>{
+        return this.http.post(this.residentUrl + '/exist', searchedAttributes)
+        .toPromise()
+        .then(response =>
+            response.json() as ResidentExist )
         .catch();
     }
 }

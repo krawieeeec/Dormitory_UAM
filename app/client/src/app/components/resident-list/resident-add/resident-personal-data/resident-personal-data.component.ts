@@ -25,6 +25,7 @@ export class ResidentPersonalDataComponent implements OnChanges, OnInit, DoCheck
   private residentPersonalData;
   private selectedCitzenship:number[];
   private previousSelectedCitzenship:number;
+  private isResidentForeigner;
   private genreList;
   
   @Output() emitResidentPersonalData;
@@ -79,6 +80,7 @@ export class ResidentPersonalDataComponent implements OnChanges, OnInit, DoCheck
     this.tempCitzenshipList = [];
     this.selectedCitzenship = [];
     this.previousSelectedCitzenship = 0;
+    this.isResidentForeigner = false;
   }
 
   /////////////////////////////////////////LIFE CYCLE OF COMPONENT///////////////////////////////////////////////
@@ -107,6 +109,11 @@ export class ResidentPersonalDataComponent implements OnChanges, OnInit, DoCheck
         if(element.id == this.selectedCitzenship[0]){
            this.residentPersonalData.citzenshipCodeId = element.id;
            this.residentPersonalData.citzenship = element.name;
+           if(this.residentPersonalData.citzenship != 'Polskie'){
+            this.isResidentForeigner = true;
+           }else{
+             this.isResidentForeigner = false;
+           }
         }
       });
       this.previousSelectedCitzenship = this.selectedCitzenship[0];
@@ -123,6 +130,28 @@ export class ResidentPersonalDataComponent implements OnChanges, OnInit, DoCheck
     // }else{
     //   this.residentPersonalData.blockadeState = "Odblokowany";
     // }
+  }
+
+  CheckIsResidentExist(){
+    let searchedAttributes = {
+      pesel: '',
+      serialNumber: '',
+      citzenship: ''
+    }
+
+    if((this.residentPersonalData.citzenship == '') || 
+      (this.residentPersonalData.citzenship == 'Polskie')){
+        if(this.residentPersonalData.pesel.length == 11){
+          searchedAttributes.pesel = this.residentPersonalData.pesel;
+          searchedAttributes.citzenship = this.residentPersonalData.citzenship;
+          this.residentService.FindExistingResident(searchedAttributes)
+          .then(existingResident => {
+            console.log(existingResident);
+          })
+        }
+      }else{
+        
+      }
   }
   
 }

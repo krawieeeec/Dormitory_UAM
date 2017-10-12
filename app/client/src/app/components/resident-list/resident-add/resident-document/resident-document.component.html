@@ -12,6 +12,7 @@
                 <thead>
                     <tr>
                         <th>Typ Dokumentu</th>
+                        <th>Numer Seryjny</th>
                         <th>Kraj Wydania</th>
                         <th>Data Wydania</th>
                         <th>Data Ważności</th>
@@ -22,6 +23,9 @@
                     <tr *ngFor="let residentDocument of residentDocumentList; let index = index">
                         <td>
                             {{residentDocument.typeDocument}}
+                        </td>
+                        <td>
+                            {{residentDocument.serialNumber}}
                         </td>
                         <td>
                             {{residentDocument.issuingCountry}}
@@ -57,6 +61,13 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label for="residentSerialNumber">Numer dokumentu</label>
+                    <input type="text" #serialNumber="ngModel" [(ngModel)]="residentDocument.serialNumber" #serialNumber="ngModel" name="serialNumber" class="form-control" id="residentSerialNumber" placeholder="Podaj numer dokumentu" required>
+                    <div [hidden]="serialNumber.valid || serialNumber.pristine" class="alert alert-danger">
+                        Pole nie może być puste
+                    </div>
+                </div>
+                <div class="form-group">
                     <label for="residentReleaseDate">Data Wydania</label>
                     <input type="date" #releaseDate="ngModel" [(ngModel)]="residentDocument.releaseDate" #releaseDate="ngModel" name="releaseDate" class="form-control" id="residentReleaseDate" placeholder="Podaj Datę Wydania" required>
                     <div [hidden]="releaseDate.valid || releaseDate.pristine" class="alert alert-danger">
@@ -70,6 +81,10 @@
                         Pole nie może być puste
                     </div>
                 </div>
+            </form>
+        </div>
+        <div id="form_wrapper">
+            <form>
                 <div class="form-group">
                     <label for="residentIssuingCountry">Kraj Wydania</label>
                     <input type="text" #issuingCountry="ngModel" [(ngModel)]="residentDocument.issuingCountry" #issuingCountry="ngModel" name="issuingCountry" class="form-control" id="residentIssuingCountry" placeholder="Podaj Kraj Wydania" required>

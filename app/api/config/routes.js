@@ -66,6 +66,7 @@ router.route('/resident/:id/stay').get(residentStayCtrl.GetResidentStayById);
 //residentSearchController
 router.use(residentSearchCtrl.FormResponseObject);
 router.route('/resident/search').post(residentSearchCtrl.FindResident);
+router.route('/resident/exist').post(residentSearchCtrl.FindExistingResident);
 
 //blockadeHistoryController
 router.use(blockadeHistoryCtrl.FormResponseObject);

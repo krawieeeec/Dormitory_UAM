@@ -11,6 +11,7 @@ var residentDocumentController = {
         //res.setHeader('Access-Control-Allow-Credentials', true);
         
         let updateResidentDocument = {
+            serialNumber: req.body.serialNumber,
             releaseDate: req.body.releaseDate,
             expirationDate: req.body.expirationDate,
             issuingCountry: req.body.issuingCountry,
@@ -24,6 +25,7 @@ var residentDocumentController = {
 
     CreateNewResidentDocument: function(req, res){
         
+        //req.body is used because it has array of documents.
         documentTable.bulkCreate(req.body)
         .then((residentDocumentList) => {
                 res.send(residentDocumentList);
@@ -36,7 +38,7 @@ var residentDocumentController = {
         let residentId = req.params.id
 
         sequelize.query(
-            'SELECT documents.id, release_date, expiration_date, issuing_country, type_document, document_type_id, resident_id FROM documents '+ 
+            'SELECT documents.id, serial_number, release_date, expiration_date, issuing_country, type_document, document_type_id, resident_id FROM documents '+ 
             'INNER JOIN type_documents ON documents.document_type_id = type_documents.id '+
             'WHERE resident_id = :id ORDER BY documents.id',
             {replacements: {id: residentId}, type: sequelize.QueryTypes.SELECT }).

@@ -25,10 +25,10 @@ var residentAddressController = {
     },
 
     CreateNewResidentAddress: function(req, res){
-        console.log(req.body);
+        
         residentAddressTable.bulkCreate(req.body)
         .then((residentAddressList) => {
-                console.log(residentAddressList);
+                
                 res.send(residentAddressList);
             }).catch(error => {
                 console.log(error);

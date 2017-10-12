@@ -21,7 +21,9 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let residentAddress of residentAddressList; let index = index">
+                <tr #rowTable *ngFor="let residentAddress of residentAddressList; let index = index" [style.background-color]="residentAddressList[index].used ? 'mediumseagreen' : 'unset'">
+
+                    <!-- [style.background-color]="residentAddressList[index].used ? 'mediumseagreen' : 'unset'" -->
                     <td>
                         {{residentAddress.address}}
                     </td>
@@ -46,8 +48,8 @@
                     <td>
                         <button (click)="EditAddress(index, residentAddress.id)" type="button" data-toggle="tooltip" title="Edytuj Adres" class="btn btn-default" aria-label="Left Align">
               <span  class="glyphicon glyphicon-edit" aria-hidden="true"></span></button>
-                        <button (click)="DeleteAddress(index, residentAddress.id)" type="button" data-toggle="tooltip" title="Usuń Adres" class="btn btn-default" aria-label="Left Align">
-                    <span  class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                        <button (click)="UseAddress(index)" type="button" data-toggle="tooltip" title="Usuń Adres" class="btn btn-default" aria-label="Left Align">
+                    <span  class="fa fa-hand-o-up" aria-hidden="true"></span></button>
 
                     </td>
                 </tr>

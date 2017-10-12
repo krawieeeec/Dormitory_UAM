@@ -16,10 +16,17 @@
                 Pole nie może być puste
             </div>
         </div>
-        <div class="form-group">
+        <div *ngIf="!isResidentForeigner" class="form-group">
             <label for="residentPesel">PESEL</label>
-            <input #pesel="ngModel" [(ngModel)]="residentPersonalData.pesel" name="pesel" type="text" class="form-control" id="residentPesel" placeholder="Podaj PESEL" required>
+            <input (blur)="CheckIsResidentExist()" #pesel="ngModel" [(ngModel)]="residentPersonalData.pesel" name="pesel" type="text" class="form-control" id="residentPesel" placeholder="Podaj PESEL" required>
             <div [hidden]="pesel.valid || pesel.pristine" class="alert alert-danger">
+                Pole nie może być puste
+            </div>
+        </div>
+        <div *ngIf="isResidentForeigner" class="form-group">
+            <label for="residentPesel">Numer Dokumentu</label>
+            <input #serialNumber="ngModel" [(ngModel)]="residentPersonalData.serialNumber" name="pesel" type="text" class="form-control" id="residentSerialNumber" placeholder="Podaj numer dokumentu" required>
+            <div [hidden]="serialNumber.valid || serialNumber.pristine" class="alert alert-danger">
                 Pole nie może być puste
             </div>
         </div>

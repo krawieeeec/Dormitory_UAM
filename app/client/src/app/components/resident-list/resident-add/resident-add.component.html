@@ -8,14 +8,14 @@
                     <span  class="fa fa-search" aria-hidden="true"></span>
                 </button>
         <h1 class="title">Panel dodawania rezydenta</h1>
-        <button type="button" data-toggle="tooltip" title="Dodaj rezydenta" class="btn btn-default" aria-label="Left Align">
+        <button (click)="CreateNewResident()" type="button" data-toggle="tooltip" title="Dodaj rezydenta" class="btn btn-default" aria-label="Left Align">
             <span  class="glyphicon glyphicon-ok" aria-hidden="true"></span>
         </button>
 
     </div>
     <resident-search [hidden]="!showResidentSearch"></resident-search>
 
-    <div *ngIf="showResidentAddForm" id="form_wrapper">
+    <div [style.visibility]="(!showResidentAddForm) ? 'hidden' : 'visible'" id="form_wrapper">
         <div id="formMenu_wrapper">
             <ul class="nav nav-tabs">
                 <!-- <li class="active"><a data-toggle="tab" href="#personalData" (click)="CheckResidentTable(false, false)">Dane Osobowe</a></li>
@@ -25,7 +25,6 @@
                          -->
                 <li class="active">
                     <a data-toggle="tab" href="#personalData" (click)="CheckResidentTable(false, false)" class="fa fa-user-circle" title="Dane osobowe" aria-hidden="true"></a>
-
                 </li>
                 <li>
                     <a data-toggle="tab" href="#placeOfResidence" (click)="CheckResidentTable(true, false)" class="fa fa-home" title="Miejsce zamieszkania" aria-hidden="true"></a>

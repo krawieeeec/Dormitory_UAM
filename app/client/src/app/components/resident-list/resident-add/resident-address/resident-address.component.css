@@ -105,6 +105,14 @@ tbody>tr:hover {
     background: rgba(0, 0, 0, 0.3);
 }
 
+.use {
+    background-color: mediumseagreen;
+}
+
+.useHover {
+    background-color: seagreen;
+}
+
 td {
     max-width: 150px;
     overflow: hidden;

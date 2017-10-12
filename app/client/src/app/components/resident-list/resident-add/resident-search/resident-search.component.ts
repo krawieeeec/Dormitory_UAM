@@ -85,6 +85,7 @@ export class ResidentSearchComponent implements OnInit, DoCheck, OnChanges {
   }
 
   ShowModal(residentId) {
+    console.log(residentId);
     this.residentService.GetResidentPersonalDataById(residentId)
     .then(residentPersonalData =>{
       this.residentPeronalData.name = residentPersonalData[0].name;
@@ -97,9 +98,11 @@ export class ResidentSearchComponent implements OnInit, DoCheck, OnChanges {
       this.residentPeronalData.pesel = residentPersonalData[0].pesel;
       this.residentPeronalData.citzenship = residentPersonalData[0].citzenship;
       this.residentPeronalData.phoneNumber = residentPersonalData[0].phone_number;
+      console.log(this.residentPeronalData);
 
       this.residentService.GetResidentAddressById(residentId)
       .then(residentAddress =>{
+        console.log(residentAddress);
         this.residentAddress.country = residentAddress[0].country;
         this.residentAddress.city = residentAddress[0].city;
         this.residentAddress.street = residentAddress[0].street;
@@ -107,7 +110,8 @@ export class ResidentSearchComponent implements OnInit, DoCheck, OnChanges {
         this.residentAddress.apartmentNumber = residentAddress[0].apartment_number;
         this.residentAddress.postCode = residentAddress[0].post_code;
         this.residentAddress.address = residentAddress[0].address;
-        
+        console.log(this.residentAddress);
+
         this.residentService.GetResidentDocumentsById(residentId)
         .then(residentDocument =>{
           this.residentDocument.releaseDate = residentDocument.release_date;
@@ -115,6 +119,7 @@ export class ResidentSearchComponent implements OnInit, DoCheck, OnChanges {
           this.residentDocument.issuingCountry = residentDocument.issuing_country;
           this.residentDocument.typeDocument = residentDocument.type_document;
 
+          console.log(this.residentAddress);
           let disposable = this.dialogService.addDialog(AppModalComponent, {
             title:'Szczegóły rezydenta', 
             residentPersonalData: this.residentPeronalData,

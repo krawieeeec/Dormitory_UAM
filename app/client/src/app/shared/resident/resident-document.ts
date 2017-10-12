@@ -1,5 +1,6 @@
 export class ResidentDocument {
     id:number;
+    serialNumber: string;
     release_date:Date;
     expiration_date:Date;
     issuing_country: string;
