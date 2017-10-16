@@ -9,9 +9,16 @@
             <label for="residentSurname">Nazwisko</label>
             <input name="surname" [(ngModel)]="residentSearchedAttributes.surname" #surname="ngModel" type="text" class="form-control" id="residentSurname" placeholder="Podaj Nazwisko">
         </div>
-        <div class="form-group">
+        <div *ngIf="!isForeigner" class="form-group">
             <label for="residentPesel">PESEL</label>
             <input name="pesel" [(ngModel)]="residentSearchedAttributes.pesel" #pesel="ngModel" type="text" class="form-control" id="residentPesel" placeholder="Podaj PESEL">
+        </div>
+        <div *ngIf="isForeigner" class="form-group">
+            <label for="residentSerialNumber">Numer Dokumentu</label>
+            <input name="serialNumber" [(ngModel)]="residentSearchedAttributes.serialNumber" #serialNumber="ngModel" type="text" class="form-control" id="residentSerialNumber" placeholder="Podaj numer dokumentu">
+        </div>
+        <div class="checkbox form-group" id="selectForeigner">
+            <label><input (click)="CheckIsForeigner()" type="checkbox">Obcokrajowiec</label>
         </div>
     </form>
     <button (click)="FindResidents()" class="btn btn-default">Znajdź rezydenta</button>
@@ -21,7 +28,8 @@
                 <th>Lp.</th>
                 <th>Imię</th>
                 <th>Nazwisko</th>
-                <th>PESEL</th>
+                <th *ngIf="!isForeigner">PESEL</th>
+                <th *ngIf="isForeigner">Numer dokumentu</th>
                 <th>Operacje</th>
             </tr>
         </thead>

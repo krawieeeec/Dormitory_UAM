@@ -22,7 +22,8 @@ var residentSearchController = {
             name: req.body.name,
             surname: req.body.surname,
             pesel: req.body.pesel,
-            dormitoryId: req.body.dormitoryId
+            serialNumber: req.body.serialNumber,
+            isForeigner: req.body.isForeigner
         }
         
         req.residentSearchedAttributes = residentSearchedAttributes;
@@ -30,65 +31,167 @@ var residentSearchController = {
         next();
     },
 
-    
     FindResident: function(req, res){
+      let emptyString = 0, nameLength = 0, surnameLength = 0, peselLength = 0, dormitoryId = 0,
+        serialNumberLength = 0;
 
-      let emptyString = 0, nameLength = 0, surnameLength = 0, peselLength = 0, dormitoryId = 0;
-      let searchedAttributes = {
-          order: [
-            ['pesel', 'ASC']
-          ],
-          where: {
+      nameLength = req.residentSearchedAttributes.name.length;
+      surnameLength = req.residentSearchedAttributes.surname.length;
+      peselLength = req.residentSearchedAttributes.pesel.length;
+      serialNumberLength = req.residentSearchedAttributes.serialNumber.length;
+      
+      if(req.residentSearchedAttributes.isForeigner == 'true'){
+          
+          let arrayOfResidentIds = [];
+          let searchedAttributes = {
+              where: {
 
+              }
           }
-      }        
-        /*
 
-        let searchedAttributes = {
-            order:[[stayResidentTable, 'updated_at', 'DESC']],
-            where: {
-            },
-            include: [{
-                model: stayResidentTable,
-                where:{
-                    dormitory_id: 0
-                }
-            }
-            ]
+        if(serialNumberLength > emptyString){
+            searchedAttributes.where.serialNumber = {};
+            searchedAttributes.where.serialNumber.$ilike = req.residentSearchedAttributes.serialNumber + '%';
         }
-*/
-        nameLength = req.residentSearchedAttributes.name.length;
-        surnameLength = req.residentSearchedAttributes.surname.length;
-        peselLength = req.residentSearchedAttributes.pesel.length;
-        dormitoryId = req.residentSearchedAttributes.dormitoryId;
-   
-        if(nameLength > emptyString){
-            searchedAttributes.where.name = {};
-            searchedAttributes.where.name.$ilike = req.residentSearchedAttributes.name + '%';
-        } 
-        if(surnameLength > emptyString){
-            searchedAttributes.where.surname = {};
-            searchedAttributes.where.surname.$ilike = req.residentSearchedAttributes.surname + '%';
-        } 
-        if(peselLength > emptyString){
-            searchedAttributes.where.pesel = {};
-            searchedAttributes.where.pesel.$like = req.residentSearchedAttributes.pesel + '%';      
-        }
-
-        if((nameLength > 0) || (surnameLength > 0) || (peselLength > 0)){
+        
+        
+        if(serialNumberLength > 0){
             
-            residentTable.findAll(searchedAttributes)
+            documentTable.findAll(searchedAttributes)
             .then(searchedResidents =>{
-                res.status(200);
-                res.send(searchedResidents);
                 
+                searchedAttributes.where = {};  
+                searchedResidents.forEach(function(element) {    
+                    arrayOfResidentIds.push(element.resident_id);
+                }, this);
+
+                if(nameLength > emptyString){
+                    searchedAttributes.where.name = {};
+                    searchedAttributes.where.name.$ilike = req.residentSearchedAttributes.name + '%';
+                }
+                if(surnameLength > emptyString){
+                    searchedAttributes.where.surname = {};
+                    searchedAttributes.where.surname.$ilike = req.residentSearchedAttributes.surname + '%';
+                }
+
+                if(arrayOfResidentIds.length > 0){
+
+                    searchedAttributes.where.$or = [];
+                    searchedAttributes.include = [];
+                    searchedAttributes.attributes = ['name', 'surname'];
+                    searchedAttributes.include.push({
+                        model: documentTable,
+                        attributes: ['serialNumber']
+                    })
+
+                    let searchedId = {};
+                    arrayOfResidentIds.forEach(function(element) {
+                        searchedId.id = element;
+                        searchedAttributes.where.$or.push(searchedId);
+                        searchedId = {};
+                    }, this);
+            
+                    residentTable.findAll(searchedAttributes)
+                    .then(residents =>{
+                        res.status(200);
+                        res.send(residents)
+                    })
+                    .catch(error=>{
+                        res.send(error);
+                    })
+                }else {
+                    res.status(200);
+                    res.send([]);
+                }
             }).catch((error)=>{
                 res.send(error);
             })
         }else{
-            res.status(200);
-            res.send([]);
+            if(nameLength > emptyString){
+                searchedAttributes.where.name = {};
+                searchedAttributes.where.name.$ilike = req.residentSearchedAttributes.name + '%';
+            }
+            if(surnameLength > emptyString){
+                searchedAttributes.where.surname = {};
+                searchedAttributes.where.surname.$ilike = req.residentSearchedAttributes.surname + '%';
+            }
+
+            if((nameLength > emptyString) || (surnameLength > emptyString)){
+                searchedAttributes.include = [];
+                searchedAttributes.attributes = ['name', 'surname'];
+                searchedAttributes.include.push({
+                    model: documentTable,
+                    attributes: ['serialNumber']
+                })
+                
+                residentTable.findAll(searchedAttributes)
+                .then(residents =>{
+                    res.status(200);
+                    res.send(residents)
+                }).catch(error =>{
+                    res.send(error);
+                })
+            } else{
+                res.status(200);
+                res.send([]);
+            }
         }
+        
+
+    }else if(req.residentSearchedAttributes.isForeigner == 'false'){
+        
+        let searchedAttributes = {
+            order: [
+              ['pesel', 'ASC']
+            ],
+            where: {
+  
+            }
+        }        
+          /*
+  
+          let searchedAttributes = {
+              order:[[stayResidentTable, 'updated_at', 'DESC']],
+              where: {
+              },
+              include: [{
+                  model: stayResidentTable,
+                  where:{
+                      dormitory_id: 0
+                  }
+              }
+              ]
+          }
+  */
+     
+          if(nameLength > emptyString){
+              searchedAttributes.where.name = {};
+              searchedAttributes.where.name.$ilike = req.residentSearchedAttributes.name + '%';
+          } 
+          if(surnameLength > emptyString){
+              searchedAttributes.where.surname = {};
+              searchedAttributes.where.surname.$ilike = req.residentSearchedAttributes.surname + '%';
+          } 
+          if(peselLength > emptyString){
+              searchedAttributes.where.pesel = {};
+              searchedAttributes.where.pesel.$like = req.residentSearchedAttributes.pesel + '%';      
+          }
+  
+          if((nameLength > 0) || (surnameLength > 0) || (peselLength > 0)){
+              
+              residentTable.findAll(searchedAttributes)
+              .then(searchedResidents =>{
+                  res.status(200);
+                  res.send(searchedResidents);
+                  
+              }).catch((error)=>{
+                  res.send(error);
+              })
+          }else{
+              res.status(200);
+              res.send([]);
+          }
+      }
     },
     
     FindExistingResident: function(req, res){

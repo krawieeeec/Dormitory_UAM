@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers} from '@angular/http';
+import { Http, Headers } from '@angular/http';
 
 import { ResidentPersonalData } from './resident-personal-data';
 import { ResidentAddress } from './resident-address';
 import { ResidentDormitory } from './resident-dormitory';
 import { ResidentDocument } from './resident-document';
 import { ResidentSearch } from './resident-search';
-import { ResidentExist } from './resident-exist';
 import 'rxjs/add/operator/toPromise';
 
 @Injectable(
@@ -155,11 +154,11 @@ export class ResidentService{
         .catch();
     }
 
-    FindExistingResident(searchedAttributes): Promise<ResidentExist>{
+    FindExistingResident(searchedAttributes): Promise<any>{
         return this.http.post(this.residentUrl + '/exist', searchedAttributes)
         .toPromise()
         .then(response =>
-            response.json() as ResidentExist )
+            response.json() as any )
         .catch();
     }
 }

@@ -25,7 +25,7 @@
         </div>
         <div *ngIf="isResidentForeigner" class="form-group">
             <label for="residentPesel">Numer Dokumentu</label>
-            <input #serialNumber="ngModel" [(ngModel)]="residentPersonalData.serialNumber" name="pesel" type="text" class="form-control" id="residentSerialNumber" placeholder="Podaj numer dokumentu" required>
+            <input (blur)="CheckIsResidentExist()" #serialNumber="ngModel" [(ngModel)]="residentPersonalData.serialNumber" name="serialNumber" type="text" class="form-control" id="residentSerialNumber" placeholder="Podaj numer dokumentu" required>
             <div [hidden]="serialNumber.valid || serialNumber.pristine" class="alert alert-danger">
                 Pole nie może być puste
             </div>

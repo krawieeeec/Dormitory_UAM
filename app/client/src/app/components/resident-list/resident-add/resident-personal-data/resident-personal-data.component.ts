@@ -46,6 +46,7 @@ export class ResidentPersonalDataComponent implements OnChanges, OnInit, DoCheck
         fatherName: '',
         pesel: '',
         citzenship:'',
+        serialNumber: '',
         citzenshipCodeId: 0
       }
 
@@ -138,19 +139,34 @@ export class ResidentPersonalDataComponent implements OnChanges, OnInit, DoCheck
       serialNumber: '',
       citzenship: ''
     }
-
+    
     if((this.residentPersonalData.citzenship == '') || 
       (this.residentPersonalData.citzenship == 'Polskie')){
         if(this.residentPersonalData.pesel.length == 11){
           searchedAttributes.pesel = this.residentPersonalData.pesel;
           searchedAttributes.citzenship = this.residentPersonalData.citzenship;
           this.residentService.FindExistingResident(searchedAttributes)
-          .then(existingResident => {
-            console.log(existingResident);
+          .then(response => {
+            if(response.isExist){
+              console.log('MAMY POLAKA');
+            }else{
+              console.log('BRAK POLAKA')
+            }
           })
         }
       }else{
         
+        if(this.residentPersonalData.serialNumber.length > 0){
+          searchedAttributes.serialNumber = this.residentPersonalData.serialNumber;
+          this.residentService.FindExistingResident(searchedAttributes)
+          .then(response => {
+            if(response.isExist){
+              console.log('MAMY OBCOKRAJOWCA');
+            }else{
+              console.log('NIE MAM OBCOKRAJOWCA');
+            }
+          })
+        }
       }
   }
   

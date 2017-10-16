@@ -22,6 +22,7 @@ export class ResidentSearchComponent implements OnInit, DoCheck, OnChanges {
   private residentPeronalData;
   private residentAddress;
   private residentDocument;
+  private isForeigner;
 
   constructor(
     private router: Router, 
@@ -67,10 +68,13 @@ export class ResidentSearchComponent implements OnInit, DoCheck, OnChanges {
       name: '',
       surname: '',
       pesel: '',
+      serialNumber: '',
+      isForeigner: 'false',
       dormitoryId: 0
     }
     this.searchedResidentsList = [];
     this.searchedResidentsListLength = 0;
+    this.isForeigner = false;
   }
 
   ngOnInit() {
@@ -154,7 +158,28 @@ export class ResidentSearchComponent implements OnInit, DoCheck, OnChanges {
     })
   }
  
+  CheckIsForeigner(){
+    
+    if(this.isForeigner){
+      this.isForeigner = false;
+      this.residentSearchedAttributes.isForeigner = "false";
+      this.ClearData()
+    }else{
+      this.isForeigner = true;
+      this.residentSearchedAttributes.isForeigner = "true";
+      this.ClearData();
+    }
+  }
 
+  ClearData(){
+    this.residentSearchedAttributes.name = "";
+    this.residentSearchedAttributes.surname = "";
+    this.residentSearchedAttributes.serialNumber = "";
+    this.residentSearchedAttributes.pesel = "";
+
+    this.searchedResidentsList = [];
+    this.searchedResidentsListLength = 0;
+  }
   
 
 }

@@ -27,6 +27,11 @@
     width: 250px;
 }
 
+#selectForeigner {
+    margin-top: 30px;
+    width: 1%;
+}
+
 label {
     color: white;
     font-weight: inherit;
