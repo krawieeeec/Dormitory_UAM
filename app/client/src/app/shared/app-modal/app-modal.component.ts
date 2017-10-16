@@ -14,8 +14,8 @@ export interface ConfirmModel {
 export class AppModalComponent extends DialogComponent<ConfirmModel, boolean> implements ConfirmModel {
   title: string;
   residentPersonalData: object;
-  residentAddress: object;
-  residentDocument: object;
+  residentAddress: Array<object>;
+  residentDocument: Array<object>;
   constructor(dialogService: DialogService) {
     super(dialogService);
   }

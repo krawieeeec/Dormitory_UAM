@@ -5,17 +5,33 @@
             <h4 class="modal-title"><b>{{title}}</b></h4>
         </div>
         <div class="modal-body">
-            <h3><b>Dane osobowe:</b></h3>
-            <p><b>Imie:</b> {{residentPersonalData.name}}, <b>Nazwisko:</b> {{residentPersonalData.surname}}</p>
-            <p><b>Płeć:</b> {{residentPersonalData.genre}}, <b>PESEL:</b> {{residentPersonalData.pesel}}</p>
-            <p><b>Miejsce urodzenia:</b> {{residentPersonalData.birthPlace}}, <b>Data urodzenia:</b> {{residentPersonalData.birthDate}}</p>
-            <p><b>Imię matki:</b> {{residentPersonalData.motherName}}, <b>Imię ojca:</b> {{residentPersonalData.fatherName}}</p>
-            <p><b>Numer Telefonu:</b> {{residentPersonalData.phoneNumber}}, <b>Obywatelstwo:</b> {{residentPersonalData.citzenship}}</p>
-        </div>
-        <div class="modal-body">
-            <h3><b>Adres:</b></h3>
-            <p><b>Typ adresu:</b> {{residentAddress.address}}, <b>Kraj:</b> {{residentAddress.country}}</p>
-
+            <ul class="nav nav-tabs nav-justified">
+                <li class="active"><a data-toggle="tab" href="#residentPersonalData">Dane osobowe</a></li>
+                <li><a data-toggle="tab" href="#residentAddresses">Adresy</a></li>
+                <li><a data-toggle="tab" href="#residentDocuments">Dokumenty</a></li>
+            </ul>
+            <div class="tab-content">
+                <div id="residentPersonalData" class="tab-pane fade in active">
+                    <h3><b>Dane osobowe:</b></h3>
+                    <p><b>Imie:</b> {{residentPersonalData.name}}, <b>Nazwisko:</b> {{residentPersonalData.surname}}</p>
+                    <p><b>Płeć:</b> {{residentPersonalData.genre}}, <b>PESEL:</b> {{residentPersonalData.pesel}}</p>
+                    <p><b>Miejsce urodzenia:</b> {{residentPersonalData.birthPlace}}, <b>Data urodzenia:</b> {{residentPersonalData.birthDate}}</p>
+                    <p><b>Imię matki:</b> {{residentPersonalData.motherName}}, <b>Imię ojca:</b> {{residentPersonalData.fatherName}}</p>
+                    <p><b>Numer Telefonu:</b> {{residentPersonalData.phoneNumber}}, <b>Obywatelstwo:</b> {{residentPersonalData.citzenship}}</p>
+                </div>
+                <div id="residentAddresses" class="tab-pane">
+                    <h3><b>Adresy:</b></h3>
+                    <div *ngFor="let residentAddress of residentAddress; let index = index;">
+                        <p><b>Typ adresu:</b> {{residentAddress.address}}, <b>Kraj:</b> {{residentAddress.country}}</p>
+                    </div>
+                </div>
+                <div id="residentDocuments" class="tab-pane">
+                    <h3><b>Dokumenty:</b></h3>
+                    <div *ngFor="let residentDocument of residentDocument; let index = index;">
+                        <p><b>Data wydania:</b> {{residentDocument.release_date}}, <b>Kraj:</b> {{residentAddress.country}}</p>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="modal-footer">
             <!-- <button type="button" class="btn btn-primary" (click)="confirm()">OK</button> -->

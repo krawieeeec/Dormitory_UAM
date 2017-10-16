@@ -46,24 +46,7 @@ export class ResidentSearchComponent implements OnInit, DoCheck, OnChanges {
       citzenship: '',
       citzenship_code_id: 0
     }
-    this.residentAddress = {
-      country: '',
-      city: '',
-      street: '',
-      houseNumber: '',
-      apartmentNumber: '',
-      postCode: '',
-      address: '',
-      address_type_id: 0,
-    }
-    this.residentDocument = {
-      releaseDate: '',
-      expirationDate: '',
-      issuingCountry: '',
-      typeDocument: '',
-      document_type_id: 0,
-      resident_id: 0
-    }
+    
     this.residentSearchedAttributes = {
       name: '',
       surname: '',
@@ -73,6 +56,8 @@ export class ResidentSearchComponent implements OnInit, DoCheck, OnChanges {
       dormitoryId: 0
     }
     this.searchedResidentsList = [];
+    this.residentAddress = [];
+    this.residentDocument = [];
     this.searchedResidentsListLength = 0;
     this.isForeigner = false;
   }
@@ -106,24 +91,12 @@ export class ResidentSearchComponent implements OnInit, DoCheck, OnChanges {
 
       this.residentService.GetResidentAddressById(residentId)
       .then(residentAddress =>{
-        console.log(residentAddress);
-        this.residentAddress.country = residentAddress[0].country;
-        this.residentAddress.city = residentAddress[0].city;
-        this.residentAddress.street = residentAddress[0].street;
-        this.residentAddress.houseNumber = residentAddress[0].house_number;
-        this.residentAddress.apartmentNumber = residentAddress[0].apartment_number;
-        this.residentAddress.postCode = residentAddress[0].post_code;
-        this.residentAddress.address = residentAddress[0].address;
-        console.log(this.residentAddress);
+        this.residentAddress = residentAddress;
 
         this.residentService.GetResidentDocumentsById(residentId)
         .then(residentDocument =>{
-          this.residentDocument.releaseDate = residentDocument.release_date;
-          this.residentDocument.expirationDate = residentDocument.expiration_date;
-          this.residentDocument.issuingCountry = residentDocument.issuing_country;
-          this.residentDocument.typeDocument = residentDocument.type_document;
+          this.residentDocument = residentDocument;
 
-          console.log(this.residentAddress);
           let disposable = this.dialogService.addDialog(AppModalComponent, {
             title:'Szczegóły rezydenta', 
             residentPersonalData: this.residentPeronalData,
