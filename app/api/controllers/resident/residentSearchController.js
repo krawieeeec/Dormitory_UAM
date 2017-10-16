@@ -2,6 +2,8 @@ const sequelize = require('../../config/db.js').dbClient;
 const residentTable = require('../../models/models.js').DataBaseModels["resident"];
 const stayResidentTable = require('../../models/models.js').DataBaseModels["stayResident"];
 const documentTable = require('../../models/models.js').DataBaseModels["document"];
+const citzenshipCodeTable = require('../../models/models.js').DataBaseModels["citzenshipCode"];
+
 
 var residentSearchController = {
 
@@ -53,15 +55,12 @@ var residentSearchController = {
             searchedAttributes.where.serialNumber = {};
             searchedAttributes.where.serialNumber.$ilike = req.residentSearchedAttributes.serialNumber + '%';
         }
-        
-        
+
         if(serialNumberLength > 0){
-            
             documentTable.findAll(searchedAttributes)
-            .then(searchedResidents =>{
-                
+            .then(searchedDocuments =>{
                 searchedAttributes.where = {};  
-                searchedResidents.forEach(function(element) {    
+                searchedDocuments.forEach(function(element) {    
                     arrayOfResidentIds.push(element.resident_id);
                 }, this);
 
@@ -74,23 +73,28 @@ var residentSearchController = {
                     searchedAttributes.where.surname.$ilike = req.residentSearchedAttributes.surname + '%';
                 }
 
+                searchedAttributes.where.citzenship_code_id = {};
+                searchedAttributes.where.citzenship_code_id.$not = 1;
+
                 if(arrayOfResidentIds.length > 0){
-
-                    searchedAttributes.where.$or = [];
-                    searchedAttributes.include = [];
-                    searchedAttributes.attributes = ['name', 'surname'];
-                    searchedAttributes.include.push({
-                        model: documentTable,
-                        attributes: ['serialNumber']
-                    })
-
+                    
                     let searchedId = {};
+                    searchedAttributes.where.$or = [];
                     arrayOfResidentIds.forEach(function(element) {
                         searchedId.id = element;
                         searchedAttributes.where.$or.push(searchedId);
                         searchedId = {};
                     }, this);
-            
+
+                    
+                    
+                    searchedAttributes.include = [];
+                    searchedAttributes.attributes = ['id', 'name', 'surname'];
+                    searchedAttributes.include.push({
+                        model: documentTable,
+                        attributes: ['serialNumber']
+                    })
+                    console.log(searchedAttributes);
                     residentTable.findAll(searchedAttributes)
                     .then(residents =>{
                         res.status(200);
@@ -106,7 +110,8 @@ var residentSearchController = {
             }).catch((error)=>{
                 res.send(error);
             })
-        }else{
+        }
+        else{
             if(nameLength > emptyString){
                 searchedAttributes.where.name = {};
                 searchedAttributes.where.name.$ilike = req.residentSearchedAttributes.name + '%';
@@ -116,9 +121,12 @@ var residentSearchController = {
                 searchedAttributes.where.surname.$ilike = req.residentSearchedAttributes.surname + '%';
             }
 
+            searchedAttributes.where.citzenship_code_id = {};
+            searchedAttributes.where.citzenship_code_id.$not = 1;
+
             if((nameLength > emptyString) || (surnameLength > emptyString)){
                 searchedAttributes.include = [];
-                searchedAttributes.attributes = ['name', 'surname'];
+                searchedAttributes.attributes = ['id', 'name', 'surname'];
                 searchedAttributes.include.push({
                     model: documentTable,
                     attributes: ['serialNumber']

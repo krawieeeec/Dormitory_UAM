@@ -153,6 +153,7 @@ export class ResidentSearchComponent implements OnInit, DoCheck, OnChanges {
   FindResidents(){
     this.residentService.SearchResident(this.residentSearchedAttributes)
     .then(searchedResidents =>{
+      console.log(searchedResidents);
       this.searchedResidentsList = searchedResidents;
       this.searchedResidentsListLength = this.searchedResidentsList.length; 
     })

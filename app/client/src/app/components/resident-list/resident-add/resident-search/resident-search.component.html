@@ -29,7 +29,7 @@
                 <th>Imię</th>
                 <th>Nazwisko</th>
                 <th *ngIf="!isForeigner">PESEL</th>
-                <th *ngIf="isForeigner">Numer dokumentu</th>
+                <th *ngIf="isForeigner">Ilość dokumentów</th>
                 <th>Operacje</th>
             </tr>
         </thead>
@@ -39,7 +39,8 @@
                     <td>{{index + 1}}</td>
                     <td>{{resident.name}}</td>
                     <td>{{resident.surname}}</td>
-                    <td>{{resident.pesel}}</td>
+                    <td *ngIf="!isForeigner">{{resident.pesel}}</td>
+                    <td *ngIf="isForeigner">{{resident.documents.length}}</td>
                     <td>
                         <button (click)="ShowModal(resident.id)" type="button" data-toggle="tooltip" title="Podgląd" class="btn btn-default" aria-label="Left Align">
                             <span  class="fa fa-eye" aria-hidden="true"></span></button>
