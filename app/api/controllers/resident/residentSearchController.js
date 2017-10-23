@@ -111,7 +111,7 @@ var residentSearchController = {
                 res.send(error);
             })
         }
-        else{
+        else if((serialNumberLength == emptyString) && (req.residentSearchedAttributes.isForeigner == 'true')){
             if(nameLength > emptyString){
                 searchedAttributes.where.name = {};
                 searchedAttributes.where.name.$ilike = req.residentSearchedAttributes.name + '%';
@@ -184,7 +184,10 @@ var residentSearchController = {
               searchedAttributes.where.pesel = {};
               searchedAttributes.where.pesel.$like = req.residentSearchedAttributes.pesel + '%';      
           }
-  
+          
+          searchedAttributes.where.citzenship_code_id = {};
+          searchedAttributes.where.citzenship_code_id.$eq = 1;
+
           if((nameLength > 0) || (surnameLength > 0) || (peselLength > 0)){
               
               residentTable.findAll(searchedAttributes)

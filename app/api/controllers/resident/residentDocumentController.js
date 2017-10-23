@@ -61,10 +61,12 @@ var residentDocumentController = {
             {
                 where: {
                     id: residentId
-                }
+                },
+                returning: true
             }
-            ).then(() => {
-                res.send(req.updateResidentDocument);
+            ).then((response) => {
+                res.status(200);
+                res.send(response);
             }).catch(
                 error => 
                 {

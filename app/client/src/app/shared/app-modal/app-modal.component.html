@@ -23,12 +23,17 @@
                     <h3><b>Adresy:</b></h3>
                     <div *ngFor="let residentAddress of residentAddress; let index = index;">
                         <p><b>Typ adresu:</b> {{residentAddress.address}}, <b>Kraj:</b> {{residentAddress.country}}</p>
+                        <p><b>Miasto:</b> {{residentAddress.city}}, <b>Ulica:</b> {{residentAddress.street}}</p>
+                        <p><b>Numer domu:</b> {{residentAddress.houseNumber}}, <b>Numer mieszkania:</b> {{residentAddress.apartmentNumber}}</p>
                     </div>
                 </div>
                 <div id="residentDocuments" class="tab-pane">
                     <h3><b>Dokumenty:</b></h3>
                     <div *ngFor="let residentDocument of residentDocument; let index = index;">
-                        <p><b>Data wydania:</b> {{residentDocument.release_date}}, <b>Kraj:</b> {{residentAddress.country}}</p>
+                        <p><b>Typ dokumentu:</b> {{residentDocument.type_document}},</p>
+                        <p><b>Numer seryjny:</b> {{residentDocument.serial_number}}</p>
+                        <p><b>Kraj wydania:</b> {{residentDocument.issuing_country}}, <b>Data wydania:</b> {{residentDocument.release_date}}</p>
+                        <p><b>Data wygaśnięcia:</b> {{residentDocument.expiration_date}}
                     </div>
                 </div>
             </div>

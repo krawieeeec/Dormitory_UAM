@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, OnInit, Input, OnChanges, DoCheck } from '@angular/core';
+import { Component, EventEmitter, Output, OnInit, Input, OnChanges, DoCheck, SimpleChanges } from '@angular/core';
 import { NgModel } from '@angular/forms';
 
 import { ResidentPersonalData } from '../../../../shared/resident/resident-personal-data';
@@ -29,7 +29,7 @@ export class ResidentPersonalDataComponent implements OnChanges, OnInit, DoCheck
   private genreList;
   
   @Output() emitResidentPersonalData;
-
+  @Input() getResidentPersonalData: any; 
 
   constructor(
     private residentService: ResidentService,
@@ -47,6 +47,7 @@ export class ResidentPersonalDataComponent implements OnChanges, OnInit, DoCheck
         pesel: '',
         citzenship:'',
         serialNumber: '',
+        isExist: false,
         citzenshipCodeId: 0
       }
 
@@ -101,39 +102,56 @@ export class ResidentPersonalDataComponent implements OnChanges, OnInit, DoCheck
   }
 
   ngOnChanges() {
+
+    this.residentPersonalData = this.getResidentPersonalData;
+    if((this.residentPersonalData.citzenship != 'Polskie') && (this.residentPersonalData.citzenship != "")){
+      this.isResidentForeigner = true;
+      this.residentPersonalData.serialNumber = this.getResidentPersonalData.serialNumber;
+      this.residentPersonalData = null;
+    }else{
+      this.isResidentForeigner = false;
+      this.residentPersonalData.pesel = this.getResidentPersonalData.pesel;
+      this.residentPersonalData.serialNumber = null;
+    }
+    
+    this.selectedCitzenship.push(this.residentPersonalData.citzenshipCodeId);
+    
+    this.CheckIsResidentExist();
   }
   
   ngDoCheck(){
+    if(this.selectedCitzenship.length == 2){
+         this.selectedCitzenship.shift();
+       }
     this.emitResidentPersonalData.emit(this.residentPersonalData);
     if(this.selectedCitzenship.length > 0 && (this.previousSelectedCitzenship != this.selectedCitzenship[0])){
       this.citzenshipsList.forEach(element => {
         if(element.id == this.selectedCitzenship[0]){
+          
            this.residentPersonalData.citzenshipCodeId = element.id;
            this.residentPersonalData.citzenship = element.name;
            if(this.residentPersonalData.citzenship != 'Polskie'){
             this.isResidentForeigner = true;
+            this.residentPersonalData.pesel = null
            }else{
              this.isResidentForeigner = false;
+             this.residentPersonalData.serialNumber = null;
            }
         }
       });
       this.previousSelectedCitzenship = this.selectedCitzenship[0];
+      
     };
   }
 
   /////////////////////////////////////////FUNCTION OF COMPONENT///////////////////////////////////////////////
   
   SetGenre(genreName){
-    
-    this.residentPersonalData.genre = genreName.value;
-    // if(genreName.value == "Kobieta"){
-    //   this.residentPersonalData.blockadeState = "Odblokowana";
-    // }else{
-    //   this.residentPersonalData.blockadeState = "Odblokowany";
-    // }
+    this.residentPersonalData.genre = genreName.value.slice(3);
   }
 
   CheckIsResidentExist(){
+    
     let searchedAttributes = {
       pesel: '',
       serialNumber: '',
@@ -149,8 +167,10 @@ export class ResidentPersonalDataComponent implements OnChanges, OnInit, DoCheck
           .then(response => {
             if(response.isExist){
               console.log('MAMY POLAKA');
+              this.residentPersonalData.isExist = true;
             }else{
               console.log('BRAK POLAKA')
+              this.residentPersonalData.isExist = false;
             }
           })
         }
@@ -162,8 +182,10 @@ export class ResidentPersonalDataComponent implements OnChanges, OnInit, DoCheck
           .then(response => {
             if(response.isExist){
               console.log('MAMY OBCOKRAJOWCA');
+              this.residentPersonalData.isExist = true;
             }else{
               console.log('NIE MAM OBCOKRAJOWCA');
+              this.residentPersonalData.isExist = false;
             }
           })
         }

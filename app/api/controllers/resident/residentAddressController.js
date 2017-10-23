@@ -1,5 +1,6 @@
 const sequelize = require('../../config/db.js').dbClient;
 const residentAddressTable = require('../../models/models.js').DataBaseModels["addressResident"];
+const typeAddressTable = require('../../models/dictionaries/type-address').TypeAddressModel;
 
 var residentAddressController = {
 
@@ -9,8 +10,9 @@ var residentAddressController = {
         res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
         res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
         //res.setHeader('Access-Control-Allow-Credentials', true);
-        
+    
         let updateResidentAddress = {
+            id: req.body.id,
             country: req.body.country, 
             street: req.body.street,
             houseNumber: req.body.houseNumber,
@@ -26,12 +28,28 @@ var residentAddressController = {
 
     CreateNewResidentAddress: function(req, res){
         
+        let response = {
+            isCreated: false,
+            newResidentAddresses: []
+        }
+
         residentAddressTable.bulkCreate(req.body)
-        .then((residentAddressList) => {
-                
-                res.send(residentAddressList);
+        .then(() => {
+            
+            residentAddressTable.findAll({
+                limit: req.body.length,
+                order:[
+                    ['id', 'desc']
+                ]
+            }).then(newResidentAddresses => {
+                response.isCreated = true;
+                newResidentAddresses.forEach(function(element) {
+                        response.newResidentAddresses.push(element.dataValues);   
+                }, this);
+                res.send(response);
+            })
             }).catch(error => {
-                console.log(error);
+                response.isCreated = false;
                 res.send(error);
         })
     },
@@ -42,7 +60,7 @@ var residentAddressController = {
 
         sequelize.query(
             'SELECT address_residents.id, country, city, street, house_number as "houseNumber", ' + 
-            'apartment_number as "apartmentNumber", post_code as "postCode", address, address_type_id ' + 
+            'apartment_number as "apartmentNumber", post_code as "postCode", address, address_type_id, resident_id ' + 
             'FROM address_residents INNER JOIN type_addresses '+ 
             'ON address_residents.address_type_id = type_addresses.id ' + 
             'WHERE address_residents.resident_id = :id ORDER BY address_residents.id',
@@ -60,22 +78,28 @@ var residentAddressController = {
     
     UpdateResidentAddressById: function(req, res){
 
-        let addressId = req.params.id;
-        
+        let response = {
+            isUpdated: false,
+            updatedResidentAddress: []
+        }
         residentAddressTable.update(
             req.updateResidentAddress, 
             {
                 where: {
-                    id: addressId
-                }
+                    id: req.updateResidentAddress.id
+                },
+                returning: true
             }
-            ).then(() => {
-                res.send(req.updateResidentAddress);            
+            ).then((updatedResidentAddres) => {
+                response.isUpdated = true;
+                response.updatedResidentAddress.push(updatedResidentAddres[1][0].dataValues);
+                res.send(response);            
             }).catch(
                 error => 
                 {
                     res.status(400);
-                    res.send(error);
+                    response.isUpdated = false;
+                    res.send(response);
                 }
             )
     },

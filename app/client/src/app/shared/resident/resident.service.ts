@@ -25,20 +25,19 @@ export class ResidentService{
         'Accept': 'application/json'}) 
     }
 
-    CreateNewResidentPersonalData(newResidentPersonalData): Promise<ResidentPersonalData>{
+    CreateNewResidentPersonalData(newResidentPersonalData): Promise<any>{
         return this.http.post(this.residentUrl + '/personalData', newResidentPersonalData)
         .toPromise()
         .then(response =>
-            response.json() as ResidentPersonalData)
+            response.json() as any)
         .catch();
     }
         
-    CreateNewResidentAddress(newResidentAddressList): Promise<Array<ResidentAddress>>{
-        console.log(newResidentAddressList);
+    CreateNewResidentAddress(newResidentAddressList): Promise<any>{
         return this.http.post(this.residentUrl + '/address', newResidentAddressList)
         .toPromise()
         .then(response =>
-            response.json() as Array<ResidentAddress>)
+            response.json() as any)
         .catch();
     }
 
@@ -98,27 +97,27 @@ export class ResidentService{
             .catch();
     }
 
-    UpdateResidentPersonalDataById(residentPersonalData, residentId): Promise<ResidentPersonalData>{
+    UpdateResidentPersonalDataById(residentPersonalData, residentId): Promise<any>{
         return this.http.put(this.residentUrl + '/' + residentId + '/personalData', JSON.stringify(residentPersonalData), 
         {headers: this.headers})
             .toPromise()
-            .then(() =>  residentPersonalData)
+            .then((response) => response.json())
             .catch();
     }
     
-    UpdateResidentAddressById(residentAddress, addressId): Promise<ResidentAddress>{
-        return this.http.put(this.residentUrl + '/' + addressId + '/address', JSON.stringify(residentAddress), 
+    UpdateResidentAddressById(residentAddress, addressId): Promise<any>{
+        return this.http.put(this.residentUrl + '/address', JSON.stringify(residentAddress), 
         {headers: this.headers})
             .toPromise()
-            .then(() =>  residentAddress)
+            .then((response) =>  response.json())
             .catch();
     }
         
-    UpdateResidentDocumentById(residentDocument, documentId): Promise<ResidentDocument>{
-        return this.http.put(this.residentUrl + '/' + documentId + '/document', JSON.stringify(residentDocument), 
+    UpdateResidentDocumentById(residentDocument, documentId): Promise<any>{
+        return this.http.put(this.residentUrl + '/document', JSON.stringify(residentDocument), 
         {headers: this.headers})
             .toPromise()
-            .then(() =>  residentDocument)
+            .then((response) =>  response.json())
             .catch();
     }
      
@@ -126,7 +125,7 @@ export class ResidentService{
         return this.http.put(this.residentUrl + '/' + residentId + '/dormitory', JSON.stringify(residentDormitory), 
         {headers: this.headers})
             .toPromise()
-            .then(() =>  residentDormitory)
+            .then((response) =>  response.json())
             .catch();
     }
 

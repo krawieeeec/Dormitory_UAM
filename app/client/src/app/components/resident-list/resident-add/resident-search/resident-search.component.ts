@@ -19,10 +19,16 @@ export class ResidentSearchComponent implements OnInit, DoCheck, OnChanges {
   private residentSearchedAttributes;
   private searchedResidentsList; 
   private searchedResidentsListLength;
-  private residentPeronalData;
-  private residentAddress;
-  private residentDocument;
+  private residentPersonalData;
+  private residentAddressList;
+  private residentDocumentList;
   private isForeigner;
+
+  @Output() emitResidentPeronalData;
+  @Output() emitResidentAddressList;
+  @Output() emitResidentDocumentList;
+  @Output() emitShowResidentSearch;
+  @Output() emitShowResidentAddForm;
 
   constructor(
     private router: Router, 
@@ -33,7 +39,7 @@ export class ResidentSearchComponent implements OnInit, DoCheck, OnChanges {
     private dialogService: DialogService
   ) 
   { 
-    this.residentPeronalData = {
+    this.residentPersonalData = {
       name: '',
       surname: '',
       genre: '',
@@ -44,7 +50,9 @@ export class ResidentSearchComponent implements OnInit, DoCheck, OnChanges {
       pesel: '',
       phoneNumber: '',
       citzenship: '',
-      citzenship_code_id: 0
+      serialNumber: '',
+      isExist: false,
+      citzenshipCodeId: 0
     }
     
     this.residentSearchedAttributes = {
@@ -56,11 +64,16 @@ export class ResidentSearchComponent implements OnInit, DoCheck, OnChanges {
       dormitoryId: 0
     }
     this.searchedResidentsList = [];
-    this.residentAddress = [];
-    this.residentDocument = [];
+    this.residentAddressList = [];
+    this.residentDocumentList = [];
     this.searchedResidentsListLength = 0;
     this.isForeigner = false;
-  }
+    this.emitResidentPeronalData = new EventEmitter <Array<object>>();
+    this.emitResidentAddressList = new EventEmitter <Array<object>>();
+    this.emitResidentDocumentList = new EventEmitter <Array<object>>();
+    this.emitShowResidentSearch = new EventEmitter <boolean>();
+    this.emitShowResidentAddForm = new EventEmitter <boolean>();
+    }
 
   ngOnInit() {
     this.residentSearchedAttributes.dormitoryId = this.userSessionService.GetChosenDormitoryId();
@@ -74,34 +87,33 @@ export class ResidentSearchComponent implements OnInit, DoCheck, OnChanges {
   }
 
   ShowModal(residentId) {
-    console.log(residentId);
+    
     this.residentService.GetResidentPersonalDataById(residentId)
     .then(residentPersonalData =>{
-      this.residentPeronalData.name = residentPersonalData[0].name;
-      this.residentPeronalData.surname = residentPersonalData[0].surname;
-      this.residentPeronalData.genre = residentPersonalData[0].genre;
-      this.residentPeronalData.birthDate = residentPersonalData[0].birth_date;
-      this.residentPeronalData.birthPlace = residentPersonalData[0].birth_place;
-      this.residentPeronalData.motherName = residentPersonalData[0].mother_name;
-      this.residentPeronalData.fatherName = residentPersonalData[0].father_name;
-      this.residentPeronalData.pesel = residentPersonalData[0].pesel;
-      this.residentPeronalData.citzenship = residentPersonalData[0].citzenship;
-      this.residentPeronalData.phoneNumber = residentPersonalData[0].phone_number;
-      console.log(this.residentPeronalData);
+      this.residentPersonalData.name = residentPersonalData[0].name;
+      this.residentPersonalData.surname = residentPersonalData[0].surname;
+      this.residentPersonalData.genre = residentPersonalData[0].genre;
+      this.residentPersonalData.birthDate = residentPersonalData[0].birth_date;
+      this.residentPersonalData.birthPlace = residentPersonalData[0].birth_place;
+      this.residentPersonalData.motherName = residentPersonalData[0].mother_name;
+      this.residentPersonalData.fatherName = residentPersonalData[0].father_name;
+      this.residentPersonalData.pesel = residentPersonalData[0].pesel;
+      this.residentPersonalData.citzenship = residentPersonalData[0].citzenship;
+      this.residentPersonalData.phoneNumber = residentPersonalData[0].phone_number;
 
       this.residentService.GetResidentAddressById(residentId)
       .then(residentAddress =>{
-        this.residentAddress = residentAddress;
+        this.residentAddressList = residentAddress;
 
         this.residentService.GetResidentDocumentsById(residentId)
         .then(residentDocument =>{
-          this.residentDocument = residentDocument;
+          this.residentDocumentList = residentDocument;
 
           let disposable = this.dialogService.addDialog(AppModalComponent, {
             title:'Szczegóły rezydenta', 
-            residentPersonalData: this.residentPeronalData,
-            residentAddress: this.residentAddress,
-            residentDocument: this.residentDocument  
+            residentPersonalData: this.residentPersonalData,
+            residentAddress: this.residentAddressList,
+            residentDocument: this.residentDocumentList  
           })
             .subscribe((isConfirmed)=>{
                 //We get dialog result
@@ -126,7 +138,6 @@ export class ResidentSearchComponent implements OnInit, DoCheck, OnChanges {
   FindResidents(){
     this.residentService.SearchResident(this.residentSearchedAttributes)
     .then(searchedResidents =>{
-      console.log(searchedResidents);
       this.searchedResidentsList = searchedResidents;
       this.searchedResidentsListLength = this.searchedResidentsList.length; 
     })
@@ -143,8 +154,57 @@ export class ResidentSearchComponent implements OnInit, DoCheck, OnChanges {
       this.residentSearchedAttributes.isForeigner = "true";
       this.ClearData();
     }
+
   }
 
+  SendResidentToForm(residentId){
+    let tempResidentPersonalData;
+    this.residentService.GetResidentPersonalDataById(residentId)
+    .then(residentPersonalData => {
+      
+      this.residentPersonalData.id = residentPersonalData[0].id;
+      this.residentPersonalData.name = residentPersonalData[0].name;
+      this.residentPersonalData.surname = residentPersonalData[0].surname;
+      this.residentPersonalData.genre = residentPersonalData[0].genre;
+      this.residentPersonalData.birthDate = residentPersonalData[0].birth_date;
+      this.residentPersonalData.birthPlace = residentPersonalData[0].birth_place;
+      this.residentPersonalData.motherName = residentPersonalData[0].mother_name;
+      this.residentPersonalData.fatherName = residentPersonalData[0].father_name;
+      this.residentPersonalData.citzenship = residentPersonalData[0].citzenship;
+      this.residentPersonalData.citzenshipCodeId = residentPersonalData[0].citzenship_code_id;
+      this.residentPersonalData.phoneNumber = residentPersonalData[0].phone_number;
+
+      if(this.residentPersonalData.citzenship == 'Polskie'){
+        
+        this.residentPersonalData.pesel = residentPersonalData[0].pesel;
+        tempResidentPersonalData = Object.assign({}, this.residentPersonalData);
+        this.emitResidentPeronalData.emit(tempResidentPersonalData);
+      }
+
+      this.residentService.GetResidentAddressById(residentId)
+      .then(residentAddressList =>{
+
+        this.residentAddressList = residentAddressList;
+        this.emitResidentAddressList.emit(this.residentAddressList);
+
+        this.residentService.GetResidentDocumentsById(residentId)
+        .then(residentDocumentList =>{
+          
+          if(this.residentPersonalData.citzenship != 'Polskie'){
+            
+            this.residentPersonalData.serialNumber = residentDocumentList[0].serial_number;
+            tempResidentPersonalData = Object.assign({}, this.residentPersonalData);
+            this.emitResidentPeronalData.emit(tempResidentPersonalData);
+          }
+          
+          this.residentDocumentList = residentDocumentList;
+          this.emitResidentDocumentList.emit(this.residentDocumentList);
+          this.emitShowResidentSearch.emit(false);
+          this.emitShowResidentAddForm.emit(true);
+        })
+      })
+    })
+  }
   ClearData(){
     this.residentSearchedAttributes.name = "";
     this.residentSearchedAttributes.surname = "";

@@ -13,8 +13,8 @@
         </button>
 
     </div>
-    <resident-search [hidden]="!showResidentSearch"></resident-search>
-
+    <resident-search (emitResidentPeronalData)="GetResidentPersonalDataFromSearchResident($event)" (emitResidentAddressList)="GetResidentAddressListFromSearchResident($event)" (emitResidentDocumentList)="GetResidentDocumentListFromSearchResident($event)"
+        (emitShowResidentSearch)="GetShowResidentSearch($event)" (emitShowResidentAddForm)="GetShowResidentAddForm($event)" [hidden]="!showResidentSearch"></resident-search>
     <div [style.visibility]="(!showResidentAddForm) ? 'hidden' : 'visible'" id="form_wrapper">
         <div id="formMenu_wrapper">
             <ul class="nav nav-tabs">
@@ -39,13 +39,13 @@
         </div>
         <div class="tab-content">
             <div id="personalData" class="tab-pane fade in active">
-                <resident-personal-data (emitResidentPersonalData)="GetResidentPersonalData($event)"></resident-personal-data>
+                <resident-personal-data [getResidentPersonalData]="residentPersonalDataFromSearchResident" (emitResidentPersonalData)="GetResidentPersonalData($event)"></resident-personal-data>
             </div>
             <div id="placeOfResidence" class="tab-pane">
-                <resident-address (emitIsResidentAddressTableOpen)="GetIsResidentAddressTableOpen($event)" (emitResidentAddressList)="GetResidentAddress($event)"></resident-address>
+                <resident-address [getResidentAddressList]="residentAddressListFromSearchResident" (emitIsResidentAddressTableOpen)="GetIsResidentAddressTableOpen($event)" (emitResidentAddressList)="GetResidentAddress($event)"></resident-address>
             </div>
             <div id="document" class="tab-pane">
-                <resident-document (emitIsResidentDocumentTableOpen)="GetIsResidentDocumentTableOpen($event)" (emitResidentDocumentList)="GetResidentDocument($event)"></resident-document>
+                <resident-document [getResidentDocumentList]="residentDocumentListFromSearchResident" (emitIsResidentDocumentTableOpen)="GetIsResidentDocumentTableOpen($event)" (emitResidentDocumentList)="GetResidentDocument($event)"></resident-document>
             </div>
             <div id="dormitory" class="tab-pane">
                 <resident-dormitory (emitResidentDormitory)="GetResidentDormitory($event)"></resident-dormitory>

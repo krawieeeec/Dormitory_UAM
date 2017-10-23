@@ -2,8 +2,7 @@
     <div id="residentDocumentList">
         <div id="header_wrapper">
             <h1>Dokumenty</h1>
-
-            <button type="button" (click)="AddNewDocument()" data-toggle="tooltip" title="Dodaj dokument" class="btn btn-default" aria-label="Left Align">
+            <button *ngIf="!showDocumentForm" type="button" (click)="AddNewDocument()" data-toggle="tooltip" title="Dodaj dokument" class="btn btn-default" aria-label="Left Align">
                                     <span  class="fa fa-plus" aria-hidden="true"></span>
                                 </button>
         </div>
@@ -20,7 +19,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let residentDocument of residentDocumentList; let index = index">
+                    <tr *ngFor="let residentDocument of residentDocumentList; let index = index" [style.background-color]="residentDocumentList[index].isUsed ? 'mediumseagreen' : 'unset'">
                         <td>
                             {{residentDocument.typeDocument}}
                         </td>
@@ -37,10 +36,10 @@
                             {{residentDocument.expirationDate}}
                         </td>
                         <td>
-                            <button (click)="EditDocument(index, residentDocument.id)" type="button" data-toggle="tooltip" title="Edytuj Dokument" class="btn btn-default" aria-label="Left Align">
+                            <button (click)="EditDocument(index)" type="button" data-toggle="tooltip" title="Edytuj Dokument" class="btn btn-default" aria-label="Left Align">
                   <span  class="glyphicon glyphicon-edit" aria-hidden="true"></span></button>
-                            <button (click)="DeleteDocument(index, residentDocument.id)" type="button" data-toggle="tooltip" title="Usuń Dokument" class="btn btn-default" aria-label="Left Align">
-                        <span  class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                            <button (click)="UseDocument(index)" type="button" data-toggle="tooltip" title="Zaznacz dokument" class="btn btn-default" aria-label="Left Align">
+                        <span  class="fa fa-hand-o-up" aria-hidden="true"></span></button>
 
                         </td>
                     </tr>

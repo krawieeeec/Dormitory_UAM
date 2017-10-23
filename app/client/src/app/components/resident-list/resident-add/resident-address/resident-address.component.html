@@ -2,7 +2,7 @@
     <div id="header_wrapper">
         <h1>Adres zamieszkania</h1>
 
-        <button type="button" (click)="AddNewAddress()" data-toggle="tooltip" title="Dodaj adres" class="btn btn-default" aria-label="Left Align">
+        <button *ngIf="!showAddressPanel" type="button" (click)="AddNewAddress()" data-toggle="tooltip" title="Dodaj adres" class="btn btn-default" aria-label="Left Align">
                         <span  class="fa fa-plus" aria-hidden="true"></span>
                     </button>
     </div>
@@ -21,7 +21,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr #rowTable *ngFor="let residentAddress of residentAddressList; let index = index" [style.background-color]="residentAddressList[index].used ? 'mediumseagreen' : 'unset'">
+                <tr #rowTable *ngFor="let residentAddress of residentAddressList; let index = index" [style.background-color]="residentAddressList[index].isUsed ? 'mediumseagreen' : 'unset'">
 
                     <!-- [style.background-color]="residentAddressList[index].used ? 'mediumseagreen' : 'unset'" -->
                     <td>
@@ -46,9 +46,9 @@
                         {{residentAddress.apartmentNumber}}
                     </td>
                     <td>
-                        <button (click)="EditAddress(index, residentAddress.id)" type="button" data-toggle="tooltip" title="Edytuj Adres" class="btn btn-default" aria-label="Left Align">
+                        <button (click)="EditAddress(index)" type="button" data-toggle="tooltip" title="Edytuj Adres" class="btn btn-default" aria-label="Left Align">
               <span  class="glyphicon glyphicon-edit" aria-hidden="true"></span></button>
-                        <button (click)="UseAddress(index)" type="button" data-toggle="tooltip" title="Usuń Adres" class="btn btn-default" aria-label="Left Align">
+                        <button (click)="UseAddress(index)" type="button" data-toggle="tooltip" title="Zaznacz adres" class="btn btn-default" aria-label="Left Align">
                     <span  class="fa fa-hand-o-up" aria-hidden="true"></span></button>
 
                     </td>

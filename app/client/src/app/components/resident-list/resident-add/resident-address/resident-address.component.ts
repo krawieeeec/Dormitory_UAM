@@ -40,12 +40,12 @@ export class ResidentAddressComponent implements OnInit, OnChanges, DoCheck {
   private showAddressPanel;
   private showEditAddressButton;
   private indexSelectedAddress;
-  private idSelectedAddress;
   private residentAddressList;
   private setHoverClass;
 
-  @Output()emitResidentAddressList;
-  @Output()emitIsResidentAddressTableOpen;
+  @Output() emitResidentAddressList;
+  @Output() emitIsResidentAddressTableOpen;
+  @Input() getResidentAddressList: Array<object>; 
 
   constructor(
     private residentService : ResidentService, 
@@ -55,6 +55,7 @@ export class ResidentAddressComponent implements OnInit, OnChanges, DoCheck {
   ) {
 
     this.residentAddress = {
+      id: 0,
       country: '',
       city: '',
       street: '',
@@ -63,7 +64,10 @@ export class ResidentAddressComponent implements OnInit, OnChanges, DoCheck {
       postCode: '',
       address: '',
       address_type_id: 0,
-      used: false
+      resident_id: 0,
+      isUsed: false,
+      isNew: false,
+      isUpdated: false
     }
 
     this.settingsSelectButton = {
@@ -109,8 +113,8 @@ export class ResidentAddressComponent implements OnInit, OnChanges, DoCheck {
     this.showAddressPanel = false;
     this.showEditAddressButton = false;
     this.indexSelectedAddress = 0;
-    this.idSelectedAddress = 0;
     this.residentAddressList = [];
+    this.getResidentAddressList = [];
     this.setHoverClass = false;
   }
 
@@ -134,7 +138,17 @@ export class ResidentAddressComponent implements OnInit, OnChanges, DoCheck {
         this.typeAddressList = this.tempTypeAddresList;
       })
   }
-  ngOnChanges() {}
+
+  ngOnChanges() {
+    this.residentAddressList = [];
+    this.residentAddressList = this.getResidentAddressList;
+    console.log(this.residentAddressList);
+    this.residentAddressList.forEach(element => {
+      element.isUsed = false;
+      element.isNew = false;
+      element.isUpdated = false;
+    });
+  }
 
   ngDoCheck() {
 
@@ -157,7 +171,6 @@ export class ResidentAddressComponent implements OnInit, OnChanges, DoCheck {
           }
         });
       this.previousSelectedTypeAddress = this.selectedTypeAddress[0];
-      console.log(this.residentAddress);
     };
   }
 
@@ -172,10 +185,9 @@ export class ResidentAddressComponent implements OnInit, OnChanges, DoCheck {
     this.indexSelectedAddress = undefined;
   }
 
-  EditAddress(index, addressId) {
+  EditAddress(index) {
     this.showEditAddressButton = true;
     this.indexSelectedAddress = index;
-    this.idSelectedAddress = addressId;
 
     if (!this.showAddressPanel) {
       this.showAddressPanel = true;
@@ -190,7 +202,11 @@ export class ResidentAddressComponent implements OnInit, OnChanges, DoCheck {
     this.residentAddress.apartmentNumber = this.residentAddressList[index].apartmentNumber;
     this.residentAddress.postCode = this.residentAddressList[index].postCode;
     this.residentAddress.address = this.residentAddressList[index].address;
-    this.residentAddress.address_type_id = this.residentAddressList[index].address_type_id;
+    this.residentAddress.addressTypeId = this.residentAddressList[index].address_type_id;
+    this.residentAddress.resident_id = this.residentAddressList[index].resident_id;
+    this.residentAddress.isNew = this.residentAddressList[index].isNew;
+    this.residentAddress.isUpdated = this.residentAddressList[index].isUpdated;
+    this.residentAddress.isUsed = this.residentAddressList[index].isUsed;
 
     if (this.selectedPostCode.length == 0) {
       this.postCodeList.forEach((element, index) => {
@@ -222,17 +238,34 @@ export class ResidentAddressComponent implements OnInit, OnChanges, DoCheck {
   }
 
   SaveAddress() {
-    let tempResidentAddress;
 
+    let updatedResidentAddress;
+    let newResidentAddress;
+    
     if (this.indexSelectedAddress != undefined) {
-      tempResidentAddress = Object.assign({}, this.residentAddress);
-      this.residentAddressList[this.indexSelectedAddress] = tempResidentAddress;
+      this.residentAddress.isUpdated = true;
+      updatedResidentAddress = Object.assign({}, this.residentAddress);
+      this.residentAddressList[this.indexSelectedAddress] = updatedResidentAddress;
+      if(
+        (this.residentAddressList[this.indexSelectedAddress].isNew == false) &&
+        (this.residentAddressList[this.indexSelectedAddress].isUpdated == true) &&
+        (this.residentAddressList[this.indexSelectedAddress].isUsed == true || this.residentAddressList[this.indexSelectedAddress].isUsed == false)
+      ){
+        this.residentService.UpdateResidentAddressById(this.residentAddressList[this.indexSelectedAddress],
+        this.residentAddressList[this.indexSelectedAddress].id)
+        .then(response => {
+          if(response.isUpdated){
+            console.log(response);
+          }
+        })
+      }
+      
       this.showEditAddressButton = false;
-
     } else {
-      tempResidentAddress = Object.assign({}, this.residentAddress);
-      this.residentAddressList.push(tempResidentAddress);
-      console.log(this.residentAddressList);
+      this.residentAddress.isNew = true;
+      newResidentAddress = Object.assign({}, this.residentAddress);
+      this.residentAddressList.push(newResidentAddress);
+      
     }
 
     if (this.showAddressPanel) {
@@ -241,17 +274,23 @@ export class ResidentAddressComponent implements OnInit, OnChanges, DoCheck {
     }
 
     this.ClearResidentAddressModel();
+    
   }
 
-  // DeleteAddress(index, addressId) {
-  //   this.residentAddressList.splice(index, 1);
-  // }
-
   UseAddress(index){
-    if(this.residentAddressList[index].used == false){
-      this.residentAddressList[index].used = true
+    let residentTypeAddress;
+
+    if(this.residentAddressList[index].isUsed == false){
+      residentTypeAddress = this.residentAddressList[index].address;
+      
+      this.residentAddressList.forEach(element => {
+        if((element.address == residentTypeAddress) && (element.isUsed == true)){
+          element.isUsed = false;
+        }  
+      });
+      this.residentAddressList[index].isUsed = true
     }else{
-      this.residentAddressList[index].used = false
+      this.residentAddressList[index].isUsed = false
     }
   }
 
@@ -265,7 +304,9 @@ export class ResidentAddressComponent implements OnInit, OnChanges, DoCheck {
     this.residentAddress.postCode = '';
     this.residentAddress.address = ''
     this.residentAddress.address_type_id = 0;
-    this.residentAddress.used = false;
+    this.residentAddress.isNew = false;
+    this.residentAddress.isUpdated = false;
+    this.residentAddress.isUsed = false;
     this.selectedPostCode = [];
     this.selectedTypeAddress = [];
     this.previousSelectedPostCode = '';

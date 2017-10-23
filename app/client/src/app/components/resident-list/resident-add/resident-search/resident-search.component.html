@@ -44,7 +44,7 @@
                     <td>
                         <button (click)="ShowModal(resident.id)" type="button" data-toggle="tooltip" title="Podgląd" class="btn btn-default" aria-label="Left Align">
                             <span  class="fa fa-eye" aria-hidden="true"></span></button>
-                        <button type="button" data-toggle="tooltip" title="Dodaj rezydenta" class="btn btn-default" aria-label="Left Align">
+                        <button (click)="SendResidentToForm(resident.id)" type="button" data-toggle="tooltip" title="Dodaj rezydenta" class="btn btn-default" aria-label="Left Align">
                                     <span  class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                                 </button>
                     </td>

@@ -140,7 +140,7 @@ export class ResidentDocumentComponent implements OnInit, OnChanges, DoCheck {
     if(this.indexSelectedDocument != undefined){
       tempResidentDocument  = Object.assign({}, this.residentDocument);
       this.residentDocumentList[this.indexSelectedDocument] = tempResidentDocument;
-      console.log(tempResidentDocument);
+      
       this.residentService.UpdateResidentDocumentById(tempResidentDocument, this.idSelectedDocument)
       .then(()=>{
         this.residentService.GetResidentDocumentsById(this.residentId)
@@ -153,7 +153,7 @@ export class ResidentDocumentComponent implements OnInit, OnChanges, DoCheck {
       this.residentDocument.residentId = this.residentId;
       tempResidentDocument  = Object.assign({}, this.residentDocument);
       this.residentDocumentList.push(tempResidentDocument);
-      console.log(tempResidentDocument);
+      
       this.residentService.CreateNewResidentDocument(tempResidentDocument)
       .then((response)=>{
         console.log(response);

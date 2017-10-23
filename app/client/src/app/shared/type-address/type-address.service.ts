@@ -29,12 +29,12 @@ export class TypeAddressService{
             ).catch();
     }
 
-    GetTypeAddressById(typeAddressId:number): Promise<TypeAddress[]>{
+    GetTypeAddressById(typeAddressId:number): Promise<TypeAddress>{
         
         return this.http.get(this.typeAddressUrl +'/' + typeAddressId.toString())
             .toPromise()
             .then(response => 
-                response.json() as TypeAddress[]
+                response.json() as TypeAddress
             ).catch();
     }
 }

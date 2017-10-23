@@ -2,6 +2,7 @@ import { Component, EventEmitter, Output, OnInit, DoCheck, OnChanges } from '@an
 import { ActivatedRoute, ParamMap, Router, RouterLinkActive, RouterLink } from '@angular/router';
 import { Location } from '@angular/common';
 import { ResidentService } from '../../../shared/resident/resident.service';
+import { TypeAddressService } from '../../../shared/type-address/type-address.service';
 import { UserSessionService } from '../../../shared/user-session.service';
 
 
@@ -18,6 +19,9 @@ export class ResidentAddComponent implements OnInit, DoCheck, OnChanges {
   private residentAddressList;
   private residentDocumentList;
   private residentDormitory;
+  private residentPersonalDataFromSearchResident;
+  private residentAddressListFromSearchResident;
+  private residentDocumentListFromSearchResident;
   private residentId;
   private dormitoryId;
   private documentId;
@@ -33,7 +37,8 @@ export class ResidentAddComponent implements OnInit, DoCheck, OnChanges {
     private route: ActivatedRoute, 
     private location: Location, 
     private residentService: ResidentService, 
-    private userSessionService: UserSessionService, 
+    private userSessionService: UserSessionService,
+    private typeAddressService: TypeAddressService 
   ) 
   { 
     this.residentId = 0;
@@ -44,46 +49,67 @@ export class ResidentAddComponent implements OnInit, DoCheck, OnChanges {
     this.showAddButtons = true;
     this.isResidentAddressTableOpen = true;
     this.isResidentDocumentTableOpen = true;
+    this.residentAddressListFromSearchResident = [];
+    this.residentDocumentListFromSearchResident = [];
 
-    
+    this.residentPersonalDataFromSearchResident = {
+      id: '',
+      name: '',
+      surname: '',
+      genre: '',
+      phoneNumber: '',
+      birthDate: '',
+      birthPlace: '',
+      motherName: '',
+      fatherName: '',
+      pesel: '',
+      citzenship:'',
+      serialNumber: '',
+      isExist: false,
+      citzenshipCodeId: 0
+    }
   }
 
   ngOnInit() {
     this.dormitoryId = this.userSessionService.GetChosenDormitoryId();
-    console.log(this.dormitoryId);
   }
 
   ngDoCheck(){
   }
 
   ngOnChanges(){
-  
   }
 
   GetResidentPersonalData(residentPersonalData){
     this.residentPersonalData = residentPersonalData;
-    // console.log(this.residentPersonalData);
-    // console.log('resident-personal-data');
   }
 
   GetResidentAddress(residentAddressList){
     this.residentAddressList = residentAddressList;
-    // console.log(this.residentAddressList);
-    // console.log('resident-edit-address');
- 
   }
   
   GetResidentDocument(residentDocumentList){
     this.residentDocumentList = residentDocumentList;
-    // console.log(this.residentDocumentList);
-    // console.log('resident-edit-document');
-  
   }
 
   GetResidentDormitory(residentDormitory){
     this.residentDormitory = residentDormitory;
-    // console.log(this.residentDormitory);
-    // console.log('resident-edit-dormitory');
+  }
+  GetResidentPersonalDataFromSearchResident(residentPersonalData){    
+    this.residentPersonalDataFromSearchResident = residentPersonalData;
+  }
+  GetResidentAddressListFromSearchResident(residentAddressList){
+    this.residentAddressListFromSearchResident = residentAddressList;
+  }
+  GetResidentDocumentListFromSearchResident(residentDocumentList){
+    this.residentDocumentListFromSearchResident = residentDocumentList;
+  }
+
+  GetShowResidentSearch(showResidentSearch){
+    this.showResidentSearch = showResidentSearch;
+  }
+  GetShowResidentAddForm(showResidentAddForm){
+    this.showResidentAddForm = showResidentAddForm;
   }
 
   GoBack():void{
@@ -94,28 +120,148 @@ export class ResidentAddComponent implements OnInit, DoCheck, OnChanges {
 
   CreateNewResident():void{
     
+    let residentNewAddressesList = [];
+    let residentAddressIds = {
+      tempIdAddress: 0,
+      regularIdAddress: 0
+    };
+    let residentDocumentIdsList = [];
+    let totalAmountAddresses = 0;
+    
+    // console.log(this.residentAddressList); 
+    // console.log(this.residentDocumentList);
     console.log(this.residentPersonalData);
-    this.residentService.CreateNewResidentPersonalData(this.residentPersonalData)
-    .then(newResident =>{
-      console.log(newResident);
-      this.residentId = newResident.id;
-      this.residentAddressList.forEach(element => {
-        element.resident_id = this.residentId;
-      });
+    if(this.residentPersonalData.isExist){
 
-      this.residentDocumentList.forEach(element => {
-        element.resident_id = this.residentId;
-      });
-      
+      this.residentService.UpdateResidentPersonalDataById(this.residentPersonalData, this.residentPersonalData.id)
+      .then(response =>{
+        if(response.isUpdated){
+          
+          this.residentAddressList.forEach(element => {
+           
+            if((element.isNew == true) && (element.isUsed == true)){
+              residentNewAddressesList.push(element);
+              totalAmountAddresses++;
+            }
+          });
+          
+          if(residentNewAddressesList.length < 2){
+            let residentAddress;
+            this.residentAddressList.forEach(element => {
+              if((element.isNew == false) && (element.isUpdated == true) && (element.isUsed == true)){
+                if(element.address == "Stały"){
+                  residentAddressIds.regularIdAddress = element.id;
+                  totalAmountAddresses++;
+                }else{
+                  residentAddressIds.tempIdAddress = element.id;
+                  totalAmountAddresses++;
+                }
+              }
+            });
+          }
+          if(totalAmountAddresses < 2){
+            this.residentAddressList.forEach(element => {
+              if((element.isNew == false) && (element.isUpdated == false) && (element.isUsed == true)){
+                if(element.address == "Stały"){
+                  residentAddressIds.regularIdAddress = element.id;
+                }else{
+                  residentAddressIds.tempIdAddress = element.id;
+                }
+             }
+            });
+          }       
+          if(residentNewAddressesList.length > 0){
+            residentNewAddressesList.forEach(element => {
+              element.resident_id = this.residentPersonalData.id;
+            });
+            this.residentService.CreateNewResidentAddress(residentNewAddressesList) 
+            .then(response =>{
+              if(response.isCreated){
+                response.newResidentAddresses.forEach(element => {
+                  if(element.address_type_id == 1){
+                    residentAddressIds.regularIdAddress = element.id;
+                  }else{
+                    residentAddressIds.tempIdAddress = element.id;
+                  }   
+                });
+              }  
+            })
+          }
+          //place for documents
+        }else{
+          console.log(response.errorMessage);
+        }
+      })
+  }else{
+    this.residentService.CreateNewResidentPersonalData(this.residentPersonalData)
+    .then(response =>{
+      if(response.isCreated){
+        this.residentId = response.newResident[0].id;
+        
+        this.residentAddressList.forEach(element => {
+          
+           if((element.isNew == true) && (element.isUsed == true)){
+             residentNewAddressesList.push(element);
+             totalAmountAddresses++;
+           }
+         });
+         
+         if(residentNewAddressesList.length < 2){
+           let residentAddress;
+           this.residentAddressList.forEach(element => {
+             if((element.isNew == false) && (element.isUpdated == true) && (element.isUsed == true)){
+               if(element.address == "Stały"){
+                 residentAddressIds.regularIdAddress = element.id;
+                 totalAmountAddresses++;
+               }else{
+                 residentAddressIds.tempIdAddress = element.id;
+                 totalAmountAddresses++;
+               }
+             }
+           });
+         }
+         if(totalAmountAddresses < 2){
+           this.residentAddressList.forEach(element => {
+             if((element.isNew == false) && (element.isUpdated == false) && (element.isUsed == true)){
+               if(element.address == "Stały"){
+                 residentAddressIds.regularIdAddress = element.id;
+               }else{
+                 residentAddressIds.tempIdAddress = element.id;
+               }
+            }
+           });
+         }       
+         if(residentNewAddressesList.length > 0){
+           residentNewAddressesList.forEach(element => {
+             element.resident_id = this.residentId;
+           });
+           this.residentService.CreateNewResidentAddress(residentNewAddressesList) 
+           .then(response =>{
+             if(response.isCreated){
+               response.newResidentAddresses.forEach(element => {
+                 if(element.address_type_id == 1){
+                   residentAddressIds.regularIdAddress = element.id;
+                 }else{
+                   residentAddressIds.tempIdAddress = element.id;
+                 }   
+               });
+               
+             }  
+           })
+         }
+        //place for documents
+      }else{
+        console.log(response.errorMessage);
+      }
+
+    })
+       
+  }
+ 
       // console.log(this.residentAddressList);
       // console.log(this.residentDocumentList);
       
-
-      this.residentService.CreateNewResidentAddress(this.residentAddressList)
-      .then((newResidentAddress) =>{
-        console.log(newResidentAddress);
-      })
-
+/*
       this.residentService.CreateNewResidentDocument(this.residentDocumentList)
       .then(newResidentDocument =>{
         // console.log(newResidentDocument);
@@ -129,7 +275,7 @@ export class ResidentAddComponent implements OnInit, DoCheck, OnChanges {
         //   location.reload();
         // })
       })
-    })
+      */
   }
 
   GetIsResidentAddressTableOpen(isResidentAddressTableOpen){
@@ -180,7 +326,7 @@ export class ResidentAddComponent implements OnInit, DoCheck, OnChanges {
     if (!this.showResidentAddForm){
       this.showResidentAddForm = true;
       this.showResidentSearch = false;
-      console.log(this.showResidentAddForm);
+     
     }
   }
 
@@ -188,7 +334,7 @@ export class ResidentAddComponent implements OnInit, DoCheck, OnChanges {
     if(!this.showResidentSearch){
       this.showResidentSearch = true;
       this.showResidentAddForm = false;
-      console.log(this.showResidentAddForm);
+     
     }
   }
   

@@ -138,7 +138,7 @@ dbClient.drop().then(() => {
                                         {name: 'Dawid', surname: 'Krawczyk', genre: 'Mężczyzna', phoneNumber: '506238823', birthDate:'1992-08-02', birthPlace: 'Inowrocław', 
                                         motherName:'Dorota', fatherName: 'Darek',pesel:'95275820583', citzenship_code_id: 2, adress_id:1},
                                         {name: 'Paweł', surname: 'Jaworski', genre: 'Mężczyzna', phoneNumber: '556284369', birthDate:'1982-03-23', birthPlace: 'Poznań', 
-                                        motherName:'Dagmara', fatherName: 'Janusz', pesel:'2351567433', citzenship_code_id: 1, adress_id:3},
+                                        motherName:'Dagmara', fatherName: 'Janusz', pesel:'23515674331', citzenship_code_id: 1, adress_id:3},
                                         {name: 'Dorota', surname: 'Pawelczyk', genre: 'Kobieta', phoneNumber: '628698423', birthDate:'1969-08-09', birthPlace: 'Olsztyn', 
                                         motherName:'Barbara', fatherName: 'Zygmunt', pesel:'28548332152', citzenship_code_id: 3, adress_id:4},
                                         {name: 'Jakub', surname: 'Piotrowski', genre: 'Mężczyzna', phoneNumber: '628874214', birthDate:'1992-02-13', birthPlace: 'Żnin', 
