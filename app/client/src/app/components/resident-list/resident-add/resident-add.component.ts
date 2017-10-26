@@ -4,7 +4,8 @@ import { Location } from '@angular/common';
 import { ResidentService } from '../../../shared/resident/resident.service';
 import { TypeAddressService } from '../../../shared/type-address/type-address.service';
 import { UserSessionService } from '../../../shared/user-session.service';
-
+import { ResidentAccountService } from '../../../shared/resident-account/resident-account.service';
+import { ResidentListService } from '../services/resident-list.serivce';
 
 @Component({
   selector: 'resident-add',
@@ -23,6 +24,7 @@ export class ResidentAddComponent implements OnInit, DoCheck, OnChanges {
   private residentAddressListFromSearchResident;
   private residentDocumentListFromSearchResident;
   private residentId;
+  private residentIdFromSearchResident;
   private dormitoryId;
   private documentId;
   private showAddButtons;
@@ -38,12 +40,15 @@ export class ResidentAddComponent implements OnInit, DoCheck, OnChanges {
     private location: Location, 
     private residentService: ResidentService, 
     private userSessionService: UserSessionService,
-    private typeAddressService: TypeAddressService 
+    private typeAddressService: TypeAddressService,
+    private residentAccountService: ResidentAccountService,
+    private residentListService: ResidentListService 
   ) 
   { 
     this.residentId = 0;
     this.dormitoryId = 0;
     this.documentId = 0;
+    this.residentIdFromSearchResident = 0;
     this.showResidentAddForm = true;
     this.showResidentSearch = false;
     this.showAddButtons = true;
@@ -95,8 +100,10 @@ export class ResidentAddComponent implements OnInit, DoCheck, OnChanges {
   GetResidentDormitory(residentDormitory){
     this.residentDormitory = residentDormitory;
   }
-  GetResidentPersonalDataFromSearchResident(residentPersonalData){    
+  GetResidentPersonalDataFromSearchResident(residentPersonalData){
+        
     this.residentPersonalDataFromSearchResident = residentPersonalData;
+    this.residentIdFromSearchResident = this.residentPersonalDataFromSearchResident.id;
   }
   GetResidentAddressListFromSearchResident(residentAddressList){
     this.residentAddressListFromSearchResident = residentAddressList;
@@ -119,75 +126,85 @@ export class ResidentAddComponent implements OnInit, DoCheck, OnChanges {
   }
 
   CreateNewResident():void{
-    
-    let residentNewAddressesList = [];
+    let newResidentAddressesList = [];
+    let newResidentDocumentsList = [];
+    let residentAccount = {
+      UID: null, 
+      password: null, 
+      validityAccountDate: null,
+      accountState: 'Odblokowany', 
+      resident_id: 0, 
+      stay_resident_id: 0, 
+      dormitory_id: 0
+    }
+    let residentDocumentId = 0;
     let residentAddressIds = {
       tempIdAddress: 0,
       regularIdAddress: 0
     };
-    let residentDocumentIdsList = [];
-    let totalAmountAddresses = 0;
     
+    console.log(this.residentPersonalData);
     // console.log(this.residentAddressList); 
     // console.log(this.residentDocumentList);
-    console.log(this.residentPersonalData);
+    // console.log(this.residentDormitory);
     if(this.residentPersonalData.isExist){
 
       this.residentService.UpdateResidentPersonalDataById(this.residentPersonalData, this.residentPersonalData.id)
       .then(response =>{
         if(response.isUpdated){
-          
+          console.log('zaaktulizowana dane personalne rezydenta');
+          console.log(response);
+          this.residentId = response.updatedResident[0].id;
           this.residentAddressList.forEach(element => {
-           
-            if((element.isNew == true) && (element.isUsed == true)){
-              residentNewAddressesList.push(element);
-              totalAmountAddresses++;
+            if(element.isUsed){
+              if(element.address == "Stały"){
+                residentAddressIds.regularIdAddress = element.id;
+              }else{
+                residentAddressIds.tempIdAddress = element.id;
+              }
             }
           });
-          
-          if(residentNewAddressesList.length < 2){
-            let residentAddress;
-            this.residentAddressList.forEach(element => {
-              if((element.isNew == false) && (element.isUpdated == true) && (element.isUsed == true)){
-                if(element.address == "Stały"){
-                  residentAddressIds.regularIdAddress = element.id;
-                  totalAmountAddresses++;
-                }else{
-                  residentAddressIds.tempIdAddress = element.id;
-                  totalAmountAddresses++;
-                }
+
+          this.residentDocumentList.forEach(element => {
+            if(element.isUsed){
+              residentDocumentId = element.id;
+            }
+          });
+          if(residentAddressIds.tempIdAddress != 0){
+            this.residentDormitory.temp_address_id = residentAddressIds.tempIdAddress;
+          }
+          if(residentAddressIds.regularIdAddress != 0){
+            this.residentDormitory.regular_address_id = residentAddressIds.regularIdAddress;
+          }
+          this.residentDormitory.document_id = residentDocumentId;
+          this.residentService.CreateNewResidentDormitoryStay(this.residentDormitory)
+          .then(response => {
+            if(response.isCreated){
+              console.log('utworzono pobyt dla istniejącego rezydenta');
+              console.log(response);
+              if(this.residentPersonalData.genre == "Mężczyzna"){
+                residentAccount.accountState = "Odblokowany";
+              }else{
+                residentAccount.accountState = "Odblokowana";
               }
-            });
-          }
-          if(totalAmountAddresses < 2){
-            this.residentAddressList.forEach(element => {
-              if((element.isNew == false) && (element.isUpdated == false) && (element.isUsed == true)){
-                if(element.address == "Stały"){
-                  residentAddressIds.regularIdAddress = element.id;
+              residentAccount.resident_id = this.residentId;
+              residentAccount.dormitory_id = this.dormitoryId;
+              residentAccount.stay_resident_id = response.newResidentStay[0].id;
+              this.residentAccountService.CreateNewResidentAccount(residentAccount)
+              .then(response => {
+                if(response.isCreated){
+                  console.log('utworzono konto dla istniejącego rezydenta');
+                  this.residentListService.SetResidentListObservable$(true);
+                  this.router.navigate(['residentList', this.dormitoryId]);
                 }else{
-                  residentAddressIds.tempIdAddress = element.id;
+                  console.log(response.errorMessage);
                 }
-             }
-            });
-          }       
-          if(residentNewAddressesList.length > 0){
-            residentNewAddressesList.forEach(element => {
-              element.resident_id = this.residentPersonalData.id;
-            });
-            this.residentService.CreateNewResidentAddress(residentNewAddressesList) 
-            .then(response =>{
-              if(response.isCreated){
-                response.newResidentAddresses.forEach(element => {
-                  if(element.address_type_id == 1){
-                    residentAddressIds.regularIdAddress = element.id;
-                  }else{
-                    residentAddressIds.tempIdAddress = element.id;
-                  }   
-                });
-              }  
-            })
-          }
-          //place for documents
+              })
+            }else{
+              console.log(response);
+            }
+
+          })
         }else{
           console.log(response.errorMessage);
         }
@@ -199,68 +216,106 @@ export class ResidentAddComponent implements OnInit, DoCheck, OnChanges {
         this.residentId = response.newResident[0].id;
         
         this.residentAddressList.forEach(element => {
-          
-           if((element.isNew == true) && (element.isUsed == true)){
-             residentNewAddressesList.push(element);
-             totalAmountAddresses++;
-           }
-         });
-         
-         if(residentNewAddressesList.length < 2){
-           let residentAddress;
-           this.residentAddressList.forEach(element => {
-             if((element.isNew == false) && (element.isUpdated == true) && (element.isUsed == true)){
-               if(element.address == "Stały"){
-                 residentAddressIds.regularIdAddress = element.id;
-                 totalAmountAddresses++;
-               }else{
-                 residentAddressIds.tempIdAddress = element.id;
-                 totalAmountAddresses++;
-               }
-             }
-           });
-         }
-         if(totalAmountAddresses < 2){
-           this.residentAddressList.forEach(element => {
-             if((element.isNew == false) && (element.isUpdated == false) && (element.isUsed == true)){
-               if(element.address == "Stały"){
-                 residentAddressIds.regularIdAddress = element.id;
-               }else{
-                 residentAddressIds.tempIdAddress = element.id;
-               }
+          if(element.isUsed){
+            element.resident_id = this.residentId;
+            newResidentAddressesList.push(element);
+          }
+          if((element.isNew == true) && (element.isUsed == false)){
+            element.resident_id = this.residentId;
+            this.residentService.CreateNewResidentAddress([element])
+            .then(response => {
+              if(response.isCreated){
+                console.log('utworzono adres ale nie wybrany dla nowego rezydenta');
+              }
+            })
+          }  
+        });
+
+        this.residentDocumentList.forEach(element => {
+          if(element.isUsed){
+            element.resident_id = this.residentId;
+            newResidentDocumentsList.push(element);
+          }
+          if((element.isNew == true) && (element.isUsed == false)){
+            element.resident_id = this.residentId;
+            this.residentService.CreateNewResidentDocument([element])
+            .then(response => {
+              if(response.isCreated){
+                console.log('utworzono dokument ale nie wybrany dla nowego rezydenta');
+              }else{
+                console.log(response);
+              }
+            })
+          }
+        });
+        
+        if(newResidentAddressesList.length > 0 && newResidentDocumentsList.length > 0){
+          this.residentService.CreateNewResidentAddress(newResidentAddressesList)
+          .then(response => {
+            if(response.isCreated){
+              console.log('utworzono nowy adres dla nowego rezyednta')
+              response.newResidentAddresses.forEach(element => {
+                if(element.address_type_id == 1){
+                  residentAddressIds.regularIdAddress = element.id;
+                }else{
+                  residentAddressIds.tempIdAddress = element.id;
+                }
+              });
+              this.residentService.CreateNewResidentDocument(newResidentDocumentsList)
+              .then(response => {
+                if(response.isCreated){
+                  console.log('utworzono nowy dokument dla nowego rezydenta');
+                  residentDocumentId = response.newResidentDocuments[0].id;
+                  
+                  if(residentAddressIds.tempIdAddress != 0){
+                    this.residentDormitory.temp_address_id = residentAddressIds.tempIdAddress;
+                  }
+                  if(residentAddressIds.regularIdAddress != 0){
+                    this.residentDormitory.regular_address_id = residentAddressIds.regularIdAddress;
+                  }
+                  
+                  this.residentDormitory.document_id = residentDocumentId;
+                  this.residentDormitory.resident_id = this.residentId;
+                  this.residentService.CreateNewResidentDormitoryStay(this.residentDormitory)
+                  .then(response => {
+                    if(response.isCreated){
+                      console.log('utworzono pobyt dla nowego rezydenta');
+                      residentAccount.resident_id = this.residentId;
+                      residentAccount.dormitory_id = this.dormitoryId;
+                      residentAccount.stay_resident_id = response.newResidentStay[0].id;
+                      this.residentAccountService.CreateNewResidentAccount(residentAccount)
+                      .then(response => {
+                        if(response.isCreated){
+                          console.log('utworzono konto dla nowego rezydenta');
+                          this.residentListService.SetResidentListObservable$(true);
+                          this.router.navigate(['residentList', this.dormitoryId]);
+                        }else{
+                          console.log(response.errorMessage);
+                        }
+                      })
+                      console.log(response);
+                    }else{
+                      console.log(response);
+                    }
+        
+                  })      
+                }else{
+                  console.log(response);
+                }
+                
+              })
+  
             }
-           });
-         }       
-         if(residentNewAddressesList.length > 0){
-           residentNewAddressesList.forEach(element => {
-             element.resident_id = this.residentId;
-           });
-           this.residentService.CreateNewResidentAddress(residentNewAddressesList) 
-           .then(response =>{
-             if(response.isCreated){
-               response.newResidentAddresses.forEach(element => {
-                 if(element.address_type_id == 1){
-                   residentAddressIds.regularIdAddress = element.id;
-                 }else{
-                   residentAddressIds.tempIdAddress = element.id;
-                 }   
-               });
-               
-             }  
-           })
-         }
-        //place for documents
+          })
+         
+          }
       }else{
+        
         console.log(response.errorMessage);
       }
-
     })
-       
   }
- 
-      // console.log(this.residentAddressList);
-      // console.log(this.residentDocumentList);
-      
+   
 /*
       this.residentService.CreateNewResidentDocument(this.residentDocumentList)
       .then(newResidentDocument =>{

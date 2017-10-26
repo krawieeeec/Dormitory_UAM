@@ -30,12 +30,12 @@ export class ResidentAccountService{
             ).catch();
     }
 
-    CreateNewResidentAccount(newResidentAccount): Promise<ResidentAccount>{
+    CreateNewResidentAccount(newResidentAccount): Promise<any>{
 
         return this.http.post(this.residentAccountUrl, newResidentAccount)
         .toPromise()
         .then(response =>
-            response.json() as ResidentAccount)
+            response.json() as any )
         .catch();
     }
 

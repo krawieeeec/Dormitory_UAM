@@ -34,10 +34,13 @@ export class ResidentDocumentComponent implements OnInit, OnChanges, DoCheck {
   private residentDocumentList;
   private showEditDocumentButton;
   private indexSelectedDocument;
+  private residentId;
 
   @Output()emitResidentDocumentList;
   @Output()emitIsResidentDocumentTableOpen;
   @Input() getResidentDocumentList: Array<any>;
+  @Input() getResidentId;
+
 
   constructor(
     private residentService : ResidentService, 
@@ -88,7 +91,8 @@ export class ResidentDocumentComponent implements OnInit, OnChanges, DoCheck {
     this.residentDocumentList = [];
     this.showEditDocumentButton = false;
     this.indexSelectedDocument = 0;
-
+    this.getResidentId = 0;
+    this.residentId = 0;
   }
 
   ngOnInit() {
@@ -105,27 +109,17 @@ export class ResidentDocumentComponent implements OnInit, OnChanges, DoCheck {
 
   ngOnChanges() {
 
-    let tempResidentDocument;
+    if(this.getResidentId != 0){
+      this.residentId = this.getResidentId;
+    }
+
     this.residentDocumentList = [];
-    
-    this.getResidentDocumentList.forEach(element => {
-
-      this.residentDocument.serialNumber = element.serial_number;
-      this.residentDocument.issuingCountry = element.issuing_country;
-      this.residentDocument.releaseDate = element.release_date;
-      this.residentDocument.expirationDate = element.expiration_date;
-      this.residentDocument.typeDocument = element.type_document;
-      this.residentDocument.document_type_id = element.document_type_id;
-      this.residentDocument.resident_id = element.resident_id;
-      this.residentDocument.isUsed = false;
-      this.residentDocument.isNew = false;
-      this.residentDocument.isUpdated = false;
-
-      tempResidentDocument = Object.assign({}, this.residentDocument);
-      this.residentDocumentList.push(tempResidentDocument);
-
+    this.residentDocumentList = this.getResidentDocumentList;    
+    this.residentDocumentList.forEach(element => {
+      element.isUsed = false;
+      element.isNew = false;
+      element.isUpdated = false;
     });
-
   }  
 
   ngDoCheck() {
@@ -164,18 +158,51 @@ export class ResidentDocumentComponent implements OnInit, OnChanges, DoCheck {
   }
 
   SaveDocument() {
-    let tempResidentDocument;
+    let newResidentDocument;
     
     if (this.indexSelectedDocument != undefined) {
       this.residentDocument.isUpdated = true;
-      tempResidentDocument = Object.assign({}, this.residentDocument);
-      this.residentDocumentList[this.indexSelectedDocument] = tempResidentDocument;
-      console.log(this.residentDocumentList);
-    } else {
-      this.residentDocument.isNew = true;
-      tempResidentDocument = Object.assign({}, this.residentDocument);
-      this.residentDocumentList.push(tempResidentDocument);
-      console.log(this.residentDocumentList);
+      newResidentDocument = Object.assign({}, this.residentDocument);
+      this.residentDocumentList[this.indexSelectedDocument] = newResidentDocument;
+      if(
+        (this.residentDocumentList[this.indexSelectedDocument].isNew == false || this.residentDocumentList[this.indexSelectedDocument].isNew == true) &&
+        (this.residentDocumentList[this.indexSelectedDocument].isUpdated == true) &&
+        (this.residentDocumentList[this.indexSelectedDocument].isUsed == true || this.residentDocumentList[this.indexSelectedDocument].isUsed == false)
+      ){
+        this.residentService.UpdateResidentDocumentById(this.residentDocumentList[this.indexSelectedDocument],
+        this.residentDocumentList[this.indexSelectedDocument].id)
+        .then(response => {
+          if(response.isUpdated){
+            console.log('zaktualizowano dokument');         
+          }else{
+            console.log(response.errorMessage);
+          }
+        })
+      } 
+    }else {
+      if(this.getResidentId == 0){
+        this.residentDocument.isNew = true;
+        newResidentDocument = Object.assign({}, this.residentDocument);
+        this.residentDocumentList.push(newResidentDocument); 
+      }else{
+        this.residentDocument.isNew = true;
+        newResidentDocument = Object.assign({}, this.residentDocument);
+        newResidentDocument.resident_id = this.getResidentId;
+        this.residentService.CreateNewResidentDocument([newResidentDocument])
+        .then(response =>{
+          if(response.isCreated){
+            console.log('utworzno dokument');
+            newResidentDocument.id = response.newResidentDocuments[0].id;
+            this.residentDocumentList.push(newResidentDocument);
+          }else{
+            console.log(response.errorMessage);
+          }
+        })
+      
+      }
+      
+      
+      
     }
 
     this.ClearResidentDocumentModel();
@@ -196,7 +223,7 @@ export class ResidentDocumentComponent implements OnInit, OnChanges, DoCheck {
       this.showDocumentForm = true;
       this.emitIsResidentDocumentTableOpen.emit(!this.showDocumentForm);
     }
-
+    this.residentDocument.id = this.residentDocumentList[index].id;
     this.residentDocument.releaseDate = this.residentDocumentList[index].releaseDate;
     this.residentDocument.serialNumber = this.residentDocumentList[index].serialNumber;
     this.residentDocument.expirationDate = this.residentDocumentList[index].expirationDate;
@@ -206,6 +233,7 @@ export class ResidentDocumentComponent implements OnInit, OnChanges, DoCheck {
     this.residentDocument.isNew = this.residentDocumentList[index].isNew;
     this.residentDocument.isUpdated = this.residentDocumentList[index].isUpdated;
     this.residentDocument.document_type_id = this.residentDocumentList[index].document_type_id;
+    this.residentDocument.resident_id = this.residentDocumentList[index].resident_id;
 
     this.selectedTypeDocument.push(this.residentDocument.document_type_id);
 

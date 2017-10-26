@@ -30,7 +30,8 @@ var residentAddressController = {
         
         let response = {
             isCreated: false,
-            newResidentAddresses: []
+            newResidentAddresses: [],
+            errorMessage: {}
         }
 
         residentAddressTable.bulkCreate(req.body)
@@ -50,7 +51,8 @@ var residentAddressController = {
             })
             }).catch(error => {
                 response.isCreated = false;
-                res.send(error);
+                response.errorMessage = error;
+                res.send(response);
         })
     },
 
@@ -80,7 +82,8 @@ var residentAddressController = {
 
         let response = {
             isUpdated: false,
-            updatedResidentAddress: []
+            updatedResidentAddress: [],
+            errorMessage: {}
         }
         residentAddressTable.update(
             req.updateResidentAddress, 
@@ -99,6 +102,7 @@ var residentAddressController = {
                 {
                     res.status(400);
                     response.isUpdated = false;
+                    response.errorMessage = error;
                     res.send(response);
                 }
             )

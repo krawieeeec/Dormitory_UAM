@@ -161,7 +161,7 @@ export class ResidentSearchComponent implements OnInit, DoCheck, OnChanges {
     let tempResidentPersonalData;
     this.residentService.GetResidentPersonalDataById(residentId)
     .then(residentPersonalData => {
-      
+      console.log(residentPersonalData);
       this.residentPersonalData.id = residentPersonalData[0].id;
       this.residentPersonalData.name = residentPersonalData[0].name;
       this.residentPersonalData.surname = residentPersonalData[0].surname;
@@ -191,8 +191,10 @@ export class ResidentSearchComponent implements OnInit, DoCheck, OnChanges {
         .then(residentDocumentList =>{
           
           if(this.residentPersonalData.citzenship != 'Polskie'){
-            
-            this.residentPersonalData.serialNumber = residentDocumentList[0].serial_number;
+            console.log(residentDocumentList);
+            //To do -> na sztywno ustawiony element z listy dokumentów w przypadku seryjnego numeru. chujowo
+            this.residentPersonalData.serialNumber = residentDocumentList[0].serialNumber;
+            console.log(this.residentPersonalData);
             tempResidentPersonalData = Object.assign({}, this.residentPersonalData);
             this.emitResidentPeronalData.emit(tempResidentPersonalData);
           }

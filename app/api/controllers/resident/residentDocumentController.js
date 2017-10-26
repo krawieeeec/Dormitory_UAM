@@ -10,27 +10,50 @@ var residentDocumentController = {
         res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
         //res.setHeader('Access-Control-Allow-Credentials', true);
         
-        let updateResidentDocument = {
+        let updatedResidentDocument = {
+            id: req.body.id,
             serialNumber: req.body.serialNumber,
             releaseDate: req.body.releaseDate,
             expirationDate: req.body.expirationDate,
             issuingCountry: req.body.issuingCountry,
             typeDocument: req.body.typeDocument,  
-            document_type_id: req.body.documentTypeId
+            document_type_id: req.body.document_type_id,
+            resident_id: req.body.resident_id
         }
 
-        req.updateResidentDocument = updateResidentDocument;
+        req.updatedResidentDocument = updatedResidentDocument;
         next();
     },
 
     CreateNewResidentDocument: function(req, res){
         
-        //req.body is used because it has array of documents.
+        let response = {
+            isCreated: false,
+            newResidentDocuments: [],
+            errorMessage: {}
+        }
+        
         documentTable.bulkCreate(req.body)
-        .then((residentDocumentList) => {
-                res.send(residentDocumentList);
+        .then(() => {
+            console.log(req.body.length);
+            documentTable.findAll({
+                limit: req.body.length,
+                order:[
+                    ['id', 'desc']
+                ]
+            }).then(newResidentDocuments => {
+                // console.log(newResidentDocuments);
+                response.isCreated = true;
+                newResidentDocuments.forEach(function(element) {
+                    // console.log(element);
+                    response.newResidentDocuments.push(element.dataValues);   
+                }, this);
+                res.send(response);
+            })
             }).catch(error => {
-                res.send(error);
+                response.isCreated = false;
+                response.errorMessage = error;
+                res.send(response);
         })
     },
 
@@ -38,7 +61,8 @@ var residentDocumentController = {
         let residentId = req.params.id
 
         sequelize.query(
-            'SELECT documents.id, serial_number, release_date, expiration_date, issuing_country, type_document, document_type_id, resident_id FROM documents '+ 
+            'SELECT documents.id, serial_number as "serialNumber", release_date as "releaseDate", expiration_date as "expirationDate", '+
+            'issuing_country as "issuingCountry", type_document as "typeDocument", document_type_id, resident_id FROM documents '+ 
             'INNER JOIN type_documents ON documents.document_type_id = type_documents.id '+
             'WHERE resident_id = :id ORDER BY documents.id',
             {replacements: {id: residentId}, type: sequelize.QueryTypes.SELECT }).
@@ -55,23 +79,31 @@ var residentDocumentController = {
     
     UpdateResidentDocumentById: function(req, res){
 
-        let residentId = req.params.id;
+        let response = {
+            isUpdated: false,
+            updatedResidentDocument: [],
+            errorMessage: {}
+        }
+        console.log(req.updatedResidentDocument);
         documentTable.update(
-            req.updateResidentDocument, 
+            req.updatedResidentDocument, 
             {
                 where: {
-                    id: residentId
+                    id: req.updatedResidentDocument.id
                 },
                 returning: true
             }
-            ).then((response) => {
-                res.status(200);
-                res.send(response);
+            ).then((updatedResidentDocument) => {
+                response.isUpdated = true;
+                response.updatedResidentDocument.push(updatedResidentDocument[1][0].dataValues);
+                res.send(response);            
             }).catch(
                 error => 
                 {
                     res.status(400);
-                    res.send(error);
+                    response.isUpdated = false;
+                    response.errorMessage = error;
+                    res.send(response);
                 }
             )
     },

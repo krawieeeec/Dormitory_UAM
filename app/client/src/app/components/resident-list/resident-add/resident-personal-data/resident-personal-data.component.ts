@@ -104,16 +104,17 @@ export class ResidentPersonalDataComponent implements OnChanges, OnInit, DoCheck
   ngOnChanges() {
 
     this.residentPersonalData = this.getResidentPersonalData;
+    console.log(this.residentPersonalData);
     if((this.residentPersonalData.citzenship != 'Polskie') && (this.residentPersonalData.citzenship != "")){
       this.isResidentForeigner = true;
       this.residentPersonalData.serialNumber = this.getResidentPersonalData.serialNumber;
-      this.residentPersonalData = null;
+      this.residentPersonalData.pesel = null;
     }else{
       this.isResidentForeigner = false;
       this.residentPersonalData.pesel = this.getResidentPersonalData.pesel;
       this.residentPersonalData.serialNumber = null;
     }
-    
+    console.log(this.residentPersonalData);
     this.selectedCitzenship.push(this.residentPersonalData.citzenshipCodeId);
     
     this.CheckIsResidentExist();

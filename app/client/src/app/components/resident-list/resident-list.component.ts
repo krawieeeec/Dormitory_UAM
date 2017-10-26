@@ -41,12 +41,14 @@ export class ResidentListComponent implements OnInit, DoCheck, OnDestroy{
                 this.residentsList = [];
             }else{
                 this.residentsList = residents;
+                console.log(residents);
             }
         });
         
         this.residentListService.GetResidentListObservable$()
         .subscribe(updateResidentList =>{
             if(updateResidentList){
+                console.log('POBIERAM');
                 this.route.paramMap
                 .switchMap((params: ParamMap) => this.dormitoryService.GetResidentsOfCurrentDormitoryById(+params.get('id')))
                 .subscribe(residents => {
@@ -54,6 +56,7 @@ export class ResidentListComponent implements OnInit, DoCheck, OnDestroy{
                         this.residentsList = [];
                     }else{
                         this.residentsList = residents;
+                        console.log(residents);
                     }
                 });
             }

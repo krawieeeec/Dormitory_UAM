@@ -6,17 +6,18 @@ var accountResidentModel = dbClient.define('accountResident', {
     { 
         type: sequelize.INTEGER, 
     //    primaryKey: true,
+        allowNull: true,
         field: 'uid'
        },
     password: 
     { 
         type: sequelize.STRING(20), 
-        allowNull: false
+        allowNull: true
     },
     validityAccountDate: 
     { 
         type: sequelize.DATEONLY, 
-        allowNull: false, 
+        allowNull: true, 
         field: 'validity_account_date' 
     },
     accountState: 

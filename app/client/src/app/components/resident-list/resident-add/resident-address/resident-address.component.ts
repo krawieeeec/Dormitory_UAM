@@ -37,6 +37,7 @@ export class ResidentAddressComponent implements OnInit, OnChanges, DoCheck {
   private previousSelectedTypeAddress;
 
   private residentAddress;
+  private residentId;
   private showAddressPanel;
   private showEditAddressButton;
   private indexSelectedAddress;
@@ -46,6 +47,7 @@ export class ResidentAddressComponent implements OnInit, OnChanges, DoCheck {
   @Output() emitResidentAddressList;
   @Output() emitIsResidentAddressTableOpen;
   @Input() getResidentAddressList: Array<object>; 
+  @Input() getResidentId;
 
   constructor(
     private residentService : ResidentService, 
@@ -116,6 +118,8 @@ export class ResidentAddressComponent implements OnInit, OnChanges, DoCheck {
     this.residentAddressList = [];
     this.getResidentAddressList = [];
     this.setHoverClass = false;
+    this.residentId = 0;
+    this.getResidentId = 0;
   }
 
   /////////////////////////////////////////LIFE CYCLE OF COMPONENT///////////////////////////////////////////////
@@ -140,9 +144,12 @@ export class ResidentAddressComponent implements OnInit, OnChanges, DoCheck {
   }
 
   ngOnChanges() {
+    if(this.getResidentId != 0){
+      this.residentId = this.getResidentId;
+    }
+
     this.residentAddressList = [];
     this.residentAddressList = this.getResidentAddressList;
-    console.log(this.residentAddressList);
     this.residentAddressList.forEach(element => {
       element.isUsed = false;
       element.isNew = false;
@@ -247,7 +254,7 @@ export class ResidentAddressComponent implements OnInit, OnChanges, DoCheck {
       updatedResidentAddress = Object.assign({}, this.residentAddress);
       this.residentAddressList[this.indexSelectedAddress] = updatedResidentAddress;
       if(
-        (this.residentAddressList[this.indexSelectedAddress].isNew == false) &&
+        (this.residentAddressList[this.indexSelectedAddress].isNew == false || this.residentAddressList[this.indexSelectedAddress].isNew == true) &&
         (this.residentAddressList[this.indexSelectedAddress].isUpdated == true) &&
         (this.residentAddressList[this.indexSelectedAddress].isUsed == true || this.residentAddressList[this.indexSelectedAddress].isUsed == false)
       ){
@@ -255,6 +262,7 @@ export class ResidentAddressComponent implements OnInit, OnChanges, DoCheck {
         this.residentAddressList[this.indexSelectedAddress].id)
         .then(response => {
           if(response.isUpdated){
+            console.log('zaaktualizowano adres');
             console.log(response);
           }
         })
@@ -262,10 +270,25 @@ export class ResidentAddressComponent implements OnInit, OnChanges, DoCheck {
       
       this.showEditAddressButton = false;
     } else {
-      this.residentAddress.isNew = true;
-      newResidentAddress = Object.assign({}, this.residentAddress);
-      this.residentAddressList.push(newResidentAddress);
-      
+      if(this.getResidentId == 0){
+        this.residentAddress.isNew = true;
+        newResidentAddress = Object.assign({}, this.residentAddress);
+        this.residentAddressList.push(newResidentAddress);
+      }else{
+        this.residentAddress.isNew = true;
+        newResidentAddress = Object.assign({}, this.residentAddress);
+        newResidentAddress.resident_id = this.getResidentId;
+        this.residentService.CreateNewResidentAddress([newResidentAddress])
+        .then(response =>{
+          if(response.isCreated){
+            console.log('utworzono adres');
+            newResidentAddress.id = response.newResidentAddresses[0].id;
+            this.residentAddressList.push(newResidentAddress);
+          }else{
+            console.log(response.errorMessage);
+          }
+        })
+      }      
     }
 
     if (this.showAddressPanel) {

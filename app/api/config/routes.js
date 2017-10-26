@@ -33,7 +33,7 @@ router.route('/resident/:id/personalData').put(residentPersonalDataCtrl.UpdateRe
 router.use(residentDocumentCtrl.FormResponseObject);
 router.route('/resident/document').post(residentDocumentCtrl.CreateNewResidentDocument);
 router.route('/resident/:id/document').get(residentDocumentCtrl.GetResidentDocumentsById);
-router.route('/resident/:id/document').put(residentDocumentCtrl.UpdateResidentDocumentById);
+router.route('/resident/document').put(residentDocumentCtrl.UpdateResidentDocumentById);
 router.route('/resident/:id/document').delete(residentDocumentCtrl.DeleteResidentDocumentById);
 
 

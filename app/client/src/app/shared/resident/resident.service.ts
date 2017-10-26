@@ -41,19 +41,19 @@ export class ResidentService{
         .catch();
     }
 
-    CreateNewResidentDocument(newResidentDocumentList): Promise<Array<ResidentDocument>>{
+    CreateNewResidentDocument(newResidentDocumentList): Promise<any>{
         return this.http.post(this.residentUrl + '/document', newResidentDocumentList)
         .toPromise()
         .then(response =>
-            response.json() as Array<ResidentDocument> )
+            response.json() as any )
         .catch();
     }
 
-    CreateNewResidentDormitoryStay(newResidentDormitoryStay): Promise<ResidentDormitory>{
+    CreateNewResidentDormitoryStay(newResidentDormitoryStay): Promise<any>{
         return this.http.post(this.residentUrl + '/dormitory', newResidentDormitoryStay)
         .toPromise()
         .then(response =>
-            response.json() as ResidentDormitory)
+            response.json() as any)
         .catch();
     }
     

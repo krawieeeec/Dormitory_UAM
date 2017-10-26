@@ -42,13 +42,13 @@
                 <resident-personal-data [getResidentPersonalData]="residentPersonalDataFromSearchResident" (emitResidentPersonalData)="GetResidentPersonalData($event)"></resident-personal-data>
             </div>
             <div id="placeOfResidence" class="tab-pane">
-                <resident-address [getResidentAddressList]="residentAddressListFromSearchResident" (emitIsResidentAddressTableOpen)="GetIsResidentAddressTableOpen($event)" (emitResidentAddressList)="GetResidentAddress($event)"></resident-address>
+                <resident-address [getResidentId]="residentIdFromSearchResident" [getResidentAddressList]="residentAddressListFromSearchResident" (emitIsResidentAddressTableOpen)="GetIsResidentAddressTableOpen($event)" (emitResidentAddressList)="GetResidentAddress($event)"></resident-address>
             </div>
             <div id="document" class="tab-pane">
-                <resident-document [getResidentDocumentList]="residentDocumentListFromSearchResident" (emitIsResidentDocumentTableOpen)="GetIsResidentDocumentTableOpen($event)" (emitResidentDocumentList)="GetResidentDocument($event)"></resident-document>
+                <resident-document [getResidentId]="residentIdFromSearchResident" [getResidentDocumentList]="residentDocumentListFromSearchResident" (emitIsResidentDocumentTableOpen)="GetIsResidentDocumentTableOpen($event)" (emitResidentDocumentList)="GetResidentDocument($event)"></resident-document>
             </div>
             <div id="dormitory" class="tab-pane">
-                <resident-dormitory (emitResidentDormitory)="GetResidentDormitory($event)"></resident-dormitory>
+                <resident-dormitory [getResidentId]="residentIdFromSearchResident" (emitResidentDormitory)="GetResidentDormitory($event)"></resident-dormitory>
             </div>
         </div>
     </div>

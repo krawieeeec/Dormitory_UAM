@@ -16,9 +16,11 @@ var residentDormitoryController = {
             roomNumber: req.body.roomNumber,
             dateCrossRp: req.body.dateCrossRp,
             comments: req.body.comments,
-            dormitory_id: req.body.dormitoryId,
-            document_id: req.body.documentId,
-            resident_id: req.body.residentId 
+            dormitory_id: req.body.dormitory_id,
+            document_id: req.body.document_id,
+            resident_id: req.body.resident_id,
+            temp_address_id: req.body.temp_address_id,
+            regular_address_id: req.body.regular_address_id 
         }
 
         req.newResidentStay = newResidentStay; 
@@ -26,11 +28,22 @@ var residentDormitoryController = {
     },
 
     CreateNewResidentStay: function(req, res){
+
+        let response = {
+            isCreated: false,
+            newResidentStay: [],
+            errorMessage: {}
+        }
+
         stayResidentTable.create(req.newResidentStay)
         .then((newResidentStay) => {
-                res.send(newResidentStay);
+                response.isCreated = true;
+                response.newResidentStay.push(newResidentStay)
+                res.send(response);
             }).catch(error => {
-                res.send(error);
+                response.isCreated = false;
+                response.errorMessage = error;
+                res.send(response);
         })
     },
 

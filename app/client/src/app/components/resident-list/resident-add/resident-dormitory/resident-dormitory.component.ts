@@ -13,8 +13,10 @@ import { UserSessionService } from '../../../../shared/user-session.service';
 export class ResidentDormitoryComponent implements OnInit {
 
   private residentDormitory;
+  private residentId;
 
   @Output() emitResidentDormitory;
+  @Input() getResidentId;
 
   constructor(
     private residentService: ResidentService,
@@ -28,18 +30,27 @@ export class ResidentDormitoryComponent implements OnInit {
       roomNumber: 0,
       dateCrossRp: '',
       comments: '',
-      dormitoryId: 0,
-      documentId: 0,
-      residentId: 0
+      dormitory_id: 0,
+      temp_address_id: null,
+      regular_address_id: 0,
+      document_id: 0,
+      resident_id: 0
     }
     this.emitResidentDormitory = new EventEmitter<object>();
+    this.getResidentId = 0;
+    this.residentId = 0;
   }
 
   ngOnInit() {  
-    this.residentDormitory.dormitoryId = this.userSession.GetChosenDormitoryId();
+    this.residentDormitory.dormitory_id = this.userSession.GetChosenDormitoryId();
   }
   
   ngOnChanges(){
+    if(this.getResidentId != 0){
+      this.residentId = this.getResidentId;
+      this.residentDormitory.resident_id = this.residentId;
+      
+    }
 
   }
   

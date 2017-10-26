@@ -15,8 +15,9 @@ var residentAccountController = {
             password: req.body.password,
             validityAccountDate: req.body.validityAccountDate,
             accountState: req.body.accountState,
-            resident_id: req.body.residentId,
-            dormitory_id: req.body.dormitoryId,
+            resident_id: req.body.resident_id,
+            dormitory_id: req.body.dormitory_id,
+            stay_resident_id: req.body.stay_resident_id
         }
         let updateResidentAccount = {
            // UID: req.body.UID,
@@ -31,11 +32,22 @@ var residentAccountController = {
     },
 
     CreateNewResidentAccount: function(req, res){
+
+        let response = {
+            isCreated: false,
+            newResidentAccount: [],
+            errorMessage: {}
+        }
+
         residentAccountTable.create(req.newResidentAccount)
         .then((newResidentAccount) => {
-                res.send(newResidentAccount);
+                response.isCreated = true;
+                response.newResidentAccount.push(newResidentAccount);
+                res.send(response);
             }).catch(error => {
-                res.send(error);
+                response.isCreated = false;
+                response.errorMessage = error;
+                res.send(response);
         })
     },
 

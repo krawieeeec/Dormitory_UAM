@@ -34,12 +34,13 @@ var dormitoryController = {
         let dormitoryId = req.params.id
 
         sequelize.query(
-            'SELECT residents.id, name, surname, room_number, date_of_arrival, date_of_departure, account_state ' +
-            'FROM residents INNER JOIN stay_residents ON residents.id = stay_residents.resident_id ' +
-            'INNER JOIN account_residents ON account_residents.resident_id = residents.id ' +
-            'WHERE residents.id IN (SELECT resident_id FROM stay_residents WHERE dormitory_id = :id) ',
+            'SELECT residents.id, name, surname, room_number, date_of_arrival, date_of_departure, account_state '+
+            'FROM (residents INNER JOIN account_residents on residents.id = account_residents.resident_id) ' +
+            'INNER JOIN stay_residents on account_residents.stay_resident_id = stay_residents.id ' +
+            'WHERE account_residents.dormitory_id = :id ',
             {replacements: {id: dormitoryId}, type: sequelize.QueryTypes.SELECT }).
                 then(residents => {
+                    console.log(residents);
                     if(residents.length > 0){
                         res.status(200);
                         res.send(JSON.stringify(residents));
