@@ -46,7 +46,6 @@ export class ResidentPersonalDataComponent implements OnChanges, OnInit, DoCheck
         fatherName: '',
         pesel: '',
         citzenship:'',
-        serialNumber: '',
         isExist: false,
         citzenshipCodeId: 0
       }
@@ -104,20 +103,9 @@ export class ResidentPersonalDataComponent implements OnChanges, OnInit, DoCheck
   ngOnChanges() {
 
     this.residentPersonalData = this.getResidentPersonalData;
-    console.log(this.residentPersonalData);
-    if((this.residentPersonalData.citzenship != 'Polskie') && (this.residentPersonalData.citzenship != "")){
-      this.isResidentForeigner = true;
-      this.residentPersonalData.serialNumber = this.getResidentPersonalData.serialNumber;
-      this.residentPersonalData.pesel = null;
-    }else{
-      this.isResidentForeigner = false;
-      this.residentPersonalData.pesel = this.getResidentPersonalData.pesel;
-      this.residentPersonalData.serialNumber = null;
-    }
-    console.log(this.residentPersonalData);
     this.selectedCitzenship.push(this.residentPersonalData.citzenshipCodeId);
     
-    this.CheckIsResidentExist();
+    this.CheckIsResidentPeselExist();
   }
   
   ngDoCheck(){
@@ -151,7 +139,7 @@ export class ResidentPersonalDataComponent implements OnChanges, OnInit, DoCheck
     this.residentPersonalData.genre = genreName.value.slice(3);
   }
 
-  CheckIsResidentExist(){
+  CheckIsResidentPeselExist(){
     
     let searchedAttributes = {
       pesel: '',
@@ -171,21 +159,6 @@ export class ResidentPersonalDataComponent implements OnChanges, OnInit, DoCheck
               this.residentPersonalData.isExist = true;
             }else{
               console.log('BRAK POLAKA')
-              this.residentPersonalData.isExist = false;
-            }
-          })
-        }
-      }else{
-        
-        if(this.residentPersonalData.serialNumber.length > 0){
-          searchedAttributes.serialNumber = this.residentPersonalData.serialNumber;
-          this.residentService.FindExistingResident(searchedAttributes)
-          .then(response => {
-            if(response.isExist){
-              console.log('MAMY OBCOKRAJOWCA');
-              this.residentPersonalData.isExist = true;
-            }else{
-              console.log('NIE MAM OBCOKRAJOWCA');
               this.residentPersonalData.isExist = false;
             }
           })

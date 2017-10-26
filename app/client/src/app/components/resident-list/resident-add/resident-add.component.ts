@@ -69,7 +69,6 @@ export class ResidentAddComponent implements OnInit, DoCheck, OnChanges {
       fatherName: '',
       pesel: '',
       citzenship:'',
-      serialNumber: '',
       isExist: false,
       citzenshipCodeId: 0
     }
@@ -315,22 +314,6 @@ export class ResidentAddComponent implements OnInit, DoCheck, OnChanges {
       }
     })
   }
-   
-/*
-      this.residentService.CreateNewResidentDocument(this.residentDocumentList)
-      .then(newResidentDocument =>{
-        // console.log(newResidentDocument);
-        // this.documentId = newResidentDocument;      
-        // this.residentDormitory.documentId = this.documentId;
-        // this.residentDormitory.residentId = this.residentId;
-
-        // this.residentService.CreateNewResidentDormitoryStay(this.residentDormitory)
-        // .then(newResidentDormitoryStay => {
-        //   this.router.navigate(['residentList', this.dormitoryId]);
-        //   location.reload();
-        // })
-      })
-      */
   }
 
   GetIsResidentAddressTableOpen(isResidentAddressTableOpen){

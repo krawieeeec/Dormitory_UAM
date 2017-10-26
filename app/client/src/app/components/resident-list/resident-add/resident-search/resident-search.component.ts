@@ -50,7 +50,6 @@ export class ResidentSearchComponent implements OnInit, DoCheck, OnChanges {
       pesel: '',
       phoneNumber: '',
       citzenship: '',
-      serialNumber: '',
       isExist: false,
       citzenshipCodeId: 0
     }
@@ -161,7 +160,7 @@ export class ResidentSearchComponent implements OnInit, DoCheck, OnChanges {
     let tempResidentPersonalData;
     this.residentService.GetResidentPersonalDataById(residentId)
     .then(residentPersonalData => {
-      console.log(residentPersonalData);
+      
       this.residentPersonalData.id = residentPersonalData[0].id;
       this.residentPersonalData.name = residentPersonalData[0].name;
       this.residentPersonalData.surname = residentPersonalData[0].surname;
@@ -170,17 +169,14 @@ export class ResidentSearchComponent implements OnInit, DoCheck, OnChanges {
       this.residentPersonalData.birthPlace = residentPersonalData[0].birth_place;
       this.residentPersonalData.motherName = residentPersonalData[0].mother_name;
       this.residentPersonalData.fatherName = residentPersonalData[0].father_name;
+      this.residentPersonalData.pesel = residentPersonalData[0].pesel;
       this.residentPersonalData.citzenship = residentPersonalData[0].citzenship;
       this.residentPersonalData.citzenshipCodeId = residentPersonalData[0].citzenship_code_id;
       this.residentPersonalData.phoneNumber = residentPersonalData[0].phone_number;
 
-      if(this.residentPersonalData.citzenship == 'Polskie'){
-        
-        this.residentPersonalData.pesel = residentPersonalData[0].pesel;
-        tempResidentPersonalData = Object.assign({}, this.residentPersonalData);
-        this.emitResidentPeronalData.emit(tempResidentPersonalData);
-      }
-
+      tempResidentPersonalData = Object.assign({}, this.residentPersonalData);
+      this.emitResidentPeronalData.emit(tempResidentPersonalData);
+      
       this.residentService.GetResidentAddressById(residentId)
       .then(residentAddressList =>{
 
@@ -189,16 +185,7 @@ export class ResidentSearchComponent implements OnInit, DoCheck, OnChanges {
 
         this.residentService.GetResidentDocumentsById(residentId)
         .then(residentDocumentList =>{
-          
-          if(this.residentPersonalData.citzenship != 'Polskie'){
-            console.log(residentDocumentList);
-            //To do -> na sztywno ustawiony element z listy dokumentów w przypadku seryjnego numeru. chujowo
-            this.residentPersonalData.serialNumber = residentDocumentList[0].serialNumber;
-            console.log(this.residentPersonalData);
-            tempResidentPersonalData = Object.assign({}, this.residentPersonalData);
-            this.emitResidentPeronalData.emit(tempResidentPersonalData);
-          }
-          
+              
           this.residentDocumentList = residentDocumentList;
           this.emitResidentDocumentList.emit(this.residentDocumentList);
           this.emitShowResidentSearch.emit(false);

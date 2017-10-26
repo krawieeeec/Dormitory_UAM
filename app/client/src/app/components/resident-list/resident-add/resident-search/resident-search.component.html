@@ -18,7 +18,7 @@
             <input name="serialNumber" [(ngModel)]="residentSearchedAttributes.serialNumber" #serialNumber="ngModel" type="text" class="form-control" id="residentSerialNumber" placeholder="Podaj numer dokumentu">
         </div>
         <div class="checkbox form-group" id="selectForeigner">
-            <label><input (click)="CheckIsForeigner()" type="checkbox">Obcokrajowiec</label>
+            <label><input (click)="CheckIsForeigner()" type="checkbox">Cudzoziemiec</label>
         </div>
     </form>
     <button (click)="FindResidents()" class="btn btn-default">Znajdź rezydenta</button>

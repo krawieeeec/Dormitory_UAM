@@ -12,14 +12,12 @@ import { ResidentAddress } from '../../../shared/resident/resident-address';
 
 export class ResidentAddService{
 
-    private updateResidentList$;
-
     constructor(
         private http: Http
     )
     {
     
-        this.updateResidentList$ = new Subject();
+        
     }
  
 }
