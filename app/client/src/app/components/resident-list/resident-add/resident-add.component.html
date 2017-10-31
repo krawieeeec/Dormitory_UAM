@@ -45,7 +45,7 @@
                 <resident-address [getResidentId]="residentIdFromSearchResident" [getResidentAddressList]="residentAddressListFromSearchResident" (emitIsResidentAddressTableOpen)="GetIsResidentAddressTableOpen($event)" (emitResidentAddressList)="GetResidentAddress($event)"></resident-address>
             </div>
             <div id="document" class="tab-pane">
-                <resident-document [getResidentId]="residentIdFromSearchResident" [getResidentDocumentList]="residentDocumentListFromSearchResident" (emitIsResidentDocumentTableOpen)="GetIsResidentDocumentTableOpen($event)" (emitResidentDocumentList)="GetResidentDocument($event)"></resident-document>
+                <resident-document [getResidentDocumentList]="residentDocumentListFromSearchResident" (emitIsResidentDocumentTableOpen)="GetIsResidentDocumentTableOpen($event)" (emitResidentDocumentList)="GetResidentDocument($event)"></resident-document>
             </div>
             <div id="dormitory" class="tab-pane">
                 <resident-dormitory [getResidentId]="residentIdFromSearchResident" (emitResidentDormitory)="GetResidentDormitory($event)"></resident-dormitory>

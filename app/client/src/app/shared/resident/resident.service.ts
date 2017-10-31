@@ -145,11 +145,11 @@ export class ResidentService{
         .catch();
     }
 
-    SearchResident(searchedAttributes): Promise<ResidentSearch>{
+    SearchResident(searchedAttributes): Promise<any>{
         return this.http.post(this.residentUrl + '/search', searchedAttributes)
         .toPromise()
         .then(response =>
-            response.json() as ResidentSearch )
+            response.json() as any )
         .catch();
     }
 

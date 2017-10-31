@@ -88,7 +88,7 @@ var residentSearchController = {
         residentTable.findAll(searchedAttributes)
             .then(searchedResidents => {
                 response.isSearched = true;
-                response.searchedResidents.push(searchedResidents);
+                response.searchedResidents = searchedResidents;
                 res.send(response);
             }).catch(error => {
                 response.isSearched = false;
@@ -115,7 +115,9 @@ var residentSearchController = {
     FindExistingResident: function(req, res){
 
         let response = {
-            isExist: "" 
+            isExist: "",
+            existingResident: [],
+            errorMessage: {} 
         }
         let searchedAttributes = {
             where: {
@@ -126,8 +128,7 @@ var residentSearchController = {
         let lengthSerialNumber = req.isResidentExist.serialNumber.length;
         let lengthPesel = req.isResidentExist.pesel.length;
         
-        if(((req.isResidentExist.citzenship == '') || (req.isResidentExist.citzenship == 'Polskie'))
-            && (lengthPesel == 11)){
+        if(lengthPesel == 11){
                 
                 searchedAttributes.where.pesel = req.isResidentExist.pesel;
                 
@@ -135,6 +136,7 @@ var residentSearchController = {
                 .then(existingResident =>{
                     if(existingResident != null){
                         response.isExist = true;
+                        response.existingResident.push(existingResident);
                         res.status(200);
                         res.send(response);
                     }else{
@@ -144,7 +146,9 @@ var residentSearchController = {
                     }
                 
                 }).catch(error =>{
-                    res.send(error);
+                    response.isExist = false;
+                    response.errorMessage = error;
+                    res.send(response);
                 })
         }else if (lengthSerialNumber > 0){
 
@@ -154,6 +158,7 @@ var residentSearchController = {
             .then(existingResident =>{
                 if(existingResident != null){
                     response.isExist = true;
+                    response.existingResident.push(existingResident);
                     res.status(200);
                     res.send(response);
                 }else{
@@ -163,7 +168,9 @@ var residentSearchController = {
                 }
                 
             }).catch(error =>{
-                    res.send(error);
+                    response.isExist = false;
+                    response.errorMessage = error;
+                    res.send(response);
             })
         }else{
             response.isExist = false;

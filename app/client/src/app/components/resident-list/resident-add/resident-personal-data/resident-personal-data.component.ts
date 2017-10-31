@@ -143,27 +143,21 @@ export class ResidentPersonalDataComponent implements OnChanges, OnInit, DoCheck
     
     let searchedAttributes = {
       pesel: '',
-      serialNumber: '',
-      citzenship: ''
+      serialNumber: ''
     }
-    
-    if((this.residentPersonalData.citzenship == '') || 
-      (this.residentPersonalData.citzenship == 'Polskie')){
-        if(this.residentPersonalData.pesel.length == 11){
-          searchedAttributes.pesel = this.residentPersonalData.pesel;
-          searchedAttributes.citzenship = this.residentPersonalData.citzenship;
-          this.residentService.FindExistingResident(searchedAttributes)
-          .then(response => {
-            if(response.isExist){
-              console.log('MAMY POLAKA');
-              this.residentPersonalData.isExist = true;
-            }else{
-              console.log('BRAK POLAKA')
-              this.residentPersonalData.isExist = false;
-            }
-          })
+    if(this.residentPersonalData.pesel.length == 11){
+      searchedAttributes.pesel = this.residentPersonalData.pesel;
+      this.residentService.FindExistingResident(searchedAttributes)
+      .then(response => {
+        if(response.isExist){
+          console.log('MAMY PESEL');
+          this.residentPersonalData.isExist = true;
+        }else{
+          console.log('BRAK PESEL')
+          this.residentPersonalData.isExist = false;
         }
-      }
+      })
+    }
   }
   
 }

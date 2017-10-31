@@ -41,7 +41,6 @@ export class ResidentDocumentComponent implements OnInit, OnChanges, DoCheck {
   @Output() emitIsResidentDocumentTableOpen;
   @Input() getResidentDocumentList: Array<any>;
   @Input() getResidentId;
-  @Input() getSerialNumber;
 
 
   constructor(
@@ -93,10 +92,8 @@ export class ResidentDocumentComponent implements OnInit, OnChanges, DoCheck {
     this.residentDocumentList = [];
     this.showEditDocumentButton = false;
     this.indexSelectedDocument = 0;
-    this.getResidentId = 0;
-    this.getSerialNumber = 0;
-    this.residentSerialNumber = 0;
     this.residentId = 0;
+    this.getResidentId = 0;
   }
 
   ngOnInit() {
@@ -115,10 +112,6 @@ export class ResidentDocumentComponent implements OnInit, OnChanges, DoCheck {
 
     if(this.getResidentId != 0){
       this.residentId = this.getResidentId;
-    }
-
-    if(this.getSerialNumber != 0){
-      this.residentSerialNumber = this.getSerialNumber;
     }
 
     this.residentDocumentList = [];
@@ -279,24 +272,21 @@ export class ResidentDocumentComponent implements OnInit, OnChanges, DoCheck {
   }
 
   CheckIsResidentSerialNumberExist(){
-    // let searchedAttributes = {
-    //   pesel: '',
-    //   serialNumber: '',
-    //   citzenship: ''
-    // }
+    let searchedAttributes = {
+      pesel: '',
+      serialNumber: ''
+    }
 
-    // if(this.residentSerialNumber != 0){
-    //   searchedAttributes.serialNumber = this.getSerialNumber;
-    //   this.residentService.FindExistingResident(searchedAttributes)
-    //   .then(response => {
-    //     if(response.isExist){
-    //       console.log('MAMY OBCOKRAJOWCA');
-    //       this.residentPersonalData.isExist = true;
-    //     }else{
-    //       console.log('NIE MAM OBCOKRAJOWCA');
-    //       this.residentPersonalData.isExist = false;
-    //     }
-    //   })
-    // }
+    if(this.residentSerialNumber != 0){
+      searchedAttributes.serialNumber = this.residentDocument.serialNumber;
+      this.residentService.FindExistingResident(searchedAttributes)
+      .then(response => {
+        if(response.isExist){
+          console.log('MAMY OBCOKRAJOWCA');
+        }else{
+          console.log('NIE MAM OBCOKRAJOWCA');
+        }
+      })
+    }
   }
 }

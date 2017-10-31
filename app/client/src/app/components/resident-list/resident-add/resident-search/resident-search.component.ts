@@ -136,26 +136,16 @@ export class ResidentSearchComponent implements OnInit, DoCheck, OnChanges {
 
   FindResidents(){
     this.residentService.SearchResident(this.residentSearchedAttributes)
-    .then(searchedResidents =>{
-      this.searchedResidentsList = searchedResidents;
-      this.searchedResidentsListLength = this.searchedResidentsList.length; 
+    .then(response =>{
+      if(response.isSearched){
+        this.searchedResidentsList = response.searchedResidents;
+        console.log(response.searchedResidents);
+        this.searchedResidentsListLength = response.searchedResidents.length;  
+      }
+       
     })
   }
  
-  CheckIsForeigner(){
-    
-    if(this.isForeigner){
-      this.isForeigner = false;
-      this.residentSearchedAttributes.isForeigner = "false";
-      this.ClearData()
-    }else{
-      this.isForeigner = true;
-      this.residentSearchedAttributes.isForeigner = "true";
-      this.ClearData();
-    }
-
-  }
-
   SendResidentToForm(residentId){
     let tempResidentPersonalData;
     this.residentService.GetResidentPersonalDataById(residentId)

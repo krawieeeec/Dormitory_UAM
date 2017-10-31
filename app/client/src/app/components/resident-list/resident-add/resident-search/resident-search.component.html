@@ -13,12 +13,9 @@
             <label for="residentPesel">PESEL</label>
             <input name="pesel" [(ngModel)]="residentSearchedAttributes.pesel" #pesel="ngModel" type="text" class="form-control" id="residentPesel" placeholder="Podaj PESEL">
         </div>
-        <div *ngIf="isForeigner" class="form-group">
+        <div class="form-group">
             <label for="residentSerialNumber">Numer Dokumentu</label>
             <input name="serialNumber" [(ngModel)]="residentSearchedAttributes.serialNumber" #serialNumber="ngModel" type="text" class="form-control" id="residentSerialNumber" placeholder="Podaj numer dokumentu">
-        </div>
-        <div class="checkbox form-group" id="selectForeigner">
-            <label><input (click)="CheckIsForeigner()" type="checkbox">Cudzoziemiec</label>
         </div>
     </form>
     <button (click)="FindResidents()" class="btn btn-default">Znajdź rezydenta</button>
@@ -28,8 +25,8 @@
                 <th>Lp.</th>
                 <th>Imię</th>
                 <th>Nazwisko</th>
-                <th *ngIf="!isForeigner">PESEL</th>
-                <th *ngIf="isForeigner">Ilość dokumentów</th>
+                <th>PESEL</th>
+                <th>Ilość dokumentów</th>
                 <th>Operacje</th>
             </tr>
         </thead>
@@ -39,8 +36,8 @@
                     <td>{{index + 1}}</td>
                     <td>{{resident.name}}</td>
                     <td>{{resident.surname}}</td>
-                    <td *ngIf="!isForeigner">{{resident.pesel}}</td>
-                    <td *ngIf="isForeigner">{{resident.documents.length}}</td>
+                    <td>{{resident.pesel}}</td>
+                    <td>{{resident.documents.length}}</td>
                     <td>
                         <button (click)="ShowModal(resident.id)" type="button" data-toggle="tooltip" title="Podgląd" class="btn btn-default" aria-label="Left Align">
                             <span  class="fa fa-eye" aria-hidden="true"></span></button>
@@ -51,7 +48,7 @@
                 </tr>
             </ng-container>
             <tr *ngIf="searchedResidentsList.length == 0">
-                <td id="showCellNoResults" colspan="5">Brak wyników</td>
+                <td id="showCellNoResults" colspan="6">Brak wyników</td>
             </tr>
         </tbody>
     </table>
