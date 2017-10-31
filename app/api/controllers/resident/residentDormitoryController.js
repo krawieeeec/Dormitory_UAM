@@ -48,43 +48,58 @@ var residentDormitoryController = {
     },
 
     GetResidentStayDormitoryById: function(req, res) {
-        let residentId = req.params.id;
+        
+        let stayResidentId = req.params.id;
+        let response = {
+            isSearched: false,
+            stayResident: {},
+            errorMessage: {}
+        }
 
         stayResidentTable.findOne({
             where:{
-                resident_id: residentId
+                id: stayResidentId
             },
             attributes: ['dateOfArrival','dateOfDeparture', 'dateOfTempDeparture', 
             'roomNumber', 'dateCrossRp', 'comments', 'dormitory_id', 'document_id', 'resident_id']
         })
-        .then((residentStay) =>{
-            if(residentStay == null)
-                res.send('Under current ID:'+ req.params.id +' there isn\'t any entries in table.')
-            else{
-                res.send(JSON.stringify(residentStay));
-            }
+        .then((stayResident) =>{
+            response.isSearched = true;
+            response.stayResident = stayResident;
+            res.send(response); 
         }).catch(error => {
-            res.send(error);
+            response.isSearched = false;
+            response.errorMessage = error;
+            res.send(response);
         })
     },
     
     UpdateResidentStayDormitoryById: function(req, res){
 
-        let residentId = req.params.id;
+        let stayResidentId = req.params.id;
+        let response = {
+            isUpdated: false,
+            stayResident: {},
+            errorMessage: {}
+        }
         stayResidentTable.update(
             req.newResidentStay, 
             {
                 where: {
-                    resident_id: residentId
+                    id: stayResidentId
                 }
             }
-            ).then(() => {
-                res.send('entry was updated');            
+            ).then((stayResident) => {
+                response.isUpdated = true;
+                response.stayResident = stayResident;
+                res.send(response);            
             }).catch(
                 error => 
                 {
+                    response.isUpdated = false;
+                    response.errorMessage = error
                     res.status(400);
-                    res.send(error);
+                    res.send(response);
                 }
             )
     }

@@ -20,6 +20,7 @@ export class ResidentEditComponent implements OnInit, DoCheck, OnChanges {
   private residentDocument;
   private residentDormitory;
   private residentId;
+  private stayResidentId;
   private dormitoryId;
   private switchInputs;
   private showEditButtons
@@ -43,9 +44,9 @@ export class ResidentEditComponent implements OnInit, DoCheck, OnChanges {
 
   ngOnInit() {
 
-    this.residentId = this.route.snapshot.params.id;
+    this.residentId = this.route.snapshot.params.residentId;
+    this.stayResidentId = this.route.snapshot.params.stayResidentId;
     this.dormitoryId = this.userSessionService.GetChosenDormitoryId();
-    
     
   }
 

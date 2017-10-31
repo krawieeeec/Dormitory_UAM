@@ -81,11 +81,11 @@ export class ResidentService{
             .catch();
     }
 
-    GetResidentStayById(residentId): Promise<ResidentDormitory>{
+    GetResidentStayById(residentId): Promise<any>{
         return this.http.get(this.residentUrl + '/' + residentId+ '/dormitory')
             .toPromise()
             .then(response => 
-                response.json() as ResidentDormitory)
+                response.json() as any)
             .catch();
     }
 

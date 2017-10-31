@@ -3,9 +3,14 @@
     display: table-cell;
 }
 
+h1 {
+    color: white;
+    padding-right: 200px;
+}
+
 .form-group {
     margin-bottom: 15px;
-    margin-right: 5px;
+    margin-right: 20px;
     width: 250px;
 }
 
@@ -28,15 +33,22 @@ form {
     margin-bottom: 20px;
 }
 
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-    /* display: none; <- Crashes Chrome on hover */
-    -moz-appearance: textfield;
-    -webkit-appearance: none;
-    margin: 0;
-    /* <-- Apparently some margin are still there even though it's hidden */
+form-select {
+    width: 250px;
 }
 
-input[type="number"] {
-    -moz-appearance: textfield;
+ul.dropdown-menu {
+    min-width: 250px !important;
+}
+
+.dropdown-menu {
+    min-width: 250px;
+}
+
+.open>.dropdown-menu {
+    min-width: 250px;
+}
+
+dropdown-item empty {
+    margin: 5px;
 }

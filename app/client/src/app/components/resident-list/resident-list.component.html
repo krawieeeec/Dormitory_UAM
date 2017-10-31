@@ -33,7 +33,7 @@
                         <i *ngSwitchCase="'Odblokowana'" [style.color]="'green'" class="fa fa-wifi fa-2x" aria-hidden="true"></i>
                     </td>
                     <td id="account_buttons">
-                        <button type="button" [routerLink]="['residentEdit', resident.id]" data-toggle="tooltip" title="Edytuj Konto" class="btn btn-default" aria-label="Left Align">
+                        <button type="button" [routerLink]="['residentEdit', resident.residentId, resident.stayResidentId]" data-toggle="tooltip" title="Edytuj Konto" class="btn btn-default" aria-label="Left Align">
   <span  class="glyphicon glyphicon-edit" aria-hidden="true"></span>
 </button>
 

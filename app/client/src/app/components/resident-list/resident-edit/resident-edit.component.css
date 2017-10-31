@@ -1,6 +1,37 @@
-.title {
-    color: white;
+.container {}
+
+
+/* HEADER EDIT_COMPONENT */
+
+#header_wrapper {
+    font-size: 60px;
+    display: -webkit-box;
+    font-size: 40px;
+    padding-left: 20px;
+    padding-bottom: 5px;
+    border-bottom: 2px solid white;
 }
+
+#header_wrapper>button {
+    margin-right: 12px;
+}
+
+#header_wrapper>h1 {
+    color: white;
+    margin: auto;
+    margin-top: 20px;
+}
+
+.glyphicon {
+    font-size: 37px;
+}
+
+.fa {
+    font-size: 40px;
+}
+
+
+/* ///////////////////////////////////////////////////////// */
 
 .nav-tabs {
     justify-content: center;
@@ -20,6 +51,10 @@ a,
     text-decoration: none;
     background: rgba(0, 0, 0, 0.5);
     color: white;
+    font-size: 50px;
+    width: 150px;
+    height: 70px;
+    padding: 0px !important;
 }
 
 a:hover,
@@ -57,12 +92,8 @@ a:visited,
     color: white;
 }
 
-.container {
-    font-size: 20px;
-}
-
 button {
-    margin: 10px 10px 0px 40px;
+    margin: 10px 0px 0px 0px;
     background: rgba(0, 0, 0, 0.5);
     color: white;
 }
@@ -83,44 +114,33 @@ button:focus {
     color: white;
 }
 
-button:disabled,
-button[disabled] {
-    /* border: 1px solid #999999; */
-    /* background-color: darkgrey; */
-    color: white;
+#form_wrapper {
+    display: flex;
+    padding-left: 20px;
+    margin-top: 20px;
 }
 
-button:disabled:hover,
-button[disabled]:hover {
-    /* background: rgba(0, 0, 0, 0.7); */
-    color: black;
+#formMenu_wrapper {
+    display: inline-block;
+    margin-right: 30px;
 }
 
-#header_wrapper {
-    font-size: 60px;
+ul.nav,
+.nav-tabs {
+    display: grid;
+    float: left;
+    border-bottom: none;
+    margin-top: 80px;
+}
+
+.nav-tabs>li>a {
+    margin-right: 0px;
+    border-radius: 0px;
+    border-top: 2px solid;
+}
+
+.tab-content,
+.tab-content>.active {
+    width: 100%;
     display: -webkit-box;
-    padding-left: 400px;
-    font-size: 40px;
-    margin-bottom: 40px;
-}
-
-.glyphicon {
-    font-size: 40px;
-}
-
-i {
-    color: white;
-    margin: 20px 0px 0px 50px;
-}
-
-button:hover {
-    color: antiquewhite;
-}
-
-i:active {
-    color: burlywood
-}
-
-i:focus {
-    color: antiquewhite
 }

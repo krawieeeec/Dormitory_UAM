@@ -13,7 +13,7 @@ export class ResidentDormitoryComponent implements OnInit {
   
   private residentDormitory;
   @Input() switchInputs;
-  @Input() residentId:number;
+  @Input() stayResidentId:number;
   @Output() emitResidentDormitory;
   
 
@@ -38,19 +38,18 @@ export class ResidentDormitoryComponent implements OnInit {
   }
 
   ngOnInit() {
-
-    this.residentService.GetResidentStayById(this.residentId)
-      .then(residentDormitory =>{
-
-        this.residentDormitory.dateOfArrival = residentDormitory.dateOfArrival;
-        this.residentDormitory.dateOfDeparture = residentDormitory.dateOfDeparture;
-        this.residentDormitory.dateOfTempDeparture = residentDormitory.dateOfTempDeparture;
-        this.residentDormitory.roomNumber = residentDormitory.roomNumber;
-        this.residentDormitory.dateCrossRp = residentDormitory.dateCrossRp;
-        this.residentDormitory.comments = residentDormitory.comments;
-        this.residentDormitory.dormitoryId = residentDormitory.dormitory_id;
-        this.residentDormitory.documentId = residentDormitory.document_id;
-        this.residentDormitory.residentId = residentDormitory.resident_id;
+    this.residentService.GetResidentStayById(this.stayResidentId)
+      .then(response =>{
+        console.log(response.stayResident);
+        this.residentDormitory.dateOfArrival = response.stayResident.dateOfArrival;
+        this.residentDormitory.dateOfDeparture = response.stayResident.dateOfDeparture;
+        this.residentDormitory.dateOfTempDeparture = response.stayResident.dateOfTempDeparture;
+        this.residentDormitory.roomNumber = response.stayResident.roomNumber;
+        this.residentDormitory.dateCrossRp = response.stayResident.dateCrossRp;
+        this.residentDormitory.comments = response.stayResident.comments;
+        this.residentDormitory.dormitoryId = response.stayResident.dormitory_id;
+        this.residentDormitory.documentId = response.stayResident.document_id;
+        this.residentDormitory.residentId = response.stayResident.resident_id;
 
         this.emitResidentDormitory.emit(this.residentDormitory);
 

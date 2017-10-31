@@ -1,6 +1,12 @@
 <div id="residentAddress_wrapper">
-    <div id="listResidentAddress" *ngIf="!showAddressPanel">
-        <button type="button " class="btn btn-default " (click)="AddNewAddress()">Dodaj Nowy Adres</button>
+    <div id="header_wrapper">
+        <h1>Adres zamieszkania</h1>
+
+        <button *ngIf="!showAddressPanel" type="button" (click)="AddNewAddress()" data-toggle="tooltip" title="Dodaj adres" class="btn btn-default" aria-label="Left Align">
+                        <span  class="fa fa-plus" aria-hidden="true"></span>
+                    </button>
+    </div>
+    <div id="listResidentAddress_wrapper" *ngIf="!showAddressPanel">
         <table class="table table-hover">
             <thead>
                 <tr>
@@ -15,7 +21,9 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let residentAddress of residentAddressList; let index = index">
+                <tr #rowTable *ngFor="let residentAddress of residentAddressList; let index = index" [style.background-color]="residentAddressList[index].isUsed ? 'mediumseagreen' : 'unset'">
+
+                    <!-- [style.background-color]="residentAddressList[index].used ? 'mediumseagreen' : 'unset'" -->
                     <td>
                         {{residentAddress.address}}
                     </td>
@@ -38,89 +46,81 @@
                         {{residentAddress.apartmentNumber}}
                     </td>
                     <td>
-                        <button (click)="EditAddress(index, residentAddress.id)" type="button" data-toggle="tooltip" title="Edytuj Adres" class="btn btn-default" aria-label="Left Align">
+                        <button (click)="EditAddress(index)" type="button" data-toggle="tooltip" title="Edytuj Adres" class="btn btn-default" aria-label="Left Align">
               <span  class="glyphicon glyphicon-edit" aria-hidden="true"></span></button>
-                        <button (click)="DeleteAddress(index, residentAddress.id)" type="button" data-toggle="tooltip" title="Usuń Adres" class="btn btn-default" aria-label="Left Align">
-                    <span  class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                        <button (click)="UseAddress(index)" type="button" data-toggle="tooltip" title="Zaznacz adres" class="btn btn-default" aria-label="Left Align">
+                    <span  class="fa fa-hand-o-up" aria-hidden="true"></span></button>
 
                     </td>
                 </tr>
             </tbody>
         </table>
     </div>
-    <div id="adressPanel" *ngIf="showAddressPanel">
+    <div id="residentAddressForm_wrapper" *ngIf="showAddressPanel">
         <div id="form_wrapper">
             <form>
+
                 <div class="form-group">
                     <label for="residentCountry">Kraj</label>
-                    <input [disabled]="switchInputs" [style.opacity]="switchInputs ? 0.4 : 1" [(ngModel)]="residentAddress.country" #country="ngModel" name="country" type="text" class="form-control" id="residentCountry" placeholder="Podaj Kraj" required>
-                    <div [hidden]="country.valid || country.pristine || switchInputs" class="alert alert-danger">
+                    <input [(ngModel)]="residentAddress.country" #country="ngModel" name="country" type="text" class="form-control" id="residentCountry" placeholder="Podaj Kraj" required>
+                    <div [hidden]="country.valid || country.pristine" class="alert alert-danger">
                         Pole nie może być puste
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="residentCity">Miasto</label>
-                    <input [disabled]="switchInputs" [style.opacity]="switchInputs ? 0.4 : 1" [(ngModel)]="residentAddress.city" #city="ngModel" name="city" type="email" class="form-control" id="residentCity" placeholder="Podaj Miasto" required>
-                    <div [hidden]="city.valid || city.pristine || switchInputs" class="alert alert-danger">
+                    <input [(ngModel)]="residentAddress.city" #city="ngModel" name="city" type="email" class="form-control" id="residentCity" placeholder="Podaj Miasto" required>
+                    <div [hidden]="city.valid || city.pristine" class="alert alert-danger">
                         Pole nie może być puste
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="residentPostCode">Kod Pocztowy</label>
-                    <ss-multiselect-dropdown [disabled]="switchInputs" [style.opacity]="switchInputs ? 0.4 : 1" #postCode="ngModel" [texts]="settingsTextPostCodeSelectButton" [settings]="settingsSelectButton" [options]="postCodeList" [(ngModel)]="selectedPostCode" name="optionsModel"
-                        id="residentPostCode" required></ss-multiselect-dropdown>
-                    <div [hidden]="postCode.valid || postCode.pristine || switchInputs" class="alert alert-danger">
+                    <ss-multiselect-dropdown #postCode="ngModel" [texts]="settingsTextPostCodeSelectButton" [settings]="settingsSelectButton" [options]="postCodeList" [(ngModel)]="selectedPostCode" name="optionsModel" id="residentPostCode" required></ss-multiselect-dropdown>
+                    <div [hidden]="postCode.valid || postCode.pristine" class="alert alert-danger">
                         Pole nie może być puste
                     </div>
-                    <!-- <input [disabled]="switchInputs" [style.opacity]="switchInputs ? 0.4 : 1" [(ngModel)]="residentAddress.postCode" #postCode="ngModel" name="postCode" type="text" class="form-control" id="residentPostCode" placeholder="Kod Pocztowy" required> -->
+                    <!-- <input [(ngModel)]="residentAddress.postCode" #postCode="ngModel" name="postCode" type="text" class="form-control" id="residentPostCode" placeholder="Kod Pocztowy" required> -->
+                </div>
+                <div class="form-group">
+                    <label for="residentStreet">Ulica</label>
+                    <input [(ngModel)]="residentAddress.street" #street="ngModel" name="street" type="email" class="form-control" id="residentStreet" placeholder="Podaj Datę Urodzenia" required>
+                    <div [hidden]="street.valid || street.pristine" class="alert alert-danger">
+                        Pole nie może być puste
+                    </div>
                 </div>
             </form>
         </div>
         <div id="form_wrapper">
             <form>
                 <div class="form-group">
-                    <label for="residentStreet">Ulica</label>
-                    <input [disabled]="switchInputs" [style.opacity]="switchInputs ? 0.4 : 1" [(ngModel)]="residentAddress.street" #street="ngModel" name="street" type="email" class="form-control" id="residentStreet" placeholder="Podaj Datę Urodzenia" required>
-                    <div [hidden]="street.valid || street.pristine || switchInputs" class="alert alert-danger">
-                        Pole nie może być puste
-                    </div>
-                </div>
-                <div class="form-group">
                     <label for="residentHouseNumber">Numer Domu</label>
-                    <input [disabled]="switchInputs" [style.opacity]="switchInputs ? 0.4 : 1" [(ngModel)]="residentAddress.houseNumber" #houseNumber="ngModel" name="houseNumber" type="email" class="form-control" id="residentHouseNumber" placeholder="Podaj Miejsce Urodzenia"
-                        required>
-                    <div [hidden]="houseNumber.valid || houseNumber.pristine || switchInputs" class="alert alert-danger">
+                    <input [(ngModel)]="residentAddress.houseNumber" #houseNumber="ngModel" name="houseNumber" type="email" class="form-control" id="residentHouseNumber" placeholder="Podaj Miejsce Urodzenia" required>
+                    <div [hidden]="houseNumber.valid || houseNumber.pristine" class="alert alert-danger">
                         Pole nie może być puste
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="residentApartmentNumber">Numer lokalu</label>
-                    <input [disabled]="switchInputs" [style.opacity]="switchInputs ? 0.4 : 1" [(ngModel)]="residentAddress.apartmentNumber" #apartmentNumber="ngModel" name="apartmentNumber" type="email" class="form-control" id="residentApartmentNumber" placeholder="Podaj Imię Matki"
-                        required>
-                    <div [hidden]="apartmentNumber.valid || apartmentNumber.pristine || switchInputs" class="alert alert-danger">
+                    <input [(ngModel)]="residentAddress.apartmentNumber" #apartmentNumber="ngModel" name="apartmentNumber" type="email" class="form-control" id="residentApartmentNumber" placeholder="Podaj Imię Matki" required>
+                    <div [hidden]="apartmentNumber.valid || apartmentNumber.pristine" class="alert alert-danger">
                         Pole nie może być puste
                     </div>
                 </div>
-            </form>
-        </div>
-        <div id="form_wrapper">
-            <form>
                 <div class="form-group">
                     <label for="residentAddressType">Typ Adresu</label>
-                    <ss-multiselect-dropdown [disabled]="switchInputs" [style.opacity]="switchInputs ? 0.4 : 1" #typeAddress="ngModel" [texts]="settingsTextTypeAddressSelectButton" [settings]="settingsSelectButton" [options]="typeAddressList" [(ngModel)]="selectedTypeAddress"
-                        name="optionsModel" id="residentTypeAddress" required></ss-multiselect-dropdown>
-                    <!-- <input [disabled]="true" [style.opacity]="true ? 0.4 : 1" [(ngModel)]="residentAddress.address" #addressType="ngModel" name="addressType" type="email" class="form-control" id="residentAddressType" placeholder="Podaj Typ Adresu" disabled required> -->
-                    <div [hidden]="typeAddress.valid || typeAddress.pristine || switchInputs" class="alert alert-danger">
+                    <ss-multiselect-dropdown #typeAddress="ngModel" [texts]="settingsTextTypeAddressSelectButton" [settings]="settingsSelectButton" [options]="typeAddressList" [(ngModel)]="selectedTypeAddress" name="optionsModel" id="residentTypeAddress" required></ss-multiselect-dropdown>
+                    <!-- <input [(ngModel)]="residentAddress.address" #addressType="ngModel" name="addressType" type="email" class="form-control" id="residentAddressType" placeholder="Podaj Typ Adresu" disabled required> -->
+                    <div [hidden]="typeAddress.valid || typeAddress.pristine" class="alert alert-danger">
                         Pole nie może być puste
                     </div>
                 </div>
             </form>
         </div>
-        <div *ngIf="showAddressPanel">
+        <div id="buttons_wrapper" *ngIf="showAddressPanel">
             <button type="button " class="btn btn-default " (click)="GoBackToAddressTable()">Wstecz</button>
             <button (click)="SaveAddress()" *ngIf="!showEditAddressButton" type="button " class="btn btn-default">Dodaj Do Listy</button>
             <button (click)="SaveAddress()" *ngIf="showEditAddressButton" type="button " class="btn btn-default">Edytuj Adres</button>
-
         </div>
     </div>
 </div>

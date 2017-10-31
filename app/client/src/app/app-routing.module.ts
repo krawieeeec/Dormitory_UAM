@@ -12,7 +12,7 @@ import { AppComponent } from './app.component';
 const routes: Routes = [
   { path: 'residentList/:id', component: ResidentListComponent,
     children: [
-      { path: 'residentEdit/:id', component: ResidentEditComponent },
+      { path: 'residentEdit/:residentId/:stayResidentId', component: ResidentEditComponent },
       { path: 'residentBlock/:id', component: ResidentBlockComponent },
       { path: 'residentAdd', component: ResidentAddComponent },
     ]

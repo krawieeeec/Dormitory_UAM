@@ -30,7 +30,7 @@ export class ResidentDocumentComponent implements OnInit, OnChanges, DoCheck {
   private idSelectedDocument;
   private showEditDocumentButton;
 
-  @Input() switchInputs;
+  
   @Input() residentId:number;
   @Output() emitResidentDocument;
   @Output() emitIsResidentDocumentTableOpen

@@ -1,91 +1,81 @@
 <!-- {{resident?.name}} -->
-<div class="container">
-    <div id="form_wrapper">
-        <form>
-            <div class="form-group">
-                <label for="residentName">Imię</label>
-                <input [disabled]="switchInputs" [style.opacity]="switchInputs ? 0.4 : 1" [(ngModel)]="residentPersonalData.name" name="name" #name="ngModel" type="text" class="form-control" id="residentName" placeholder="Podaj Imie" required>
-                <div [hidden]="name.valid || name.pristine || switchInputs" class="alert alert-danger">
-                    Pole nie może być puste
-                </div>
+<h1>Dane osobowe</h1>
+<div id="form_wrapper">
+    <form>
+        <div class="form-group">
+            <label for="residentName">Imię</label>
+            <input [(ngModel)]="residentPersonalData.name" name="name" #name="ngModel" type="text" class="form-control" id="residentName" placeholder="Podaj Imie" required>
+            <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+                Pole nie może być puste
             </div>
-            <div class="form-group">
-                <label for="residentSurname">Nazwisko</label>
-                <input [disabled]="switchInputs" [style.opacity]="switchInputs ? 0.4 : 1" #surname="ngModel" [(ngModel)]="residentPersonalData.surname" name="surname" type="text" class="form-control" id="residentSurname" placeholder="Podaj Nazwisko" required>
-                <div [hidden]="surname.valid || surname.pristine || switchInputs" class="alert alert-danger">
-                    Pole nie może być puste
-                </div>
+        </div>
+        <div class="form-group">
+            <label for="residentSurname">Nazwisko</label>
+            <input #surname="ngModel" [(ngModel)]="residentPersonalData.surname" name="surname" type="text" class="form-control" id="residentSurname" placeholder="Podaj Nazwisko" required>
+            <div [hidden]="surname.valid || surname.pristine" class="alert alert-danger">
+                Pole nie może być puste
             </div>
-            <div class="form-group">
-                <label for="residentPesel">PESEL</label>
-                <input [disabled]="switchInputs" [style.opacity]="switchInputs ? 0.4 : 1" #pesel="ngModel" [(ngModel)]="residentPersonalData.pesel" name="pesel" type="text" class="form-control" id="residentPesel" placeholder="Podaj PESEL" required>
-                <div [hidden]="pesel.valid || pesel.pristine || switchInputs" class="alert alert-danger">
-                    Pole nie może być puste
-                </div>
+        </div>
+        <div class="form-group">
+            <label for="residentCitzenship">Obywatelstwo</label>
+            <br>
+            <ss-multiselect-dropdown #select="ngModel" [texts]="settingsTextSelectButton" [settings]="settingsSelectButton" [options]="citzenshipsList" [(ngModel)]="selectedCitzenship" name="optionsModel" id="residentCitzenship" required></ss-multiselect-dropdown>
+            <div [hidden]="select.valid || select.pristine" class="alert alert-danger">
+                Pole nie może być puste
             </div>
-        </form>
-    </div>
-    <div id="form_wrapper">
-        <form>
-            <div class="form-group">
-                <label for="residentBirthDate">Data Urodzenia</label>
-                <!-- <input [disabled]="switchInputs" [style.opacity]="switchInputs ? 0.4 : 1" #birthDate="ngModel" [(ngModel)]="residentPersonalData.birthDate" name="birthDate" type="date" class="form-control" id="datepicker" placeholder="Podaj Datę Urodzenia" required> -->
-                <my-date-picker name="mydate" [options]="myDatePickerOptions" [(ngModel)]="model" required></my-date-picker>
+        </div>
+        <div class="form-group">
+            <label for="residentPesel">PESEL</label>
+            <input (blur)="CheckIsResidentPeselExist()" #pesel="ngModel" [(ngModel)]="residentPersonalData.pesel" name="pesel" type="text" class="form-control" id="residentPesel" placeholder="Podaj PESEL" required>
+            <div [hidden]="pesel.valid || pesel.pristine" class="alert alert-danger">
+                Pole nie może być puste
+            </div>
+        </div>
+    </form>
+</div>
+<div id="form_wrapper">
+    <form>
+        <div class="form-group">
+            <label for="residentBirthDate">Data Urodzenia</label>
+            <input #birthDate="ngModel" [(ngModel)]="residentPersonalData.birthDate" name="birthDate" type="date" class="form-control" id="residentBirthDate" placeholder="Podaj Datę Urodzenia" required>
+            <div [hidden]="birthDate.valid || birthDate.pristine" class="alert alert-danger">
+                Pole nie może być puste
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="residentBrithPlace">Miejsce Urodzenia</label>
+            <input #birthPlace="ngModel" [(ngModel)]="residentPersonalData.birthPlace" name="birthPlace" type="text" class="form-control" id="residentBrithPlace" placeholder="Podaj Miejsce Urodzenia" required>
+            <div [hidden]="birthPlace.valid || birthPlace.pristine" class="alert alert-danger">
+                Pole nie może być puste
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="residentNameFather">Imię Ojca</label>
+            <input #fatherName="ngModel" [(ngModel)]="residentPersonalData.fatherName" name="fatherName" type="text" class="form-control" id="residentNameFather" placeholder="Podaj Imię Ojca" required>
+        </div>
+        <div class="form-group">
+            <label for="residentNameMather">Imię Matki</label>
+            <input #matherName="ngModel" [(ngModel)]="residentPersonalData.motherName" name="motherName" type="text" class="form-control" id="residentNameMather" placeholder="Podaj Imię Matki" required>
+        </div>
+    </form>
+</div>
+<div id="form_wrapper">
+    <form>
 
-                <!-- <div [hidden]="birthDate.valid || birthDate.pristine || switchInputs" class="alert alert-danger">
+        <div class="form-group">
+            <label for="residentGenre">Płeć</label>
+            <select class="form-control" #genre="ngModel" [(ngModel)]="residentPersonalData.genre" [ngModelOptions]="{standalone: true}" placeholder="Wybierz Płeć" (change)="SetGenre($event.target)">
+                    <option value="" disabled>Wybierz płeć</option>
+                    <option *ngFor="let name of genreList" [ngValue]="name" >{{name}}</option>
+                </select>
+            <!-- <input #genre="ngModel" [(ngModel)]="residentPersonalData.genre" name="genre" type="text" class="form-control" id="residentGenre" placeholder="Podaj Płeć" required>
+                <div [hidden]="genre.valid || genre.pristine" class="alert alert-danger">
                     Pole nie może być puste
                 </div> -->
-            </div>
-            <div class="form-group">
-                <label for="residentBrithPlace">Miejsce Urodzenia</label>
-                <input [disabled]="switchInputs" [style.opacity]="switchInputs ? 0.4 : 1" #birthPlace="ngModel" [(ngModel)]="residentPersonalData.birthPlace" name="birthPlace" type="text" class="form-control" id="residentBrithPlace" placeholder="Podaj Miejsce Urodzenia"
-                    required>
-                <div [hidden]="birthPlace.valid || birthPlace.pristine || switchInputs" class="alert alert-danger">
-                    Pole nie może być puste
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="residentCitzenship">Obywatelstwo</label>
-                <ss-multiselect-dropdown #citzenship="ngModel" [disabled]="switchInputs" [style.opacity]="switchInputs ? 0.4 : 1" [texts]="settingsTextSelectButton" [settings]="settingsSelectButton" [options]="citzenshipsList" [(ngModel)]="selectedCitzenship" name="optionsModel"
-                    id="residentCitzenship" required></ss-multiselect-dropdown>
-                <div [hidden]="citzenship.valid || citzenship.pristine || switchInputs" class="alert alert-danger">
-                    Pole nie może być puste
-                </div>
-            </div>
-        </form>
-    </div>
-    <div id="form_wrapper">
-        <form>
-            <div class="form-group">
-                <label for="residentNameFather">Imię Ojca</label>
-                <input [disabled]="switchInputs" [style.opacity]="switchInputs ? 0.4 : 1" #fatherName="ngModel" [(ngModel)]="residentPersonalData.fatherName" name="fatherName" type="text" class="form-control" id="residentNameFather" placeholder="Podaj Imię Ojca" required>
-            </div>
-            <div class="form-group">
-                <label for="residentNameMather">Imię Matki</label>
-                <input [disabled]="switchInputs" [style.opacity]="switchInputs ? 0.4 : 1" #matherName="ngModel" [(ngModel)]="residentPersonalData.motherName" name="motherName" type="text" class="form-control" id="residentNameMather" placeholder="Podaj Imię Matki" required>
-            </div>
-            <div class="form-group">
-                <label for="residentGenre">Płeć</label>
-                <select [disabled]="switchInputs" [style.opacity]="switchInputs ? 0.4 : 1" #genre="ngModel" class="form-control" placeholder="Wybierz Płeć" [(ngModel)]="residentPersonalData.genre" name="genre" (change)="SetGenre(genre)">
-                    <option value="" disabled>Wybierz płeć</option>
-                    <option *ngFor="let name of genreList" >{{name}}</option>
-                </select>
-                <!-- <input [disabled]="true" [style.opacity]="true ? 0.4 : 1" #genre="ngModel" (change)="ShowListGenre(genre.value)" [(ngModel)]="residentPersonalData.genre" list="genre" name="genre" type="text" class="form-control" id="residentGenre" placeholder="Podaj Płeć"
-                    required> -->
-                <div [hidden]="genre.valid || genre.pristine || switchInputs" class="alert alert-danger">
-                    Pole nie może być puste
-                </div>
-            </div>
-        </form>
-    </div>
-    <div id="form_wrapper">
-        <form>
-            <div class="form-group">
-
-                <label for="residentPhoneNumber">Numer Telefonu</label>
-                <input [disabled]="switchInputs" [style.opacity]="switchInputs ? 0.4 : 1" #phoneNumber="ngModel" [(ngModel)]="residentPersonalData.phoneNumber" name="phoneNumber" type="number" class="form-control" id="residentPhoneNumber" placeholder="Podaj Numer Telefonu"
-                    required> {{phoneNumber.valid}}
-            </div>
-        </form>
-    </div>
+        </div>
+        <div class="form-group">
+            <label for="residentPhoneNumber">Numer Telefonu</label>
+            <input #phoneNumber="ngModel" [(ngModel)]="residentPersonalData.phoneNumber" name="phoneNumber" type="text" class="form-control" id="residentPhoneNumber" placeholder="Podaj Imię Matki" required>
+        </div>
+    </form>
 </div>

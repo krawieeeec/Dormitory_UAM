@@ -1,34 +1,38 @@
-<div class="container">
+<div id="addResident_wrapper">
+
     <div id="header_wrapper">
         <h1 class="title">Panel edycji rezydenta</h1>
-
-        <button type="button" data-toggle="tooltip" title="Edytuj Konto" class="btn btn-default" aria-label="Left Align">
-                        <span  class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-                      </button>
-
     </div>
-    <ul class="nav nav-tabs">
-        <li class="active"><a data-toggle="tab" href="#personalData" (click)="CheckResidentTable(false, false)">Dane Osobowe</a></li>
-        <li><a data-toggle="tab" href="#placeOfResidence" (click)="CheckResidentTable(true, false)">Miejsce Zamieszkania</a></li>
-        <li><a data-toggle="tab" href="#document" (click)="CheckResidentTable(false, true)">Dokumenty</a></li>
-        <li><a data-toggle="tab" href="#dormitory" (click)="CheckResidentTable(false, false)">Zakwaterowanie</a></li>
-    </ul>
-    <div class="tab-content">
-        <div id="personalData" class="tab-pane fade in active">
-            <resident-personal-data (emitResidentPersonalData)="GetResidentPersonalData($event)" [residentId]="residentId" [switchInputs]="switchInputs"></resident-personal-data>
+    <div id="form_wrapper">
+        <div id="formMenu_wrapper">
+            <ul class="nav nav-tabs">
+                <li class="active">
+                    <a data-toggle="tab" href="#personalData" (click)="CheckResidentTable(false, false)" class="fa fa-user-circle" title="Dane osobowe" aria-hidden="true"></a>
+                </li>
+                <li>
+                    <a data-toggle="tab" href="#document" (click)="CheckResidentTable(false, true)" class="fa fa-address-card" title="Dokumenty" aria-hidden="true"></a>
+                </li>
+                <li>
+                    <a data-toggle="tab" href="#placeOfResidence" (click)="CheckResidentTable(true, false)" class="fa fa-home" title="Miejsce zamieszkania" aria-hidden="true"></a>
+                </li>
+                <li>
+                    <a data-toggle="tab" href="#dormitory" (click)="CheckResidentTable(false, false)" class="fa fa-bed" title="Zakwaterowanie" aria-hidden="true"></a>
+                </li>
+            </ul>
         </div>
-        <div id="placeOfResidence" class="tab-pane">
-            <resident-address (emitIsResidentAddressTableOpen)="GetIsResidentAddressTableOpen($event)" (emitResidentAddress)="GetResidentAddress($event)" [residentId]="residentId" [switchInputs]="switchInputs"></resident-address>
-        </div>
-        <div id="document" class="tab-pane">
-            <resident-document (emitIsResidentDocumentTableOpen)="GetIsResidentDocumentTableOpen($event)" (emitResidentDocument)="GetResidentDocument($event)" [residentId]="residentId" [switchInputs]="switchInputs"></resident-document>
-        </div>
-        <div id="dormitory" class="tab-pane">
-            <resident-dormitory (emitResidentDormitory)="GetResidentDormitory($event)" [residentId]="residentId" [switchInputs]="switchInputs"></resident-dormitory>
+        <div class="tab-content">
+            <div id="personalData" class="tab-pane fade in active">
+                <resident-personal-data [residentId]="residentId" (emitResidentPersonalData)="GetResidentPersonalData($event)"></resident-personal-data>
+            </div>
+            <div id="placeOfResidence" class="tab-pane">
+                <resident-address [residentId]="residentId" (emitIsResidentAddressTableOpen)="GetIsResidentAddressTableOpen($event)" (emitResidentAddressList)="GetResidentAddress($event)"></resident-address>
+            </div>
+            <div id="document" class="tab-pane">
+                <resident-document [residentId]="residentId" (emitIsResidentDocumentTableOpen)="GetIsResidentDocumentTableOpen($event)" (emitResidentDocumentList)="GetResidentDocument($event)"></resident-document>
+            </div>
+            <div id="dormitory" class="tab-pane">
+                <resident-dormitory [stayResidentId]="stayResidentId" (emitResidentDormitory)="GetResidentDormitory($event)"></resident-dormitory>
+            </div>
         </div>
     </div>
-</div>
-<div id="button_wrapper" *ngIf="showEditButtons">
-    <button (click)="SwitchInputs()" class="btn btn-default">Edytuj</button>
-    <button [disabled]="switchInputs" [routerLink]="['../../../../residentList', dormitoryId]" (click)="EditResident()" type=" button " class="btn btn-default ">Zapisz</button>
 </div>

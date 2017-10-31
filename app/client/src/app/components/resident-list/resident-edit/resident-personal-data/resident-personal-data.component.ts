@@ -25,6 +25,7 @@ export class ResidentPersonalDataComponent implements OnChanges, OnInit, DoCheck
   private selectedCitzenship:number[];
   private previousSelectedCitzenship:number;
   private residentPersonalData;
+  private genreList;
   private listOfCitzenships;
   private myDatePickerOptions: IMyDpOptions = {
     // other options...
@@ -86,7 +87,9 @@ private model: Object = { date: { year: 2018, month: 10, day: 9 } };
   
   
   ngOnInit(){
-    
+    this.genreList = [
+      'Kobieta', 'Mężczyzna'
+  ]
     this.residentCitzenshipService.GetAllCitzenships()
     .then(
       citzenships => {
@@ -117,7 +120,7 @@ private model: Object = { date: { year: 2018, month: 10, day: 9 } };
 
             this.emitResidentPersonalData.emit(this.residentPersonalData);
             this.selectedCitzenship.push(residentPersonalData[0].citzenship_code_id);
-
+            console.log(this.residentPersonalData);
           }
         );
       }

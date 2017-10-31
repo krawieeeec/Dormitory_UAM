@@ -33,7 +33,7 @@ export class ResidentAddressComponent implements OnInit, OnChanges, DoCheck {
   private selectedTypeAddress;
   private previousSelectedTypeAddress;
   
-  @Input() switchInputs;
+  
   @Input() residentId:number;
   @Output() emitResidentAddress;
   @Output() emitIsResidentAddressTableOpen;
