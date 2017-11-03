@@ -120,7 +120,7 @@ private model: Object = { date: { year: 2018, month: 10, day: 9 } };
 
             this.emitResidentPersonalData.emit(this.residentPersonalData);
             this.selectedCitzenship.push(residentPersonalData[0].citzenship_code_id);
-            console.log(this.residentPersonalData);
+            
           }
         );
       }
@@ -145,13 +145,7 @@ private model: Object = { date: { year: 2018, month: 10, day: 9 } };
   }
 
   SetGenre(genreName){
-    
-    this.residentPersonalData.genre = genreName.value;
-    if(genreName.value == "Kobieta"){
-      this.residentPersonalData.blockadeState = "Odblokowana";
-    }else{
-      this.residentPersonalData.blockadeState = "Odblokowany";
-    }
+    this.residentPersonalData.genre = genreName.value.slice(3);
   }
   
 }

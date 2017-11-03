@@ -32,10 +32,11 @@ export class ResidentAddressComponent implements OnInit, OnChanges, DoCheck {
   private previousSelectedPostCode;
   private selectedTypeAddress;
   private previousSelectedTypeAddress;
-  
+  private selectedAddresses;
   
   @Input() residentId:number;
-  @Output() emitResidentAddress;
+  @Input() stayResidentId: number;
+  @Output() emitResidentAddressList;
   @Output() emitIsResidentAddressTableOpen;
 
   constructor(
@@ -53,7 +54,7 @@ export class ResidentAddressComponent implements OnInit, OnChanges, DoCheck {
             postCode: '',
             address:'',
             address_type_id: 0,
-            residentId: 0
+            resident_id: 0
         }
         this.settingsSelectButton  = {
           enableSearch: true,
@@ -83,7 +84,7 @@ export class ResidentAddressComponent implements OnInit, OnChanges, DoCheck {
           searchNoRenderText: 'Wpisz typ adresu w wyszukiwarce'
         };
         
-        this.emitResidentAddress = new EventEmitter<object>();
+        this.emitResidentAddressList = new EventEmitter<any>();
         this.emitIsResidentAddressTableOpen = new EventEmitter<boolean>();
         this.showAddressPanel = false;
         this.tempPostCodeList = [];
@@ -91,6 +92,12 @@ export class ResidentAddressComponent implements OnInit, OnChanges, DoCheck {
         this.postCodeList = [];
         this.typeAddressList = [];
         this.residentAddressList = [];
+        this.selectedAddresses = {
+          regularAddressId: 0,
+          tempAddressId: 0
+        };
+        this.stayResidentId = 0;
+        this.residentId = 0;
     
         this.selectedPostCode = [];
         this.selectedTypeAddress = [];
@@ -102,6 +109,12 @@ export class ResidentAddressComponent implements OnInit, OnChanges, DoCheck {
   }
 
   ngOnInit() {
+
+    this.residentService.GetResidentStayById(this.stayResidentId)
+    .then(response => {
+      this.selectedAddresses.tempAddressId = response.stayResident.temp_address_id;
+      this.selectedAddresses.regularAddressId = response.stayResident.regular_address_id;
+    })
 
     this.cityService.GetAllCities()
     .then(cities =>{
@@ -129,8 +142,16 @@ export class ResidentAddressComponent implements OnInit, OnChanges, DoCheck {
         .then(residentAddressList =>{
           
           this.residentAddressList = residentAddressList;
-
-          this.emitResidentAddress.emit(this.residentAddress);
+          this.residentAddressList.forEach(element => {
+            element.isNew = false;
+            element.isUpdated = false;
+            if((element.id == this.selectedAddresses.tempAddressId) || (element.id == this.selectedAddresses.regularAddressId)){
+              element.isUsed = true;  
+            }else{
+              element.isUsed = false;
+            }
+          });
+          this.emitResidentAddressList.emit(this.residentAddressList);
           
         });
       })
@@ -143,7 +164,8 @@ export class ResidentAddressComponent implements OnInit, OnChanges, DoCheck {
   }
   
   ngDoCheck(){
-    this.emitResidentAddress.emit(this.residentAddress);
+
+    this.emitResidentAddressList.emit(this.residentAddressList);
 
     if(this.selectedPostCode.length > 0 && (this.previousSelectedPostCode != this.selectedPostCode[0])){
       this.postCodeList.forEach(element => {
@@ -195,7 +217,10 @@ export class ResidentAddressComponent implements OnInit, OnChanges, DoCheck {
     this.residentAddress.postCode = this.residentAddressList[index].postCode;
     this.residentAddress.address = this.residentAddressList[index].address;
     this.residentAddress.address_type_id = this.residentAddressList[index].address_type_id;
-    this.residentAddress.residentId = this.residentId;
+    this.residentAddress.resident_id = this.residentId;
+    this.residentAddress.isNew = this.residentAddressList[index].isNew;
+    this.residentAddress.isUpdated = this.residentAddressList[index].isUpdated;
+    this.residentAddress.isUsed = this.residentAddressList[index].isUsed;
 
     if(this.selectedPostCode.length == 0){
       this.postCodeList.forEach((element, index) => {
@@ -232,7 +257,7 @@ export class ResidentAddressComponent implements OnInit, OnChanges, DoCheck {
     this.residentAddress.postCode = '';
     this.residentAddress.address = ''
     this.residentAddress.address_type_id = 0;
-    this.residentAddress.residentId = this.residentId;
+    this.residentAddress.resident_id = this.residentId;
     this.selectedPostCode = [];
     this.selectedTypeAddress = [];
     this.previousSelectedPostCode = '';
@@ -249,29 +274,27 @@ export class ResidentAddressComponent implements OnInit, OnChanges, DoCheck {
       tempResidentAddress  = Object.assign({}, this.residentAddress);
       this.residentAddressList[this.indexSelectedAddress] = tempResidentAddress;
       
-      this.residentService.UpdateResidentAddressById(this.residentAddress, this.idSelectedAddress)
+      this.residentService.UpdateResidentAddressById(this.residentAddress)
       .then(response=>{
-        this.residentService.GetResidentAddressById(this.residentId)
-        .then((residentAddressList)=>{
-          this.residentAddressList = residentAddressList;
-           
-        })  
-        
+        if(response.isUpdated){
+          this.residentAddressList[this.indexSelectedAddress].isUpdated = true;
+        }       
       })
     }else{
       
-      this.residentAddress.residentId = this.residentId;
+      this.residentAddress.resident_id = this.residentId;
       tempResidentAddress  = Object.assign({}, this.residentAddress);
-      this.residentAddressList.push(tempResidentAddress);
       
-      this.residentService.CreateNewResidentAddress(tempResidentAddress)
+      console.log(this.residentAddress)
+      this.residentService.CreateNewResidentAddress([tempResidentAddress])
       .then(response=>{
-        this.residentService.GetResidentAddressById(this.residentId)
-        .then((residentAddressList)=>{
-
-          this.residentAddressList = residentAddressList;
-          
-        }) 
+        if(response.isCreated){
+          response.newResidentAddresses[0].address = tempResidentAddress.address;
+          response.newResidentAddresses[0].isNew = true;
+          response.newResidentAddresses[0].isUpdated = false;
+          response.newResidentAddresses[0].isUsed = false;
+          this.residentAddressList.push(response.newResidentAddresses[0]);          
+        }  
       })
     }
     
@@ -284,7 +307,7 @@ export class ResidentAddressComponent implements OnInit, OnChanges, DoCheck {
     this.residentAddress.postCode = '';
     this.residentAddress.address = ''
     this.residentAddress.address_type_id = 0;
-    this.residentAddress.residentId = this.residentId;
+    this.residentAddress.resident_id = this.residentId;
     this.selectedPostCode = [];
     this.selectedTypeAddress = [];
     this.previousSelectedPostCode = '';
@@ -293,6 +316,23 @@ export class ResidentAddressComponent implements OnInit, OnChanges, DoCheck {
     if(this.showAddressPanel){
       this.showAddressPanel = false;
       this.emitIsResidentAddressTableOpen.emit(!this.showAddressPanel);
+    }
+  }
+
+  UseAddress(index){
+    let residentTypeAddress;
+
+    if(this.residentAddressList[index].isUsed == false){
+      residentTypeAddress = this.residentAddressList[index].address;
+      
+      this.residentAddressList.forEach(element => {
+        if((element.address == residentTypeAddress) && (element.isUsed == true)){
+          element.isUsed = false;
+        }  
+      });
+      this.residentAddressList[index].isUsed = true
+    }else{
+      this.residentAddressList[index].isUsed = false
     }
   }
   

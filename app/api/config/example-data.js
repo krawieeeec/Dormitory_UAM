@@ -214,19 +214,19 @@ dbClient.drop().then(() => {
                                                 stayResidentTable.bulkCreate([
                                                     {dateOfArrival:'2017-05-01', dateOfDeparture:'2011-08-22', dateOfTempDeparture: '2017-08-20', 
                                                     roomNumber:'11', dataCrossRp:'2011-03-03', comments:'Brak zastrzeżeń', 
-                                                   dormitory_id:'3', temp_address_id:'2', regular_address_id:'1', document_id:'3', resident_id: '1'},
+                                                   dormitory_id:'3', temp_address_id:'2', regular_address_id:'1', document_id:'4', resident_id: '2'},
                                                     {dateOfArrival:'2016-05-12', dateOfDeparture: '2016-08-12', dateOfTempDeparture: '2016-09-23', 
                                                      roomNumber:'142', dataCrossRp:'', comments:'Brak zastrzeżeń', 
-                                                     dormitory_id:'1', temp_address_id:'1', regular_address_id:'2', document_id:'1', resident_id: '2'},
+                                                     dormitory_id:'1', temp_address_id:null, regular_address_id:'5', document_id:'5', resident_id: '5'},
                                                     {dateOfArrival:'2014-12-11', dateOfDeparture:'2014-02-19', dateOfTempDeparture: '2016-03-20', 
                                                      roomNumber:'9', dataCrossRp:'', comments:'Nie potrafi sprzątać po sobie', 
-                                                     dormitory_id:'3', temp_address_id:'3', regular_address_id:'1', document_id:'3', resident_id: '5'},
+                                                     dormitory_id:'3', temp_address_id:'4', regular_address_id:'1', document_id:'3', resident_id: '4'},
                                                     {dateOfArrival:'2014-05-01', dateOfDeparture:'2014-08-22', dateOfTempDeparture: '2014-08-20', 
                                                      roomNumber:'1', dataCrossRp:'2011-03-03', comments:'Brak zastrzeżeń', 
-                                                    dormitory_id:'3', temp_address_id:'2', regular_address_id:'1', document_id:'3', resident_id: '4'},
+                                                    dormitory_id:'3', temp_address_id:'2', regular_address_id:'1', document_id:'2', resident_id: '3'},
                                                     {dateOfArrival:'2010-04-09', dateOfDeparture:'2010-09-20', dateOfTempDeparture: '2010-08-12', 
                                                      roomNumber:'42', dataCrossRp:'2010-05-04', comments:'Zdemolowany pokój', 
-                                                    dormitory_id:'2', temp_address_id:'4', regular_address_id:'1', document_id:'2', resident_id: '3'}
+                                                    dormitory_id:'2', temp_address_id:null, regular_address_id:'1', document_id:'1', resident_id: '1'}
                                                 ]).then(() => {
                                                     return stayResidentTable.findAll();
                                                 }).then(stayResidents =>{

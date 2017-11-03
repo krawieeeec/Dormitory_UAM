@@ -258,8 +258,7 @@ export class ResidentAddressComponent implements OnInit, OnChanges, DoCheck {
         (this.residentAddressList[this.indexSelectedAddress].isUpdated == true) &&
         (this.residentAddressList[this.indexSelectedAddress].isUsed == true || this.residentAddressList[this.indexSelectedAddress].isUsed == false)
       ){
-        this.residentService.UpdateResidentAddressById(this.residentAddressList[this.indexSelectedAddress],
-        this.residentAddressList[this.indexSelectedAddress].id)
+        this.residentService.UpdateResidentAddressById(this.residentAddressList[this.indexSelectedAddress])
         .then(response => {
           if(response.isUpdated){
             console.log('zaaktualizowano adres');

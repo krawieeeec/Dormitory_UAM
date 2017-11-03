@@ -45,15 +45,12 @@
                 <resident-address [getResidentId]="residentIdFromSearchResident" [getResidentAddressList]="residentAddressListFromSearchResident" (emitIsResidentAddressTableOpen)="GetIsResidentAddressTableOpen($event)" (emitResidentAddressList)="GetResidentAddress($event)"></resident-address>
             </div>
             <div id="document" class="tab-pane">
-                <resident-document [getResidentDocumentList]="residentDocumentListFromSearchResident" (emitIsResidentDocumentTableOpen)="GetIsResidentDocumentTableOpen($event)" (emitResidentDocumentList)="GetResidentDocument($event)"></resident-document>
+                <resident-document [getResidentId]="residentIdFromSearchResident" [getResidentPersonalData]="residentPersonalDataFromSearchResident" [getResidentDocumentList]="residentDocumentListFromSearchResident" (emitIsResidentDocumentTableOpen)="GetIsResidentDocumentTableOpen($event)"
+                    (emitResidentDocumentList)="GetResidentDocument($event)" (emitResidentPersonalData)="GetResidentPersonalData($event)"></resident-document>
             </div>
             <div id="dormitory" class="tab-pane">
                 <resident-dormitory [getResidentId]="residentIdFromSearchResident" (emitResidentDormitory)="GetResidentDormitory($event)"></resident-dormitory>
             </div>
         </div>
     </div>
-    <!-- <div id="button_wrapper" *ngIf="showAddButtons">
-        <button (click)="GoBack()" type="button" class="btn btn-default">Wstecz</button>
-        <button (click)="CreateNewResident()" type="button" class="btn btn-default ">Dodaj</button>
-    </div> -->
 </div>

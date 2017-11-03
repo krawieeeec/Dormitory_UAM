@@ -60,8 +60,9 @@ var residentDormitoryController = {
             where:{
                 id: stayResidentId
             },
-            attributes: ['dateOfArrival','dateOfDeparture', 'dateOfTempDeparture', 
-            'roomNumber', 'dateCrossRp', 'comments', 'dormitory_id', 'document_id', 'resident_id']
+            attributes: ['id', 'dateOfArrival','dateOfDeparture', 'dateOfTempDeparture', 
+            'roomNumber', 'dateCrossRp', 'comments', 'dormitory_id', 'document_id', 'resident_id',
+            'temp_address_id', 'regular_address_id']
         })
         .then((stayResident) =>{
             response.isSearched = true;
@@ -82,6 +83,9 @@ var residentDormitoryController = {
             stayResident: {},
             errorMessage: {}
         }
+        console.log('UPDATE');
+        console.log(req.newResidentStay);
+        console.log(stayResidentId)
         stayResidentTable.update(
             req.newResidentStay, 
             {

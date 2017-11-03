@@ -16,8 +16,8 @@ export class ResidentEditComponent implements OnInit, DoCheck, OnChanges {
 
 
   private residentPersonalData;
-  private residentAddress;
-  private residentDocument;
+  private residentAddressList;
+  private residentDocumentList;
   private residentDormitory;
   private residentId;
   private stayResidentId;
@@ -63,15 +63,15 @@ export class ResidentEditComponent implements OnInit, DoCheck, OnChanges {
     // console.log('resident-personal-data');
   }
 
-  GetResidentAddress(residentAddress){
-    this.residentAddress = residentAddress;
-    //  console.log(this.residentAddress);
+  GetResidentAddress(residentAddressList){
+    this.residentAddressList = residentAddressList;
+    //  console.log(this.residentAddressList);
     //  console.log('resident-edit-address');
   }
   
-  GetResidentDocument(residentDocument){
-    this.residentDocument = residentDocument;
-    //  console.log(this.residentDocument);
+  GetResidentDocument(residentDocumentList){
+    this.residentDocumentList = residentDocumentList;
+    //  console.log(this.residentDocumentList);
     //  console.log('resident-edit-document');
   }
 
@@ -86,48 +86,43 @@ export class ResidentEditComponent implements OnInit, DoCheck, OnChanges {
   //   this.router.navigate(['residentList', this.dormitoryId]);
  
   // }
-
-  SwitchInputs():void{
-    if(this.switchInputs){
-      this.switchInputs = false;
-    }
-  }
-
+  
   EditResident():void{
   //  console.log(this.residentPersonalData);
     this.residentService.UpdateResidentPersonalDataById(this.residentPersonalData, this.residentId)
     .then((response) => {
-      // console.log(response);
-     // this.router.navigate(['/residentList', this.dormitoryId]);
-      console.log('UPDATED - PersonalDATA');
-    })
-    .catch(error => console.log(error))
-    //this.router.navigate(['/residentList', this.dormitoryId]);
-    
-   // this.updateResidentList$.next(true);
-    
-    this.residentService.UpdateResidentAddressById(this.residentAddress, this.residentId)
-    .then((response) => {
-      console.log(response);
-      console.log('UPDATED - residentAddress')
-    })
-    .catch(error => {
-      console.log(error);
-    })
-
-    this.residentService.UpdateResidentDocumentById(this.residentDocument, this.residentId)
-    .then((response) =>{
-      // console.log(response);
-      console.log('UPDATED - residentDocument');
-    })
-    .catch(error =>{
-      console.log(error);
-    })
-    this.residentService.UpdateResidentDormitoryById(this.residentDormitory, this.residentId)
-    .then((response) =>{
-      // console.log(response);
-      console.log('UPDATED - residentDormitory');
-      this.residentListService.SetResidentListObservable$(true);
+      if(response.isUpdated){
+        console.log(this.residentAddressList);
+        console.log(this.residentDocumentList);
+        this.residentAddressList.forEach(element => {
+          if(element.isUsed){
+            console.log(element);
+            if(element.address == "Stały"){
+              this.residentDormitory.regular_address_id = element.id;
+            }else{
+              this.residentDormitory.temp_address_id = element.id;
+            }
+          }
+        });
+        this.residentDocumentList.forEach(element => {
+          if(element.isUsed){
+            this.residentDormitory.document_id = element.id;
+          }          
+        });
+        this.residentListService.SetResidentListObservable$(true);
+        
+        console.log('UPDATED - PersonalDATA');
+        console.log(this.residentDormitory);
+        this.residentService.UpdateResidentDormitoryById(this.residentDormitory, this.stayResidentId)
+        .then((response) =>{
+          console.log(response);
+          // this.router.navigate(['/residentList', this.dormitoryId]);
+          console.log('UPDATED - residentDormitory');
+          this.residentListService.SetResidentListObservable$(true);
+        })
+      }
+    }).catch(response =>{
+      console.log(response.errorMessage);
     })
     
     // location.reload();

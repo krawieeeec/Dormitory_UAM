@@ -2,6 +2,9 @@
 
     <div id="header_wrapper">
         <h1 class="title">Panel edycji rezydenta</h1>
+        <button (click)="EditResident()" type="button" data-toggle="tooltip" title="Dodaj rezydenta" class="btn btn-default" aria-label="Left Align">
+            <span  class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+        </button>
     </div>
     <div id="form_wrapper">
         <div id="formMenu_wrapper">
@@ -25,10 +28,10 @@
                 <resident-personal-data [residentId]="residentId" (emitResidentPersonalData)="GetResidentPersonalData($event)"></resident-personal-data>
             </div>
             <div id="placeOfResidence" class="tab-pane">
-                <resident-address [residentId]="residentId" (emitIsResidentAddressTableOpen)="GetIsResidentAddressTableOpen($event)" (emitResidentAddressList)="GetResidentAddress($event)"></resident-address>
+                <resident-address [stayResidentId]="stayResidentId" [residentId]="residentId" (emitIsResidentAddressTableOpen)="GetIsResidentAddressTableOpen($event)" (emitResidentAddressList)="GetResidentAddress($event)"></resident-address>
             </div>
             <div id="document" class="tab-pane">
-                <resident-document [residentId]="residentId" (emitIsResidentDocumentTableOpen)="GetIsResidentDocumentTableOpen($event)" (emitResidentDocumentList)="GetResidentDocument($event)"></resident-document>
+                <resident-document [stayResidentId]="stayResidentId" [residentId]="residentId" (emitIsResidentDocumentTableOpen)="GetIsResidentDocumentTableOpen($event)" (emitResidentDocumentList)="GetResidentDocument($event)"></resident-document>
             </div>
             <div id="dormitory" class="tab-pane">
                 <resident-dormitory [stayResidentId]="stayResidentId" (emitResidentDormitory)="GetResidentDormitory($event)"></resident-dormitory>

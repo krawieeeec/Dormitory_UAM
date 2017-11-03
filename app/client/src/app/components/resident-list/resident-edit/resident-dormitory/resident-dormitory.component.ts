@@ -29,27 +29,32 @@ export class ResidentDormitoryComponent implements OnInit {
       roomNumber: 0,
       dateCrossRp: '',
       comments: '',
-      dormitoryId: 0,
-      documentId: 0,
-      residentId: 0
+      dormitory_id: 0,
+      document_id: 0,
+      resident_id: 0,
+      regular_address_id: 0,
+      temp_address_id: null
     }
     this.emitResidentDormitory = new EventEmitter<object>();
     
   }
 
   ngOnInit() {
+    console.log(this.stayResidentId);
     this.residentService.GetResidentStayById(this.stayResidentId)
       .then(response =>{
-        console.log(response.stayResident);
+        console.log(response);
         this.residentDormitory.dateOfArrival = response.stayResident.dateOfArrival;
         this.residentDormitory.dateOfDeparture = response.stayResident.dateOfDeparture;
         this.residentDormitory.dateOfTempDeparture = response.stayResident.dateOfTempDeparture;
         this.residentDormitory.roomNumber = response.stayResident.roomNumber;
         this.residentDormitory.dateCrossRp = response.stayResident.dateCrossRp;
         this.residentDormitory.comments = response.stayResident.comments;
-        this.residentDormitory.dormitoryId = response.stayResident.dormitory_id;
-        this.residentDormitory.documentId = response.stayResident.document_id;
-        this.residentDormitory.residentId = response.stayResident.resident_id;
+        this.residentDormitory.dormitory_id = response.stayResident.dormitory_id;
+        this.residentDormitory.document_id = response.stayResident.document_id;
+        this.residentDormitory.resident_id = response.stayResident.resident_id;
+        // this.residentDormitory.regular_address_id = response.stayResident.regular_address_id;
+        // this.residentDormitory.temp_address_id = response.stayResident.temp_address_id; 
 
         this.emitResidentDormitory.emit(this.residentDormitory);
 

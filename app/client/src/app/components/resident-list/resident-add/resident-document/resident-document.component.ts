@@ -35,11 +35,13 @@ export class ResidentDocumentComponent implements OnInit, OnChanges, DoCheck {
   private showEditDocumentButton;
   private indexSelectedDocument;
   private residentId;
-  private residentSerialNumber;
+
 
   @Output() emitResidentDocumentList;
+  @Output() emitResidentPersonalData;
   @Output() emitIsResidentDocumentTableOpen;
   @Input() getResidentDocumentList: Array<any>;
+  @Input() getResidentPersonalData: any; 
   @Input() getResidentId;
 
 
@@ -83,6 +85,7 @@ export class ResidentDocumentComponent implements OnInit, OnChanges, DoCheck {
 
     this.emitResidentDocumentList = new EventEmitter < any > ();
     this.emitIsResidentDocumentTableOpen = new EventEmitter < boolean > ();
+    this.emitResidentPersonalData = new EventEmitter<object>();  
 
     this.typeDocumentList = [];
     this.tempTypeDocumentList = [];
@@ -170,8 +173,7 @@ export class ResidentDocumentComponent implements OnInit, OnChanges, DoCheck {
         (this.residentDocumentList[this.indexSelectedDocument].isUpdated == true) &&
         (this.residentDocumentList[this.indexSelectedDocument].isUsed == true || this.residentDocumentList[this.indexSelectedDocument].isUsed == false)
       ){
-        this.residentService.UpdateResidentDocumentById(this.residentDocumentList[this.indexSelectedDocument],
-        this.residentDocumentList[this.indexSelectedDocument].id)
+        this.residentService.UpdateResidentDocumentById(this.residentDocumentList[this.indexSelectedDocument])
         .then(response => {
           if(response.isUpdated){
             console.log('zaktualizowano dokument');         
@@ -181,11 +183,14 @@ export class ResidentDocumentComponent implements OnInit, OnChanges, DoCheck {
         })
       } 
     }else {
+      
       if(this.getResidentId == 0){
+        
         this.residentDocument.isNew = true;
         newResidentDocument = Object.assign({}, this.residentDocument);
         this.residentDocumentList.push(newResidentDocument); 
       }else{
+        
         this.residentDocument.isNew = true;
         newResidentDocument = Object.assign({}, this.residentDocument);
         newResidentDocument.resident_id = this.getResidentId;
@@ -249,6 +254,7 @@ export class ResidentDocumentComponent implements OnInit, OnChanges, DoCheck {
         }  
       });
       this.residentDocumentList[index].isUsed = true
+      this.CheckIsResidentSerialNumberExist(this.residentDocumentList[index].serialNumber);
     }else{
       this.residentDocumentList[index].isUsed = false
     }
@@ -271,22 +277,29 @@ export class ResidentDocumentComponent implements OnInit, OnChanges, DoCheck {
     
   }
 
-  CheckIsResidentSerialNumberExist(){
+  CheckIsResidentSerialNumberExist(serialNumber){
     let searchedAttributes = {
       pesel: '',
       serialNumber: ''
     }
-
-    if(this.residentSerialNumber != 0){
+    console.log(serialNumber);
+    if(serialNumber == undefined){
       searchedAttributes.serialNumber = this.residentDocument.serialNumber;
+    }else{
+      searchedAttributes.serialNumber = serialNumber;
+    }
+      
       this.residentService.FindExistingResident(searchedAttributes)
       .then(response => {
         if(response.isExist){
+          this.getResidentPersonalData.isExist = true;
+          this.emitResidentPersonalData.emit(this.getResidentPersonalData);
           console.log('MAMY OBCOKRAJOWCA');
         }else{
+          this.getResidentPersonalData.isExist = false;
+          this.emitResidentPersonalData.emit(this.getResidentPersonalData);
           console.log('NIE MAM OBCOKRAJOWCA');
         }
       })
-    }
   }
 }

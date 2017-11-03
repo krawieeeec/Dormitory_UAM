@@ -85,6 +85,7 @@ var residentAddressController = {
             updatedResidentAddress: [],
             errorMessage: {}
         }
+        
         residentAddressTable.update(
             req.updateResidentAddress, 
             {

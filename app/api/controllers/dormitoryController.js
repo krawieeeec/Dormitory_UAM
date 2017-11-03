@@ -40,7 +40,6 @@ var dormitoryController = {
             'WHERE account_residents.dormitory_id = :id ',
             {replacements: {id: dormitoryId}, type: sequelize.QueryTypes.SELECT }).
                 then(residents => {
-                    console.log(residents);
                     if(residents.length > 0){
                         res.status(200);
                         res.send(JSON.stringify(residents));

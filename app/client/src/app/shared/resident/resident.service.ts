@@ -81,8 +81,8 @@ export class ResidentService{
             .catch();
     }
 
-    GetResidentStayById(residentId): Promise<any>{
-        return this.http.get(this.residentUrl + '/' + residentId+ '/dormitory')
+    GetResidentStayById(residentStayId): Promise<any>{
+        return this.http.get(this.residentUrl + '/' + residentStayId + '/dormitory')
             .toPromise()
             .then(response => 
                 response.json() as any)
@@ -105,7 +105,7 @@ export class ResidentService{
             .catch();
     }
     
-    UpdateResidentAddressById(residentAddress, addressId): Promise<any>{
+    UpdateResidentAddressById(residentAddress): Promise<any>{
         return this.http.put(this.residentUrl + '/address', JSON.stringify(residentAddress), 
         {headers: this.headers})
             .toPromise()
@@ -113,7 +113,7 @@ export class ResidentService{
             .catch();
     }
         
-    UpdateResidentDocumentById(residentDocument, documentId): Promise<any>{
+    UpdateResidentDocumentById(residentDocument): Promise<any>{
         return this.http.put(this.residentUrl + '/document', JSON.stringify(residentDocument), 
         {headers: this.headers})
             .toPromise()

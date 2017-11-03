@@ -103,6 +103,7 @@ export class ResidentPersonalDataComponent implements OnChanges, OnInit, DoCheck
   ngOnChanges() {
 
     this.residentPersonalData = this.getResidentPersonalData;
+    
     this.selectedCitzenship.push(this.residentPersonalData.citzenshipCodeId);
     
     this.CheckIsResidentPeselExist();
@@ -119,13 +120,6 @@ export class ResidentPersonalDataComponent implements OnChanges, OnInit, DoCheck
           
            this.residentPersonalData.citzenshipCodeId = element.id;
            this.residentPersonalData.citzenship = element.name;
-           if(this.residentPersonalData.citzenship != 'Polskie'){
-            this.isResidentForeigner = true;
-            this.residentPersonalData.pesel = null
-           }else{
-             this.isResidentForeigner = false;
-             this.residentPersonalData.serialNumber = null;
-           }
         }
       });
       this.previousSelectedCitzenship = this.selectedCitzenship[0];
@@ -145,19 +139,23 @@ export class ResidentPersonalDataComponent implements OnChanges, OnInit, DoCheck
       pesel: '',
       serialNumber: ''
     }
-    if(this.residentPersonalData.pesel.length == 11){
-      searchedAttributes.pesel = this.residentPersonalData.pesel;
-      this.residentService.FindExistingResident(searchedAttributes)
-      .then(response => {
-        if(response.isExist){
-          console.log('MAMY PESEL');
-          this.residentPersonalData.isExist = true;
-        }else{
-          console.log('BRAK PESEL')
-          this.residentPersonalData.isExist = false;
-        }
-      })
+    
+    if(this.residentPersonalData.pesel != null){
+      if(this.residentPersonalData.pesel.length == 11){
+        searchedAttributes.pesel = this.residentPersonalData.pesel;
+        this.residentService.FindExistingResident(searchedAttributes)
+        .then(response => {
+          if(response.isExist){
+            console.log('MAMY PESEL');
+            this.residentPersonalData.isExist = true;
+          }else{
+            console.log('BRAK PESEL')
+            this.residentPersonalData.isExist = false;
+          }
+        })
+      }
     }
+    
   }
   
 }

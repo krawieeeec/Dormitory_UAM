@@ -32,7 +32,7 @@ var residentDocumentController = {
             newResidentDocuments: [],
             errorMessage: {}
         }
-        
+        console.log(req.body);
         documentTable.bulkCreate(req.body)
         .then(() => {
             console.log(req.body.length);
@@ -42,7 +42,6 @@ var residentDocumentController = {
                     ['id', 'desc']
                 ]
             }).then(newResidentDocuments => {
-                // console.log(newResidentDocuments);
                 response.isCreated = true;
                 newResidentDocuments.forEach(function(element) {
                     // console.log(element);

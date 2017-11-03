@@ -150,7 +150,7 @@ export class ResidentSearchComponent implements OnInit, DoCheck, OnChanges {
     let tempResidentPersonalData;
     this.residentService.GetResidentPersonalDataById(residentId)
     .then(residentPersonalData => {
-      
+
       this.residentPersonalData.id = residentPersonalData[0].id;
       this.residentPersonalData.name = residentPersonalData[0].name;
       this.residentPersonalData.surname = residentPersonalData[0].surname;
