@@ -3,7 +3,25 @@
         <div>
             <h1 class="title">Lista rezydentów - {{nameCurrentDormitory}}</h1>
             <button [routerLink]="['residentAdd']" id="addResident" type="button" class="btn btn-default">Dodaj Nowego Rezydenta</button>
-
+            <button id="residentSearch" type="button" (click)="ShowResidentSearch()" data-toggle="tooltip" title="Znajdź rezydenta" class="btn btn-default" aria-label="Left Align">
+                <span  class="fa fa-search" aria-hidden="true"></span>
+            </button>
+        </div>
+        <div id="residentSearch_wrapper" *ngIf="showResidentSearch">
+            <form>
+                <div class="form-group">
+                    <label for="residentName">Imię</label>
+                    <input (keyup)="FindResidentsFromList()" name="name" [(ngModel)]="residentSearchedAttributes.name" #name="ngModel" type="text" class="form-control" id="residentName" placeholder="Podaj Imie">
+                </div>
+                <div class="form-group">
+                    <label for="residentSurname">Nazwisko</label>
+                    <input (keyup)="FindResidentsFromList()" name="surname" [(ngModel)]="residentSearchedAttributes.surname" #surname="ngModel" type="text" class="form-control" id="residentSurname" placeholder="Podaj Nazwisko">
+                </div>
+                <div class="form-group">
+                    <label for="residentSerialNumber">Numer Pokoju</label>
+                    <input (keyup)="FindResidentsFromList()" name="serialNumber" [(ngModel)]="residentSearchedAttributes.roomNumber" #serialNumber="ngModel" type="text" class="form-control" id="residentSerialNumber" placeholder="Podaj numer pokoju">
+                </div>
+            </form>
         </div>
         <table id="residentList_wrapper" class="table table-hover">
             <thead>

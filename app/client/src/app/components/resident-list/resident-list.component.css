@@ -8,6 +8,49 @@ table {
     background: rgba(0, 0, 0, 0.7);
 } */
 
+.form-group {
+    margin-left: 20px;
+}
+
+#residentSearch_wrapper {
+    padding-bottom: 5px;
+    color: white;
+    /* border-bottom: 2px solid white; */
+}
+
+#residentSearch_wrapper>form {
+    display: inline-flex;
+}
+
+#residentSearch_wrapper>input {
+    max-width: 200px;
+    min-width: 200px;
+    margin-left: 30px;
+    margin-right: 30px;
+}
+
+#residentSearch_wrapper>button {
+    margin-left: 10px;
+    margin-top: 75px;
+    width: 200px;
+    min-width: 200px;
+    margin-bottom: 10px;
+    height: 35px;
+}
+
+#residentSearch_wrapper>button.btn {
+    padding: 0px 0px 0px 0px;
+}
+
+#residentSearch {
+    margin-top: 10px;
+}
+
+.fa,
+.glyphicon {
+    font-size: 30px;
+}
+
 .btn {
     padding: 10px 13px 7px 12px;
 }
