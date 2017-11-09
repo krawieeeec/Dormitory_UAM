@@ -27,6 +27,7 @@ export class ResidentPersonalDataComponent implements OnChanges, OnInit, DoCheck
   private previousSelectedCitzenship:number;
   private isResidentForeigner;
   private genreList;
+  private validationError;
   
   @Output() emitResidentPersonalData;
   @Input() getResidentPersonalData: any; 
@@ -82,6 +83,17 @@ export class ResidentPersonalDataComponent implements OnChanges, OnInit, DoCheck
     this.selectedCitzenship = [];
     this.previousSelectedCitzenship = 0;
     this.isResidentForeigner = false;
+
+    this.validationError = {
+      specialCharactersOrNumbers: {
+        name: true,
+        surname: true,
+        birthPlace: true,
+        fatherName: true,
+        motherName: true
+      },
+      phoneNumber: true
+    }
   }
 
   /////////////////////////////////////////LIFE CYCLE OF COMPONENT///////////////////////////////////////////////
@@ -157,5 +169,73 @@ export class ResidentPersonalDataComponent implements OnChanges, OnInit, DoCheck
     }
     
   }
+
+  CheckValidation(input, typeInput){
+    
+    var characters = [], specialCharacters = [], numbers = [], stringWithoutWhiteSpace = '';
+
+    stringWithoutWhiteSpace = input.replace(/\s/g,'')
+
+    specialCharacters = stringWithoutWhiteSpace.match(/\W/g);
+    numbers = stringWithoutWhiteSpace.match(/\d/g);
+    characters = input.match(/\+[0-9]*\s*[0-9]*/g); 
+    
+    if(typeInput.name == 'name'){
+      if((specialCharacters != null || numbers != null)){
+        this.validationError.specialCharactersOrNumbers.name = false;
+      }else if((specialCharacters == null && numbers == null)){
+        this.validationError.specialCharactersOrNumbers.name = true;
+      }
+    }
+    
+    if(typeInput.name == 'surname'){
+      if((specialCharacters != null || numbers != null)){
+        this.validationError.specialCharactersOrNumbers.surname = false;
+      }else if((specialCharacters == null && numbers == null)){
+        this.validationError.specialCharactersOrNumbers.surname = true;
+      }
+    }
+
+    if(typeInput.name == 'birthPlace'){
+      if((specialCharacters != null || numbers != null)){
+        this.validationError.specialCharactersOrNumbers.birthPlace = false;
+      }else if((specialCharacters == null && numbers == null)){
+        this.validationError.specialCharactersOrNumbers.birthPlace = true;
+      }
+    }
+
+    if(typeInput.name == 'fatherName'){
+      if((specialCharacters != null || numbers != null)){
+        this.validationError.specialCharactersOrNumbers.fatherName = false;
+      }else if((specialCharacters == null && numbers == null)){
+        this.validationError.specialCharactersOrNumbers.fatherName = true;
+      }
+    }
+
+    if(typeInput.name == 'motherName'){
+      if((specialCharacters != null || numbers != null)){
+        this.validationError.specialCharactersOrNumbers.motherName = false;
+      }else if((specialCharacters == null && numbers == null)){
+        this.validationError.specialCharactersOrNumbers.motherName = true;
+      }
+    }
+    
+    if(typeInput.name == 'phoneNumber'){
+      if(characters != null){
+        if(input == characters[0]){
+          this.validationError.phoneNumber = true;
+        }else{
+          this.validationError.phoneNumber = false;
+        }
+      }else if((characters == null) && (input != '')){
+        this.validationError.phoneNumber = false;
+      }else if((characters == null) && (input == '')){
+        this.validationError.phoneNumber = true;
+      }      
+    }
+
+  }
+
   
 }
+

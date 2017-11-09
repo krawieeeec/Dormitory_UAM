@@ -6,7 +6,7 @@ var residentPersonalDataController = {
     FormResponseObject: function(req, res, next){
         
         res.setHeader('Access-Control-Allow-Origin', '*');
-        res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+        res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE');
         res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
         //res.setHeader('Access-Control-Allow-Credentials', true);
         
@@ -34,12 +34,15 @@ var residentPersonalDataController = {
             newResident: [],
             errorMessage: {}
         }
+
+        console.log(req.newResidentPersonalData);
         residentTable.create(req.newResidentPersonalData)
         .then((newResident) => {
                 response.isCreated = true;
                 response.newResident.push(newResident);
                 res.send(response);
             }).catch(error => {
+                res.status(404);
                 response.isCreated = false;
                 response.errorMessage = error
                 res.send(response);
@@ -91,7 +94,7 @@ var residentPersonalDataController = {
             }).catch(
                 error => 
                 {
-                    res.status(400);
+                    res.status(404);
                     response.isUpdated = false;
                     response.errorMessage = error;
                     res.send(response);

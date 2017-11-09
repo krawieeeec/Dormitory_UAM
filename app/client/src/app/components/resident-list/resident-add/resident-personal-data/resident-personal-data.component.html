@@ -4,16 +4,22 @@
     <form>
         <div class="form-group">
             <label for="residentName">Imię</label>
-            <input [(ngModel)]="residentPersonalData.name" name="name" #name="ngModel" type="text" class="form-control" id="residentName" placeholder="Podaj Imie" required>
+            <input (keyup)="CheckValidation(residentPersonalData.name, name)" [(ngModel)]="residentPersonalData.name" name="name" #name="ngModel" type="text" class="form-control" id="residentName" placeholder="Podaj Imie" required>
             <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
                 Pole nie może być puste
+            </div>
+            <div [hidden]="validationError.specialCharactersOrNumbers.name" class="alert alert-danger">
+                Imię nie może zawierać znaków specjalnych lub cyfr
             </div>
         </div>
         <div class="form-group">
             <label for="residentSurname">Nazwisko</label>
-            <input #surname="ngModel" [(ngModel)]="residentPersonalData.surname" name="surname" type="text" class="form-control" id="residentSurname" placeholder="Podaj Nazwisko" required>
+            <input (keyup)="CheckValidation(residentPersonalData.surname, surname)" #surname="ngModel" [(ngModel)]="residentPersonalData.surname" name="surname" type="text" class="form-control" id="residentSurname" placeholder="Podaj Nazwisko" required>
             <div [hidden]="surname.valid || surname.pristine" class="alert alert-danger">
                 Pole nie może być puste
+            </div>
+            <div [hidden]="validationError.specialCharactersOrNumbers.surname" class="alert alert-danger">
+                Nazwisko nie może zawierać znaków specjalnych lub cyfr
             </div>
         </div>
         <div class="form-group">
@@ -44,24 +50,35 @@
         </div>
         <div class="form-group">
             <label for="residentBrithPlace">Miejsce Urodzenia</label>
-            <input #birthPlace="ngModel" [(ngModel)]="residentPersonalData.birthPlace" name="birthPlace" type="text" class="form-control" id="residentBrithPlace" placeholder="Podaj Miejsce Urodzenia" required>
+            <input (keyup)="CheckValidation(residentPersonalData.birthPlace, birthPlace)" #birthPlace="ngModel" [(ngModel)]="residentPersonalData.birthPlace" name="birthPlace" type="text" class="form-control" id="residentBrithPlace" placeholder="Podaj Miejsce Urodzenia"
+                required>
             <div [hidden]="birthPlace.valid || birthPlace.pristine" class="alert alert-danger">
                 Pole nie może być puste
+            </div>
+            <div [hidden]="validationError.specialCharactersOrNumbers.birthPlace" class="alert alert-danger">
+                Miejsce urodzenia nie może zawierać znaków specjalnych lub cyfr
             </div>
         </div>
         <div class="form-group">
             <label for="residentNameFather">Imię Ojca</label>
-            <input #fatherName="ngModel" [(ngModel)]="residentPersonalData.fatherName" name="fatherName" type="text" class="form-control" id="residentNameFather" placeholder="Podaj Imię Ojca" required>
+            <input (keyup)="CheckValidation(residentPersonalData.fatherName, fatherName)" #fatherName="ngModel" [(ngModel)]="residentPersonalData.fatherName" name="fatherName" type="text" class="form-control" id="residentNameFather" placeholder="Podaj Imię Ojca"
+                required>
+            <div [hidden]="validationError.specialCharactersOrNumbers.fatherName" class="alert alert-danger">
+                Imie ojca nie może zawierać znaków specjalnych lub cyfr
+            </div>
         </div>
         <div class="form-group">
             <label for="residentNameMather">Imię Matki</label>
-            <input #matherName="ngModel" [(ngModel)]="residentPersonalData.motherName" name="motherName" type="text" class="form-control" id="residentNameMather" placeholder="Podaj Imię Matki" required>
+            <input (keyup)="CheckValidation(residentPersonalData.motherName, motherName)" #motherName="ngModel" [(ngModel)]="residentPersonalData.motherName" name="motherName" type="text" class="form-control" id="residentNameMather" placeholder="Podaj Imię Matki"
+                required>
+            <div [hidden]="validationError.specialCharactersOrNumbers.motherName" class="alert alert-danger">
+                Imie matki nie może zawierać znaków specjalnych lub cyfr
+            </div>
         </div>
     </form>
 </div>
 <div id="form_wrapper">
     <form>
-
         <div class="form-group">
             <label for="residentGenre">Płeć</label>
             <select class="form-control" #genre="ngModel" [(ngModel)]="residentPersonalData.genre" [ngModelOptions]="{standalone: true}" placeholder="Wybierz Płeć" (change)="SetGenre($event.target)">
@@ -75,7 +92,12 @@
         </div>
         <div class="form-group">
             <label for="residentPhoneNumber">Numer Telefonu</label>
-            <input #phoneNumber="ngModel" [(ngModel)]="residentPersonalData.phoneNumber" name="phoneNumber" type="text" class="form-control" id="residentPhoneNumber" placeholder="Podaj Imię Matki" required>
+            <input (keyup)="CheckValidation(residentPersonalData.phoneNumber, phoneNumber)" #phoneNumber="ngModel" [(ngModel)]="residentPersonalData.phoneNumber" name="phoneNumber" type="text" class="form-control" id="residentPhoneNumber" placeholder="+48 123123123..."
+                required>
+            <div [hidden]="validationError.phoneNumber" class="alert alert-danger">
+                Numer telefonu niezgodny ze wzorem
+            </div>
         </div>
+
     </form>
 </div>

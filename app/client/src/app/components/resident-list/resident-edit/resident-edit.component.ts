@@ -116,7 +116,7 @@ export class ResidentEditComponent implements OnInit, DoCheck, OnChanges {
         this.residentService.UpdateResidentDormitoryById(this.residentDormitory, this.stayResidentId)
         .then((response) =>{
           console.log(response);
-          // this.router.navigate(['/residentList', this.dormitoryId]);
+          this.router.navigate(['/residentList', this.dormitoryId]);
           console.log('UPDATED - residentDormitory');
           this.residentListService.SetResidentListObservable$(true);
         })

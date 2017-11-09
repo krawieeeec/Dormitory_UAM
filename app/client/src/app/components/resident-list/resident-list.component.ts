@@ -167,6 +167,7 @@ export class ResidentListComponent implements OnInit, DoCheck, OnDestroy{
                     if(this.residentSearchedAttributes.roomNumber.length <= element.room_number.toString().length){
                         if(this.residentSearchedAttributes.roomNumber === element.room_number.toString().substr(0, this.residentSearchedAttributes.roomNumber.length)){
                             console.log('pasuje');
+                            console.log(element);
                             tempResidentsList.push(element);
                         }
                     }
@@ -177,6 +178,11 @@ export class ResidentListComponent implements OnInit, DoCheck, OnDestroy{
             (this.residentSearchedAttributes.surname.length == 0) &&
             (this.residentSearchedAttributes.roomNumber.length == 0)){
                 this.residentsList = this.copyResidentsList;
+                this.residentPreviousSearchedAttributes = {
+                    name: '',
+                    surname: '',
+                    roomNumber: ''
+                }
             }
     }
 

@@ -1,3 +1,11 @@
 .modal-header {
     text-align: center;
 }
+
+#residentAddresses>div {
+    border-bottom: black 2px solid;
+}
+
+#residentDocuments>div {
+    border-bottom: black 2px solid;
+}
