@@ -35,7 +35,7 @@ export class ResidentDocumentComponent implements OnInit, OnChanges, DoCheck {
   private showEditDocumentButton;
   private indexSelectedDocument;
   private residentId;
-
+  private validationError;
 
   @Output() emitResidentDocumentList;
   @Output() emitResidentPersonalData;
@@ -97,6 +97,13 @@ export class ResidentDocumentComponent implements OnInit, OnChanges, DoCheck {
     this.indexSelectedDocument = 0;
     this.residentId = 0;
     this.getResidentId = 0;
+    
+    this.validationError = {
+      specialCharactersOrNumbers: {
+        issuingCountry: true  
+      },
+      expirationDate: true
+    }
   }
 
   ngOnInit() {
@@ -301,5 +308,42 @@ export class ResidentDocumentComponent implements OnInit, OnChanges, DoCheck {
           console.log('NIE MAM OBCOKRAJOWCA');
         }
       })
+  }
+  CheckValidation(input, typeInput){
+    var phoneNumber = [], specialCharactersInInput = [], numbersInInput = [], stringWithoutWhiteSpace = '',
+    nonDigitcharactersInInput = [];
+
+    stringWithoutWhiteSpace = input.replace(/\s/g,'')
+
+    specialCharactersInInput = stringWithoutWhiteSpace.match(/\W/g);
+    numbersInInput = stringWithoutWhiteSpace.match(/\d/g);
+    nonDigitcharactersInInput = input.match(/\D/g);
+    phoneNumber = input.match(/\+[0-9]*\s*[0-9]*/g); 
+    console.log(this.residentDocument);
+    console.log(input);
+    console.log(typeInput);
+    if(typeInput.name == 'issuingCountry'){
+      if((specialCharactersInInput != null || numbersInInput != null)){
+        this.validationError.specialCharactersOrNumbers.issuingCountry = false;
+      }else if((specialCharactersInInput == null && numbersInInput == null)){
+        this.validationError.specialCharactersOrNumbers.issuingCountry = true;
+      }
+    }else if(typeInput.name == 'releaseDate'){
+      if((this.residentDocument.releaseDate != null) && (this.residentDocument.expirationDate != null)){
+        if(this.residentDocument.releaseDate < this.residentDocument.expirationDate){
+          this.validationError.expirationDate = true;
+        }else{
+          this.validationError.expirationDate = false;
+        }
+      }
+    }else if(typeInput.name == 'expirationDate'){
+      if((this.residentDocument.releaseDate != null) && (this.residentDocument.expirationDate != null)){
+        if(this.residentDocument.releaseDate < this.residentDocument.expirationDate){
+          this.validationError.expirationDate = true;
+        }else{
+          this.validationError.expirationDate = false;
+        }
+      }
+    }
   }
 }

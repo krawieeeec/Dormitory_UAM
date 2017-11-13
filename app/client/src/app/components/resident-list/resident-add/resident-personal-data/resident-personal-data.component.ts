@@ -98,6 +98,8 @@ export class ResidentPersonalDataComponent implements OnChanges, OnInit, DoCheck
         whiteSpaces: true
       },
       phoneNumber: true,
+      genre: true,
+      birthDate: true
       
     }
   }
@@ -177,13 +179,11 @@ export class ResidentPersonalDataComponent implements OnChanges, OnInit, DoCheck
   }
 
   CheckValidation(input, typeInput){
-    console.log(this.residentPersonalData.birthDate);
-    console.log(typeof this.residentPersonalData.birthDate);
+    
     var phoneNumber = [], specialCharactersInInput = [], numbersInInput = [], stringWithoutWhiteSpace = '',
     nonDigitcharactersInInput = [];
 
     stringWithoutWhiteSpace = input.replace(/\s/g,'')
-
     specialCharactersInInput = stringWithoutWhiteSpace.match(/\W/g);
     numbersInInput = stringWithoutWhiteSpace.match(/\d/g);
     nonDigitcharactersInInput = input.match(/\D/g);
@@ -240,30 +240,123 @@ export class ResidentPersonalDataComponent implements OnChanges, OnInit, DoCheck
       if((this.residentPersonalData.pesel.length < 11) && (this.validationError.pesel.incorrectPesel == false)){
         this.validationError.pesel.incorrectPesel = true;
       }
+      if((this.residentPersonalData.pesel.length < 11) && (this.validationError.birthDate == false)){
+        this.validationError.birthDate = true;
+      }
+      
       if(this.residentPersonalData.pesel.length == 11){
         let peselExpression = 0, peselControlDigit = 0;
+        let dateBirthFromPesel = '', year ='', month = '', day = '';
+        
+        if((this.residentPersonalData.pesel[2] == '8') || (this.residentPersonalData.pesel[2] == '9')){
+          
+          if(this.residentPersonalData.birthDate != ""){
+            year = '18'+this.residentPersonalData.pesel[0] + this.residentPersonalData.pesel[1] +'-';
+            if(this.residentPersonalData.pesel[2] == '8'){
+              month = '0' + this.residentPersonalData.pesel[3] + '-';
+            }else if(this.residentPersonalData.pesel[2] == '9'){
+              month = '1' + this.residentPersonalData.pesel[3] + '-';
+            }
+            day = this.residentPersonalData.pesel[4] + this.residentPersonalData.pesel[5];
+            dateBirthFromPesel = year + month + day;
+            if(this.residentPersonalData.birthDate == dateBirthFromPesel){
+              this.validationError.birthDate = true;
+            }else{
+              this.validationError.birthDate = false;
+            }
+          } 
 
-        if((this.residentPersonalData.pesel[2] == '8') || ((this.residentPersonalData.pesel[2] == '9'))){
-          console.log('Rok 1800-1899');
         }else if((this.residentPersonalData.pesel[2] == '0') || (this.residentPersonalData.pesel[2] == '1')){
-          console.log('Rok 1900-1999');
+          
+          if(this.residentPersonalData.birthDate != ""){
+            year = '19'+this.residentPersonalData.pesel[0] + this.residentPersonalData.pesel[1] +'-';
+            if(this.residentPersonalData.pesel[2] == '0'){
+              month = '0' + this.residentPersonalData.pesel[3] + '-';
+            }else if(this.residentPersonalData.pesel[2] == '1'){
+              month = '1' + this.residentPersonalData.pesel[3] + '-';
+            }
+            day = this.residentPersonalData.pesel[4] + this.residentPersonalData.pesel[5];
+            dateBirthFromPesel = year + month + day;
+            if(this.residentPersonalData.birthDate == dateBirthFromPesel){
+              this.validationError.birthDate = true;
+            }else{
+              this.validationError.birthDate = false;
+            }
+          }
+        
         }else if((this.residentPersonalData.pesel[2] == '2') || (this.residentPersonalData.pesel[2] == '3')){
-          console.log('Rok 2000-2099');
+          
+          if(this.residentPersonalData.birthDate != ""){
+            year = '20'+this.residentPersonalData.pesel[0] + this.residentPersonalData.pesel[1] +'-';
+            if(this.residentPersonalData.pesel[2] == '2'){
+              month = '0' + this.residentPersonalData.pesel[3] + '-';
+            }else if(this.residentPersonalData.pesel[2] == '3'){
+              month = '1' + this.residentPersonalData.pesel[3] + '-';
+            }
+            day = this.residentPersonalData.pesel[4] + this.residentPersonalData.pesel[5];
+            dateBirthFromPesel = year + month + day;
+            if(this.residentPersonalData.birthDate == dateBirthFromPesel){
+              this.validationError.birthDate = true;
+            }else{
+              this.validationError.birthDate = false;
+            }
+          }
+
         }else if((this.residentPersonalData.pesel[2] == '4') || (this.residentPersonalData.pesel[2] == '5')){
-          console.log('Rok 2100-2199');
+  
+          if(this.residentPersonalData.birthDate != ""){
+            year = '21'+this.residentPersonalData.pesel[0] + this.residentPersonalData.pesel[1] +'-';
+            if(this.residentPersonalData.pesel[2] == '4'){
+              month = '0' + this.residentPersonalData.pesel[3] + '-';
+            }else if(this.residentPersonalData.pesel[2] == '5'){
+              month = '1' + this.residentPersonalData.pesel[3] + '-';
+            }
+            day = this.residentPersonalData.pesel[4] + this.residentPersonalData.pesel[5];
+            dateBirthFromPesel = year + month + day;
+            if(this.residentPersonalData.birthDate == dateBirthFromPesel){
+              this.validationError.birthDate = true;
+            }else{
+              this.validationError.birthDate = false;
+            }
+          }
+          
         }else if((this.residentPersonalData.pesel[2] == '6') || (this.residentPersonalData.pesel[2] == '7')){
-          console.log('Rok 2200 - 2299');
+          
+          if(this.residentPersonalData.birthDate != ""){
+            year = '22'+this.residentPersonalData.pesel[0] + this.residentPersonalData.pesel[1] +'-';
+            if(this.residentPersonalData.pesel[2] == '6'){
+              month = '0' + this.residentPersonalData.pesel[3] + '-';
+            }else if(this.residentPersonalData.pesel[2] == '7'){
+              month = '1' + this.residentPersonalData.pesel[3] + '-';
+            }
+            day = this.residentPersonalData.pesel[4] + this.residentPersonalData.pesel[5];
+            dateBirthFromPesel = year + month + day;
+            if(this.residentPersonalData.birthDate == dateBirthFromPesel){
+              this.validationError.birthDate = true;
+            }else{
+              this.validationError.birthDate = false;
+            }
+          }
+          
         }
         if(
           (this.residentPersonalData.pesel[9] == '1') || (this.residentPersonalData.pesel[9] == '3') ||
           (this.residentPersonalData.pesel[9] == '5') || (this.residentPersonalData.pesel[9] == '7') ||
           (this.residentPersonalData.pesel[9] == '9')
         ){
-          console.log('Płeć męska');
+          if(this.residentPersonalData.genre == 'Kobieta'){
+            this.validationError.genre = false
+          }else{
+            this.validationError.genre = true;
+          }
         }else{
-          console.log('Płeć żeńska');
+          if(this.residentPersonalData.genre == 'Mężczyzna'){
+            this.validationError.genre = false;
+          }else{
+            this.validationError.genre = true;
+          }
         }
-
+        
         peselExpression = (
           (9 * this.residentPersonalData.pesel[0]) + (7 * this.residentPersonalData.pesel[1]) + 
           (3 * this.residentPersonalData.pesel[2]) + (1 * this.residentPersonalData.pesel[3]) +
@@ -278,6 +371,129 @@ export class ResidentPersonalDataComponent implements OnChanges, OnInit, DoCheck
           }else{
             this.validationError.pesel.incorrectPesel = true;
           }
+      }
+    }else if(typeInput.name == 'birthDate'){
+      if((this.residentPersonalData.pesel.length < 11) && (this.validationError.birthDate == false)){
+        this.validationError.birthDate = true;
+      }
+      
+      if(this.residentPersonalData.pesel.length == 11){
+        let peselExpression = 0, peselControlDigit = 0;
+        let dateBirthFromPesel = '', year ='', month = '', day = '';
+ 
+        if((this.residentPersonalData.pesel[2] == '8') || (this.residentPersonalData.pesel[2] == '9')){
+          
+          if(this.residentPersonalData.birthDate != ""){
+            year = '18'+this.residentPersonalData.pesel[0] + this.residentPersonalData.pesel[1] +'-';
+            if(this.residentPersonalData.pesel[2] == '8'){
+              month = '0' + this.residentPersonalData.pesel[3] + '-';
+            }else if(this.residentPersonalData.pesel[2] == '9'){
+              month = '1' + this.residentPersonalData.pesel[3] + '-';
+            }
+            day = this.residentPersonalData.pesel[4] + this.residentPersonalData.pesel[5];
+            dateBirthFromPesel = year + month + day;
+            if(this.residentPersonalData.birthDate == dateBirthFromPesel){
+              this.validationError.birthDate = true;
+            }else{
+              this.validationError.birthDate = false;
+            }
+          }
+          
+        }else if((this.residentPersonalData.pesel[2] == '0') || (this.residentPersonalData.pesel[2] == '1')){
+          
+          if(this.residentPersonalData.birthDate != ""){
+            year = '19'+this.residentPersonalData.pesel[0] + this.residentPersonalData.pesel[1] +'-';
+            if(this.residentPersonalData.pesel[2] == '0'){
+              month = '0' + this.residentPersonalData.pesel[3] + '-';
+            }else if(this.residentPersonalData.pesel[2] == '1'){
+              month = '1' + this.residentPersonalData.pesel[3] + '-';
+            }
+            day = this.residentPersonalData.pesel[4] + this.residentPersonalData.pesel[5];
+            dateBirthFromPesel = year + month + day;
+            if(this.residentPersonalData.birthDate == dateBirthFromPesel){
+              this.validationError.birthDate = true;
+            }else{
+              this.validationError.birthDate = false;
+            }
+          }
+          
+        }else if((this.residentPersonalData.pesel[2] == '2') || (this.residentPersonalData.pesel[2] == '3')){
+          
+          if(this.residentPersonalData.birthDate != "" ){
+            year = '20'+this.residentPersonalData.pesel[0] + this.residentPersonalData.pesel[1] +'-';
+            if(this.residentPersonalData.pesel[2] == '2'){
+              month = '0' + this.residentPersonalData.pesel[3] + '-';
+            }else if(this.residentPersonalData.pesel[2] == '3'){
+              month = '1' + this.residentPersonalData.pesel[3] + '-';
+            }
+            day = this.residentPersonalData.pesel[4] + this.residentPersonalData.pesel[5];
+            dateBirthFromPesel = year + month + day;
+            if(this.residentPersonalData.birthDate == dateBirthFromPesel){
+              this.validationError.birthDate = true;
+            }else{
+              this.validationError.birthDate = false;
+            }
+          }
+
+        }else if((this.residentPersonalData.pesel[2] == '4') || (this.residentPersonalData.pesel[2] == '5')){
+          
+          if(this.residentPersonalData.birthDate != "") {
+            year = '21'+this.residentPersonalData.pesel[0] + this.residentPersonalData.pesel[1] +'-';
+            if(this.residentPersonalData.pesel[2] == '4'){
+              month = '0' + this.residentPersonalData.pesel[3] + '-';
+            }else if(this.residentPersonalData.pesel[2] == '5'){
+              month = '1' + this.residentPersonalData.pesel[3] + '-';
+            }
+            day = this.residentPersonalData.pesel[4] + this.residentPersonalData.pesel[5];
+            dateBirthFromPesel = year + month + day;
+            if(this.residentPersonalData.birthDate == dateBirthFromPesel){
+              this.validationError.birthDate = true;
+            }else{
+              this.validationError.birthDate = false;
+            }
+          }
+
+        }else if((this.residentPersonalData.pesel[2] == '6') || (this.residentPersonalData.pesel[2] == '7')){
+          
+          if(this.residentPersonalData.birthDate != ""){
+            year = '22'+this.residentPersonalData.pesel[0] + this.residentPersonalData.pesel[1] +'-';
+            if(this.residentPersonalData.pesel[2] == '6'){
+              month = '0' + this.residentPersonalData.pesel[3] + '-';
+            }else if(this.residentPersonalData.pesel[2] == '7'){
+              month = '1' + this.residentPersonalData.pesel[3] + '-';
+            }
+            day = this.residentPersonalData.pesel[4] + this.residentPersonalData.pesel[5];
+            dateBirthFromPesel = year + month + day;
+            if(this.residentPersonalData.birthDate == dateBirthFromPesel){
+              this.validationError.birthDate = true;
+            }else{
+              this.validationError.birthDate = false;
+            }
+          }
+          
+        }
+      }
+
+    }else if(typeInput.name == 'genre'){
+      
+      if(this.residentPersonalData.pesel.length == 11){
+        if(
+          (this.residentPersonalData.pesel[9] == '1') || (this.residentPersonalData.pesel[9] == '3') ||
+          (this.residentPersonalData.pesel[9] == '5') || (this.residentPersonalData.pesel[9] == '7') ||
+          (this.residentPersonalData.pesel[9] == '9')
+        ){
+          if(this.residentPersonalData.genre == "Kobieta"){
+            this.validationError.genre = false;
+          }else{
+            this.validationError.genre = true;
+          }
+        }else{
+          if(this.residentPersonalData.genre == "Kobieta"){
+            this.validationError.genre = true;
+          }else{
+            this.validationError.genre = false;
+          }
+        }
       }
     } 
 

@@ -61,24 +61,29 @@
                 </div>
                 <div class="form-group">
                     <label for="residentSerialNumber">Numer dokumentu</label>
-                    <input (blur)="CheckIsResidentSerialNumberExist()" type="text" #serialNumber="ngModel" [(ngModel)]="residentDocument.serialNumber" #serialNumber="ngModel" name="serialNumber" class="form-control" id="residentSerialNumber" placeholder="Podaj numer dokumentu"
-                        required>
+                    <input (keyup)="CheckValidation(residentDocument.serialNumber, serialNumber)" (blur)="CheckIsResidentSerialNumberExist()" type="text" #serialNumber="ngModel" [(ngModel)]="residentDocument.serialNumber" name="serialNumber" class="form-control" id="residentSerialNumber"
+                        placeholder="Podaj numer dokumentu" required>
                     <div [hidden]="serialNumber.valid || serialNumber.pristine" class="alert alert-danger">
                         Pole nie może być puste
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="residentReleaseDate">Data Wydania</label>
-                    <input type="date" #releaseDate="ngModel" [(ngModel)]="residentDocument.releaseDate" #releaseDate="ngModel" name="releaseDate" class="form-control" id="residentReleaseDate" placeholder="Podaj Datę Wydania" required>
+                    <input (change)="CheckValidation(residentDocument.releaseDate, releaseDate)" (keyup)="CheckValidation(residentDocument.releaseDate, releaseDate)" type="date" #releaseDate="ngModel" [(ngModel)]="residentDocument.releaseDate" name="releaseDate" class="form-control"
+                        id="residentReleaseDate" placeholder="Podaj Datę Wydania" required>
                     <div [hidden]="releaseDate.valid || releaseDate.pristine" class="alert alert-danger">
                         Pole nie może być puste
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="residentExpirationDate">Data Ważności</label>
-                    <input type="date" #expirationDate="ngModel" [(ngModel)]="residentDocument.expirationDate" #expirationDate="ngModel" name="expirationDate" class="form-control" id="residentExpirationDate" placeholder="Podaj Datę Ważności" required>
+                    <input (change)="CheckValidation(residentDocument.expirationDate, expirationDate)" (keyup)="CheckValidation(residentDocument.expirationDate, expirationDate)" type="date" #expirationDate="ngModel" [(ngModel)]="residentDocument.expirationDate" name="expirationDate"
+                        class="form-control" id="residentExpirationDate" placeholder="Podaj Datę Ważności" required>
                     <div [hidden]="expirationDate.valid || expirationDate.pristine" class="alert alert-danger">
                         Pole nie może być puste
+                    </div>
+                    <div [hidden]="validationError.expirationDate" class="alert alert-danger">
+                        Data ważności nie może być mniejsza od daty wydania
                     </div>
                 </div>
             </form>
@@ -87,9 +92,13 @@
             <form>
                 <div class="form-group">
                     <label for="residentIssuingCountry">Kraj Wydania</label>
-                    <input type="text" #issuingCountry="ngModel" [(ngModel)]="residentDocument.issuingCountry" #issuingCountry="ngModel" name="issuingCountry" class="form-control" id="residentIssuingCountry" placeholder="Podaj Kraj Wydania" required>
+                    <input (keyup)="CheckValidation(residentDocument.issuingCountry, issuingCountry)" type="text" #issuingCountry="ngModel" [(ngModel)]="residentDocument.issuingCountry" name="issuingCountry" class="form-control" id="residentIssuingCountry" placeholder="Podaj Kraj Wydania"
+                        required>
                     <div [hidden]="issuingCountry.valid || issuingCountry.pristine" class="alert alert-danger">
                         Pole nie może być puste
+                    </div>
+                    <div [hidden]="validationError.specialCharactersOrNumbers.issuingCountry" class="alert alert-danger">
+                        Pole nie może zawierać znaków specjalnych ani cyfr
                     </div>
                 </div>
             </form>

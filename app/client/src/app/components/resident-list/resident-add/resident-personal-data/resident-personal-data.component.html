@@ -50,9 +50,13 @@
     <form>
         <div class="form-group">
             <label for="residentBirthDate">Data Urodzenia</label>
-            <input #birthDate="ngModel" [(ngModel)]="residentPersonalData.birthDate" name="birthDate" type="date" class="form-control" id="residentBirthDate" placeholder="Podaj Datę Urodzenia" required>
+            <input (keyup)="CheckValidation(residentPersonalData.birthDate, birthDate)" (change)="CheckValidation(residentPersonalData.birthDate, birthDate)" #birthDate="ngModel" [(ngModel)]="residentPersonalData.birthDate" name="birthDate" type="date" class="form-control"
+                id="residentBirthDate" placeholder="Podaj Datę Urodzenia" required>
             <div [hidden]="birthDate.valid || birthDate.pristine" class="alert alert-danger">
                 Pole nie może być puste
+            </div>
+            <div [hidden]="validationError.birthDate" class="alert alert-danger">
+                Data urodzenia nie jest zgodna z numerem pesel
             </div>
         </div>
         <div class="form-group">
@@ -88,7 +92,7 @@
     <form>
         <div class="form-group">
             <label for="residentGenre">Płeć</label>
-            <select class="form-control" #genre="ngModel" [(ngModel)]="residentPersonalData.genre" [ngModelOptions]="{standalone: true}" placeholder="Wybierz Płeć" (change)="SetGenre($event.target)">
+            <select (change)="CheckValidation(residentPersonalData.genre, genre)" class="form-control" #genre="ngModel" [(ngModel)]="residentPersonalData.genre" [ngModelOptions]="{standalone: true}" name="genre" placeholder="Wybierz Płeć" (change)="SetGenre($event.target)">
                     <option value="" disabled>Wybierz płeć</option>
                     <option *ngFor="let name of genreList" [ngValue]="name" >{{name}}</option>
                 </select>
@@ -96,7 +100,11 @@
                 <div [hidden]="genre.valid || genre.pristine" class="alert alert-danger">
                     Pole nie może być puste
                 </div> -->
+            <div [hidden]="validationError.genre" class="alert alert-danger">
+                Płeć niezgoda z numerem pesel
+            </div>
         </div>
+
         <div class="form-group">
             <label for="residentPhoneNumber">Numer Telefonu</label>
             <input (keyup)="CheckValidation(residentPersonalData.phoneNumber, phoneNumber)" #phoneNumber="ngModel" [(ngModel)]="residentPersonalData.phoneNumber" name="phoneNumber" type="text" class="form-control" id="residentPhoneNumber" placeholder="+48 123123123..."
@@ -105,6 +113,5 @@
                 Numer telefonu niezgodny ze wzorem
             </div>
         </div>
-
     </form>
 </div>
