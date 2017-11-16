@@ -102,6 +102,10 @@ export class ResidentDocumentComponent implements OnInit, OnChanges, DoCheck {
       specialCharactersOrNumbers: {
         issuingCountry: true  
       },
+      serialNumber:{
+        specialCharacters: true,
+        incorrectSerialNumber: true
+      },
       expirationDate: true
     }
   }
@@ -309,8 +313,9 @@ export class ResidentDocumentComponent implements OnInit, OnChanges, DoCheck {
         }
       })
   }
+
   CheckValidation(input, typeInput){
-    var phoneNumber = [], specialCharactersInInput = [], numbersInInput = [], stringWithoutWhiteSpace = '',
+    var serialNumber = [], specialCharactersInInput = [], numbersInInput = [], stringWithoutWhiteSpace = '',
     nonDigitcharactersInInput = [];
 
     stringWithoutWhiteSpace = input.replace(/\s/g,'')
@@ -318,10 +323,11 @@ export class ResidentDocumentComponent implements OnInit, OnChanges, DoCheck {
     specialCharactersInInput = stringWithoutWhiteSpace.match(/\W/g);
     numbersInInput = stringWithoutWhiteSpace.match(/\d/g);
     nonDigitcharactersInInput = input.match(/\D/g);
-    phoneNumber = input.match(/\+[0-9]*\s*[0-9]*/g); 
-    console.log(this.residentDocument);
-    console.log(input);
-    console.log(typeInput);
+    serialNumber = stringWithoutWhiteSpace.match(/[A-Z]{3}[0-9]{6}/g);
+    console.log(serialNumber);
+    // console.log(this.residentDocument);
+    // console.log(input);
+    // console.log(typeInput);
     if(typeInput.name == 'issuingCountry'){
       if((specialCharactersInInput != null || numbersInInput != null)){
         this.validationError.specialCharactersOrNumbers.issuingCountry = false;
@@ -329,7 +335,7 @@ export class ResidentDocumentComponent implements OnInit, OnChanges, DoCheck {
         this.validationError.specialCharactersOrNumbers.issuingCountry = true;
       }
     }else if(typeInput.name == 'releaseDate'){
-      if((this.residentDocument.releaseDate != null) && (this.residentDocument.expirationDate != null)){
+      if((this.residentDocument.releaseDate != "") && (this.residentDocument.expirationDate != "")){
         if(this.residentDocument.releaseDate < this.residentDocument.expirationDate){
           this.validationError.expirationDate = true;
         }else{
@@ -337,12 +343,128 @@ export class ResidentDocumentComponent implements OnInit, OnChanges, DoCheck {
         }
       }
     }else if(typeInput.name == 'expirationDate'){
-      if((this.residentDocument.releaseDate != null) && (this.residentDocument.expirationDate != null)){
+      if((this.residentDocument.releaseDate != "") && (this.residentDocument.expirationDate != "")){
         if(this.residentDocument.releaseDate < this.residentDocument.expirationDate){
           this.validationError.expirationDate = true;
         }else{
           this.validationError.expirationDate = false;
         }
+      }
+    }else if(typeInput.name == 'serialNumber'){
+      if(this.residentDocument.serialNumber.length == 9){
+        if(serialNumber == null){
+          this.validationError.serialNumber.incorrectSerialNumber = false;
+        }else{
+          let currentCharSerialNumber = '', valueSerialNumber = [9], serialNumberExpression = 0, controlDigit = 0;
+          for(let i = 0; i < this.residentDocument.serialNumber.length; i++){
+            currentCharSerialNumber = this.residentDocument.serialNumber[i];
+            if(i <= 2){
+              switch(currentCharSerialNumber){
+                case 'A':
+                  valueSerialNumber[i] = 10;
+                  break;
+                case 'B':
+                  valueSerialNumber[i] = 11;
+                  break;
+                case 'C':
+                  valueSerialNumber[i] = 12;
+                  break;
+                case 'D':
+                  valueSerialNumber[i] = 13;
+                  break;
+                case 'E':
+                  valueSerialNumber[i] = 14;
+                  break;
+                case 'F':
+                  valueSerialNumber[i] = 15;
+                  break;
+                case 'G':
+                  valueSerialNumber[i] = 16;
+                  break;
+                case 'H':
+                  valueSerialNumber[i] = 17;
+                  break;
+                case 'I':
+                  valueSerialNumber[i] = 18;
+                  break;
+                case 'J':
+                  valueSerialNumber[i] = 19;
+                  break;
+                case 'K':
+                  valueSerialNumber[i] = 20;
+                  break;
+                case 'L':
+                  valueSerialNumber[i] = 21;
+                  break;
+                case 'M':
+                  valueSerialNumber[i] = 22;
+                  break;
+                case 'N':
+                  valueSerialNumber[i] = 23;
+                  break;
+                case 'O':
+                  valueSerialNumber[i] = 24;
+                  break;
+                case 'P':
+                  valueSerialNumber[i] = 25;
+                  break;
+                case 'Q':
+                  valueSerialNumber[i] = 26;
+                  break;
+                case 'R':
+                  valueSerialNumber[i] = 27;
+                  break;
+                case 'S':
+                  valueSerialNumber[i] = 28;
+                  break;
+                case 'T':
+                  valueSerialNumber[i] = 29;
+                  break;
+                case 'U':
+                  valueSerialNumber[i] = 30;
+                  break;
+                case 'V':
+                  valueSerialNumber[i] = 31;
+                  break;
+                case 'W':
+                  valueSerialNumber[i] = 32;
+                  break;
+                case 'X':
+                  valueSerialNumber[i] = 33;
+                  break;
+                case 'Y':
+                  valueSerialNumber[i] = 34;
+                  break;
+                case 'Z':
+                  valueSerialNumber[i] = 35;
+                  break;
+              }
+            }else{
+              valueSerialNumber[i] = parseInt(this.residentDocument.serialNumber[i]);
+            }
+          }
+          
+          serialNumberExpression = (
+            (7 * valueSerialNumber[0]) + (3 * valueSerialNumber[1]) + (1 * valueSerialNumber[2]) +
+            (7 * valueSerialNumber[4]) + (3 * valueSerialNumber[5]) + (1 * valueSerialNumber[6]) +
+            (7 * valueSerialNumber[7]) + (3 * valueSerialNumber[8]));
+          controlDigit = serialNumberExpression % 10;
+          
+         if(controlDigit == valueSerialNumber[3]){
+            console.log('NUMER SERYJNY ZGADZA SIĘ');
+          }else{
+            console.log('NUMER SERYJNY NIE ZGADZA SIĘ');
+          }
+          this.validationError.serialNumber.incorrectSerialNumber = true;
+        }
+        
+      }else{
+        this.validationError.serialNumber.incorrectSerialNumber = true;
+      }
+      if(specialCharactersInInput != null){
+        this.validationError.serialNumber.specialCharacters = false;
+      }else{
+        this.validationError.serialNumber.specialCharacters = true;
       }
     }
   }

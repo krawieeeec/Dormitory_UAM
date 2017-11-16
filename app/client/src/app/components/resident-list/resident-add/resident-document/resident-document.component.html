@@ -62,9 +62,15 @@
                 <div class="form-group">
                     <label for="residentSerialNumber">Numer dokumentu</label>
                     <input (keyup)="CheckValidation(residentDocument.serialNumber, serialNumber)" (blur)="CheckIsResidentSerialNumberExist()" type="text" #serialNumber="ngModel" [(ngModel)]="residentDocument.serialNumber" name="serialNumber" class="form-control" id="residentSerialNumber"
-                        placeholder="Podaj numer dokumentu" required>
+                        placeholder="Podaj numer dokumentu" maxlength="9" required>
                     <div [hidden]="serialNumber.valid || serialNumber.pristine" class="alert alert-danger">
                         Pole nie może być puste
+                    </div>
+                    <div [hidden]="validationError.serialNumber.specialCharacters" class="alert alert-danger">
+                        Numer seryjny nie może zawierac znakow specjalnych
+                    </div>
+                    <div [hidden]="validationError.serialNumber.incorrectSerialNumber" class="alert alert-danger">
+                        Numer seryjny jest niepoprawny.
                     </div>
                 </div>
                 <div class="form-group">

@@ -181,25 +181,67 @@ export class ResidentPersonalDataComponent implements OnChanges, OnInit, DoCheck
   CheckValidation(input, typeInput){
     
     var phoneNumber = [], specialCharactersInInput = [], numbersInInput = [], stringWithoutWhiteSpace = '',
-    nonDigitcharactersInInput = [];
+    nonDigitcharactersInInput = [], apostropheOrDashInNameOrSurname =[];
 
     stringWithoutWhiteSpace = input.replace(/\s/g,'')
     specialCharactersInInput = stringWithoutWhiteSpace.match(/\W/g);
+    apostropheOrDashInNameOrSurname = stringWithoutWhiteSpace.match(/[-']{1,}/g);
     numbersInInput = stringWithoutWhiteSpace.match(/\d/g);
     nonDigitcharactersInInput = input.match(/\D/g);
     phoneNumber = input.match(/\+[0-9]*\s*[0-9]*/g); 
     
     if(typeInput.name == 'name'){
-      if((specialCharactersInInput != null || numbersInInput != null)){
-        this.validationError.specialCharactersOrNumbers.name = false;
-      }else if((specialCharactersInInput == null && numbersInInput == null)){
-        this.validationError.specialCharactersOrNumbers.name = true;
+      if(apostropheOrDashInNameOrSurname != null){
+        if(numbersInInput != null){
+          this.validationError.specialCharactersOrNumbers.name = false;  
+        }else if(specialCharactersInInput != null){
+          let diffrentChar = false;
+          specialCharactersInInput.forEach(element => {
+            if((element != '-') && (element != "'")){
+              diffrentChar = true;
+            }
+          });
+          if(diffrentChar){
+            this.validationError.specialCharactersOrNumbers.name = false;
+          }else{
+            this.validationError.specialCharactersOrNumbers.name = true;
+          }
+        }else{
+          this.validationError.specialCharactersOrNumbers.name = true;
+        }
+      }else if(apostropheOrDashInNameOrSurname == null){
+        if((specialCharactersInInput != null || numbersInInput != null)){
+            this.validationError.specialCharactersOrNumbers.name = false;
+          }else if((specialCharactersInInput == null && numbersInInput == null)){
+            this.validationError.specialCharactersOrNumbers.name = true;
+          }
       }
-    }else if(typeInput.name == 'surname'){
-      if((specialCharactersInInput != null || numbersInInput != null)){
-        this.validationError.specialCharactersOrNumbers.surname = false;
-      }else if((specialCharactersInInput == null && numbersInInput == null)){
-        this.validationError.specialCharactersOrNumbers.surname = true;
+    }
+    else if(typeInput.name == 'surname'){
+      if(apostropheOrDashInNameOrSurname != null){
+        if(numbersInInput != null){
+          this.validationError.specialCharactersOrNumbers.surname = false;  
+        }else if(specialCharactersInInput != null){
+          let diffrentChar = false;
+          specialCharactersInInput.forEach(element => {
+            if((element != '-') && (element != "'")){
+              diffrentChar = true;
+            }
+          });
+          if(diffrentChar){
+            this.validationError.specialCharactersOrNumbers.surname = false;
+          }else{
+            this.validationError.specialCharactersOrNumbers.surname = true;
+          }
+        }else{
+          this.validationError.specialCharactersOrNumbers.surname = true;
+        }
+      }else if(apostropheOrDashInNameOrSurname == null){
+        if((specialCharactersInInput != null || numbersInInput != null)){
+            this.validationError.specialCharactersOrNumbers.surname = false;
+          }else if((specialCharactersInInput == null && numbersInInput == null)){
+            this.validationError.specialCharactersOrNumbers.surname = true;
+          }
       }
     }else if(typeInput.name == 'birthPlace'){
       if((specialCharactersInInput != null || numbersInInput != null)){
